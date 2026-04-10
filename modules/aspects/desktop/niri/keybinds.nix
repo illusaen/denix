@@ -32,8 +32,7 @@
               }
               {
                 # Applications etc.
-                # "Mod+R".action             = RUNNER;
-                "Mod+T".action = spawnPkg pkgs.kitty;
+                "Alt+Shift+T".action = sh "kitten quick-access-terminal";
                 "Mod+E".action = spawn "nemo"; # Use predefined nemo override pkg
                 "Mod+G".action = spawnPkg pkgs.google-chrome;
                 "Ctrl+Shift+Escape".action = spawnTermPkg pkgs.btop;

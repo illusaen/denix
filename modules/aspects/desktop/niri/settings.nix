@@ -27,6 +27,18 @@
           max-scroll-amount = "20%";
         };
       };
+
+      hotkey-overlay.skip-at-startup = true;
+
+      layout = {
+        border.enable = false;
+        preset-column-widths = [
+          { proportion = 1. / 3.; }
+          { proportion = 2. / 3.; }
+          { proportion = 1. / 5.; }
+        ];
+        center-focused-column = "on-overflow";
+      };
     };
   };
 }

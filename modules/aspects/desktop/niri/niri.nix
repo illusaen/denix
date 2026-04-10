@@ -62,6 +62,7 @@
           programs.niri.enable = true;
           programs.niri.package = pkgs.niri-stable;
           systemd.user.services.niri-flake-polkit.enable = lib.mkDefault false;
+          services.displayManager.defaultSession = "niri";
         };
     };
 

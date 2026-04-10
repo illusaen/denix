@@ -66,14 +66,15 @@ in
       nixos.environment.persistence.${persistMount} = {
         directories = [
           "/var/log"
-          ({
+          {
             directory = "/var/lib/bluetooth";
             mode = "0755";
-          })
+          }
           "/var/lib/nixos"
           "/var/lib/systemd/coredump"
           "/var/lib/tailscale"
           "/var/lib/flatpak"
+          "/var/lib/gdm"
           "/etc/NetworkManager/system-connections"
         ];
         files = [
