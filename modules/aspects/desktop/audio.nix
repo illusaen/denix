@@ -12,6 +12,8 @@
           environment.systemPackages = with pkgs; [ pavucontrol ];
           services = {
             pulseaudio.enable = lib.mkDefault false;
+            playerctld.enable = true;
+
             pipewire = {
               enable = lib.mkDefault true;
               alsa.enable = lib.mkDefault true;

@@ -1,0 +1,26 @@
+{
+  den.aspects.noctalia.hm.programs.noctalia-shell.settings = {
+    idle = {
+      enabled = true;
+      fadeDuration = 5; # Fade to black over 'x' seconds before doing any of the following
+
+      # Screen off (Time in seconds)
+      screenOffTimeout = 180;
+      screenOffCommand = "";
+      resumeScreenOffCommand = "";
+
+      # Lockscreen (Time in seconds)
+      lockTimeout = 300;
+      lockCommand = "";
+      resumeLockCommand = "";
+
+      # Sleep (Time in seconds)
+      suspendTimeout = 0;
+      suspendCommand = "";
+      resumeSuspendCommand = "";
+
+      # Custom shell commands
+      customCommands = "[]";
+    };
+  };
+}

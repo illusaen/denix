@@ -1,5 +1,9 @@
 { lib, den, ... }:
 let
+  cartesianProduct =
+    platforms: users:
+    builtins.concatLists (map (platform: map (user: { inherit platform user; }) users) platforms);
+
   hmClass =
     { host }:
     { aspect-chain, ... }:
@@ -13,6 +17,30 @@ let
         userName
       ];
       fromAspect = _: lib.head aspect-chain;
+    };
+
+  hmPlatforms =
+    { host }:
+    { aspect-chain, ... }:
+    den._.forward {
+      each = cartesianProduct [
+        "Linux"
+        "Darwin"
+      ] (lib.attrNames host.users);
+      fromClass = cart: "hm${cart.platform}";
+      intoClass = _: host.class;
+      intoPath = cart: [
+        "home-manager"
+        "users"
+        cart.user
+      ];
+      fromAspect = _: lib.head aspect-chain;
+      guard = { pkgs, ... }: cart: lib.mkIf pkgs.stdenv."is${cart.platform}";
+      adaptArgs =
+        { config, ... }:
+        {
+          osConfig = config;
+        };
     };
 in
 {
@@ -40,5 +68,6 @@ in
     den.provides.hostname
     den.provides.mutual-provider
     hmClass
+    hmPlatforms
   ];
 }

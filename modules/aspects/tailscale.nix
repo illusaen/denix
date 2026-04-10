@@ -22,5 +22,7 @@
         };
       };
     darwin.homebrew.masApps."Tailscale" = 1475387142;
+
+    hmLinux.services.tailscale-systray.enable = true;
   };
 }

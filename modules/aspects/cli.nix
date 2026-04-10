@@ -80,24 +80,30 @@
         environment.systemPackages = [ fd-wrapped ];
       };
 
-    _.packages.os =
-      { config, pkgs, ... }:
+    _.packages =
+      { host, ... }:
       {
-        environment.systemPackages = with pkgs; [
-          gh
-          coreutils
-          vim
-        ];
+        os =
+          { config, pkgs, ... }:
+          {
+            environment.systemPackages = with pkgs; [
+              gh
+              coreutils
+              vim
+            ];
 
-        environment.etc."dependencies.txt".text = lib.pipe (config.environment.systemPackages) (
-          with builtins;
-          [
-            (lib.map (p: p.name))
-            lib.lists.unique
-            (sort lessThan)
-            (concatStringsSep "\n")
-          ]
-        );
+            environment.sessionVariables.NIX_CONF = "${host.misc.dirs.nix}";
+
+            environment.etc."dependencies.txt".text = lib.pipe (config.environment.systemPackages) (
+              with builtins;
+              [
+                (lib.map (p: p.name))
+                lib.lists.unique
+                (sort lessThan)
+                (concatStringsSep "\n")
+              ]
+            );
+          };
       };
 
     _.bat.os = {
@@ -144,6 +150,45 @@
               };
             };
           };
+
+        hm.programs.fish = {
+          shellAbbrs = {
+            gst = "git status";
+            gcm = {
+              setCursor = true;
+              expansion = "git commit -m \"%\"";
+            };
+            gco = "git checkout";
+            ga = "git add -A";
+            gf = "git fetch";
+            gl = "git pull";
+            gd = "git diff";
+            gb = "git branch";
+            glg = "git log";
+            gp = "git push";
+            gpu = "git push -u origin (git rev-parse --abbrev-ref HEAD)";
+            gpf = "git push --force-with-lease";
+            git_clone_own_repo = {
+              function = "_git_clone_own_repo";
+              regex = "^g(gc|r)l\$";
+              setCursor = true;
+            };
+          };
+
+          functions._git_clone_own_repo = ''
+            set --local base_url 'git@github.com:illusaen/'
+            set --local default_result git clone $base_url'%.git'
+            switch $argv
+              case ggcl
+                echo $default_result
+              case grl
+                set --local repo_name (gh repo list | fzf)
+                if test -n "$repo_name" && string match -rq '^.+\/(?<repo>\S+).+$' $repo_name
+                  echo git clone $base_url$repo'.git'
+                end
+            end
+          '';
+        };
       };
 
     _.direnv =

@@ -7,6 +7,13 @@
         steamArgs = [ "-silent" ];
       };
     };
+
+    hmLinux =
+      { osConfig, ... }:
+      {
+        xdg.autostart.entries = [ "${osConfig.programs.steam.package}/share/applications/steam.desktop" ];
+      };
+
     darwin =
       { pkgs, ... }:
       {

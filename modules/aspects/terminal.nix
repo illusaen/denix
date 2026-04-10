@@ -3,7 +3,7 @@
   den.ctx.host.includes = [ den.aspects.terminal ];
 
   den.aspects.terminal = {
-    hm.programs.kitty = {
+    hmLinux.programs.kitty = {
       enable = true;
       settings = {
         # Tabs

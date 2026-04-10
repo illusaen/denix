@@ -82,7 +82,7 @@
             config.treefmt.build.devShell
             config.pre-commit.devShell
           ];
-          buildInputs = [ pkgs.nixd ];
+          packages = [ pkgs.nixd ];
         };
     };
 }
