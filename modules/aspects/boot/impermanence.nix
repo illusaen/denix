@@ -11,14 +11,15 @@ in
 {
   flake-file.inputs.impermanence.url = "github:nix-community/impermanence";
 
-  den.ctx.host.includes = [ den.aspects.impermanence ];
+  den.ctx.host.includes = [
+    den.aspects.impermanence
+    den.aspects.impermanence._.persysClass
+  ];
 
   den.aspects.impermanence =
     # deadnix: skip
     { config, ... }: # config needs to be here for option vars to work
     {
-      includes = lib.attrValues den.aspects.impermanence._;
-
       imports = [
         {
           options = {
@@ -33,7 +34,7 @@ in
       ];
       inherit persistMount disk;
 
-      _.persysClass = den.lib.perHost (
+      _.persysClass = (
         { host }:
         den._.forward {
           each = lib.singleton true;
@@ -96,7 +97,6 @@ in
               directory = ".config/op";
               mode = "0700";
             }
-            ".cache/google-chrome"
             ".cache/flatpak"
             ".config/Code"
             ".config/google-chrome"
