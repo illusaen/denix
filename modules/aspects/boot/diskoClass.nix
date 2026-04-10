@@ -46,6 +46,8 @@
           inputs.disko.nixosModules.disko
         ];
 
+        disko.zfs.enable = true;
+
         boot.supportedFilesystems = [
           "zfs"
         ];

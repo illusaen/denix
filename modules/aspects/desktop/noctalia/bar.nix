@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   den.aspects.noctalia.hm.programs.noctalia-shell.settings = {
     # ---Noctalia bar settings---
@@ -9,12 +10,12 @@
       density = "default";
       showOutline = false;
       showCapsule = false;
-      capsuleOpacity = 1;
+      capsuleOpacity = lib.mkForce 1;
       capsuleColorKey = "none";
       widgetSpacing = 0;
       contentPadding = 2;
       fontScale = 1;
-      backgroundOpacity = 0.9;
+      backgroundOpacity = lib.mkForce 0.9;
       useSeparateOpacity = false;
       floating = false;
       marginVertical = 4;

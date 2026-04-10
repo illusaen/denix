@@ -1,8 +1,19 @@
-{ lib, ... }:
+{
+  den,
+  lib,
+  inputs,
+  ...
+}:
 let
-  wallpaper = ../../resources/wallpapers/cube-dark.jpg;
+  wallpaper = ../../resources/cube-dark.jpg;
 in
 {
+  flake-file.inputs.stylix = {
+    url = "github:nix-community/stylix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  den.ctx.host.includes = [ den.aspects.stylix ];
   den.aspects.stylix =
     { host, ... }:
     {
@@ -57,5 +68,9 @@ in
             };
           };
         };
+
+      nixos.imports = [ inputs.stylix.nixosModules.stylix ];
+
+      darwin.imports = [ inputs.stylix.darwinModules.stylix ];
     };
 }

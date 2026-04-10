@@ -48,6 +48,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opnix.url = "github:brizzbuzz/opnix";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 }

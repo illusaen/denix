@@ -13,7 +13,7 @@ in
 
   den.ctx.host.includes = [
     den.aspects.impermanence
-    den.aspects.impermanence._.persysClass
+    # den.aspects.impermanence._.persysClass
   ];
 
   den.aspects.impermanence =
@@ -34,21 +34,21 @@ in
       ];
       inherit persistMount disk;
 
-      _.persysClass = (
-        { host }:
-        den._.forward {
-          each = lib.singleton true;
-          fromClass = _: "persys";
-          intoClass = _: "nixos";
-          intoPath = _: [
-            "environment"
-            "persistence"
-            persistMount
-          ];
-          fromAspect = _: den.aspects.${host.aspect};
-          guard = { options, ... }: options ? environment.persistence;
-        }
-      );
+      # _.persysClass = (
+      #   { host }:
+      #   den._.forward {
+      #     each = lib.singleton true;
+      #     fromClass = _: "persys";
+      #     intoClass = _: "nixos";
+      #     intoPath = _: [
+      #       "environment"
+      #       "persistence"
+      #       persistMount
+      #     ];
+      #     fromAspect = _: den.aspects.${host.aspect};
+      #     guard = { options, ... }: options ? environment.persistence;
+      #   }
+      # );
 
       nixos = {
         imports = [
@@ -63,13 +63,13 @@ in
         environment.etc."machine-id".text = "17888962e0404e3980b23115d2d91984";
       };
 
-      persys = {
+      nixos.environment.persistence.${persistMount} = {
         directories = [
           "/var/log"
-          {
+          ({
             directory = "/var/lib/bluetooth";
             mode = "0755";
-          }
+          })
           "/var/lib/nixos"
           "/var/lib/systemd/coredump"
           "/var/lib/tailscale"

@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   den.aspects.noctalia.hm.programs.noctalia-shell.settings = {
     notifications = {
@@ -6,7 +7,7 @@
       density = "default";
       location = "top_right";
       overlayLayer = true; # Show notifications above fullscreen windows
-      backgroundOpacity = 0.9;
+      backgroundOpacity = lib.mkForce 0.9;
       monitors = [ ]; # Show notifications only on specific monitors
       # Timeout
       respectExpireTimeout = false;
