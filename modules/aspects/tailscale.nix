@@ -3,7 +3,7 @@
   den.ctx.host.includes = [ den.aspects.tailscale ];
   den.aspects.tailscale = {
     nixos =
-      { config, ... }:
+      { config, lib, ... }:
       {
         services.tailscale.enable = true;
         # 2. Force tailscaled to use nftables (Critical for clean nftables-only systems)
@@ -11,6 +11,18 @@
         systemd.services.tailscaled.serviceConfig.Environment = [
           "TS_DEBUG_FIREWALL_MODE=nftables"
         ];
+
+        systemd.user.services.tailscale-systray = {
+          wantedBy = [ "graphical-session.target" ];
+          partOf = [ "graphical-session.target" ];
+          requires = [ "graphical-session-pre.target" ];
+          after = [
+            "graphical-session.target"
+            "graphical-session-pre.target"
+          ];
+          description = "Official Tailscale systray application for Linux";
+          script = "${lib.getExe config.services.tailscale.package} systray";
+        };
 
         networking.nftables.enable = true;
         networking.firewall = {
@@ -22,7 +34,5 @@
         };
       };
     darwin.homebrew.masApps."Tailscale" = 1475387142;
-
-    hmLinux.services.tailscale-systray.enable = true;
   };
 }

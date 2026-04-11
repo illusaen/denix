@@ -32,7 +32,6 @@
         matches = [
           { app-id = "^steam_app.*"; } # Most steam games
         ];
-        variable-refresh-rate = true;
         open-focused = true;
       }
       {
@@ -72,6 +71,26 @@
           draw-behind-window = true;
           color = "#000000B3";
         };
+      }
+      {
+        matches = [
+          { app-id = "^vesktop$"; }
+          { app-id = "^Element$"; }
+        ];
+        open-on-workspace = "chat";
+      }
+      {
+        matches = [
+          { app-id = "^^steam.*$"; }
+        ];
+        open-on-workspace = "gaming";
+      }
+      {
+        matches = [
+          { at-startup = true; }
+          { app-id = "^google-chrome$"; }
+        ];
+        open-on-workspace = "chat";
       }
     ];
   };

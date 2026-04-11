@@ -12,7 +12,6 @@
         };
         scale = 1;
         focus-at-startup = true;
-        variable-refresh-rate = "on-demand";
       };
 
       outputs."Philips Consumer Electronics Company PHL 288E2 UK52215001852" = {

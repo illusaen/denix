@@ -10,7 +10,6 @@
         XDG_SESSION_TYPE = "wayland";
         XDG_SESSION_DESKTOP = "niri";
         NIXOS_OZONE_WL = "1";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       };
 
       prefer-no-csd = true;
@@ -41,6 +40,18 @@
           { proportion = 1. / 5.; }
         ];
         center-focused-column = "on-overflow";
+        always-center-single-column = true;
+        default-column-width.proportion = 1. / 3.;
+      };
+
+      workspaces = {
+        code.open-on-output = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
+        gaming.open-on-output = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
+        chat.open-on-output = "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
+      };
+
+      debug = {
+        wait-for-frame-completion-before-queueing = [ ];
       };
     };
   };

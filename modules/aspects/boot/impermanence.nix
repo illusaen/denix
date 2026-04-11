@@ -99,7 +99,10 @@ in
               mode = "0700";
             }
             ".cache/flatpak"
+            ".cache/noctalia"
+            ".cache/noctalia-qs"
             ".config/Code"
+            ".config/Element"
             ".config/google-chrome"
             ".config/gh"
             ".config/vesktop"

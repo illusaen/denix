@@ -2,7 +2,6 @@
   den,
   ...
 }:
-
 {
   den.ctx.user.includes = [ den.aspects.starship ];
 

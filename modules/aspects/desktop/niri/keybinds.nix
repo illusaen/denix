@@ -90,26 +90,6 @@
                 "Mod+Ctrl+Left".action = consume-or-expel-window-left;
                 "Mod+Ctrl+Right".action = consume-or-expel-window-right;
               }
-
-              (
-                # Mod+[1-9] = Focus workspace | Mod+Shift+[1-9] = Move column to workspace
-                lib.attrsets.mergeAttrsList (
-                  lib.map
-                    (number: {
-                      "Mod+${toString number}".action = focus-workspace number;
-                      "Mod+Shift+${toString number}".action.move-column-to-workspace = [
-                        { focus = false; }
-                        number
-                      ];
-                    })
-                    [
-                      1
-                      2
-                      3
-                      4
-                    ]
-                )
-              )
             ]
           );
       };
