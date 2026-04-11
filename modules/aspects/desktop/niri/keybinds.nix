@@ -38,12 +38,10 @@
                 "Mod+F".action = maximize-column;
                 "Mod+Shift+F".action = fullscreen-window;
                 "Mod+Ctrl+F".action = toggle-windowed-fullscreen;
-                # "Mod+Ctrl+Shift+F".action = maximize-window-to-edges;
               }
               {
                 # Screenshots
-                "Mod+Shift+Ctrl+S".action.screenshot-window = [ ];
-                "Mod+Shift+S".action.screenshot = {
+                "Alt+Shift+4".action.screenshot = {
                   show-pointer = false;
                 };
               }
@@ -62,7 +60,7 @@
                 }
               )
               {
-                # Window actions
+                # Window actionsfw
                 "Mod+Z".action = switch-preset-column-width;
                 "Mod+Shift+Z".action = reset-window-height;
                 "Mod+X".action = center-column;
@@ -85,10 +83,8 @@
                 "Mod+Shift+Right".action = move-column-right;
 
                 # Move windows
-                "Mod+Ctrl+Up".action = move-window-up;
-                "Mod+Ctrl+Down".action = move-window-down;
-                "Mod+Ctrl+Left".action = consume-or-expel-window-left;
-                "Mod+Ctrl+Right".action = consume-or-expel-window-right;
+                "Mod+Ctrl+Up".action = focus-monitor-up;
+                "Mod+Ctrl+Down".action = focus-monitor-down;
               }
             ]
           );

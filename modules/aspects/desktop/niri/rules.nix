@@ -100,6 +100,13 @@
           fixed = 4164;
         };
         min-width = 4164;
+        open-on-workspace = "gaming";
+      }
+      {
+        matches = [
+          { app-id = "^code$"; }
+        ];
+        open-on-workspace = "code";
       }
     ];
   };
