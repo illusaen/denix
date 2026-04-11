@@ -56,7 +56,10 @@ in
   };
 
   # enable hm by default
-  den.schema.user.classes = lib.mkDefault [ "homeManager" ];
+  den.schema.user.classes = lib.mkDefault [
+    "homeManager"
+    "maid"
+  ];
 
   # host<->user provides
   den.ctx.user.includes = [

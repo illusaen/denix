@@ -465,6 +465,21 @@
         "type": "github"
       }
     },
+    "nix-maid": {
+      "locked": {
+        "lastModified": 1775372244,
+        "narHash": "sha256-pLCCqY/0JC7QdWqyEyDEvGl63f9aS8zrFLVJW7gUMKI=",
+        "owner": "viperML",
+        "repo": "nix-maid",
+        "rev": "993d95a0a5b2f4b06faa022b32112b699ca3bbfd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperML",
+        "repo": "nix-maid",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1775490113,
@@ -662,6 +677,7 @@
         "import-tree": "import-tree",
         "niri": "niri",
         "nix-darwin": "nix-darwin",
+        "nix-maid": "nix-maid",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-lib": [

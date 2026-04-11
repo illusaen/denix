@@ -60,28 +60,27 @@
               "#js/ts.inlayHints.enumMemberValues.enabled" = true;
               "window.titleBarStyle" = "custom";
               "window.zoomLevel" = 1;
-              # "workbench.colorTheme" = lib.mkForce "Nord";
               "workbench.iconTheme" = "catppuccin-macchiato";
               "workbench.sideBar.location" = "right";
               "workbench.startupEditor" = "none";
               "workbench.panel.defaultLocation" = "right";
-              "workbench.colorCustomizations" = {
-                "[Stylix]" = {
-                  "editor.background" = "#272e33";
-                  "editorGutter.background" = "#272e33";
-                  "editorPane.background" = "#272e33";
-                  "editorGroupHeader.tabsBackground" = "#272e33";
-                  "sideBar.background" = "#272e33";
-                  "panel.background" = "#272e33";
-                  "statusBar.background" = "#272e33";
-                  "menu.background" = "#272e33";
-                  "commandCenter.background" = "#272e33";
-                  "scrollbar.background" = "#272e33";
-                  "terminal.background" = "#272e33";
-                  "notifications.background" = "#272e33";
-                  "activityBar.background" = "#272e33";
-                };
-              };
+              # "workbench.colorCustomizations" = {
+              #   "[Stylix]" = {
+              #     "editor.background" = "#272e33";
+              #     "editorGutter.background" = "#272e33";
+              #     "editorPane.background" = "#272e33";
+              #     "editorGroupHeader.tabsBackground" = "#272e33";
+              #     "sideBar.background" = "#272e33";
+              #     "panel.background" = "#272e33";
+              #     "statusBar.background" = "#272e33";
+              #     "menu.background" = "#272e33";
+              #     "commandCenter.background" = "#272e33";
+              #     "scrollbar.background" = "#272e33";
+              #     "terminal.background" = "#272e33";
+              #     "notifications.background" = "#272e33";
+              #     "activityBar.background" = "#272e33";
+              #   };
+              # };
             };
             extensions =
               with pkgs.vscode-extensions;

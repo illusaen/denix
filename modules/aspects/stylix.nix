@@ -33,7 +33,7 @@ in
               ]
             else
               "dark";
-          base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
+          base16Scheme = "${pkgs.base16-schemes}/share/themes/chalk.yaml";
         in
         {
           stylix = {
@@ -66,6 +66,8 @@ in
                 terminal = 12;
               };
             };
+
+            targets.gtksourceview.enable = false;
           };
         };
 
@@ -74,11 +76,14 @@ in
       darwin.imports = [ inputs.stylix.darwinModules.stylix ];
 
       hmLinux = {
-        stylix.targets.gtk.extraCss = ''
-          .dialog-action-area > .text-button {
-            color: @dialog_fg_color;
-          }
-        '';
+        stylix.targets = {
+          gtk.extraCss = ''
+            .dialog-action-area > .text-button {
+              color: @dialog_fg_color;
+            }
+          '';
+          gtksourceview.enable = false;
+        };
       };
     };
 }
