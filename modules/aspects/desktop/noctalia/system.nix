@@ -6,11 +6,11 @@
       wifiEnabled = true;
       airplaneModeEnabled = false;
       # Bluetooth
-      bluetoothAutoConnect = false;
+      bluetoothAutoConnect = true;
       disableDiscoverability = false;
       bluetoothRssiPollingEnabled = false;
       bluetoothRssiPollIntervalMs = 60000;
-      bluetoothHideUnnamedDevices = false;
+      bluetoothHideUnnamedDevices = true;
 
       # --UI--
       networkPanelView = "wifi";
@@ -32,6 +32,7 @@
       mprisBlacklist = [ ];
       #Visualiser
       spectrumFrameRate = 30;
+      spectrumMirrored = true;
       visualizerType = "linear";
     };
 
@@ -39,7 +40,7 @@
     brightness = {
       brightnessStep = 5;
       enforceMinimum = true;
-      enableDdcSupport = false; # External display brightness control
+      enableDdcSupport = true; # External display brightness control
       backlightDeviceMappings = [ ];
     };
 
@@ -49,17 +50,17 @@
       name = "Chicago";
       weatherEnabled = true;
       weatherShowEffects = true;
-      useFahrenheit = false;
+      useFahrenheit = true;
       # Calendar
-      showWeekNumberInCalendar = true;
+      showWeekNumberInCalendar = false;
       showCalendarEvents = true;
       showCalendarWeather = true;
       analogClockInCalendar = false;
-      firstDayOfWeek = 1;
+      firstDayOfWeek = -1;
       # Location UI
       use12hourFormat = true;
-      hideWeatherTimezone = false; # Hide details in UI?
-      hideWeatherCityName = true; # Hide details in UI?
+      hideWeatherTimezone = true; # Hide details in UI?
+      hideWeatherCityName = false; # Hide details in UI?
     };
 
     # ---Noctalia performance settings---

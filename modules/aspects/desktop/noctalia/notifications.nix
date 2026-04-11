@@ -8,7 +8,7 @@
       location = "top_right";
       overlayLayer = true; # Show notifications above fullscreen windows
       backgroundOpacity = lib.mkForce 0.9;
-      monitors = [ ]; # Show notifications only on specific monitors
+      monitors = [ "DP-2" ]; # Show notifications only on specific monitors
       # Timeout
       respectExpireTimeout = false;
       lowUrgencyDuration = 3;

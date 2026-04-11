@@ -97,7 +97,10 @@
                 path = lib.mkDefault "${lib.getExe pkgs.xwayland-satellite}";
               };
 
-              spawn-at-startup = [ { command = [ "${delayedStartup}" ]; } ];
+              spawn-at-startup = [
+                { command = [ "${delayedStartup}" ]; }
+                { command = [ "${lib.getExe config.programs.noctalia-shell.package}" ]; }
+              ];
             };
           };
 

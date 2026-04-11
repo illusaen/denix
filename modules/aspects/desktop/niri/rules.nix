@@ -24,6 +24,20 @@
         max-width = 900;
       }
       {
+        # Floating file-roller
+        matches = [ { app-id = "^org.pulseaudio.pavucontrol$"; } ];
+        open-floating = true;
+        max-height = 600;
+        max-width = 900;
+      }
+      {
+        # Floating file-roller
+        matches = [ { app-id = "^(.*)blueman-manager(.*)$"; } ];
+        open-floating = true;
+        max-height = 600;
+        max-width = 900;
+      }
+      {
         # VRR allowlist
         matches = [
           { app-id = "^steam_app.*"; } # Most steam games
@@ -35,7 +49,7 @@
         # Rounded corners
         geometry-corner-radius =
           let
-            radius = 18.0;
+            radius = 8.0;
           in
           {
             top-left = radius;
@@ -74,7 +88,7 @@
           { is-floating = true; }
           { app-id = "^nemo$"; }
         ];
-        opacity = 0.8;
+        opacity = 0.9;
         draw-border-with-background = false;
         shadow = {
           draw-behind-window = true;

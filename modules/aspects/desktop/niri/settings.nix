@@ -10,6 +10,7 @@
         XDG_SESSION_TYPE = "wayland";
         XDG_SESSION_DESKTOP = "niri";
         NIXOS_OZONE_WL = "1";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       };
 
       input = {

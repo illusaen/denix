@@ -12,12 +12,6 @@
             spawnPkg = pkg: spawn (lib.getExe pkg);
             # Spawn an executable wrapped in Kitty
             spawnTermPkg = pkg: spawnPkg pkgs.kitty (lib.getExe pkg);
-            # Apply the same action to a list of keys
-            bindMany =
-              keys: action:
-              lib.genAttrs keys (_key: {
-                inherit action;
-              });
           in
           lib.mapAttrs (_: value: lib.mkDefault value) (
             lib.attrsets.mergeAttrsList [
@@ -48,8 +42,8 @@
               }
               {
                 # Screenshots
-                "Print".action.screenshot-window = [ ];
-                "Ctrl+Shift+Print".action.screenshot = {
+                "Mod+Shift+Ctrl+S".action.screenshot-window = [ ];
+                "Mod+Shift+S".action.screenshot = {
                   show-pointer = false;
                 };
               }
@@ -62,7 +56,6 @@
                   };
                 in
                 {
-                  "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
                   "XF86AudioPlay" = audioControl "play-pause";
                   "XF86AudioNext" = audioControl "next";
                   "XF86AudioPrev" = audioControl "previous";
@@ -79,35 +72,24 @@
                 "Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
               }
               # Focus navigation
-              (bindMany [ "Mod+W" "Mod+Up" ] focus-workspace-up)
-              (bindMany [ "Mod+S" "Mod+Down" ] focus-workspace-down)
-              (bindMany [ "Mod+A" "Mod+Left" ] focus-window-up-or-column-left)
-              (bindMany [ "Mod+D" "Mod+Right" ] focus-window-down-or-column-right)
               {
-                # Sroll wheel focus navigation
-                "Mod+WheelScrollUp" = {
-                  action = focus-workspace-up;
-                  cooldown-ms = 150;
-                };
-                "Mod+WheelScrollDown" = {
-                  action = focus-workspace-down;
-                  cooldown-ms = 150;
-                };
-                "Mod+Shift+WheelScrollUp".action = focus-column-left;
-                "Mod+Shift+WheelScrollDown".action = focus-column-right;
-                "Mod+Ctrl+WheelScrollUp".action = focus-monitor-up;
-                "Mod+Ctrl+WheelScrollDown".action = focus-monitor-down;
+                "Mod+Up".action = focus-workspace-up;
+                "Mod+Down".action = focus-workspace-down;
+                "Mod+Left".action = focus-window-up-or-column-left;
+                "Mod+Right".action = focus-window-down-or-column-right;
               }
-              # Move columns
-              (bindMany [ "Mod+Shift+W" "Mod+Shift+Up" ] move-column-to-workspace-up)
-              (bindMany [ "Mod+Shift+S" "Mod+Shift+Down" ] move-column-to-workspace-down)
-              (bindMany [ "Mod+Shift+A" "Mod+Shift+Left" ] move-column-left)
-              (bindMany [ "Mod+Shift+D" "Mod+Shift+Right" ] move-column-right)
-              # Move windows
-              (bindMany [ "Mod+Ctrl+W" "Mod+Ctrl+Up" ] move-window-up)
-              (bindMany [ "Mod+Ctrl+S" "Mod+Ctrl+Down" ] move-window-down)
-              (bindMany [ "Mod+Ctrl+A" "Mod+Ctrl+Left" ] consume-or-expel-window-left)
-              (bindMany [ "Mod+Ctrl+D" "Mod+Ctrl+Right" ] consume-or-expel-window-right)
+              {
+                "Mod+Shift+Up".action = move-column-to-workspace-up;
+                "Mod+Shift+Down".action = move-column-to-workspace-down;
+                "Mod+Shift+Left".action = move-column-left;
+                "Mod+Shift+Right".action = move-column-right;
+
+                # Move windows
+                "Mod+Ctrl+Up".action = move-window-up;
+                "Mod+Ctrl+Down".action = move-window-down;
+                "Mod+Ctrl+Left".action = consume-or-expel-window-left;
+                "Mod+Ctrl+Right".action = consume-or-expel-window-right;
+              }
 
               (
                 # Mod+[1-9] = Focus workspace | Mod+Shift+[1-9] = Move column to workspace

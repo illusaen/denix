@@ -8,6 +8,10 @@
         enable = true;
         wayland = true;
       };
+      autoLogin = {
+        enable = true;
+        user = "wendy";
+      };
     };
   };
 }

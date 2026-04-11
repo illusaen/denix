@@ -2,16 +2,34 @@
   den.aspects.gaming = {
     nixos.programs.steam = {
       enable = true;
-      gamescopeSession = {
-        enable = true;
-        steamArgs = [ "-silent" ];
-      };
     };
 
     hmLinux =
-      { osConfig, ... }:
       {
-        xdg.autostart.entries = [ "${osConfig.programs.steam.package}/share/applications/steam.desktop" ];
+        pkgs,
+        ...
+      }:
+      {
+        xdg.autostart.entries = [
+          (pkgs.makeDesktopItem {
+            name = "steam";
+            desktopName = "Steam";
+            genericName = "Game Hub";
+            icon = "steam";
+            exec = "steam -silent";
+            mimeTypes = [
+              "x-scheme-handler/steam"
+              "x-scheme-handler/steamlink"
+            ];
+            categories = [ "Game" ];
+            keywords = [
+              "steam"
+              "gaming"
+              "game"
+            ];
+            notShowIn = "niri";
+          })
+        ];
       };
 
     darwin =

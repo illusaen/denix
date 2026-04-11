@@ -31,12 +31,13 @@
           ];
           text = lib.replaceStrings [ "# syntax: bash\n" ] [ "" ] ''
             # syntax: bash
-            batdiff <(jq -S . "$HOME/noctalia/settings.json") \
+            batdiff <(jq -S . "$HOME/.config/noctalia/settings.json") \
             <(noctalia-shell ipc call state all | jq -S .settings)
           '';
         };
       in
       {
+        services.gnome.evolution-data-server.enable = true;
         nix.settings.extra-substituters = [ "https://noctalia.cachix.org" ];
         nix.settings.extra-trusted-public-keys = [
           "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="

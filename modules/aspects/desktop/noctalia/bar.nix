@@ -5,25 +5,24 @@
     bar = {
       barType = "simple";
       position = "top";
-      monitors = [ ];
+      monitors = [ "DP-2" ];
       screenOverrides = [ ];
-      density = "default";
+      backgroundOpacity = lib.mkForce 0;
+      density = "spacious";
       showOutline = false;
       showCapsule = false;
-      capsuleOpacity = lib.mkForce 1;
       capsuleColorKey = "none";
-      widgetSpacing = 0;
-      contentPadding = 2;
-      fontScale = 1;
-      backgroundOpacity = lib.mkForce 0.9;
-      useSeparateOpacity = false;
+      widgetSpacing = 16;
+      contentPadding = 8;
+      fontScale = 1.1;
+      useSeparateOpacity = true;
       floating = false;
       marginVertical = 4;
       marginHorizontal = 4;
       frameThickness = 8;
       frameRadius = 12;
       enableExclusionZoneInset = false;
-      outerCorners = true;
+      outerCorners = false;
       hideOnOverview = true;
       displayMode = "always_visible";
       autoHideDelay = 500;
@@ -42,10 +41,14 @@
       widgets = {
         left = [
           {
+            id = "SessionMenu";
+            iconColor = "none";
+          }
+          {
             id = "ActiveWindow";
             colorizeIcons = false;
             hideMode = "hidden";
-            maxWidth = 300;
+            maxWidth = 480;
             scrollingMode = "hover";
             showIcon = true;
             textColor = "none";
@@ -60,10 +63,10 @@
             emptyColor = "secondary";
             enableScrollWheel = true;
             focusedColor = "primary";
-            followFocusedScreen = false;
-            groupedBorderOpacity = 1;
+            followFocusedScreen = true;
+            groupedBorderOpacity = 0.5;
             hideUnoccupied = true;
-            iconScale = 0.8;
+            iconScale = 1;
             fontWeight = "bold";
             labelMode = "index";
             occupiedColor = "secondary";
@@ -81,24 +84,32 @@
             compactMode = false;
             hideMode = "idle";
             hideWhenIdle = false;
-            maxWidth = 500;
+            maxWidth = 480;
             panelShowAlbumArt = true;
-            scrollingMode = "hover";
+            scrollingMode = "always";
             showAlbumArt = false;
             showArtistFirst = true;
             showProgressRing = true;
-            showVisualizer = false;
+            showVisualizer = true;
             textColor = "none";
             useFixedWidth = false;
             visualizerType = "wave";
           }
           {
-            id = "Tray";
-            blacklist = [ ];
-            chevronColor = "none";
-            colorizeIcons = false;
-            drawerEnabled = true;
-            hidePassive = false;
+            id = "Volume";
+            displayMode = "onhover";
+            iconColor = "none";
+            middleClickCommand = "pwvucontrol || pavucontrol";
+            textColor = "none";
+          }
+          {
+            id = "Clock";
+            clockColor = "none";
+            customFont = "";
+            formatHorizontal = "ddd MMM d, hh:mm AP";
+            formatVertical = "HH mm";
+            tooltipFormat = "dddd MMMM d, hh:mm AP";
+            useCustomFont = false;
           }
           {
             id = "SystemMonitor";
@@ -123,28 +134,20 @@
             usePadding = false;
           }
           {
-            id = "Clock";
-            clockColor = "none";
-            customFont = "";
-            formatHorizontal = "h:mm AP";
-            formatVertical = "HH mm";
-            tooltipFormat = "HH:mm ddd, MMM dd";
-            useCustomFont = false;
-          }
-          {
-            id = "Volume";
-            displayMode = "onhover";
-            iconColor = "none";
-            middleClickCommand = "pwvucontrol || pavucontrol";
-            textColor = "none";
-          }
-          {
             id = "NotificationHistory";
-            hideWhenZero = false;
+            hideWhenZero = true;
             hideWhenZeroUnread = false;
             iconColor = "none";
             showUnreadBadge = true;
             unreadBadgeColor = "primary";
+          }
+          {
+            id = "Tray";
+            blacklist = [ ];
+            chevronColor = "none";
+            colorizeIcons = true;
+            drawerEnabled = true;
+            hidePassive = false;
           }
         ];
       };
