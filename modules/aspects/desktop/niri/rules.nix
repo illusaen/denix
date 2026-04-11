@@ -92,6 +92,15 @@
         ];
         open-on-workspace = "chat";
       }
+      {
+        matches = [
+          { title = "^Viking Rise Steam$"; }
+        ];
+        default-column-width = {
+          fixed = 4164;
+        };
+        min-width = 4164;
+      }
     ];
   };
 }
