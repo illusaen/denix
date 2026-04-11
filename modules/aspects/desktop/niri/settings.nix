@@ -13,6 +13,8 @@
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       };
 
+      prefer-no-csd = true;
+
       input = {
         mouse = {
           scroll-factor = 1.1;

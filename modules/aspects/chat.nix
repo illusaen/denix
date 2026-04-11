@@ -3,8 +3,8 @@
   den.aspects.chat = {
     includes = lib.attrValues den.aspects.chat._;
 
-    _.vesktop = {
-      hm.programs.vesktop = {
+    _.vesktop.hm = {
+      programs.vesktop = {
         enable = true;
 
         vencord.settings = {
@@ -20,6 +20,22 @@
             FakeNitro.enabled = true;
           };
         };
+      };
+
+      xdg.configFile."autostart/vesktop.desktop" = lib.mkDefault {
+        text = ''
+          [Desktop Entry]
+          NotShowIn=niri
+          Categories=Network;InstantMessaging;Chat
+          Exec=vesktop --start-minimized
+          GenericName=Internet Messenger
+          Icon=vesktop
+          Keywords=discord;vencord;electron;chat
+          Name=Vesktop
+          StartupWMClass=Vesktop
+          Type=Application
+          Version=1.5
+        '';
       };
     };
 

@@ -1,36 +1,20 @@
 {
   den.aspects.gaming = {
-    nixos.programs.steam = {
-      enable = true;
-    };
+    nixos.programs.steam.enable = true;
 
-    hmLinux =
-      {
-        pkgs,
-        ...
-      }:
-      {
-        xdg.autostart.entries = [
-          (pkgs.makeDesktopItem {
-            name = "steam";
-            desktopName = "Steam";
-            genericName = "Game Hub";
-            icon = "steam";
-            exec = "steam -silent";
-            mimeTypes = [
-              "x-scheme-handler/steam"
-              "x-scheme-handler/steamlink"
-            ];
-            categories = [ "Game" ];
-            keywords = [
-              "steam"
-              "gaming"
-              "game"
-            ];
-            notShowIn = "niri";
-          })
-        ];
-      };
+    hmLinux = {
+      xdg.configFile."autostart/steam.desktop".text = ''
+        [Desktop Entry]
+        NotShowIn=niri
+        Categories=Network;FileTransfer;Game;
+        Exec=steam -silent
+        GenericName=Game
+        Icon=steam
+        Keywords=gaming;game
+        Name=Steam
+        Type=Application
+      '';
+    };
 
     darwin =
       { pkgs, ... }:
