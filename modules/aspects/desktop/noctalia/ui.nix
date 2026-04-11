@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   den.aspects.noctalia = {
     hm.programs.noctalia-shell.settings = {
@@ -6,12 +7,13 @@
         tooltipsEnabled = true;
         boxBorderEnabled = false;
         translucentWidgets = true;
-        scrollbarAlwaysVisible = true;
+        scrollbarAlwaysVisible = false;
         panelsAttachedToBar = true;
         settingsPanelMode = "attached";
         settingsPanelSideBarCardStyle = false;
         fontDefaultScale = 1;
         fontFixedScale = 1;
+        panelBackgroundOpacity = lib.mkForce 0.95;
       };
 
       # ---Noctalia calendar settings---
@@ -104,7 +106,7 @@
           # 3  # Lock keys (caps/num lock etc)
         ];
         # Only show on specific monitors?
-        monitors = [ ];
+        monitors = [ "DP-2" ];
       };
 
       # ---Noctalia colour scheme settings---

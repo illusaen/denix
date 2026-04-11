@@ -33,7 +33,7 @@ in
               ]
             else
               "dark";
-          base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
+          base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
         in
         {
           stylix = {
@@ -72,5 +72,13 @@ in
       nixos.imports = [ inputs.stylix.nixosModules.stylix ];
 
       darwin.imports = [ inputs.stylix.darwinModules.stylix ];
+
+      hmLinux = {
+        stylix.targets.gtk.extraCss = ''
+          .dialog-action-area > .text-button {
+            color: @dialog_fg_color;
+          }
+        '';
+      };
     };
 }

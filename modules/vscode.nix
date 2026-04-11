@@ -1,7 +1,7 @@
 { ... }:
 {
   den.aspects.vscode.hm =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       programs.vscode =
         let
@@ -22,6 +22,7 @@
               "editor.quickSuggestions".strings = "on";
               "editor.wordWrap" = "on";
               "editor.wordWrapColumn" = 120;
+              "editor.fontSize" = lib.mkForce 14;
               "evenBetterToml.formatter.allowedBlankLines" = 1;
               "evenBetterToml.formatter.arrayAutoCollapse" = true;
               "evenBetterToml.formatter.arrayTrailingComma" = true;
@@ -65,20 +66,20 @@
               "workbench.startupEditor" = "none";
               "workbench.panel.defaultLocation" = "right";
               "workbench.colorCustomizations" = {
-                "[Nord]" = {
-                  "editor.background" = "#242933";
-                  "editorGutter.background" = "#242933";
-                  "editorPane.background" = "#242933";
-                  "editorGroupHeader.tabsBackground" = "#242933";
-                  "sideBar.background" = "#242933";
-                  "panel.background" = "#242933";
-                  "statusBar.background" = "#242933";
-                  "menu.background" = "#242933";
-                  "commandCenter.background" = "#242933";
-                  "scrollbar.background" = "#242933";
-                  "terminal.background" = "#242933";
-                  "notifications.background" = "#242933";
-                  "activityBar.background" = "#242933";
+                "[Stylix]" = {
+                  "editor.background" = "#272e33";
+                  "editorGutter.background" = "#272e33";
+                  "editorPane.background" = "#272e33";
+                  "editorGroupHeader.tabsBackground" = "#272e33";
+                  "sideBar.background" = "#272e33";
+                  "panel.background" = "#272e33";
+                  "statusBar.background" = "#272e33";
+                  "menu.background" = "#272e33";
+                  "commandCenter.background" = "#272e33";
+                  "scrollbar.background" = "#272e33";
+                  "terminal.background" = "#272e33";
+                  "notifications.background" = "#272e33";
+                  "activityBar.background" = "#272e33";
                 };
               };
             };

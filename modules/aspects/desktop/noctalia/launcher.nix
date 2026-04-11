@@ -14,13 +14,13 @@
     terminalCommand = "kitty -e";
     customLaunchPrefixEnabled = false;
     customLaunchPrefix = "";
-    viewMode = "list";
-    showCategories = true;
+    viewMode = "grid";
+    showCategories = false;
     iconMode = "tabler";
     showIconBackground = false;
     enableSettingsSearch = false;
     enableWindowsSearch = false;
-    enableSessionSearch = false;
+    enableSessionSearch = true;
     ignoreMouseInput = false;
     screenshotAnnotationTool = "";
     overviewLayer = false;

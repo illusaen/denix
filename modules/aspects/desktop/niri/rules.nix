@@ -18,24 +18,14 @@
       }
       {
         # Floating file-roller
-        matches = [ { app-id = "^org.gnome.FileRoller$"; } ];
+        matches = [
+          { title = "^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)$"; }
+          { app-id = "^org.pulseaudio.pavucontrol$"; }
+          { app-id = "^(.*)blueman-manager(.*)$"; }
+        ];
         open-floating = true;
-        max-height = 600;
-        max-width = 900;
-      }
-      {
-        # Floating file-roller
-        matches = [ { app-id = "^org.pulseaudio.pavucontrol$"; } ];
-        open-floating = true;
-        max-height = 600;
-        max-width = 900;
-      }
-      {
-        # Floating file-roller
-        matches = [ { app-id = "^(.*)blueman-manager(.*)$"; } ];
-        open-floating = true;
-        max-height = 600;
-        max-width = 900;
+        max-height = 800;
+        max-width = 1280;
       }
       {
         # VRR allowlist
@@ -74,18 +64,6 @@
         matches = [
           { is-floating = true; }
           { app-id = "^vesktop$"; }
-        ];
-        opacity = 0.9;
-        draw-border-with-background = false;
-        shadow = {
-          draw-behind-window = true;
-          color = "#000000B3";
-        };
-      }
-      {
-        # 80% Transparent windows + Shadow behind
-        matches = [
-          { is-floating = true; }
           { app-id = "^nemo$"; }
         ];
         opacity = 0.9;

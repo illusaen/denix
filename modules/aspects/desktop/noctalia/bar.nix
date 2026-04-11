@@ -7,7 +7,7 @@
       position = "top";
       monitors = [ "DP-2" ];
       screenOverrides = [ ];
-      backgroundOpacity = lib.mkForce 0;
+      backgroundOpacity = lib.mkForce 0.7;
       density = "spacious";
       showOutline = false;
       showCapsule = false;
@@ -21,7 +21,7 @@
       marginHorizontal = 4;
       frameThickness = 8;
       frameRadius = 12;
-      enableExclusionZoneInset = false;
+      enableExclusionZoneInset = true;
       outerCorners = false;
       hideOnOverview = true;
       displayMode = "always_visible";

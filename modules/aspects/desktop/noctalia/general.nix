@@ -14,10 +14,10 @@
       radiusRatio = 1;
       iRadiusRatio = 1;
       boxRadiusRatio = 1;
-      screenRadiusRatio = 1;
+      screenRadiusRatio = 0.75;
       animationSpeed = 1;
       animationDisabled = false;
-      allowPanelsOnScreenWithoutBar = true;
+      allowPanelsOnScreenWithoutBar = false;
       reverseScroll = false;
       # Lock screen
       compactLockScreen = false;
