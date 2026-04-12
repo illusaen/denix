@@ -108,7 +108,6 @@ in
             ".config/vesktop"
             ".local/share/direnv"
             ".local/share/zoxide"
-            ".local/share/fish"
             ".local/share/flatpak"
             ".local/share/Steam"
             ".ssh"

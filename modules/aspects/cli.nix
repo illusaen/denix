@@ -106,6 +106,12 @@
           };
       };
 
+    _.gcloud.os =
+      { pkgs, ... }:
+      {
+        environment.systemPackages = with pkgs; [ google-cloud-sdk ];
+      };
+
     _.bat.os = {
       programs.bat.enable = true;
     };
