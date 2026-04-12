@@ -132,6 +132,28 @@
             pkgs,
             ...
           }:
+          let
+            fishGitCloneRepo = pkgs.symlinkJoin {
+              name = "fishGitCloneRepo";
+              paths = [
+                (pkgs.writeTextDir "share/fish/vendor_functions.d/_git_clone_repo.fish" ''
+                  function _git_clone_repo
+                    set --local base_url 'git@github.com:illusaen/'
+                    set --local default_result git clone $base_url'%.git'
+                    switch $argv[1]
+                      case ggcl
+                        echo $default_result
+                      case grl
+                        set --local repo_name (gh repo list | fzf)
+                        if test -n "$repo_name" && string match -rq '^.+\/(?<repo>\S+).+$' $repo_name
+                          echo git clone $base_url$repo'.git'
+                        end
+                    end
+                  end
+                '')
+              ];
+            };
+          in
           {
             programs.git = {
               enable = true;
@@ -149,46 +171,29 @@
                 ];
               };
             };
-          };
 
-        hm.programs.fish = {
-          shellAbbrs = {
-            gst = "git status";
-            gcm = {
-              setCursor = true;
-              expansion = "git commit -m \"%\"";
+            programs.fish = {
+              interactiveShellInit = ''
+                abbr -a gcm --set-cursor 'git commit -m "%"'
+                abbr -a git_clone_own_repo --set-cursor --regex "^g(gc|r)l\$" --function _git_clone_repo
+              '';
+              shellAbbrs = {
+                gst = "git status";
+                gco = "git checkout";
+                ga = "git add -A";
+                gf = "git fetch";
+                gl = "git pull";
+                gd = "git diff";
+                gb = "git branch";
+                glg = "git log";
+                gp = "git push";
+                gpu = "git push -u origin (git rev-parse --abbrev-ref HEAD)";
+                gpf = "git push --force-with-lease";
+              };
             };
-            gco = "git checkout";
-            ga = "git add -A";
-            gf = "git fetch";
-            gl = "git pull";
-            gd = "git diff";
-            gb = "git branch";
-            glg = "git log";
-            gp = "git push";
-            gpu = "git push -u origin (git rev-parse --abbrev-ref HEAD)";
-            gpf = "git push --force-with-lease";
-            git_clone_own_repo = {
-              function = "_git_clone_own_repo";
-              regex = "^g(gc|r)l\$";
-              setCursor = true;
-            };
-          };
 
-          functions._git_clone_own_repo = ''
-            set --local base_url 'git@github.com:illusaen/'
-            set --local default_result git clone $base_url'%.git'
-            switch $argv
-              case ggcl
-                echo $default_result
-              case grl
-                set --local repo_name (gh repo list | fzf)
-                if test -n "$repo_name" && string match -rq '^.+\/(?<repo>\S+).+$' $repo_name
-                  echo git clone $base_url$repo'.git'
-                end
-            end
-          '';
-        };
+            environment.systemPackages = [ fishGitCloneRepo ];
+          };
       };
 
     _.direnv =
