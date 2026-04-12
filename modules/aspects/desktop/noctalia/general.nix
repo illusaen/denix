@@ -10,7 +10,7 @@
       dimmerOpacity = 0.2;
       showScreenCorners = true;
       forceBlackScreenCorners = true;
-      scaleRatio = 1.2;
+      scaleRatio = 1;
       radiusRatio = 1;
       iRadiusRatio = 1;
       boxRadiusRatio = 1;

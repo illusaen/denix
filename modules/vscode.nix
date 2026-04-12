@@ -1,7 +1,7 @@
 { ... }:
 {
   den.aspects.vscode.hm =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
       programs.vscode =
         let
@@ -22,7 +22,6 @@
               "editor.quickSuggestions".strings = "on";
               "editor.wordWrap" = "on";
               "editor.wordWrapColumn" = 120;
-              "editor.fontSize" = lib.mkForce 14;
               "evenBetterToml.formatter.allowedBlankLines" = 1;
               "evenBetterToml.formatter.arrayAutoCollapse" = true;
               "evenBetterToml.formatter.arrayTrailingComma" = true;
@@ -59,7 +58,6 @@
               "treefmt.command" = "$(which treefmt)";
               "#js/ts.inlayHints.enumMemberValues.enabled" = true;
               "window.titleBarStyle" = "custom";
-              "window.zoomLevel" = 1;
               "workbench.iconTheme" = "catppuccin-macchiato";
               "workbench.sideBar.location" = "right";
               "workbench.startupEditor" = "none";

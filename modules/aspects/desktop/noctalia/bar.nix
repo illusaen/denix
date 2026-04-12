@@ -8,13 +8,13 @@
       monitors = [ "DP-2" ];
       screenOverrides = [ ];
       backgroundOpacity = lib.mkForce 0.7;
-      density = "spacious";
+      density = "default";
       showOutline = false;
       showCapsule = false;
       capsuleColorKey = "none";
       widgetSpacing = 16;
-      contentPadding = 8;
-      fontScale = 1.1;
+      contentPadding = 12;
+      fontScale = 1.07;
       useSeparateOpacity = true;
       floating = false;
       marginVertical = 4;

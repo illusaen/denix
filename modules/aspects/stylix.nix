@@ -61,9 +61,9 @@ in
               emoji = host.fonts.emoji;
 
               sizes = {
-                applications = 13;
-                desktop = 12;
-                terminal = 12;
+                applications = 12;
+                desktop = 10;
+                terminal = 10;
               };
             };
 

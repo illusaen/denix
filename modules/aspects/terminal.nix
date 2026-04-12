@@ -27,8 +27,8 @@
       quickAccessTerminalConfig = {
         lines = 48;
         hide_on_focus_loss = "yes";
-        margin_left = "1600";
-        margin_right = "1600";
+        margin_left = "1280";
+        margin_right = "1280";
       };
     };
     darwin =

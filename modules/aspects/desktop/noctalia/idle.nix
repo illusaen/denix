@@ -20,7 +20,13 @@
       resumeSuspendCommand = "";
 
       # Custom shell commands
-      customCommands = "[]";
+      customCommands = builtins.toJSON [
+        {
+          name = "Pause Music";
+          timeout = 179;
+          command = "playerctl pause";
+        }
+      ];
     };
   };
 }

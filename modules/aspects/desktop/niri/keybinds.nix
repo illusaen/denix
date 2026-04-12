@@ -85,6 +85,8 @@
                 # Move windows
                 "Mod+Ctrl+Up".action = focus-monitor-up;
                 "Mod+Ctrl+Down".action = focus-monitor-down;
+                "Mod+Ctrl+Shift+Up".action = move-window-to-monitor-up;
+                "Mod+Ctrl+Shift+Down".action = move-window-to-monitor-down;
               }
             ]
           );

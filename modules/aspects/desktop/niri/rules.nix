@@ -96,10 +96,10 @@
         matches = [
           { title = "^Viking Rise Steam$"; }
         ];
-        default-column-width = {
-          fixed = 4164;
-        };
-        min-width = 4164;
+        # default-column-width = {
+        #   fixed = 4164;
+        # };
+        min-width = 3301;
         open-on-workspace = "gaming";
       }
       {
