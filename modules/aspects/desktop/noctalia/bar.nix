@@ -148,6 +148,10 @@
             colorizeIcons = true;
             drawerEnabled = true;
             hidePassive = false;
+            pinned = [
+              "Vesktop"
+              "steam"
+            ];
           }
         ];
       };
