@@ -2,6 +2,27 @@
 {
   den.aspects.desktop.includes = [ den.aspects.nemo ];
 
+  den.schema.host.mime = {
+    defaultApplications = lib.mkBefore (
+      let
+        application = "nemo.desktop";
+        mimeTypes = [
+          "inode/directory"
+          "application/x-gnome-saved-search"
+        ];
+      in
+      lib.genAttrs mimeTypes (_: application)
+    );
+    associations.added =
+      let
+        application = "nemo-autorun-software.desktop";
+        mimeTypes = [
+          "x-content/unix-software"
+        ];
+      in
+      lib.genAttrs mimeTypes (_: application);
+  };
+
   den.aspects.nemo = {
     nixos =
       { pkgs, ... }:
@@ -25,43 +46,22 @@
         ];
       };
 
-    hm =
+    md =
       { pkgs, ... }:
       {
-        xdg.mimeApps = {
-          defaultApplications = lib.mkBefore (
-            let
-              application = "nemo.desktop";
-              mimeTypes = [
-                "inode/directory"
-                "application/x-gnome-saved-search"
-              ];
-            in
-            lib.genAttrs mimeTypes (_: application)
-          );
-          associations.added =
-            let
-              application = "nemo-autorun-software.desktop";
-              mimeTypes = [
-                "x-content/unix-software"
-              ];
-            in
-            lib.genAttrs mimeTypes (_: application);
-        };
-
         dconf.settings = {
-          "org/nemo/preferences" = {
+          "/org/nemo/preferences" = {
             show-hidden-files = lib.mkDefault true;
             date-format = lib.mkDefault "iso";
             quick-renames-with-pause-in-between = lib.mkDefault true;
             thumbnail-limit = lib.mkDefault 10485760;
           };
 
-          "org/nemo/preferences/menu-config" = {
+          "/org/nemo/preferences/menu-config" = {
             selection-menu-make-link = lib.mkDefault true;
           };
 
-          "org/nemo/plugins" = {
+          "/org/nemo/plugins" = {
             disabled-actions = lib.mkDefault [
               "set-as-background.nemo_action"
               "change-background.nemo_action"
@@ -71,11 +71,11 @@
             ];
           };
 
-          "org/gtk/settings/file-chooser" = {
+          "/org/gtk/settings/file-chooser" = {
             show-hidden = lib.mkDefault true;
           };
 
-          "org/cinnamon/desktop/applications/terminal" = {
+          "/org/cinnamon/desktop/applications/terminal" = {
             # Default terminal is set to kitty (change this if using another terminal)
             exec = lib.mkDefault "${lib.getExe pkgs.kitty}";
           };

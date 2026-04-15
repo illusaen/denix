@@ -15,39 +15,6 @@
   den.aspects.niri = {
     includes = lib.attrValues den.aspects.niri._;
 
-    _.class = den.lib.perUser (
-      { user, ... }:
-      { aspect-chain, ... }:
-      den._.forward {
-        each = lib.singleton user;
-        fromClass = _: "niri";
-        intoClass = _: "homeManager";
-        intoPath = _: [
-          "programs"
-          "niri"
-        ];
-        fromAspect = _: lib.head aspect-chain;
-        adaptArgs = lib.id;
-        guard = { options, ... }: options.programs ? niri;
-        # This `adapterModule` allows the following lists to append
-        # rather than overwrite each other
-        adapterModule =
-          let
-            listOption = lib.mkOption {
-              type = lib.types.listOf lib.types.anything;
-              default = [ ];
-            };
-          in
-          {
-            options.settings = {
-              spawn-at-startup = listOption;
-              window-rules = listOption;
-              layer-rules = listOption;
-            };
-          };
-      }
-    );
-
     _.enable = den.lib.perHost {
       nixos =
         { pkgs, lib, ... }:

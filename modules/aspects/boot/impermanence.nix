@@ -89,6 +89,7 @@ in
           directories = [
             "Downloads"
             "Projects"
+            "Pictures"
             {
               directory = ".local/share/keyrings";
               mode = "0700";

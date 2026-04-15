@@ -1,0 +1,187 @@
+input {
+    keyboard {
+        xkb {
+            layout ""
+            model ""
+            rules ""
+            variant ""
+        }
+        repeat-delay 600
+        repeat-rate 25
+        track-layout "global"
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+    mouse {
+        middle-emulation
+        scroll-button 274
+        scroll-method "on-button-down"
+        scroll-factor 1.100000
+    }
+    warp-mouse-to-focus
+    focus-follows-mouse max-scroll-amount="20%"
+}
+output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505" {
+    scale 1.250000
+    focus-at-startup
+    transform "normal"
+    position x=0 y=0
+    mode "4096x2160"
+}
+output "Philips Consumer Electronics Company PHL 288E2 UK52215001852" {
+    scale 1.250000
+    transform "normal"
+    position x=128 y=-1728
+    mode "3840x2160"
+}
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+prefer-no-csd
+layout {
+    gaps 16
+    struts {
+        left 0
+        right 0
+        top 0
+        bottom 0
+    }
+    focus-ring { off; }
+    border { off; }
+    default-column-width { proportion 0.333333; }
+    preset-column-widths {
+        proportion 0.333333
+        proportion 0.666667
+        proportion 0.200000
+    }
+    center-focused-column "on-overflow"
+    always-center-single-column
+}
+cursor {
+    xcursor-theme "Nordic-cursors"
+    xcursor-size 28
+}
+hotkey-overlay { skip-at-startup; }
+environment {
+    "GDK_BACKEND" "wayland,x11,*"
+    "NIXOS_OZONE_WL" "1"
+    "QT_QPA_PLATFORM" "wayland"
+    "QT_QPA_PLATFORMTHEME" "qt5ct"
+    "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
+    "XDG_CURRENT_DESKTOP" "niri"
+    "XDG_SESSION_DESKTOP" "niri"
+    "XDG_SESSION_TYPE" "wayland"
+}
+binds {
+    Alt+Shift+4 { screenshot show-pointer=false; }
+    Alt+Shift+T { spawn "sh" "-c" "kitten quick-access-terminal"; }
+    Ctrl+Space { spawn "sh" "-c" "noctalia-shell ipc call launcher toggle"; }
+    Mod+C { expand-column-to-available-width; }
+    Mod+Ctrl+C { spawn "sh" "-c" "noctalia-shell ipc call launcher clipboard"; }
+    Mod+Ctrl+Down { focus-monitor-down; }
+    Mod+Ctrl+F { toggle-windowed-fullscreen; }
+    Mod+Ctrl+Shift+Down { move-window-to-monitor-down; }
+    Mod+Ctrl+Shift+Q { spawn "sh" "-c" "pkill -9 winedevice.exe"; }
+    Mod+Ctrl+Shift+Up { move-window-to-monitor-up; }
+    Mod+Ctrl+Up { focus-monitor-up; }
+    Mod+Down { focus-workspace-down; }
+    Mod+E { spawn "nemo"; }
+    Mod+Escape { show-hotkey-overlay; }
+    Mod+F { maximize-column; }
+    Mod+G { spawn "google-chrome-stable"; }
+    Mod+Left { focus-window-up-or-column-left; }
+    Mod+Q repeat=false { close-window; }
+    Mod+Right { focus-window-down-or-column-right; }
+    Mod+Shift+Down { move-column-to-workspace-down; }
+    Mod+Shift+Escape { spawn "sh" "-c" "noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Shift+Left { move-column-left; }
+    Mod+Shift+P { power-off-monitors; }
+    Mod+Shift+R { spawn "sh" "-c" "noctalia-shell ipc call launcher command"; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up { move-column-to-workspace-up; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+X { center-visible-columns; }
+    Mod+Shift+Z { reset-window-height; }
+    Mod+Tab { toggle-overview; }
+    Mod+Up { focus-workspace-up; }
+    Mod+V { toggle-window-floating; }
+    Mod+X { center-column; }
+    Mod+Z { switch-preset-column-width; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume decrease"; }
+    XF86AudioMute allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume muteOutput"; }
+    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume increase"; }
+}
+workspace "chat" { open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852"; }
+workspace "code" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
+workspace "gaming" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
+spawn-at-startup "/nix/store/qvfj46pqbhsawrfx13nb5ajdcmrbxsah-delayed-startup"
+spawn-at-startup "/nix/store/ysg3i70pdyibgcy7yvij98vhcq3zhkwg-noctalia-shell-2026-04-13_e56a9db/bin/noctalia-shell"
+window-rule {
+    match app-id="steam" title="^notificationtoasts_\\d+_desktop$"
+    open-focused false
+    default-floating-position relative-to="bottom-right" x=2 y=2
+}
+window-rule {
+    match title="^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)$"
+    match app-id="^org.pulseaudio.pavucontrol$"
+    match app-id="^(.*)blueman-manager(.*)$"
+    open-floating true
+    max-width 1280
+    max-height 800
+}
+window-rule {
+    match app-id="^steam_app.*"
+    open-focused true
+}
+window-rule {
+    geometry-corner-radius 8.000000 8.000000 8.000000 8.000000
+    clip-to-geometry true
+}
+window-rule {
+    match app-id="^kitty$"
+    shadow {
+        draw-behind-window true
+        color "#000000B3"
+    }
+}
+window-rule {
+    match is-floating=true
+    match app-id="^vesktop$"
+    match app-id="^nemo$"
+    draw-border-with-background false
+    shadow {
+        draw-behind-window true
+        color "#000000B3"
+    }
+    opacity 0.900000
+}
+window-rule {
+    match app-id="^vesktop$"
+    match app-id="^Element$"
+    open-on-workspace "chat"
+}
+window-rule {
+    match app-id="^^steam.*$"
+    open-on-workspace "gaming"
+}
+window-rule {
+    match at-startup=true
+    match app-id="^google-chrome$"
+    exclude at-startup=false
+    open-on-workspace "chat"
+}
+window-rule {
+    match title="^Viking Rise Steam$"
+    open-on-workspace "gaming"
+    min-width 3301
+}
+window-rule {
+    match app-id="^code$"
+    open-on-workspace "code"
+}
+xwayland-satellite { path "/nix/store/2g34cgbsj2w8g3p4i7nq04bqzyc4fb1v-xwayland-satellite-0.8.1/bin/xwayland-satellite"; }
+debug { wait-for-frame-completion-before-queueing; }

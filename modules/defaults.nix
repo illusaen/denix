@@ -4,6 +4,22 @@ let
     platforms: users:
     builtins.concatLists (map (platform: map (user: { inherit platform user; }) users) platforms);
 
+  maidClass =
+    { host }:
+    { aspect-chain, ... }:
+    den._.forward {
+      each = lib.attrNames host.users;
+      fromClass = _: "md";
+      intoClass = _: host.class;
+      intoPath = userName: [
+        "users"
+        "users"
+        userName
+        "maid"
+      ];
+      fromAspect = _: lib.head aspect-chain;
+    };
+
   hmClass =
     { host }:
     { aspect-chain, ... }:
@@ -58,7 +74,10 @@ in
   # enable hm by default
   den.schema.user.classes = lib.mkDefault [
     "homeManager"
+    "maid"
   ];
+
+  den.schema.host.maid.enable = true;
 
   # host<->user provides
   den.ctx.user.includes = [
@@ -71,5 +90,6 @@ in
     den.provides.mutual-provider
     hmClass
     hmPlatforms
+    maidClass
   ];
 }

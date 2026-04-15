@@ -90,6 +90,9 @@
           { at-startup = true; }
           { app-id = "^google-chrome$"; }
         ];
+        excludes = [
+          { at-startup = false; }
+        ];
         open-on-workspace = "chat";
       }
       {

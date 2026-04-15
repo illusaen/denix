@@ -28,4 +28,6 @@
   };
 
   systems = lib.attrNames den.hosts;
+
+  flake.den = den;
 }
