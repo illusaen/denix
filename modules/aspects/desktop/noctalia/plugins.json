@@ -1,0 +1,10 @@
+{
+  "autoUpdate": false,
+  "notifyUpdates": true,
+  "states": {
+    "polkit-agent": {
+      "enabled": true,
+      "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+    }
+  }
+}

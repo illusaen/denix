@@ -48,7 +48,7 @@
           builtins.readFile ./config.kdl
           + ''
             spawn-at-startup "${delayedStartup}"
-            spawn-at-startup "noctalia-shell"
+            spawn-at-startup "qs" "-c" "noctalia-shell"
             xwayland-satellite { path "${lib.getExe pkgs.xwayland-satellite}"; }
           ''
         );

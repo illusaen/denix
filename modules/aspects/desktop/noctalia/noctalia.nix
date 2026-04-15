@@ -19,6 +19,7 @@
       {
         pkgs,
         lib,
+        inputs',
         ...
       }:
       let
@@ -37,25 +38,29 @@
         };
       in
       {
+        imports = [ inputs.noctalia.nixosModules.default ];
+
         services.gnome.evolution-data-server.enable = true;
+        security.pam.services.login.enableGnomeKeyring = true;
+
         nix.settings.extra-substituters = [ "https://noctalia.cachix.org" ];
         nix.settings.extra-trusted-public-keys = [
           "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
         ];
+
         environment.systemPackages = [
           noctalia-diff
+          (inputs'.noctalia.packages.default.override { calendarSupport = true; })
         ];
       };
 
-    hm =
-      { inputs', ... }:
-      {
-        imports = [ inputs.noctalia.homeModules.default ];
-
-        programs.noctalia-shell = {
-          enable = true;
-          package = inputs'.noctalia.packages.default.override { calendarSupport = true; };
-        };
+    md = {
+      file.xdg_config."noctalia/settings.json".source = ./settings.json;
+      file.xdg_config."noctalia/colors.json".source = ./colors.json;
+      file.xdg_config."noctalia/plugins.json".source = ./plugins.json;
+      file.xdg_cache."noctalia/wallpapers.json".source = builtins.toJSON {
+        defaultWallpaper = ../../../../resources/cube-dark.jpg;
       };
+    };
   };
 }
