@@ -118,8 +118,6 @@ binds {
 workspace "chat" { open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852"; }
 workspace "code" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 workspace "gaming" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
-spawn-at-startup "/nix/store/qvfj46pqbhsawrfx13nb5ajdcmrbxsah-delayed-startup"
-spawn-at-startup "/nix/store/ysg3i70pdyibgcy7yvij98vhcq3zhkwg-noctalia-shell-2026-04-13_e56a9db/bin/noctalia-shell"
 window-rule {
     match app-id="steam" title="^notificationtoasts_\\d+_desktop$"
     open-focused false
@@ -183,5 +181,4 @@ window-rule {
     match app-id="^code$"
     open-on-workspace "code"
 }
-xwayland-satellite { path "/nix/store/2g34cgbsj2w8g3p4i7nq04bqzyc4fb1v-xwayland-satellite-0.8.1/bin/xwayland-satellite"; }
 debug { wait-for-frame-completion-before-queueing; }
