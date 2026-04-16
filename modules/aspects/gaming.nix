@@ -2,8 +2,8 @@
   den.aspects.gaming = {
     nixos.programs.steam.enable = true;
 
-    hmLinux = {
-      xdg.configFile."autostart/steam.desktop".text = ''
+    mdLinux = {
+      file.xdg_config."autostart/steam.desktop".text = ''
         [Desktop Entry]
         NotShowIn=niri
         Categories=Network;FileTransfer;Game;

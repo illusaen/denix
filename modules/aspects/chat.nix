@@ -12,11 +12,11 @@
             environment.systemPackages = with pkgs; [ vesktop ];
           };
 
-        hm =
-          { pkgs, config, ... }:
+        md =
+          { pkgs, ... }:
           let
             jsonFormat = pkgs.formats.json { };
-            configDir = if pkgs.stdenv.isDarwin then "Library/Application Support" else config.xdg.configHome;
+            configDir = if pkgs.stdenv.isDarwin then "Library/Application Support" else ".config";
             cfg = {
               settings = {
                 checkUpdates = false;
@@ -48,29 +48,27 @@
             };
           in
           {
-            home.file."${configDir}/vesktop/settings.json".source =
+            file.home."${configDir}/vesktop/settings.json".source =
               jsonFormat.generate "vesktop-settings" cfg.settings;
-            home.file."${configDir}/vesktop/settings/settings.json".source =
+            file.home."${configDir}/vesktop/settings/settings.json".source =
               jsonFormat.generate "vencord-settings" cfg.vencord.settings;
-            home.file."${configDir}/vesktop/themes/theme.css}".source =
+            file.home."${configDir}/vesktop/themes/theme.css}".source =
               pkgs.writeText "vesktop-theme" cfg.vencord.settings.theme;
-            home.file."${configDir}/vesktop/themes/colors.css}".source = ../../resources/themes/vesktop.css;
+            file.home."${configDir}/vesktop/themes/colors.css}".source = ../../resources/themes/vesktop.css;
 
-            xdg.configFile."autostart/vesktop.desktop" = lib.mkDefault {
-              text = ''
-                [Desktop Entry]
-                NotShowIn=niri
-                Categories=Network;InstantMessaging;Chat
-                Exec=vesktop --start-minimized
-                GenericName=Internet Messenger
-                Icon=vesktop
-                Keywords=discord;vencord;electron;chat
-                Name=Vesktop
-                StartupWMClass=Vesktop
-                Type=Application
-                Version=1.5
-              '';
-            };
+            file.xdg_config."autostart/vesktop.desktop".text = ''
+              [Desktop Entry]
+              NotShowIn=niri
+              Categories=Network;InstantMessaging;Chat
+              Exec=vesktop --start-minimized
+              GenericName=Internet Messenger
+              Icon=vesktop
+              Keywords=discord;vencord;electron;chat
+              Name=Vesktop
+              StartupWMClass=Vesktop
+              Type=Application
+              Version=1.5
+            '';
           };
       };
 

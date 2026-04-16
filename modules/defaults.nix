@@ -20,6 +20,26 @@ let
       fromAspect = _: lib.head aspect-chain;
     };
 
+  mdPlatforms =
+    { host }:
+    { aspect-chain, ... }:
+    den._.forward {
+      each = cartesianProduct [
+        "Linux"
+        "Darwin"
+      ] (lib.attrNames host.users);
+      fromClass = cart: "md${cart.platform}";
+      intoClass = _: host.class;
+      intoPath = cart: [
+        "users"
+        "users"
+        cart.user
+        "maid"
+      ];
+      fromAspect = _: lib.head aspect-chain;
+      guard = { pkgs, ... }: cart: lib.mkIf pkgs.stdenv."is${cart.platform}";
+    };
+
   hmClass =
     { host }:
     { aspect-chain, ... }:
@@ -91,5 +111,6 @@ in
     hmClass
     hmPlatforms
     maidClass
+    mdPlatforms
   ];
 }

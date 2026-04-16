@@ -93,6 +93,15 @@
                 mono = fontOption;
                 emoji = fontOption;
                 icon = fontOption;
+                sizes = lib.mkOption {
+                  type = lib.types.submodule {
+                    options = {
+                      terminal = lib.mkOption { type = lib.types.int; };
+                      applications = lib.mkOption { type = lib.types.int; };
+                      desktop = lib.mkOption { type = lib.types.int; };
+                    };
+                  };
+                };
               };
             };
           };
@@ -113,6 +122,11 @@
         icon = {
           name = "icomoon";
           package = feather;
+        };
+        sizes = {
+          applications = 12;
+          desktop = 10;
+          terminal = 10;
         };
       };
     };

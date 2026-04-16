@@ -5,13 +5,22 @@
 {
   den.ctx.user.includes = [ den.aspects.starship ];
 
-  den.aspects.starship.homeManager =
-    { lib, ... }:
-    {
-      programs.starship = {
-        enable = true;
-        enableFishIntegration = true;
-        settings = {
+  den.aspects.starship = {
+    nixos =
+      { pkgs, lib, ... }:
+      {
+        programs.fish.interactiveShellInit = ''
+          ${lib.getExe pkgs.starship} init fish | source
+        '';
+      };
+
+    md =
+      { pkgs, lib, ... }:
+      let
+        tomlFormat = pkgs.formats.toml { };
+      in
+      {
+        file.xdg_config."starship.toml".source = tomlFormat.generate "starship.toml" {
           add_newline = true;
           format = lib.concatStrings [
             "$directory"
@@ -79,5 +88,5 @@
           };
         };
       };
-    };
+  };
 }

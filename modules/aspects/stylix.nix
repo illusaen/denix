@@ -60,11 +60,7 @@ in
               monospace = host.fonts.mono;
               emoji = host.fonts.emoji;
 
-              sizes = {
-                applications = 12;
-                desktop = 10;
-                terminal = 10;
-              };
+              sizes = host.fonts.sizes;
             };
 
             targets.gtksourceview.enable = false;
