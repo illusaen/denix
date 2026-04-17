@@ -32,7 +32,11 @@
           # Allow the Tailscale UDP port through the firewall
           allowedUDPPorts = [ config.services.tailscale.port ];
         };
+
       };
+
     darwin.homebrew.masApps."Tailscale" = 1475387142;
+
+    persist.directories = [ "/var/lib/tailscale" ];
   };
 }

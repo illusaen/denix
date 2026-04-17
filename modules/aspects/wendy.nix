@@ -7,5 +7,11 @@
     ];
 
     user.password = "arst";
+
+    persistUser.directories = [
+      "Downloads"
+      "Projects"
+      "Pictures"
+    ];
   };
 }

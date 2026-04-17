@@ -3,6 +3,10 @@
   den.aspects.vscode =
     { host, ... }:
     {
+      persistUser.directories = [
+        ".config/Code"
+      ];
+
       os =
         { pkgs, ... }:
         {

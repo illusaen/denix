@@ -24,6 +24,12 @@
   den.aspects.cli = {
     includes = lib.attrValues den.aspects.cli._;
 
+    persist.directories = [ "/etc/gh" ];
+    persistUser.directories = [
+      ".local/share/direnv"
+      ".local/share/zoxide"
+    ];
+
     _.btop.os =
       { pkgs, ... }:
       let

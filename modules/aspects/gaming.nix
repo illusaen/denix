@@ -21,5 +21,7 @@
       {
         environment.systemPackages = with pkgs; [ steam ];
       };
+
+    persistUser.directories = [ ".local/share/Steam" ];
   };
 }

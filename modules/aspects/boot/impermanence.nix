@@ -13,7 +13,8 @@ in
 
   den.ctx.host.includes = [
     den.aspects.impermanence
-    # den.aspects.impermanence._.persysClass
+    den.aspects.impermanence._.persistedClass
+    den.aspects.impermanence._.persistedUserClass
   ];
 
   den.aspects.impermanence =
@@ -34,21 +35,39 @@ in
       ];
       inherit persistMount disk;
 
-      # _.persysClass = (
-      #   { host }:
-      #   den._.forward {
-      #     each = lib.singleton true;
-      #     fromClass = _: "persys";
-      #     intoClass = _: "nixos";
-      #     intoPath = _: [
-      #       "environment"
-      #       "persistence"
-      #       persistMount
-      #     ];
-      #     fromAspect = _: den.aspects.${host.aspect};
-      #     guard = { options, ... }: options ? environment.persistence;
-      #   }
-      # );
+      _.persistedClass =
+        { host }:
+        { aspect-chain, ... }:
+        den._.forward {
+          each = lib.attrNames host.users;
+          fromClass = _: "persist";
+          intoClass = _: "nixos";
+          intoPath = _: [
+            "environment"
+            "persistence"
+            persistMount
+          ];
+          fromAspect = _: lib.head aspect-chain;
+          guard = { options, ... }: options ? environment.persistence;
+        };
+
+      _.persistedUserClass =
+        { host }:
+        { aspect-chain, ... }:
+        den._.forward {
+          each = lib.attrNames host.users;
+          fromClass = _: "persistUser";
+          intoClass = _: "nixos";
+          intoPath = userName: [
+            "environment"
+            "persistence"
+            persistMount
+            "users"
+            userName
+          ];
+          fromAspect = _: lib.head aspect-chain;
+          guard = { options, ... }: options ? environment.persistence;
+        };
 
       nixos = {
         imports = [
@@ -63,58 +82,16 @@ in
         environment.etc."machine-id".text = "17888962e0404e3980b23115d2d91984";
       };
 
-      nixos.environment.persistence.${persistMount} = {
-        directories = [
-          "/var/log"
-          {
-            directory = "/var/lib/bluetooth";
-            mode = "0755";
-          }
-          "/var/lib/nixos"
-          "/var/lib/systemd/coredump"
-          "/var/lib/tailscale"
-          "/var/lib/flatpak"
-          "/var/lib/gdm"
-          "/etc/NetworkManager/system-connections"
-        ];
-        files = [
-          {
-            file = "/etc/opnix-token";
-            parentDirectory = {
-              mode = "0755";
-            };
-          }
-        ];
-        users.wendy = {
-          directories = [
-            "Downloads"
-            "Projects"
-            "Pictures"
-            {
-              directory = ".local/share/keyrings";
-              mode = "0700";
-            }
-            ".config/1Password"
-            {
-              directory = ".config/op";
-              mode = "0700";
-            }
-            ".cache/flatpak"
-            ".cache/noctalia"
-            ".cache/noctalia-qs"
-            ".config/Code"
-            ".config/Element"
-            ".config/google-chrome"
-            ".config/gh"
-            ".config/vesktop"
-            ".local/share/direnv"
-            ".local/share/zoxide"
-            ".local/share/flatpak"
-            ".local/share/Steam"
-            ".ssh"
-            ".var/app/com.bambulab.BambuStudio"
-          ];
-        };
-      };
+      persist.directories = [
+        "/var/log"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+      ];
+      persistUser.directories = [
+        {
+          directory = ".local/share/keyrings";
+          mode = "0700";
+        }
+      ];
     };
 }

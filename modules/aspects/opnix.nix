@@ -2,6 +2,8 @@
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
+  den.aspects.wendy.user.extraGroups = [ "onepassword-secrets" ];
+
   den.ctx.host.includes = [ den.aspects.opnix ];
   den.aspects.opnix = den.lib.perHost {
     nixos = {
@@ -29,5 +31,13 @@
         };
       };
     };
+
+    persist.files = [ "/etc/opnix-token" ];
+    persistUser.directories = [
+      {
+        directory = ".config/op";
+        mode = "0700";
+      }
+    ];
   };
 }

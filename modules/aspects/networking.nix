@@ -16,5 +16,13 @@
 
         services.blueman.enable = true;
       };
+
+    persist.directories = [
+      "/etc/NetworkManager/system-connections"
+      {
+        directory = "/var/lib/bluetooth";
+        mode = "0755";
+      }
+    ];
   };
 }

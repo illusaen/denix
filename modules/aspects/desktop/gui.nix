@@ -13,5 +13,14 @@
 
         services.flatpak.enable = true;
       };
+
+    persist.directories = [
+      "/var/lib/flatpak"
+    ];
+    persistUser.directories = [
+      ".local/share/flatpak"
+      ".cache/flatpak"
+      ".var/app/com.bambulab.BambuStudio"
+    ];
   };
 }

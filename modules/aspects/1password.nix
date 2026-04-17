@@ -26,5 +26,7 @@
             script = "${lib.getExe config.programs._1password-gui.package}";
           };
         };
+
+      persistUser.directories = [ ".config/1Password" ];
     };
 }

@@ -62,5 +62,10 @@
         defaultWallpaper = ../../../../resources/cube-dark.jpg;
       };
     };
+
+    persistUser.directories = [
+      ".cache/noctalia"
+      ".cache/noctalia-qs"
+    ];
   };
 }

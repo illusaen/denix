@@ -3,6 +3,11 @@
   den.aspects.chat = {
     includes = lib.attrValues den.aspects.chat._;
 
+    persistUser.directories = [
+      ".config/Element"
+      ".config/vesktop"
+    ];
+
     _.vesktop =
       { host, ... }:
       {
