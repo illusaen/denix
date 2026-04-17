@@ -181,6 +181,7 @@
                   "--background dark"
                   "--display side-by-side"
                 ];
+                core.sshCommand = "ssh -i /etc/ssh/id_rsa";
               };
             };
 
