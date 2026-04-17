@@ -5,6 +5,7 @@
     {
       persistUser.directories = [
         ".config/Code"
+        ".vscode/extensions"
       ];
 
       os =
@@ -29,7 +30,6 @@
               catppuccin.catppuccin-vsc-icons
               naumovs.color-highlight
               usernamehw.errorlens
-              arcticicestudio.nord-visual-studio-code
             ]
             ++ [
               (pkgs.vscode-utils.extensionFromVscodeMarketplace {
@@ -106,7 +106,7 @@
             "notebook.markup.fontFamily" = host.fonts.sans.name;
 
             # 4/3 factor used for pt to px;
-            "editor.fontSize" = host.fonts.sizes.terminal;
+            "editor.fontSize" = host.fonts.sizes.terminal * 4.0 / 3.0;
             "debug.console.fontSize" = host.fonts.sizes.terminal * 4.0 / 3.0;
             "markdown.preview.fontSize" = host.fonts.sizes.terminal * 4.0 / 3.0;
             "terminal.integrated.fontSize" = host.fonts.sizes.terminal * 4.0 / 3.0;
@@ -124,10 +124,10 @@
           configDir = "Code";
 
           userDir =
-            if pkgs.stdenv.hostPlatform.isDarwin then
-              "{{home}}/Library/Application Support/${configDir}/User"
+            if pkgs.stdenv.isDarwin then
+              "Library/Application Support/${configDir}/User"
             else
-              "{{xdg_config_home}}/${configDir}/User";
+              ".config/${configDir}/User";
           extensionPath = ".vscode/extensions";
           extensionJson = ext: pkgs.vscode-utils.toExtensionJson ext;
           extensionDrv = (pkgs.writeText "extensions-json" (extensionJson extensions));
@@ -150,6 +150,13 @@
 
           file.home = lib.mkMerge (
             lib.flatten [
+              {
+                ".vscode/argv.json".text = builtins.toJSON {
+                  password-store = "gnome-libsecret";
+                  enable-crash-reporter = true;
+                  crash-reporter-id = "d17b2c57-3182-4ec0-a09f-c8abd1812a80";
+                };
+              }
               {
                 "${userDir}/settings.json".source = jsonFormat.generate "vscode-user-settings" userSettings;
               }
