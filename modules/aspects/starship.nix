@@ -6,9 +6,10 @@
   den.ctx.user.includes = [ den.aspects.starship ];
 
   den.aspects.starship = {
-    nixos =
+    os =
       { pkgs, lib, ... }:
       {
+        environment.systemPackages = with pkgs; [ starship ];
         programs.fish.interactiveShellInit = ''
           ${lib.getExe pkgs.starship} init fish | source
         '';

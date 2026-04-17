@@ -70,16 +70,5 @@ in
       nixos.imports = [ inputs.stylix.nixosModules.stylix ];
 
       darwin.imports = [ inputs.stylix.darwinModules.stylix ];
-
-      hmLinux = {
-        stylix.targets = {
-          gtk.extraCss = ''
-            .dialog-action-area > .text-button {
-              color: @dialog_fg_color;
-            }
-          '';
-          gtksourceview.enable = false;
-        };
-      };
     };
 }

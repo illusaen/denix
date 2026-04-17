@@ -29,13 +29,6 @@
         allowUnfree = true;
       };
 
-      home-manager = {
-        useUserPackages = true;
-        useGlobalPkgs = true;
-        backupFileExtension = "backup";
-        overwriteBackup = true;
-      };
-
       time.timeZone = "America/Chicago";
     };
   };

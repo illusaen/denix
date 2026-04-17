@@ -5,6 +5,12 @@
   den.aspects.terminal =
     { host, ... }:
     {
+      nixos =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = with pkgs; [ kitty ];
+        };
+
       mdLinux = {
         file.xdg_config."kitty/kitty.conf".text = ''
           font_family ${host.fonts.mono.name}

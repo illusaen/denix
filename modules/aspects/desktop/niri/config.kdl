@@ -76,7 +76,6 @@ binds {
     Alt+Shift+4 { screenshot show-pointer=false; }
     Alt+Shift+T { spawn-sh "kitten quick-access-terminal"; }
     Ctrl+Space { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+Shift+Ctrl+L { spawn-sh "noctalia-shell ipc call monitors off"; }
     Mod+C { expand-column-to-available-width; }
     Mod+Ctrl+C { spawn "sh" "-c" "noctalia-shell ipc call launcher clipboard"; }
     Mod+Ctrl+Down { focus-monitor-down; }
