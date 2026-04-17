@@ -5,14 +5,15 @@
   den.aspects.onepassword =
     { host, ... }:
     {
+      nixos.programs._1password-gui.polkitPolicyOwners = lib.mapAttrsToList (
+        _: value: value.userName
+      ) host.users;
+
       os =
         { config, ... }:
         {
           programs._1password.enable = true;
-          programs._1password-gui = {
-            enable = true;
-            polkitPolicyOwners = lib.mapAttrsToList (_: value: value.userName) host.users;
-          };
+          programs._1password-gui.enable = true;
 
           systemd.user.services.onepassword = {
             wantedBy = [ "graphical-session.target" ];

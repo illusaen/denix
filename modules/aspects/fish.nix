@@ -5,6 +5,9 @@
 {
   den.ctx.user.includes = [ den.aspects.fish ];
   den.aspects.fish = {
+    nixos.environment.sessionVariables.EDITOR = "vim";
+    darwin.environment.variables.EDITOR = "vim";
+
     os =
       { pkgs, ... }:
       let
@@ -120,7 +123,6 @@
         };
       in
       {
-        environment.sessionVariables.EDITOR = "vim";
         programs.fish = {
           enable = true;
           interactiveShellInit = ''
@@ -135,8 +137,6 @@
           };
         };
 
-        documentation.man.cache.enable = false;
-
         environment.systemPackages = with pkgs.fishPlugins; [
           puffer
           fzf-fish
@@ -145,7 +145,10 @@
         ];
       };
 
+    nixos.documentation.man.cache.enable = false;
+
     darwin = {
+      documentation.man.enable = false;
       programs.fish.interactiveShellInit = ''
         eval (/opt/homebrew/bin/brew shellenv)
       '';

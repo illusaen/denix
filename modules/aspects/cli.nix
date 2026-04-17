@@ -89,6 +89,9 @@
     _.packages =
       { host, ... }:
       {
+        nixos.environment.sessionVariables.NIX_CONF = "${host.misc.dirs.nix}";
+        darwin.environment.variables.NIX_CONF = "${host.misc.dirs.nix}";
+
         os =
           { config, pkgs, ... }:
           {
@@ -97,8 +100,6 @@
               coreutils
               vim
             ];
-
-            environment.sessionVariables.NIX_CONF = "${host.misc.dirs.nix}";
 
             environment.etc."dependencies.txt".text = lib.pipe (config.environment.systemPackages) (
               with builtins;
@@ -118,9 +119,12 @@
         environment.systemPackages = with pkgs; [ google-cloud-sdk ];
       };
 
-    _.bat.os = {
-      programs.bat.enable = true;
-    };
+    _.bat =
+      { pkgs, ... }:
+      {
+        nixos.programs.bat.enable = true;
+        darwin.environment.systemPackages = with pkgs; [ bat ];
+      };
 
     _.fzf.os =
       { pkgs, ... }:
@@ -128,7 +132,7 @@
         environment.systemPackages = with pkgs; [ fzf ];
       };
 
-    _.zoxide.os = {
+    _.zoxide.nixos = {
       programs.zoxide = {
         enable = true;
         flags = [ "--cmd n" ];
@@ -138,9 +142,30 @@
     _.git =
       { host, ... }:
       {
+        nixos =
+          { pkgs, ... }:
+          {
+            programs.git = {
+              enable = true;
+              config = {
+                user.name = host.misc.fullName;
+                user.email = "jaewchen@gmail.com";
+                init.defaultBranch = "main";
+                pull.rebase = true;
+                push.autoSetupRemote = true;
+                diff.external = lib.concatStringsSep " " [
+                  "${lib.getExe pkgs.difftastic}"
+                  "--color always"
+                  "--background dark"
+                  "--display side-by-side"
+                ];
+                core.sshCommand = "ssh -i /etc/ssh/id_rsa";
+              };
+            };
+          };
+
         os =
           {
-            lib,
             pkgs,
             ...
           }:
@@ -167,24 +192,6 @@
             };
           in
           {
-            programs.git = {
-              enable = true;
-              config = {
-                user.name = host.misc.fullName;
-                user.email = "jaewchen@gmail.com";
-                init.defaultBranch = "main";
-                pull.rebase = true;
-                push.autoSetupRemote = true;
-                diff.external = lib.concatStringsSep " " [
-                  "${lib.getExe pkgs.difftastic}"
-                  "--color always"
-                  "--background dark"
-                  "--display side-by-side"
-                ];
-                core.sshCommand = "ssh -i /etc/ssh/id_rsa";
-              };
-            };
-
             programs.fish = {
               interactiveShellInit = ''
                 abbr -a gcm --set-cursor 'git commit -m "%"'
@@ -225,16 +232,18 @@
         };
       };
 
-    _.gh.os =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ gh ];
-        environment.sessionVariables = {
-          GH_CONFIG_DIR = "/etc/gh";
+    _.gh = {
+      nixos.environment.sessionVariables.GH_CONFIG_DIR = "/etc/gh";
+      darwin.environment.variables.GH_CONFIG_DIR = "/etc/gh";
+
+      os =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = with pkgs; [ gh ];
+          environment.etc."gh/config.yml".text = ''
+            git_protocol: ssh
+          '';
         };
-        environment.etc."gh/config.yml".text = ''
-          git_protocol: ssh
-        '';
-      };
+    };
   };
 }

@@ -17,6 +17,28 @@ in
   den.aspects.stylix =
     { host, ... }:
     {
+      nixos =
+        { pkgs, ... }:
+        {
+          stylix = {
+            cursor = {
+              name = "Nordic-cursors";
+              size = 28;
+              package = pkgs.nordic;
+            };
+            icons = {
+              enable = true;
+              package = pkgs.colloid-icon-theme;
+              dark = "Colloid-Dark";
+              light = "Colloid-Light";
+            };
+
+            targets.gtksourceview.enable = false;
+          };
+
+          imports = [ inputs.stylix.nixosModules.stylix ];
+        };
+
       os =
         { pkgs, ... }:
         let
@@ -41,19 +63,6 @@ in
             autoEnable = true;
             inherit polarity image base16Scheme;
 
-            icons = {
-              enable = true;
-              package = pkgs.colloid-icon-theme;
-              dark = "Colloid-Dark";
-              light = "Colloid-Light";
-            };
-
-            cursor = {
-              name = "Nordic-cursors";
-              size = 28;
-              package = pkgs.nordic;
-            };
-
             fonts = {
               serif = host.fonts.sans;
               sansSerif = host.fonts.sans;
@@ -62,12 +71,8 @@ in
 
               sizes = host.fonts.sizes;
             };
-
-            targets.gtksourceview.enable = false;
           };
         };
-
-      nixos.imports = [ inputs.stylix.nixosModules.stylix ];
 
       darwin.imports = [ inputs.stylix.darwinModules.stylix ];
     };
