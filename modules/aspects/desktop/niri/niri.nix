@@ -32,28 +32,34 @@
         ...
       }:
       let
-        # Custom script to startup certain apps after a delay
-        # to allow for the system tray to load first
-        delayedStartup = pkgs.writeShellScript "delayed-startup" ''
-          # syntax: bash
-          ${pkgs.coreutils}/bin/sleep 1
-          for file in {{xdg_config_home}}/autostart/*.desktop; do
-            if ${pkgs.gnugrep}/bin/grep -q "NotShowIn=.*niri" "$file"; then
-              ${pkgs.dex}/bin/dex "$file"
-            fi
-          done
-        '';
-
         kdlConfig = pkgs.writeText "niri-config-kdl" (
           builtins.readFile ./config.kdl
           + ''
-            spawn-at-startup "sh" "-c" "${delayedStartup}"
             spawn-at-startup "sh" "-c" "noctalia-shell"
             xwayland-satellite { path "${lib.getExe pkgs.xwayland-satellite}"; }
           ''
         );
       in
       {
+        systemd.services.delayed-startup = {
+          wantedBy = [ "graphical-session.target" ];
+          partOf = [ "graphical-session.target" ];
+          requires = [ "graphical-session-pre.target" ];
+          after = [
+            "graphical-session.target"
+            "graphical-session-pre.target"
+          ];
+          description = "Delayed startup of programs in xdg autostart that have NotShowIn=niri attr";
+          script = ''
+            ${pkgs.coreutils}/bin/sleep 1
+            for file in $HOME/.config/autostart/*.desktop; do
+              if ${pkgs.gnugrep}/bin/grep -q "NotShowIn=.*niri" "$file"; then
+                ${pkgs.dex}/bin/dex "$file"
+              fi
+            done
+          '';
+        };
+
         file.xdg_config."niri/config.kdl".source = kdlConfig;
         file.xdg_config."xdg-desktop-portal/niri-portals.conf".text = lib.generators.toINI { } {
           preferred = {

@@ -91,8 +91,8 @@
         }:
         {
           file.xdg_config."user-dirs.dirs".text = ''
-            XDG_DOWNLOAD_DIR="{{home}}/Downloads"
-            XDG_PICTURES_DIR="{{home}}/Pictures"
+            XDG_DOWNLOAD_DIR="$HOME/Downloads"
+            XDG_PICTURES_DIR="$HOME/Pictures"
           '';
           file.xdg_config."user-dirs.conf".text = "enabled=False";
 
