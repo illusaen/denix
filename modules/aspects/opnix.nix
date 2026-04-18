@@ -2,7 +2,15 @@
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
-  den.aspects.wendy.user.extraGroups = [ "onepassword-secrets" ];
+  den.aspects.wendy =
+    { user, ... }:
+    {
+      nixos.users.users.${user.name}.extraGroups = [ "onepassword-secrets" ];
+      darwin.users.groups = {
+        name = "onepassword-secrets";
+        members = user.name;
+      };
+    };
 
   den.ctx.host.includes = [ den.aspects.opnix ];
   den.aspects.opnix = den.lib.perHost {

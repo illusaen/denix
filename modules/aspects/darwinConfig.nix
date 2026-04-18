@@ -58,7 +58,6 @@
             };
 
             SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
-
           };
         };
         security.pam.services.sudo_local = {
@@ -81,7 +80,6 @@
           casks = [
             "raindropio"
           ];
-          masApps."Microsoft Word" = 462054704;
         };
       };
   };

@@ -4,7 +4,7 @@
     den.aspects.nixConfig
   ];
 
-  den.aspects.nixConfig = {
+  den.aspects.nixConfig = den.lib.perHost {
     os = {
       nix.settings = {
         experimental-features = [
@@ -28,6 +28,8 @@
       nixpkgs.config = {
         allowUnfree = true;
       };
+
+      # nixpkgs.overlays = [ (import ../flake/_overlays.nix) ];
 
       time.timeZone = "America/Chicago";
     };

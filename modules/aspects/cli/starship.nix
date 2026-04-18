@@ -3,25 +3,32 @@
   ...
 }:
 {
-  den.ctx.user.includes = [ den.aspects.starship ];
-
-  den.aspects.starship = {
+  den.aspects.cli._.starship = den.lib.perHost {
     os =
-      { pkgs, lib, ... }:
       {
-        environment.systemPackages = with pkgs; [ starship ];
-        programs.fish.interactiveShellInit = ''
-          ${lib.getExe pkgs.starship} init fish | source
-        '';
-      };
-
-    md =
-      { pkgs, lib, ... }:
+        pkgs,
+        lib,
+        config,
+        ...
+      }:
       let
-        tomlFormat = pkgs.formats.toml { };
-      in
-      {
-        file.xdg_config."starship.toml".source = tomlFormat.generate "starship.toml" {
+        starship-wrapped = pkgs.symlinkJoin {
+          name = "starship";
+          paths = [
+            pkgs.starship
+          ];
+          meta.mainProgram = "starship";
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            mkdir -p $out
+            install -Dm644 ${starship-toml} $out/starship.toml
+            wrapProgram $out/bin/starship --set STARSHIP_CONFIG $out/starship.toml
+          '';
+        };
+
+        starship-toml = (pkgs.formats.toml { }).generate "starship.toml" settings;
+
+        settings = {
           add_newline = true;
           format = lib.concatStrings [
             "$directory"
@@ -87,6 +94,14 @@
             format = "[$time](fg:foreground)";
             time_format = "%H:%M";
           };
+        };
+      in
+      {
+        environment.systemPackages = [ starship-wrapped ];
+        programs.fish = lib.mkIf (config.programs.fish.enable) {
+          interactiveShellInit = ''
+            ${lib.getExe starship-wrapped} init fish | source
+          '';
         };
       };
   };

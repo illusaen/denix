@@ -2,18 +2,20 @@
 {
   den.ctx.host.includes = [ den.aspects.onepassword ];
 
-  den.aspects.onepassword =
+  den.aspects.onepassword = den.lib.perHost (
     { host, ... }:
     {
-      nixos.programs._1password-gui.polkitPolicyOwners = lib.mapAttrsToList (
-        _: value: value.userName
-      ) host.users;
+      os = {
+        programs._1password.enable = true;
+        programs._1password-gui.enable = true;
+      };
 
-      os =
+      nixos =
         { config, ... }:
         {
-          programs._1password.enable = true;
-          programs._1password-gui.enable = true;
+          programs._1password-gui.polkitPolicyOwners = lib.mapAttrsToList (
+            _: value: value.userName
+          ) host.users;
 
           systemd.user.services.onepassword = {
             wantedBy = [ "graphical-session.target" ];
@@ -29,5 +31,6 @@
         };
 
       persistUser.directories = [ ".config/1Password" ];
-    };
+    }
+  );
 }

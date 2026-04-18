@@ -1,0 +1,5 @@
+# Set the theme to "TwoDark"
+--theme="Base16-custom"
+
+# Use italic text on the terminal (not supported on all terminals)
+--italic-text=always

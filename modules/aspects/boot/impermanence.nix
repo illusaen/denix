@@ -82,11 +82,17 @@ in
         environment.etc."machine-id".text = "17888962e0404e3980b23115d2d91984";
       };
 
-      persist.directories = [
-        "/var/log"
-        "/var/lib/nixos"
-        "/var/lib/systemd/coredump"
-      ];
+      persist = {
+        hideMounts = true;
+        allowTrash = true;
+
+        directories = [
+          "/var/log"
+          "/var/lib/nixos"
+          "/var/lib/systemd/coredump"
+        ];
+      };
+
       persistUser.directories = [
         {
           directory = ".local/share/keyrings";

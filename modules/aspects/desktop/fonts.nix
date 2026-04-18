@@ -132,7 +132,7 @@
     };
 
   den.aspects.desktop.includes = [ den.aspects.fonts ];
-  den.aspects.fonts =
+  den.aspects.fonts = den.lib.perHost (
     { host, ... }:
     {
       os =
@@ -154,5 +154,6 @@
           sansSerif = [ host.fonts.sans.name ];
         };
       };
-    };
+    }
+  );
 }

@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.ctx.host.includes = [ den.aspects.boot ];
-  den.aspects.boot = {
+  den.aspects.boot = den.lib.perHost {
     nixos =
       { pkgs, ... }:
       {

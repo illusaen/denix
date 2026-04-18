@@ -30,6 +30,7 @@
             enable = true;
             excludes = [ ".envrc" ];
           };
+          fish_indent.enable = true;
         };
         settings.global = {
           on-unmatched = "debug";

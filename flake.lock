@@ -91,16 +91,16 @@
     },
     "den": {
       "locked": {
-        "lastModified": 1776133621,
-        "narHash": "sha256-RNbDvS6voiq2GalVHRt6w2EpdlEmmCjUAb6fvPO9PnE=",
+        "lastModified": 1776480806,
+        "narHash": "sha256-AoYy7a8F0pSvVrqlpX/LvhCFQmZZnODye10oHRk9NNU=",
         "owner": "vic",
         "repo": "den",
-        "rev": "927f4d8e2be40d05c976a91bbec66238c622bbf5",
+        "rev": "f3fa9b5b13969a1eb4c18e4543668fadf2992f91",
         "type": "github"
       },
       "original": {
         "owner": "vic",
-        "ref": "latest",
+        "ref": "fix/host-aspects-dedup",
         "repo": "den",
         "type": "github"
       }
@@ -333,6 +333,27 @@
         "type": "github"
       }
     },
+    "hjem": {
+      "inputs": {
+        "nix-darwin": "nix-darwin",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776410057,
+        "narHash": "sha256-xjJpa+PGjB2lZi1saUU+ubWw5+FpAud/T0/jC1gLL1A=",
+        "owner": "feel-co",
+        "repo": "hjem",
+        "rev": "3828faa3b6c14d4e557866db01d06137f33ad9f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "feel-co",
+        "repo": "hjem",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -388,18 +409,24 @@
         "type": "github"
       }
     },
-    "nix-maid": {
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "hjem",
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1775372244,
-        "narHash": "sha256-pLCCqY/0JC7QdWqyEyDEvGl63f9aS8zrFLVJW7gUMKI=",
-        "owner": "viperML",
-        "repo": "nix-maid",
-        "rev": "993d95a0a5b2f4b06faa022b32112b699ca3bbfd",
+        "lastModified": 1775037210,
+        "narHash": "sha256-KM2WYj6EA7M/FVZVCl3rqWY+TFV5QzSyyGE2gQxeODU=",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin",
+        "rev": "06648f4902343228ce2de79f291dd5a58ee12146",
         "type": "github"
       },
       "original": {
-        "owner": "viperML",
-        "repo": "nix-maid",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin",
         "type": "github"
       }
     },
@@ -580,9 +607,9 @@
         "flake-file": "flake-file",
         "flake-parts": "flake-parts",
         "git-hooks-nix": "git-hooks-nix",
+        "hjem": "hjem",
         "impermanence": "impermanence",
         "import-tree": "import-tree",
-        "nix-maid": "nix-maid",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-lib": [
@@ -591,7 +618,8 @@
         "noctalia": "noctalia",
         "opnix": "opnix",
         "stylix": "stylix",
-        "treefmt-nix": "treefmt-nix_2"
+        "treefmt-nix": "treefmt-nix_2",
+        "wrapper-manager": "wrapper-manager"
       }
     },
     "stylix": {
@@ -773,6 +801,21 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "wrapper-manager": {
+      "locked": {
+        "lastModified": 1772780728,
+        "narHash": "sha256-fCm4sOeTDf3kBtYMmU4OHsviI/oF8rMbPkUMcQf6lw4=",
+        "owner": "viperML",
+        "repo": "wrapper-manager",
+        "rev": "51ad0422b925d830bf4af36979fed51209f79c0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperML",
+        "repo": "wrapper-manager",
         "type": "github"
       }
     }

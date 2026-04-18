@@ -14,17 +14,19 @@
       amd
       nvidia
       desktop
-      chat
-      gaming
+      steam
       vscode
+      element
+      vesktop
     ];
   };
 
   den.aspects.idunn = {
     includes = with den.aspects; [
-      chat
       vscode
       darwinConfig
+      element
+      vesktop
     ];
   };
 
@@ -32,6 +34,10 @@
   den.aspects.wendy = {
     includes = [
       den.provides.primary-user
+      den.aspects.vesktop
+      den.aspects.steam
+      den.aspects.vscode
+      den.aspects.desktop
     ];
 
     user.password = "arst";

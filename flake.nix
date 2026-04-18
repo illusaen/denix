@@ -8,7 +8,7 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    den.url = "github:vic/den/latest";
+    den.url = "github:vic/den/fix/host-aspects-dedup";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,9 +30,12 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hjem = {
+      url = "github:feel-co/hjem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     impermanence.url = "github:nix-community/impermanence";
     import-tree.url = "github:vic/import-tree";
-    nix-maid.url = "github:viperML/nix-maid";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-lib.follows = "nixpkgs";
@@ -46,5 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    wrapper-manager.url = "github:viperML/wrapper-manager";
   };
 }

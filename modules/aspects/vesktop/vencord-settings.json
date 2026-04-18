@@ -1,0 +1,21 @@
+{
+  "autoUpdate": false,
+  "autoUpdateNotification": false,
+  "enabledThemes": [
+    "theme.css"
+  ],
+  "notifyAboutUpdates": false,
+  "plugins": {
+    "ClearURLs": {
+      "enabled": true
+    },
+    "FakeNitro": {
+      "enabled": true
+    },
+    "FixYoutubeEmbeds": {
+      "enabled": true
+    }
+  },
+  "transparent": true,
+  "useQuickCss": true
+}

@@ -4,44 +4,21 @@
   ...
 }:
 let
-  cartesianProduct =
-    platforms: users:
-    builtins.concatLists (map (platform: map (user: { inherit platform user; }) users) platforms);
-
-  maidClass =
-    { host }:
+  variablesClass =
     { aspect-chain, ... }:
     den._.forward {
-      each = lib.attrNames host.users;
-      fromClass = _: "md";
-      intoClass = _: host.class;
-      intoPath = userName: [
-        "users"
-        "users"
-        userName
-        "maid"
+      each = [
+        "nixos"
+        "darwin"
+      ];
+      fromClass = _: "vars";
+      intoClass = lib.id;
+      intoPath = item: [
+        "environment"
+        (if (item == "darwin") then "variables" else "sessionVariables")
       ];
       fromAspect = _: lib.head aspect-chain;
-    };
-
-  mdPlatforms =
-    { host }:
-    { aspect-chain, ... }:
-    den._.forward {
-      each = cartesianProduct [
-        "Linux"
-        "Darwin"
-      ] (lib.attrNames host.users);
-      fromClass = cart: "md${cart.platform}";
-      intoClass = _: host.class;
-      intoPath = cart: [
-        "users"
-        "users"
-        cart.user
-        "maid"
-      ];
-      fromAspect = _: lib.head aspect-chain;
-      guard = { pkgs, ... }: cart: lib.mkIf pkgs.stdenv."is${cart.platform}";
+      evalConfig = true;
     };
 in
 {
@@ -55,9 +32,8 @@ in
     ];
   };
 
-  den.schema.user.classes = lib.mkDefault [ "maid" ];
-
-  den.schema.host.maid.enable = true;
+  den.schema.user.classes = lib.mkDefault [ "hjem" ];
+  den.schema.host.hjem.enable = true;
 
   den.ctx.user.includes = [
     den.provides.define-user
@@ -67,7 +43,6 @@ in
   den.ctx.host.includes = [
     den.provides.hostname
     den.provides.mutual-provider
-    maidClass
-    mdPlatforms
+    variablesClass
   ];
 }

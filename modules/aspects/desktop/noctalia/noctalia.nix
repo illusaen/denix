@@ -1,7 +1,6 @@
 {
   den,
   inputs,
-  lib,
   ...
 }:
 {
@@ -12,9 +11,7 @@
 
   den.aspects.desktop.includes = [ den.aspects.noctalia ];
 
-  den.aspects.noctalia = {
-    includes = lib.attrValues den.aspects.noctalia._;
-
+  den.aspects.noctalia = den.lib.perHost {
     nixos =
       {
         pkgs,
@@ -23,6 +20,24 @@
         ...
       }:
       let
+        noctalia-cache-wallpaper = (pkgs.formats.json { }).generate "wallpapers.json" {
+          defaultWallpaper = ../../../../resources/cube-dark.jpg;
+        };
+
+        noctalia-wrapped = pkgs.symlinkJoin {
+          name = "noctalia-shell";
+          paths = [ (inputs'.noctalia.packages.default.override { calendarSupport = true; }) ];
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            mkdir -p $out/cache
+            install -Dm644 ${./settings.json} $out/settings.json
+            install -Dm644 ${./colors.json} $out/colors.json
+            install -Dm644 ${./plugins.json} $out/plugins.json
+            install -Dm644 ${noctalia-cache-wallpaper} $out/cache/wallpapers.json
+            wrapProgram $out/bin/noctalia-shell --set NOCTALIA_CONFIG_DIR $out --set NOCTALIA_CACHE_DIR $out/cache
+          '';
+        };
+
         # Small application to easily show changed values from live noctalia settings
         noctalia-diff = pkgs.writeShellApplication {
           name = "noctalia-diff";
@@ -50,18 +65,9 @@
 
         environment.systemPackages = [
           noctalia-diff
-          (inputs'.noctalia.packages.default.override { calendarSupport = true; })
+          noctalia-wrapped
         ];
       };
-
-    md = {
-      file.xdg_config."noctalia/settings.json".source = ./settings.json;
-      file.xdg_config."noctalia/colors.json".source = ./colors.json;
-      file.xdg_config."noctalia/plugins.json".source = ./plugins.json;
-      file.xdg_cache."noctalia/wallpapers.json".source = builtins.toJSON {
-        defaultWallpaper = ../../../../resources/cube-dark.jpg;
-      };
-    };
 
     persistUser.directories = [
       ".cache/noctalia"

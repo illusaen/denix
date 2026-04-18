@@ -1,0 +1,22 @@
+[core]
+    sshCommand = "ssh -i /etc/ssh/id_rsa"
+
+[diff]
+    external = "difft --color auto --background dark --display side-by-side"
+
+[init]
+    defaultBranch = "main"
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
+[user]
+    email = "jaewchen@gmail.com"
+    name = "Wendy Chen"
+
+[credential]
+    helper = "gh auth git-credential"
+    username = "illusaen"

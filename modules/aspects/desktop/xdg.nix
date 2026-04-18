@@ -85,7 +85,7 @@
         }
       ];
 
-      md =
+      hjem =
         {
           pkgs,
           lib,
@@ -95,50 +95,52 @@
           inherit (den.aspects.xdg) mime;
         in
         {
-          file.xdg_config."user-dirs.dirs".text = ''
-            XDG_DOWNLOAD_DIR="$HOME/Downloads"
-            XDG_PICTURES_DIR="$HOME/Pictures"
-          '';
-          file.xdg_config."user-dirs.conf".text = "enabled=False";
+          files = {
+            ".config/user-dirs.dirs".text = ''
+              XDG_DOWNLOAD_DIR="$HOME/Downloads"
+              XDG_PICTURES_DIR="$HOME/Pictures"
+            '';
+            ".config/user-dirs.conf".text = "enabled=False";
 
-          file.xdg_config."mimeapps.list".source =
-            let
-              joinValues = lib.mapAttrs (_: lib.concatStringsSep ";");
+            ".config/mimeapps.list".source =
+              let
+                joinValues = lib.mapAttrs (_: lib.concatStringsSep ";");
 
-              baseFile = (pkgs.formats.ini { }).generate "mimeapps.list" {
-                "Added Associations" = joinValues mime.associations.added;
-                "Removed Associations" = joinValues mime.associations.removed;
-                "Default Applications" = joinValues mime.defaultApplications;
-              };
+                baseFile = (pkgs.formats.ini { }).generate "mimeapps.list" {
+                  "Added Associations" = joinValues mime.associations.added;
+                  "Removed Associations" = joinValues mime.associations.removed;
+                  "Default Applications" = joinValues mime.defaultApplications;
+                };
 
-              # With default application packages merged into the generated base file.
-              mergedFile = pkgs.runCommand "mimeapps.list" { ps = mime.defaultApplicationPackages; } ''
-                export PATH=$PATH:${pkgs.crudini}/bin
+                # With default application packages merged into the generated base file.
+                mergedFile = pkgs.runCommand "mimeapps.list" { ps = mime.defaultApplicationPackages; } ''
+                  export PATH=$PATH:${pkgs.crudini}/bin
 
-                function mergeEntry() {
-                  local mime="$1"
-                  local name="$2"
-                  local existing
+                  function mergeEntry() {
+                    local mime="$1"
+                    local name="$2"
+                    local existing
 
-                  existing="$(crudini --get $out 'Default Applications' "$mime" 2>/dev/null || true)"
-                  local value="$existing''${existing:+;}''$name"
-                  crudini --ini-options=nospace --inplace --set $out 'Default Applications' "$mime" "$value"
-                }
+                    existing="$(crudini --get $out 'Default Applications' "$mime" 2>/dev/null || true)"
+                    local value="$existing''${existing:+;}''$name"
+                    crudini --ini-options=nospace --inplace --set $out 'Default Applications' "$mime" "$value"
+                  }
 
-                install -m644 ${baseFile} $out
+                  install -m644 ${baseFile} $out
 
-                for p in $ps ; do
-                  for path in "$p"/share/applications/*.desktop ; do
-                    name="''${path##*/}"
-                    mimes=$(crudini --get "$path" 'Desktop Entry' MimeType 2>/dev/null || true)
-                    for mime in ''${mimes//;/ }; do
-                      mergeEntry "$mime" "$name"
+                  for p in $ps ; do
+                    for path in "$p"/share/applications/*.desktop ; do
+                      name="''${path##*/}"
+                      mimes=$(crudini --get "$path" 'Desktop Entry' MimeType 2>/dev/null || true)
+                      for mime in ''${mimes//;/ }; do
+                        mergeEntry "$mime" "$name"
+                      done
                     done
                   done
-                done
-              '';
-            in
-            if mime.defaultApplicationPackages == [ ] then baseFile else mergedFile;
+                '';
+              in
+              if mime.defaultApplicationPackages == [ ] then baseFile else mergedFile;
+          };
         };
 
       nixos =

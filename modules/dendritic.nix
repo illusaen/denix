@@ -11,7 +11,7 @@
   ];
 
   flake-file.inputs = {
-    den.url = "github:vic/den/latest";
+    den.url = "github:vic/den/fix/host-aspects-dedup";
     flake-file.url = "github:vic/flake-file";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -19,10 +19,11 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-maid.url = "github:viperML/nix-maid";
+    hjem = {
+      url = "github:feel-co/hjem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   systems = lib.attrNames den.hosts;
-
-  flake.den = den;
 }
