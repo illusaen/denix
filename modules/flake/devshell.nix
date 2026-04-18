@@ -79,7 +79,10 @@
             config.treefmt.build.devShell
             config.pre-commit.devShell
           ];
-          packages = [ pkgs.nixd ];
+          packages = [
+            pkgs.nixd
+            pkgs.npins
+          ];
         };
     };
 }
