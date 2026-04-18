@@ -4,7 +4,9 @@
   ...
 }:
 {
-  den.ctx.host.includes = [ den.aspects.cli ];
+  den.ctx.host.includes = [
+    den.aspects.cli
+  ];
 
   den.schema.host =
     { lib, ... }:
@@ -15,7 +17,7 @@
           email = "jaewchen@gmail.com";
           dirs = {
             projects = "$HOME/Projects";
-            nix = "$HOME/Projects/nix";
+            nix = "$HOME/Projects/nix-den";
           };
         };
       };
@@ -119,12 +121,14 @@
         environment.systemPackages = with pkgs; [ google-cloud-sdk ];
       };
 
-    _.bat =
-      { pkgs, ... }:
-      {
-        nixos.programs.bat.enable = true;
-        darwin.environment.systemPackages = with pkgs; [ bat ];
-      };
+    _.bat = {
+      nixos.programs.bat.enable = true;
+      darwin =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = with pkgs; [ bat ];
+        };
+    };
 
     _.fzf.os =
       { pkgs, ... }:

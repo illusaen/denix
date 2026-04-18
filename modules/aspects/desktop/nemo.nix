@@ -2,49 +2,28 @@
 {
   den.aspects.desktop.includes = [ den.aspects.nemo ];
 
-  # den.aspects.xdg.mime = {
-  #   defaultApplications = lib.mkBefore (
-  #     let
-  #       application = "nemo.desktop";
-  #       mimeTypes = [
-  #         "inode/directory"
-  #         "application/x-gnome-saved-search"
-  #       ];
-  #     in
-  #     lib.genAttrs mimeTypes (_: application)
-  #   );
-  #   associations.added =
-  #     let
-  #       application = "nemo-autorun-software.desktop";
-  #       mimeTypes = [
-  #         "x-content/unix-software"
-  #       ];
-  #     in
-  #     lib.genAttrs mimeTypes (_: application);
-  # };
+  den.aspects.xdg.mime = {
+    defaultApplications = lib.mkBefore (
+      let
+        application = "nemo.desktop";
+        mimeTypes = [
+          "inode/directory"
+          "application/x-gnome-saved-search"
+        ];
+      in
+      lib.genAttrs mimeTypes (_: application)
+    );
+    associations.added =
+      let
+        application = "nemo-autorun-software.desktop";
+        mimeTypes = [
+          "x-content/unix-software"
+        ];
+      in
+      lib.genAttrs mimeTypes (_: application);
+  };
 
   den.aspects.nemo = {
-    mime = {
-      defaultApplications = lib.mkBefore (
-        let
-          application = "nemo.desktop";
-          mimeTypes = [
-            "inode/directory"
-            "application/x-gnome-saved-search"
-          ];
-        in
-        lib.genAttrs mimeTypes (_: application)
-      );
-      associations.added =
-        let
-          application = "nemo-autorun-software.desktop";
-          mimeTypes = [
-            "x-content/unix-software"
-          ];
-        in
-        lib.genAttrs mimeTypes (_: application);
-    };
-
     nixos =
       { pkgs, ... }:
       {

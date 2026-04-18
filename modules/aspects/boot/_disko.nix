@@ -1,6 +1,6 @@
 {
-  disk ? "nvme1n1",
-  persistMount ? "/persisted",
+  disk,
+  persistMount,
 }:
 {
   disko.devices = {

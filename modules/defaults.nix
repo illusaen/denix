@@ -1,4 +1,8 @@
-{ lib, den, ... }:
+{
+  lib,
+  den,
+  ...
+}:
 let
   cartesianProduct =
     platforms: users:
