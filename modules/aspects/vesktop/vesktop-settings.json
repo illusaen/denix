@@ -1,5 +1,7 @@
 {
     "checkUpdates": false,
     "minimizeToTray": true,
-    "tray": true
+    "tray": true,
+    "autoStartMinimized": true,
+    "discordBranch": "stable" 
 }

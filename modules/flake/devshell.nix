@@ -60,7 +60,7 @@
           buildOpnix = inputs'.opnix.packages.default;
           opnixEnvConfig.vars = [
             {
-              name = "GITHUB_TOKEN";
+              name = "GH_TOKEN";
               reference = "op://Service/Github/token";
             }
           ];
@@ -68,15 +68,11 @@
         in
         pkgs.mkShell {
           shellHook = config.pre-commit.installationScript + ''
-            if [ -f ".env" ]; then
-              exit 0
+            echo "Loading GITHUB_TOKEN with opnix."
+            if output="$(${buildOpnix}/bin/opnix env -config-json ${opnixConfig} -format shell)"; then
+              echo "$output" > .env
             else
-              echo "Loading GITHUB_TOKEN with opnix."
-              if output="$(${buildOpnix}/bin/opnix env -config-json ${opnixConfig} -format shell)"; then
-                echo "$output" > .env
-              else
-                echo "WARNING: failed to resolve opnix environment variables" >&2
-              fi
+              echo "WARNING: failed to resolve opnix environment variables" >&2
             fi
           '';
           inputsFrom = [

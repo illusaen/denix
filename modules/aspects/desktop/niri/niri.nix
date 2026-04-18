@@ -28,7 +28,7 @@
         systemd.user.services = {
           niri-flake-polkit.enable = lib.mkDefault false;
           delayed-startup = {
-            wantedBy = [ "default.target" ];
+            wantedBy = [ "graphical-session.target" ];
             description = "Delayed startup of programs in xdg autostart that have NotShowIn=niri attr";
             script = ''
               ${pkgs.coreutils}/bin/sleep 1

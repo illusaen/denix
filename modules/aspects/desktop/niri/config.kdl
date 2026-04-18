@@ -73,27 +73,27 @@ environment {
     "XDG_SESSION_TYPE" "wayland"
 }
 binds {
-    Alt+Shift+4 { screenshot show-pointer=false; }
-    Alt+Shift+T { spawn-sh "kitten quick-access-terminal"; }
+    Alt+Shift+4 hotkey-overlay-title="Screenshot" { screenshot show-pointer=false; }
+    Alt+Shift+T hotkey-overlay-title="Terminal" { spawn-sh "kitten quick-access-terminal"; }
     Ctrl+Space { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+C { expand-column-to-available-width; }
     Mod+Ctrl+C { spawn "sh" "-c" "noctalia-shell ipc call launcher clipboard"; }
     Mod+Ctrl+Down { focus-monitor-down; }
     Mod+Ctrl+F { toggle-windowed-fullscreen; }
     Mod+Ctrl+Shift+Down { move-window-to-monitor-down; }
-    Mod+Ctrl+Shift+Q { spawn "sh" "-c" "pkill -9 winedevice.exe"; }
+    Mod+Ctrl+Shift+Q hotkey-overlay-title="Kill Wine" { spawn "sh" "-c" "pkill -9 winedevice.exe"; }
     Mod+Ctrl+Shift+Up { move-window-to-monitor-up; }
     Mod+Ctrl+Up { focus-monitor-up; }
     Mod+Down { focus-workspace-down; }
-    Mod+E { spawn "nemo"; }
-    Mod+Escape { show-hotkey-overlay; }
+    Mod+E hotkey-overlay-title="Nemo" { spawn "nemo"; }
+    Mod+Escape hotkey-overlay-title="Keybinds" { spawn "sh" "-c" "noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
+    Mod+Shift+Escape { show-hotkey-overlay; }
     Mod+F { maximize-column; }
-    Mod+G { spawn "google-chrome-stable"; }
+    Mod+G hotkey-overlay-title="Google Chrome" { spawn "google-chrome-stable"; }
     Mod+Left { focus-window-up-or-column-left; }
     Mod+Q repeat=false { close-window; }
     Mod+Right { focus-window-down-or-column-right; }
     Mod+Shift+Down { move-column-to-workspace-down; }
-    Mod+Shift+Escape { spawn "sh" "-c" "noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Shift+Left { move-column-left; }
     Mod+Shift+P { power-off-monitors; }
@@ -110,12 +110,21 @@ binds {
     Mod+Z { switch-preset-column-width; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume decrease"; }
     XF86AudioMute allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume muteOutput"; }
-    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
-    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
-    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86AudioNext hotkey-overlay-title="Playerctl next" allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPlay hotkey-overlay-title="Playerctl play/pause" allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPrev hotkey-overlay-title="Playerctl prev" allow-when-locked=true { spawn "playerctl" "previous"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume increase"; }
 }
-workspace "chat" { open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852"; }
+workspace "chat" {
+    open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
+    layout {
+        default-column-width { proportion 0.666667; }
+        preset-column-widths {
+            proportion 0.666667
+            proportion 0.8
+        }
+    }
+}
 workspace "code" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 workspace "gaming" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 window-rule {

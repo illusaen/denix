@@ -41,11 +41,5 @@
     };
 
     persist.files = [ "/etc/opnix-token" ];
-    persistUser.directories = [
-      {
-        directory = ".config/op";
-        mode = "0700";
-      }
-    ];
   };
 }

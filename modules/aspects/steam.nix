@@ -12,22 +12,25 @@
           environment.systemPackages = with pkgs; [ steam ];
         };
 
-      nixos.programs.steam.enable = true;
-    };
+      nixos =
+        { pkgs, ... }:
+        {
+          programs.steam.enable = true;
 
-    _.autostart = den.lib.perUser {
-      hjem.files = {
-        ".config/autostart/steam.desktop".text = ''
-          [Desktop Entry]
-          Type=Application
-          Exec=steam -silent
-          Hidden=false
-          NoDisplay=false
-          X-GNOME-Autostart-enabled=true
-          Name=Steam
-          Comment=Start Steam on login
-        '';
-      };
+          systemd.user.services.steam-start = {
+            description = "Start Steam on login";
+            after = [
+              "graphical-session.target"
+              "graphical-session-pre.target"
+            ];
+            wantedBy = [ "graphical-session.target" ];
+            serviceConfig = {
+              ExecStart = "${pkgs.steam}/bin/steam -silent";
+              Restart = "on-failure";
+              RestartSec = 5;
+            };
+          };
+        };
     };
   };
 }

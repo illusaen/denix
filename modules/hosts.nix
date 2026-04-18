@@ -17,7 +17,7 @@
       steam
       vscode
       element
-      vesktop
+      discord
     ];
   };
 
@@ -26,7 +26,7 @@
       vscode
       darwinConfig
       element
-      vesktop
+      discord
     ];
   };
 
@@ -34,11 +34,14 @@
   den.aspects.wendy = {
     includes = [
       den.provides.primary-user
-      den.aspects.vesktop
-      den.aspects.steam
-      den.aspects.vscode
-      den.aspects.desktop
-    ];
+    ]
+    ++ (with den.aspects; [
+      vscode
+      element
+      discord
+      steam
+      desktop
+    ]);
 
     user.password = "arst";
 

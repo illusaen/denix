@@ -21,7 +21,6 @@
         hjem =
           {
             pkgs,
-            lib,
             ...
           }:
           let
@@ -29,22 +28,17 @@
           in
           {
             files = {
-              ".config/autostart/vesktop.desktop" = lib.mkIf (!pkgs.stdenv.isDarwin) {
+              ".config/autostart/vesktop.desktop" = lib.mkIf (pkgs.stdenv.isLinux) {
                 text = ''
                   [Desktop Entry]
-                  NotShowIn=niri
-                  Categories=Network;InstantMessaging;Chat
-                  Exec=vesktop --start-minimized
-                  GenericName=Internet Messenger
-                  Icon=vesktop
-                  Keywords=discord;vencord;electron;chat
-                  Name=Vesktop
-                  StartupWMClass=Vesktop
                   Type=Application
-                  Version=1.5
+                  Name=Vesktop
+                  Exec=${pkgs.vesktop}/bin/vesktop --start-minimized
+                  X-GNOME-Autostart-enabled=true
+                  NoDisplay=true
+                  NotShowIn=niri
                 '';
               };
-
               "${configDir}/vesktop/settings.json".source = ./vesktop-settings.json;
               "${configDir}/vesktop/settings/settings.json".source = ./vencord-settings.json;
               "${configDir}/vesktop/themes/theme.css".source = ./theme.css;

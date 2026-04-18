@@ -110,6 +110,7 @@
           "maxWidth": 480,
           "scrollingMode": "hover",
           "showIcon": true,
+          "showText": true,
           "textColor": "none",
           "useFixedWidth": false
         }
@@ -491,7 +492,7 @@
       1,
       2
     ],
-    "location": "top_right",
+    "location": "bottom_right",
     "monitors": [
       "DP-2"
     ],
