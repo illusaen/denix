@@ -19,6 +19,7 @@
     {
       treefmt = {
         flakeCheck = true;
+        projectRoot = ../../.;
         programs = {
           nixfmt.enable = true;
           deadnix.enable = true;

@@ -44,7 +44,7 @@ in
         let
           image = wallpaper;
           polarity =
-            if (isNull base16Scheme) then
+            if (base16Scheme == null) then
               lib.pipe image [
                 baseNameOf
                 (lib.splitString ".")
@@ -67,9 +67,9 @@ in
               serif = host.fonts.sans;
               sansSerif = host.fonts.sans;
               monospace = host.fonts.mono;
-              emoji = host.fonts.emoji;
+              inherit (host.fonts) emoji;
 
-              sizes = host.fonts.sizes;
+              inherit (host.fonts) sizes;
             };
           };
         };

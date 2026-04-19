@@ -20,7 +20,7 @@
       in
       {
         environment.systemPackages = [ eza-wrapped ];
-        programs.fish = lib.mkIf (config.programs.fish.enable) {
+        programs.fish = lib.mkIf config.programs.fish.enable {
           shellAliases = {
             l = "eza -alg";
             ll = "eza --tree --git-ignore --all";

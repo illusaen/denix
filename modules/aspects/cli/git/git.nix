@@ -33,7 +33,7 @@
         ];
         environment.etc."gitconfig".source = ./gitconfig;
 
-        programs.fish = lib.mkIf (config.programs.fish.enable) {
+        programs.fish = lib.mkIf config.programs.fish.enable {
           interactiveShellInit = ''
             abbr -a gcm --set-cursor 'git commit -m "%"'
             abbr -a git_clone_own_repo --set-cursor --regex "^g(gc|r)l\$" --function _git_clone_repo

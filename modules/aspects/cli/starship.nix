@@ -98,7 +98,7 @@
       in
       {
         environment.systemPackages = [ starship-wrapped ];
-        programs.fish = lib.mkIf (config.programs.fish.enable) {
+        programs.fish = lib.mkIf config.programs.fish.enable {
           interactiveShellInit = ''
             ${lib.getExe starship-wrapped} init fish | source
           '';

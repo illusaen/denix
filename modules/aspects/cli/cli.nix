@@ -23,7 +23,7 @@
             fzf
           ];
 
-          environment.etc."dependencies.txt".text = lib.pipe (config.environment.systemPackages) (
+          environment.etc."dependencies.txt".text = lib.pipe config.environment.systemPackages (
             with builtins;
             [
               (lib.map (p: p.name))

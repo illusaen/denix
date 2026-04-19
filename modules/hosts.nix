@@ -1,10 +1,8 @@
 { den, ... }:
 let
-  disko = (
-    import ./aspects/boot/_disko.nix {
-      inherit (den.aspects.impermanence) disk persistMount rollbackSnapshot;
-    }
-  );
+  disko = import ./aspects/boot/_disko.nix {
+    inherit (den.aspects.impermanence) disk persistMount rollbackSnapshot;
+  };
 in
 {
   den.hosts.x86_64-linux.odin.users.wendy = { };

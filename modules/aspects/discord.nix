@@ -22,7 +22,7 @@
           ...
         }:
         {
-          files.".config/autostart/vesktop.desktop" = lib.mkIf (pkgs.stdenv.isLinux) {
+          files.".config/autostart/vesktop.desktop" = lib.mkIf pkgs.stdenv.isLinux {
             text = ''
               [Desktop Entry]
               Type=Application

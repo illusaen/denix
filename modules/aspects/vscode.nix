@@ -135,7 +135,7 @@
                 ".config/${configDir}/User";
             extensionPath = ".vscode/extensions";
             extensionJson = ext: pkgs.vscode-utils.toExtensionJson ext;
-            extensionDrv = (pkgs.writeText "extensions-json" (extensionJson extensions));
+            extensionDrv = pkgs.writeText "extensions-json" (extensionJson extensions);
           in
           {
             # systemd.services.vscode-extension-update = {
