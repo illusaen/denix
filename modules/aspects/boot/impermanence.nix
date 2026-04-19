@@ -89,7 +89,7 @@ in
             ];
             after = [
               # this is a dynamically generated service, based on the zpool name
-              "zfs-import-zpool.service"
+              "zfs-import-zroot.service"
             ];
             before = [
               "sysroot.mount"
