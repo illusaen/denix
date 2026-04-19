@@ -2,10 +2,12 @@
 {
   flake-file.inputs = {
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
   };
 
   imports = [
     inputs.treefmt-nix.flakeModule
+    inputs.git-hooks-nix.flakeModule
   ];
 
   perSystem =
@@ -44,6 +46,8 @@
         ];
       };
 
+      pre-commit.settings.hooks.treefmt.enable = true;
+
       devShells.default =
         let
           denApps = den.lib.nh.denApps {
@@ -62,6 +66,8 @@
         in
         pkgs.mkShell {
           shellHook = ''
+            ${config.pre-commit.shellHook}
+
             if [ -f .env ]; then
               exit 0
             fi
@@ -77,6 +83,7 @@
           ];
           packages =
             denApps
+            ++ config.pre-commit.settings.enabledPackages
             ++ (with pkgs; [
               nixd
               npins

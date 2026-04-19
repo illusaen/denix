@@ -184,6 +184,19 @@
       "url": "https://github.com/SenchoPens/fromYaml/archive/106af9e2f715e2d828df706c386a685698f3223b.tar.gz",
       "hash": "sha256-lq95WydhbUTWig/JpqiB7oViTcHFP8Lv41IGtayokA8="
     },
+    "git-hooks-nix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "cachix",
+        "repo": "git-hooks.nix"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "580633fa3fe5fc0379905986543fd7495481913d",
+      "url": "https://github.com/cachix/git-hooks.nix/archive/580633fa3fe5fc0379905986543fd7495481913d.tar.gz",
+      "hash": "sha256-8Psjt+TWvE4thRKktJsXfR6PA/fWWsZ04DVaY6PUhr4="
+    },
     "gnome-shell": {
       "type": "Git",
       "repository": {
