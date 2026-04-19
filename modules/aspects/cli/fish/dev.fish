@@ -12,6 +12,7 @@ function dev
     set -l NAME $argv[1]
     set -l FLAKE_FILE "$NIX_CONF/templates/$NAME-flake.nix"
     set -l GITIGNORE_FILE "$NIX_CONF/templates/gitignore"
+    set -l ENVRC_FILE "$NIX_CONF/templates/envrc"
 
     if not test -f "$FLAKE_FILE"
         echo "$NAME template doesn't exist yet."
@@ -41,9 +42,7 @@ function dev
 
     if not test -f .envrc
         echo "  .envrc doesn't exist, manually creating with default."
-        echo "watch_file flake.nix" >.envrc
-        echo "watch_file flake.lock" >>.envrc
-        echo "use flake" >>.envrc
+        cp $ENVRC_FILE .envrc
 
         if test "$NAME" = python
             echo "layout python3" >>.envrc

@@ -35,6 +35,7 @@
                 catppuccin.catppuccin-vsc-icons
                 naumovs.color-highlight
                 usernamehw.errorlens
+                catppuccin.catppuccin-vsc
               ]
               ++ [
                 (pkgs.vscode-utils.extensionFromVscodeMarketplace {
@@ -99,7 +100,6 @@
               "workbench.panel.defaultLocation" = "right";
               "update.mode" = "none";
               "extensions.autoCheckUpdates" = false;
-              "workbench.colorTheme" = "Stylix";
               "editor.fontFamily" = host.fonts.mono.name;
               "editor.inlayHints.fontFamily" = host.fonts.mono.name;
               "editor.inlineSuggest.fontFamily" = host.fonts.mono.name;
@@ -123,6 +123,37 @@
               "editor.minimap.sectionHeaderFontSize" = host.fonts.sizes.terminal * 4.0 / 3.0 * 9.0 / 14.0;
               "scm.inputFontSize" = host.fonts.sizes.terminal * 4.0 / 3.0 * 13.0 / 14.0;
               "screencastMode.fontSize" = host.fonts.sizes.terminal * 4.0 / 3.0 * 56.0 / 14.0;
+
+              "workbench.colorTheme" = "Catppuccin Macchiato";
+              "workbench.colorCustomizations" = {
+                "[Catppuccin Macchiato]" = {
+                  "titleBar.activeBackground" = "#242933";
+                  "titleBar.inactiveBackground" = "#242933";
+                  "editor.background" = "#242933";
+                  "editorGutter.background" = "#242933";
+                  "editorPane.background" = "#242933";
+                  "editorGroupHeader.tabsBackground" = "#242933";
+                  "editorOverviewRuler.background" = "#242933";
+                  "breadcrumb.background" = "#242933";
+                  "tab.activeBackground" = "#242933";
+                  "tab.unfocusedActiveBackground" = "#242933";
+                  "tab.selectedBackground" = "#242933";
+                  "sideBar.background" = "#242933";
+                  "sideBarSectionHeader.background" = "#242933";
+                  "panel.background" = "#242933";
+                  "statusBar.background" = "#242933";
+                  "menu.background" = "#242933";
+                  "commandCenter.background" = "#242933";
+                  "commandCenter.activeBackground" = "#242933";
+                  "commandCenter.debuggingBackground" = "#242933";
+                  "scrollbar.background" = "#242933";
+                  "scrollbarSlider.activeBackground" = "#242933";
+                  "scrollbar.shadow" = "#242933";
+                  "terminal.background" = "#242933";
+                  "notifications.background" = "#242933";
+                  "activityBar.background" = "#242933";
+                };
+              };
             };
 
             jsonFormat = pkgs.formats.json { };
