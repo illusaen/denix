@@ -61,7 +61,7 @@ in
           stylix = {
             enable = true;
             autoEnable = true;
-            inherit polarity image base16Scheme;
+            inherit polarity image;
 
             fonts = {
               serif = host.fonts.sans;

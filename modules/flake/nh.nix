@@ -1,27 +1,32 @@
-# Exposes flake apps under the name of each host / home for building with nh.
-{ den, ... }:
+# Provides shell utilities under `den.sh` for building OS configurations using
+# github:nix-community/nh instead of nixos-rebuild, etc
 {
-  perSystem =
-    { pkgs, ... }:
-    {
-      packages = den.lib.nh.denPackages { fromFlake = true; } pkgs;
-    };
+  lib,
+  den,
+  inputs,
+  ...
+}:
+{
+  options.den.sh = lib.mkOption {
+    description = "Non-flake Den shell environment";
+    default = den.lib.nh.denShell {
+      fromFlake = false;
+      outPrefix = [ "flake" ];
+    } (import inputs.nixpkgs { });
+  };
 
-  den.ctx.host.includes = [ den.aspects.nh ];
-
-  den.aspects.nh = {
-    os =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ nh ];
-
+  config = {
+    den.ctx.host.includes = [ den.aspects.nh ];
+    den.aspects.nh = {
+      os = {
         programs.fish.shellAbbrs = {
           nd = "nh clean all";
           buildmodi = "nixos-rebuild switch --flake .#modi --target-host wendy@192.168.1.104 --use-remote-sudo";
         };
       };
 
-    nixos.programs.fish.shellAbbrs.bb = "nh os switch .";
-    darwin.programs.fish.shellAbbrs.bb = "nh darwin switch .";
+      nixos.programs.fish.shellAbbrs.bb = "nh os switch .";
+      darwin.programs.fish.shellAbbrs.bb = "nh darwin switch .";
+    };
   };
 }

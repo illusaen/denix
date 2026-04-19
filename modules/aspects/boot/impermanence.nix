@@ -7,6 +7,7 @@
 let
   persistMount = "/persisted";
   disk = "nvme1n1";
+  rollbackSnapshot = "zroot/local/root@blank";
 in
 {
   flake-file.inputs.impermanence.url = "github:nix-community/impermanence";
@@ -26,14 +27,19 @@ in
           options = {
             disk = lib.mkOption {
               type = lib.types.str;
+              default = disk;
             };
             persistMount = lib.mkOption {
               type = lib.types.str;
+              default = persistMount;
+            };
+            rollbackSnapshot = lib.mkOption {
+              type = lib.types.str;
+              default = rollbackSnapshot;
             };
           };
         }
       ];
-      inherit persistMount disk;
 
       _.persistedClass =
         { host }:
@@ -69,18 +75,39 @@ in
           guard = { options, ... }: options ? environment.persistence;
         };
 
-      nixos = {
-        imports = [
-          inputs.impermanence.nixosModules.impermanence
-        ];
+      nixos =
+        { pkgs, ... }:
+        {
+          imports = [
+            inputs.impermanence.nixosModules.impermanence
+          ];
 
-        boot.initrd.postResumeCommands = lib.mkAfter ''
-          zfs rollback -r zroot/local/root@blank
-        '';
-        networking.hostId = "17888962";
-        fileSystems."${persistMount}".neededForBoot = true;
-        environment.etc."machine-id".text = "17888962e0404e3980b23115d2d91984";
-      };
+          boot.initrd.systemd.services.zfs-rollback = {
+            description = "Rollback ZFS root dataset to blank snapshot";
+            wantedBy = [
+              "initrd.target"
+            ];
+            after = [
+              # this is a dynamically generated service, based on the zpool name
+              "zfs-import-zpool.service"
+            ];
+            before = [
+              "sysroot.mount"
+            ];
+            path = with pkgs; [
+              zfs
+            ];
+            unitConfig.DefaultDependencies = "no";
+            serviceConfig.Type = "oneshot";
+            script = ''
+              zfs rollback -r ${rollbackSnapshot} && echo "zfs rollback complete"
+            '';
+          };
+
+          networking.hostId = "17888962";
+          fileSystems."${persistMount}".neededForBoot = true;
+          environment.etc."machine-id".text = "17888962e0404e3980b23115d2d91984";
+        };
 
       persist = {
         hideMounts = true;

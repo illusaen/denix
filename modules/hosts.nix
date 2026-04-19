@@ -1,4 +1,11 @@
 { den, ... }:
+let
+  disko = (
+    import ./aspects/boot/_disko.nix {
+      inherit (den.aspects.impermanence) disk persistMount rollbackSnapshot;
+    }
+  );
+in
 {
   den.hosts.x86_64-linux.odin.users.wendy = { };
   den.hosts.x86_64-linux.thor.users.wendy = { }; # Seedbox server
@@ -6,9 +13,7 @@
 
   # host aspect
   den.aspects.odin = {
-    disko = (
-      import ./aspects/boot/_disko.nix { inherit (den.aspects.impermanence) disk persistMount; }
-    );
+    inherit disko;
 
     includes = with den.aspects; [
       amd
@@ -19,6 +24,10 @@
       element
       discord
     ];
+  };
+
+  den.aspects.thor = {
+    inherit disko;
   };
 
   den.aspects.idunn = {

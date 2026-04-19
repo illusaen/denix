@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, den, ... }:
 {
   flake-file.inputs = {
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -9,7 +9,7 @@
   };
 
   imports = [
-    inputs.git-hooks-nix.flakeModule
+    # inputs.git-hooks-nix.flakeModule
     inputs.treefmt-nix.flakeModule
   ];
 
@@ -23,7 +23,7 @@
     }:
     {
       treefmt = {
-        flakeCheck = false;
+        flakeCheck = true;
         programs = {
           nixfmt.enable = true;
           shellcheck = {
@@ -46,17 +46,22 @@
         ];
       };
 
-      pre-commit.settings.hooks = {
-        treefmt = {
-          enable = true;
-          packageOverrides.treefmt = config.treefmt.build.wrapper;
-        };
-        deadnix.enable = true;
-        statix.enable = false;
-      };
+      # pre-commit.settings.hooks = {
+      #   treefmt = {
+      #     enable = true;
+      #     packageOverrides.treefmt = config.treefmt.build.wrapper;
+      #   };
+      #   deadnix.enable = true;
+      #   statix.enable = false;
+      # };
 
       devShells.default =
         let
+          denApps = den.lib.nh.denApps {
+            outPrefix = [ ];
+            fromFlake = false;
+          } pkgs;
+
           buildOpnix = inputs'.opnix.packages.default;
           opnixEnvConfig.vars = [
             {
@@ -67,8 +72,11 @@
           opnixConfig = lib.escapeShellArg (builtins.toJSON opnixEnvConfig);
         in
         pkgs.mkShell {
-          shellHook = config.pre-commit.installationScript + ''
+          shellHook = ''
             echo "Loading GITHUB_TOKEN with opnix."
+            if [ -f .env ]; then
+              exit 0
+            fi
             if output="$(${buildOpnix}/bin/opnix env -config-json ${opnixConfig} -format shell)"; then
               echo "$output" > .env
             else
@@ -77,12 +85,16 @@
           '';
           inputsFrom = [
             config.treefmt.build.devShell
-            config.pre-commit.devShell
+            # config.pre-commit.devShell
           ];
-          packages = [
-            pkgs.nixd
-            pkgs.npins
-          ];
+          packages =
+            denApps
+            # ++ config.pre-commit.settings.enabledPackages
+            ++ (with pkgs; [
+              nixd
+              npins
+              nh
+            ]);
         };
     };
 }

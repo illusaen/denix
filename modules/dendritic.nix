@@ -6,13 +6,19 @@
 }:
 {
   imports = [
-    (inputs.flake-file.flakeModules.dendritic or { })
+    (inputs.flake-file.flakeModules.flakeless-parts or { })
     (inputs.den.flakeModules.dendritic or { })
+    inputs.flake-file.flakeModules.npins
   ];
 
   flake-file.inputs = {
-    den.url = "github:vic/den/fix/host-aspects-dedup";
+    den.url = "github:vic/den";
     flake-file.url = "github:vic/flake-file";
+    import-tree.url = "github:vic/import-tree";
+    with-inputs = {
+      url = "github:vic/with-inputs";
+      flake = false;
+    };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     darwin = {

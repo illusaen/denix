@@ -6,6 +6,8 @@
   den.aspects.cli._.fish = den.lib.perHost {
     vars.EDITOR = "vim";
 
+    persistUser.files = [ ".local/share/fish/fish_history" ];
+
     os =
       { pkgs, ... }:
       let
