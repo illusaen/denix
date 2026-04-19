@@ -2,14 +2,9 @@
 {
   flake-file.inputs = {
     treefmt-nix.url = "github:numtide/treefmt-nix";
-    git-hooks-nix = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   imports = [
-    # inputs.git-hooks-nix.flakeModule
     inputs.treefmt-nix.flakeModule
   ];
 
@@ -46,15 +41,6 @@
         ];
       };
 
-      # pre-commit.settings.hooks = {
-      #   treefmt = {
-      #     enable = true;
-      #     packageOverrides.treefmt = config.treefmt.build.wrapper;
-      #   };
-      #   deadnix.enable = true;
-      #   statix.enable = false;
-      # };
-
       devShells.default =
         let
           denApps = den.lib.nh.denApps {
@@ -73,10 +59,10 @@
         in
         pkgs.mkShell {
           shellHook = ''
-            echo "Loading GITHUB_TOKEN with opnix."
             if [ -f .env ]; then
               exit 0
             fi
+            echo "Loading GITHUB_TOKEN with opnix."
             if output="$(${buildOpnix}/bin/opnix env -config-json ${opnixConfig} -format shell)"; then
               echo "$output" > .env
             else
@@ -85,11 +71,9 @@
           '';
           inputsFrom = [
             config.treefmt.build.devShell
-            # config.pre-commit.devShell
           ];
           packages =
             denApps
-            # ++ config.pre-commit.settings.enabledPackages
             ++ (with pkgs; [
               nixd
               npins

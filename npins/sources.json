@@ -42,6 +42,19 @@
       "url": "https://github.com/tinted-theming/base16-helix/archive/d646af9b7d14bff08824538164af99d0c521b185.tar.gz",
       "hash": "sha256-m82fGUYns4uHd+ZTdoLX2vlHikzwzdu2s2rYM2bNwzw="
     },
+    "base16-vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tinted-theming",
+        "repo": "tinted-vim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "577fe8125d74ff456cf942c733a85d769afe58b7",
+      "url": "https://github.com/tinted-theming/tinted-vim/archive/577fe8125d74ff456cf942c733a85d769afe58b7.tar.gz",
+      "hash": "sha256-e0bpPySdJf0F68Ndanwm+KWHgQiZ0s7liLhvJSWDNsA="
+    },
     "darwin": {
       "type": "Git",
       "repository": {
@@ -113,22 +126,6 @@
       "url": "https://api.github.com/repos/rafaelmardojai/firefox-gnome-theme/tarball/refs/tags/v149.1",
       "hash": "sha256-QFY6Eu0kmaWl8W76bXs5K2BVtTh+Md+1rGba1WiTYxU="
     },
-    "flake-compat": {
-      "type": "GitRelease",
-      "repository": {
-        "type": "GitHub",
-        "owner": "NixOS",
-        "repo": "flake-compat"
-      },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
-      "submodules": false,
-      "version": "v1.1.0",
-      "revision": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
-      "url": "https://api.github.com/repos/NixOS/flake-compat/tarball/refs/tags/v1.1.0",
-      "hash": "sha256-NeCCThCEP3eCl2l/+27kNNK7QrwZB1IJCrXfrbv5oqU="
-    },
     "flake-file": {
       "type": "GitRelease",
       "repository": {
@@ -186,32 +183,6 @@
       "revision": "106af9e2f715e2d828df706c386a685698f3223b",
       "url": "https://github.com/SenchoPens/fromYaml/archive/106af9e2f715e2d828df706c386a685698f3223b.tar.gz",
       "hash": "sha256-lq95WydhbUTWig/JpqiB7oViTcHFP8Lv41IGtayokA8="
-    },
-    "git-hooks-nix": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "cachix",
-        "repo": "git-hooks.nix"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "580633fa3fe5fc0379905986543fd7495481913d",
-      "url": "https://github.com/cachix/git-hooks.nix/archive/580633fa3fe5fc0379905986543fd7495481913d.tar.gz",
-      "hash": "sha256-8Psjt+TWvE4thRKktJsXfR6PA/fWWsZ04DVaY6PUhr4="
-    },
-    "gitignore": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "cb5e3fdca1de58ccbc3ef53de65bd372b48f567c",
-      "url": "https://github.com/hercules-ci/gitignore.nix/archive/cb5e3fdca1de58ccbc3ef53de65bd372b48f567c.tar.gz",
-      "hash": "sha256-XmjITeZNMTQXGhhww6ed/Wacy2KzD6svioyCX7pkUu4="
     },
     "gnome-shell": {
       "type": "Git",
