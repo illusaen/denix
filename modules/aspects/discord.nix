@@ -11,7 +11,12 @@
       os =
         { pkgs, ... }:
         {
-          environment.systemPackages = with pkgs; [ (discord.override { withOpenASAR = true; }) ];
+          nixpkgs.overlays = [
+            (_: prev: {
+              discord = prev.discord.override { withOpenASAR = true; };
+            })
+          ];
+          environment.systemPackages = with pkgs; [ discord ];
         };
     };
 
@@ -22,12 +27,12 @@
           ...
         }:
         {
-          files.".config/autostart/vesktop.desktop" = lib.mkIf pkgs.stdenv.isLinux {
+          files.".config/autostart/discord.desktop" = lib.mkIf pkgs.stdenv.isLinux {
             text = ''
               [Desktop Entry]
               Type=Application
-              Name=Vesktop
-              Exec=${pkgs.vesktop}/bin/vesktop --start-minimized
+              Name=Discord
+              Exec=${pkgs.discord}/bin/discord --start-minimized
               X-GNOME-Autostart-enabled=true
               NoDisplay=true
               NotShowIn=niri

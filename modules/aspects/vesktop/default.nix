@@ -4,10 +4,6 @@
     includes = lib.attrValues den.aspects.vesktop._;
 
     _.enable = den.lib.perHost {
-      persistUser.directories = [
-        ".config/vesktop"
-      ];
-
       os =
         { pkgs, ... }:
         {

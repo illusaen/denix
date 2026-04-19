@@ -25,6 +25,7 @@
             ];
             wantedBy = [ "graphical-session.target" ];
             serviceConfig = {
+              ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
               ExecStart = "${pkgs.steam}/bin/steam -silent";
               Restart = "on-failure";
               RestartSec = 5;
