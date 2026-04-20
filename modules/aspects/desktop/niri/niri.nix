@@ -12,7 +12,6 @@
         kdlConfig = pkgs.writeText "niri-config-kdl" (
           builtins.readFile ./config.kdl
           + ''
-            spawn-at-startup "sh" "-c" "noctalia-shell"
             xwayland-satellite { path "${lib.getExe pkgs.xwayland-satellite}"; }
           ''
         );
@@ -26,7 +25,6 @@
         programs.niri.enable = true;
 
         systemd.user.services = {
-          niri-flake-polkit.enable = lib.mkDefault false;
           delayed-startup = {
             wantedBy = [ "graphical-session.target" ];
             description = "Delayed startup of programs in xdg autostart that have NotShowIn=niri attr";

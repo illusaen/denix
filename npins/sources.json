@@ -110,6 +110,32 @@
       "url": "https://github.com/numtide/disko-zfs/archive/adaef72fba88b4f313fcb3f7cf02e24b2a09b648.tar.gz",
       "hash": "sha256-nfl7tj3TN8MZI5JpidUjlqax+2ly2BHay3tpM/cc9ik="
     },
+    "dms": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell"
+      },
+      "branch": "stable",
+      "submodules": false,
+      "revision": "9798d78300d402178896f6ee1c370baed490158a",
+      "url": "https://github.com/AvengeMedia/DankMaterialShell/archive/9798d78300d402178896f6ee1c370baed490158a.tar.gz",
+      "hash": "sha256-iYBdSBvcW7bJtc84G6k5TFJEbPHQrif9KzZyE9Lbq8M="
+    },
+    "dms-plugin-registry": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "AvengeMedia",
+        "repo": "dms-plugin-registry"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "a87d716bb765bdafb7821b609314fe5b2f924f1a",
+      "url": "https://github.com/AvengeMedia/dms-plugin-registry/archive/a87d716bb765bdafb7821b609314fe5b2f924f1a.tar.gz",
+      "hash": "sha256-MrRMavOqxOMprBqKTpFH1BHLNZYIuV6RlZpnz+TiS04="
+    },
     "firefox-gnome-theme": {
       "type": "GitRelease",
       "repository": {
@@ -252,32 +278,6 @@
       "url": "https://github.com/feel-co/hjem/archive/3828faa3b6c14d4e557866db01d06137f33ad9f8.tar.gz",
       "hash": "sha256-xjJpa+PGjB2lZi1saUU+ubWw5+FpAud/T0/jC1gLL1A="
     },
-    "home-manager": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nix-community",
-        "repo": "home-manager"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "565e5349208fe7d0831ef959103c9bafbeac0681",
-      "url": "https://github.com/nix-community/home-manager/archive/565e5349208fe7d0831ef959103c9bafbeac0681.tar.gz",
-      "hash": "sha256-7zSUFWsU0+jlD7WB3YAxQ84Z/iJurA5hKPm8EfEyGJk="
-    },
-    "impermanence": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nix-community",
-        "repo": "impermanence"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "7b1d382faf603b6d264f58627330f9faa5cba149",
-      "url": "https://github.com/nix-community/impermanence/archive/7b1d382faf603b6d264f58627330f9faa5cba149.tar.gz",
-      "hash": "sha256-03+JxvzmfwRu+5JafM0DLbxgHttOQZkUtDWBmeUkN8Y="
-    },
     "import-tree": {
       "type": "GitRelease",
       "repository": {
@@ -419,6 +419,23 @@
       "revision": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
       "url": "https://github.com/nix-community/preservation/archive/93416f4614ad2dfed5b0dcf12f27e57d27a5ab11.tar.gz",
       "hash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY="
+    },
+    "quickshell": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "Forgejo",
+        "server": "https://git.outfoxxed.me/",
+        "owner": "quickshell",
+        "repo": "quickshell"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.2.1",
+      "revision": "a1a150fab00a93ea983aaca5df55304bc837f51b",
+      "url": "https://git.outfoxxed.me/api/v1/repos/quickshell/quickshell/archive/v0.2.1.tar.gz",
+      "hash": "sha256-e++Ogy91Sv7gGLMdAqZaBzbH/UmPWZ4GAt7VDCA66aU="
     },
     "stylix": {
       "type": "Git",

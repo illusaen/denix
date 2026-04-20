@@ -46,6 +46,7 @@ layout {
         top 0
         bottom 0
     }
+    background-color "transparent"
     focus-ring { off; }
     border { off; }
     default-column-width { proportion 0.333333; }
@@ -67,6 +68,7 @@ environment {
     "NIXOS_OZONE_WL" "1"
     "QT_QPA_PLATFORM" "wayland"
     "QT_QPA_PLATFORMTHEME" "qt5ct"
+    "QT_QPA_PLATFORMTHEME_QT6" "qt6ct"
     "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
     "XDG_CURRENT_DESKTOP" "niri"
     "XDG_SESSION_DESKTOP" "niri"
@@ -75,9 +77,9 @@ environment {
 binds {
     Alt+Shift+4 hotkey-overlay-title="Screenshot" { screenshot show-pointer=false; }
     Alt+Shift+T hotkey-overlay-title="Terminal" { spawn-sh "kitten quick-access-terminal"; }
-    Ctrl+Space { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Ctrl+Space { spawn-sh "dms ipc call spotlight toggle"; }
     Mod+C { expand-column-to-available-width; }
-    Mod+Ctrl+C { spawn "sh" "-c" "noctalia-shell ipc call launcher clipboard"; }
+    Mod+Ctrl+C { spawn-sh "dms ipc call clipboard toggle"; }
     Mod+Ctrl+Down { focus-monitor-down; }
     Mod+Ctrl+F { toggle-windowed-fullscreen; }
     Mod+Ctrl+Shift+Down { move-window-to-monitor-down; }
@@ -86,7 +88,7 @@ binds {
     Mod+Ctrl+Up { focus-monitor-up; }
     Mod+Down { focus-workspace-down; }
     Mod+E hotkey-overlay-title="Nemo" { spawn "nemo"; }
-    Mod+Escape hotkey-overlay-title="Keybinds" { spawn "sh" "-c" "noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
+    Mod+Escape hotkey-overlay-title="Keybinds" { spawn-sh "dms keybinds show niri --path /etc/niri/config.kdl"; }
     Mod+Shift+Escape { show-hotkey-overlay; }
     Mod+F { maximize-column; }
     Mod+G hotkey-overlay-title="Google Chrome" { spawn "google-chrome-stable"; }
@@ -97,7 +99,6 @@ binds {
     Mod+Shift+F { fullscreen-window; }
     Mod+Shift+Left { move-column-left; }
     Mod+Shift+P { power-off-monitors; }
-    Mod+Shift+R { spawn "sh" "-c" "noctalia-shell ipc call launcher command"; }
     Mod+Shift+Right { move-column-right; }
     Mod+Shift+Up { move-column-to-workspace-up; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
@@ -108,12 +109,12 @@ binds {
     Mod+V { toggle-window-floating; }
     Mod+X { center-column; }
     Mod+Z { switch-preset-column-width; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume decrease"; }
-    XF86AudioMute allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume muteOutput"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "dms ipc call audio decrement 5"; }
+    XF86AudioMute allow-when-locked=true { spawn-sh "dms ipc call audio mute"; }
     XF86AudioNext hotkey-overlay-title="Playerctl next" allow-when-locked=true { spawn "playerctl" "next"; }
     XF86AudioPlay hotkey-overlay-title="Playerctl play/pause" allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioPrev hotkey-overlay-title="Playerctl prev" allow-when-locked=true { spawn "playerctl" "previous"; }
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "sh" "-c" "noctalia-shell ipc call volume increase"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "dms ipc call audio increment 5"; }
 }
 workspace "chat" {
     open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
@@ -127,6 +128,14 @@ workspace "chat" {
 }
 workspace "code" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 workspace "gaming" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+layer-rule {
+    match namespace="dms:blurwallpaper"
+    place-within-backdrop true
+}
 window-rule {
     match app-id="steam" title="^notificationtoasts_\\d+_desktop$"
     open-focused false

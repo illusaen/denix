@@ -10,7 +10,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.aspects.desktop.includes = [ den.aspects.noctalia ];
+  # den.aspects.desktop.includes = [ den.aspects.noctalia ];
 
   den.aspects.noctalia = {
     includes = lib.attrValues den.aspects.noctalia._;
