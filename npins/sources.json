@@ -126,6 +126,22 @@
       "url": "https://api.github.com/repos/rafaelmardojai/firefox-gnome-theme/tarball/refs/tags/v149.1",
       "hash": "sha256-QFY6Eu0kmaWl8W76bXs5K2BVtTh+Md+1rGba1WiTYxU="
     },
+    "flake-compat": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "flake-compat"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.1.0",
+      "revision": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
+      "url": "https://api.github.com/repos/NixOS/flake-compat/tarball/refs/tags/v1.1.0",
+      "hash": "sha256-NeCCThCEP3eCl2l/+27kNNK7QrwZB1IJCrXfrbv5oqU="
+    },
     "flake-file": {
       "type": "GitRelease",
       "repository": {
@@ -196,6 +212,19 @@
       "revision": "580633fa3fe5fc0379905986543fd7495481913d",
       "url": "https://github.com/cachix/git-hooks.nix/archive/580633fa3fe5fc0379905986543fd7495481913d.tar.gz",
       "hash": "sha256-8Psjt+TWvE4thRKktJsXfR6PA/fWWsZ04DVaY6PUhr4="
+    },
+    "gitignore": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "cb5e3fdca1de58ccbc3ef53de65bd372b48f567c",
+      "url": "https://github.com/hercules-ci/gitignore.nix/archive/cb5e3fdca1de58ccbc3ef53de65bd372b48f567c.tar.gz",
+      "hash": "sha256-XmjITeZNMTQXGhhww6ed/Wacy2KzD6svioyCX7pkUu4="
     },
     "gnome-shell": {
       "type": "Git",
@@ -377,6 +406,19 @@
       "revision": "3df56f9794912fbecf071190faf6b114f3e2733a",
       "url": "https://api.github.com/repos/brizzbuzz/opnix/tarball/refs/tags/v0.9.0",
       "hash": "sha256-cqID7TDVAQotuAxrrOHeguhnrIgdJ/CwET1SrkXvxpY="
+    },
+    "preservation": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "preservation"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
+      "url": "https://github.com/nix-community/preservation/archive/93416f4614ad2dfed5b0dcf12f27e57d27a5ab11.tar.gz",
+      "hash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY="
     },
     "stylix": {
       "type": "Git",

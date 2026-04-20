@@ -1,7 +1,7 @@
 { den, ... }:
 let
   disko = import ./aspects/boot/_disko.nix {
-    inherit (den.aspects.impermanence) disk persistMount rollbackSnapshot;
+    inherit (den.aspects.preservation) disk persistMount rollbackSnapshot;
   };
 in
 {

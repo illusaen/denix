@@ -45,4 +45,6 @@ in
     den.provides.mutual-provider
     variablesClass
   ];
+
+  flake.den = den;
 }

@@ -12,11 +12,11 @@ in
 {
   flake-file.inputs.impermanence.url = "github:nix-community/impermanence";
 
-  den.ctx.host.includes = [
-    den.aspects.impermanence
-    den.aspects.impermanence._.persistedClass
-    den.aspects.impermanence._.persistedUserClass
-  ];
+  # den.ctx.host.includes = [
+  #   den.aspects.impermanence
+  #   den.aspects.impermanence._.persistedClass
+  #   den.aspects.impermanence._.persistedUserClass
+  # ];
 
   den.aspects.impermanence =
     # deadnix: skip

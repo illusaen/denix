@@ -5,8 +5,8 @@
       { config, pkgs, ... }:
       lib.mkIf (config.environment ? persistence) (
         let
-          inherit (den.aspects.impermanence) persistMount;
-          inherit (config.environment.persistence.${persistMount})
+          inherit (den.aspects.preservation) persistMount;
+          inherit (config.preservation.preserveAt.${persistMount})
             directories
             files
             users
@@ -28,7 +28,7 @@
             runtimeInputs = with pkgs; [ jq ];
             text = ''
               #!${pkgs.runtimeShell}
-              USER=''${1:-wendy}
+              USER=''$(whoami)
 
               # Function to check if a path is persisted
               is_persisted() {
