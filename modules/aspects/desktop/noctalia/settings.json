@@ -405,9 +405,9 @@
     "lockCommand": "",
     "lockTimeout": 300,
     "resumeLockCommand": "",
-    "resumeScreenOffCommand": "",
+    "resumeScreenOffCommand": "niri msg action power-on-monitors",
     "resumeSuspendCommand": "",
-    "screenOffCommand": "",
+    "screenOffCommand": "niri msg action power-off-monitors",
     "screenOffTimeout": 180,
     "suspendCommand": "",
     "suspendTimeout": 0

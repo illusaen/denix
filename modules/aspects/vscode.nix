@@ -50,7 +50,24 @@
                 (map (v: (lib.nameValuePair v value)))
                 builtins.listToAttrs
               ];
-            languageSnippets = { };
+            languageSnippets = {
+              nix."Den Aspect" = {
+                prefix = [
+                  "den"
+                  "aspect"
+                ];
+                body = [
+                  "{ den, ...}:"
+                  "{"
+                  "\tden.ctx.\${1:host}.includes = [ den.aspects.\${2:name} ];"
+                  "\tden.aspects.\${3:name} = den.lib.per\${4:Host} {"
+                  "\t\t\$0"
+                  "\t};"
+                  "}"
+                ];
+                description = "Den aspect snippet";
+              };
+            };
             extensions =
               with pkgs.vscode-extensions;
               [
@@ -59,10 +76,10 @@
                 dbaeumer.vscode-eslint
                 rust-lang.rust-analyzer
                 tamasfe.even-better-toml
-                catppuccin.catppuccin-vsc-icons
                 naumovs.color-highlight
                 usernamehw.errorlens
-                catppuccin.catppuccin-vsc
+                svelte.svelte-vscode
+                bradlc.vscode-tailwindcss
               ]
               ++ [
                 (pkgs.vscode-utils.extensionFromVscodeMarketplace {
@@ -70,6 +87,18 @@
                   publisher = "ibecker";
                   version = "2.4.1";
                   sha256 = "sha256-ZTRrZDXqK9L7E5fr5NLEa/0ZyTnFdItfytbVuh/qr94=";
+                })
+                (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+                  name = "one-monokai";
+                  publisher = "azemoh";
+                  version = "0.5.2";
+                  sha256 = "sha256-lky8hF5h/VIIEecS+zjoTLhyWwWC0axNnIgnkPJAnOA=";
+                })
+                (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+                  name = "chatgpt";
+                  publisher = "openai";
+                  version = "26.5415.20818";
+                  sha256 = "sha256-Sr+qt5jsxjQ43GJarnXPMPMsxiPR7kmfthtbtYCEaHs=";
                 })
               ];
             userSettings = {
@@ -127,7 +156,7 @@
                 sendKeybindingsToShell = true;
               };
               workbench = {
-                colorTheme = "Catppuccin Macchiato";
+                colorTheme = "One Monokai";
                 iconTheme = "catppuccin-macchiato";
                 sideBar.location = "right";
                 startupEditor = "none";
@@ -135,6 +164,7 @@
                 colorCustomizations = lib.mergeAttrsList [
                   { "[Catppuccin Macchiato]" = customizeAttrs colorCustomizationAttrs "#242933"; }
                   { "[Nord]" = customizeAttrs colorCustomizationAttrs "#242933"; }
+                  { "[One Monokai]" = customizeAttrs colorCustomizationAttrs "#21252b"; }
                 ];
               };
               treefmt.command = "$(which treefmt)";
