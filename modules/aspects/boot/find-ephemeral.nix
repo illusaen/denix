@@ -44,8 +44,14 @@
             "/etc/speech-dispatcher"
             "/etc/pam.d"
             "/etc/pam"
+            "/etc/ssh"
+            "/etc/opt"
+            "/etc/pki"
+            "/etc/ssl"
             "/etc/fish/generated_completions"
             "/home/*/.steam"
+            "/home/*/.ssh"
+            "/home/*/.var"
           ];
 
           find-orphaned = pkgs.writeShellApplication {
@@ -65,20 +71,33 @@
 
               # shellcheck disable=SC2016
               dir_filter='
+                def clean:
+                  rtrimstr("/");
+
                 def persisted_path:
-                  $mount + .;
+                  ($mount + .) | clean;
 
                 def under($dirs):
-                  . as $path
+                  (. | clean) as $path
                   | any($dirs[]; (. | persisted_path) as $dir | $path == $dir or ($path | startswith($dir + "/")));
 
                 def ancestor_of($paths):
-                  . as $path
+                  (. | clean) as $path
                   | any($paths[]; (. | persisted_path) as $persisted_path | $persisted_path | startswith($path + "/"));
+
+                def parent_dirs:
+                  persisted_path
+                  | split("/") as $parts
+                  | [range(2; $parts | length) as $i | $parts[0:$i] | join("/")];
+
+                def intermediate:
+                  (. | clean) as $path
+                  | any(($persisted.directories + $persisted.files)[]; parent_dirs[] == $path);
 
                 map(select(
                   (
                     under($persisted.directories)
+                    or intermediate
                     or ancestor_of($persisted.directories)
                     or ancestor_of($persisted.files)
                   ) | not
@@ -126,14 +145,17 @@
 
               # shellcheck disable=SC2016
               dir_filter='
+                def clean:
+                  rtrimstr("/");
+
                 def under($dirs):
-                  . as $path
-                  | any($dirs[]; . as $dir | $path == $dir or ($path | startswith($dir + "/")));
+                  (. | clean) as $path
+                  | any($dirs[]; (. | clean) as $dir | $path == $dir or ($path | startswith($dir + "/")));
 
                 def segment_glob_prefix($pattern):
-                  . as $path
+                  (. | clean) as $path
                   | ($path | split("/")) as $path_parts
-                  | ($pattern | split("/")) as $pattern_parts
+                  | ($pattern | clean | split("/")) as $pattern_parts
                   | ($path_parts | length) >= ($pattern_parts | length)
                     and all(range(0; ($pattern_parts | length)); $pattern_parts[.] == "*" or $path_parts[.] == $pattern_parts[.]);
 
@@ -141,19 +163,31 @@
                   . as $path
                   | any($dirs[]; . as $pattern | $path | segment_glob_prefix($pattern));
 
-                map(select((under($persisted.directories) or ignored($ignored)) | not)) | .[]
+                def parent_dirs:
+                  clean
+                  | split("/") as $parts
+                  | [range(2; $parts | length) as $i | $parts[0:$i] | join("/")];
+
+                def intermediate:
+                  (. | clean) as $path
+                  | any(($persisted.directories + $persisted.files)[]; parent_dirs[] == $path);
+
+                map(select((under($persisted.directories) or intermediate or ignored($ignored)) | not)) | .[]
               '
 
               # shellcheck disable=SC2016
               file_filter='
+                def clean:
+                  rtrimstr("/");
+
                 def under($dirs):
-                  . as $path
-                  | any($dirs[]; . as $dir | $path == $dir or ($path | startswith($dir + "/")));
+                  (. | clean) as $path
+                  | any($dirs[]; (. | clean) as $dir | $path == $dir or ($path | startswith($dir + "/")));
 
                 def segment_glob_prefix($pattern):
-                  . as $path
+                  (. | clean) as $path
                   | ($path | split("/")) as $path_parts
-                  | ($pattern | split("/")) as $pattern_parts
+                  | ($pattern | clean | split("/")) as $pattern_parts
                   | ($path_parts | length) >= ($pattern_parts | length)
                     and all(range(0; ($pattern_parts | length)); $pattern_parts[.] == "*" or $path_parts[.] == $pattern_parts[.]);
 
