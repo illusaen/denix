@@ -1,8 +1,8 @@
 { den, lib, ... }:
 {
   den.aspects.cli._.zoxide = den.lib.perHost {
-    persistUser.files = [
-      ".local/share/zoxide/db.zo"
+    persistUser.directories = [
+      ".local/share/zoxide"
     ];
 
     os =

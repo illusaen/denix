@@ -9,6 +9,8 @@
         {
           environment.systemPackages = with pkgs; [ vscode ];
         };
+
+      persistUser.directories = [ ".codex" ];
     };
 
     _.configure = den.lib.perUser (
@@ -59,8 +61,8 @@
                 body = [
                   "{ den, ...}:"
                   "{"
-                  "\tden.ctx.\${1:host}.includes = [ den.aspects.\${2:name} ];"
-                  "\tden.aspects.\${3:name} = den.lib.per\${4:Host} {"
+                  "\tden.ctx.\${1:host}.includes = [ den.aspects.\${2:(.+)} ];"
+                  "\tden.aspects.\${2:name} = den.lib.per\${4:Host} {"
                   "\t\t\$0"
                   "\t};"
                   "}"

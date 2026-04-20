@@ -12,7 +12,10 @@ in
 {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
 
-  den.ctx.host.includes = [ den.aspects.preservation ];
+  den.ctx.host.includes = [
+    den.aspects.preservation
+    den.aspects.find-ephemeral
+  ];
   den.aspects.preservation =
     # deadnix: skip
     { config, ... }: # config needs to be here for option vars to work

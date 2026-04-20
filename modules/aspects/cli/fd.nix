@@ -1,6 +1,7 @@
 { den, ... }:
 {
-  den.aspects.cli._.fd = den.lib.perHost {
+  den.ctx.user.includes = [ den.aspects.cli._.fd ];
+  den.aspects.cli._.fd = {
     os =
       { pkgs, ... }:
       let
@@ -10,12 +11,23 @@
           nativeBuildInputs = [ pkgs.makeWrapper ];
           postBuild = ''
             mkdir -p $out
-            wrapProgram $out/bin/fd --add-flag --hidden --add-flag --follow --add-flag --exclude --add-flag ".git/"
+            wrapProgram $out/bin/fd --add-flag --hidden --add-flag --follow
           '';
         };
       in
       {
         environment.systemPackages = [ fd-wrapped ];
       };
+
+    hjem = {
+      files.".config/fd/ignore".text = ''
+        .git
+        /etc/static
+        /etc/systemd
+        /etc/terminfo
+        /etc/tmpfiles.d
+        /etc/udev
+      '';
+    };
   };
 }
