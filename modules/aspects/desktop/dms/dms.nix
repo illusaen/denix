@@ -13,6 +13,8 @@
 
   den.aspects.desktop.includes = [ den.aspects.dms ];
   den.aspects.dms = den.lib.perHost {
+    persistUser.directories = [ ".config/DankMaterialShell" ];
+
     nixos =
       {
         pkgs,
