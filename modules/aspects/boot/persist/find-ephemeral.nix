@@ -29,30 +29,7 @@
             files = filterPaths "files" "file";
           };
 
-          ignored = builtins.toJSON [
-            "/etc/systemd"
-            "/etc/terminfo"
-            "/etc/static"
-            "/etc/zoneinfo"
-            "/etc/kbd"
-            "/etc/zfs"
-            "/etc/egl"
-            "/etc/egl"
-            "/etc/pipewire"
-            "/etc/udev"
-            "/etc/fonts"
-            "/etc/speech-dispatcher"
-            "/etc/pam.d"
-            "/etc/pam"
-            "/etc/ssh"
-            "/etc/opt"
-            "/etc/pki"
-            "/etc/ssl"
-            "/etc/fish/generated_completions"
-            "/home/*/.steam"
-            "/home/*/.ssh"
-            "/home/*/.var"
-          ];
+          ignored = builtins.readFile ./ignored.json;
 
           find-orphaned = pkgs.writeShellApplication {
             name = "fo";

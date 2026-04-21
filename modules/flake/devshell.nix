@@ -38,6 +38,7 @@
             ".git"
             "*.lock"
             ".gitignore"
+            "npins"
           ];
         };
         settings.formatter.shellcheck.options = [

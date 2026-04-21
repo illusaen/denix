@@ -123,19 +123,6 @@
       "url": "https://github.com/AvengeMedia/DankMaterialShell/archive/9798d78300d402178896f6ee1c370baed490158a.tar.gz",
       "hash": "sha256-iYBdSBvcW7bJtc84G6k5TFJEbPHQrif9KzZyE9Lbq8M="
     },
-    "dms-plugin-registry": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "AvengeMedia",
-        "repo": "dms-plugin-registry"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "a87d716bb765bdafb7821b609314fe5b2f924f1a",
-      "url": "https://github.com/AvengeMedia/dms-plugin-registry/archive/a87d716bb765bdafb7821b609314fe5b2f924f1a.tar.gz",
-      "hash": "sha256-MrRMavOqxOMprBqKTpFH1BHLNZYIuV6RlZpnz+TiS04="
-    },
     "firefox-gnome-theme": {
       "type": "GitRelease",
       "repository": {
@@ -435,6 +422,22 @@
       "version": "v0.2.1",
       "revision": "a1a150fab00a93ea983aaca5df55304bc837f51b",
       "url": "https://git.outfoxxed.me/api/v1/repos/quickshell/quickshell/archive/v0.2.1.tar.gz",
+      "hash": "sha256-e++Ogy91Sv7gGLMdAqZaBzbH/UmPWZ4GAt7VDCA66aU="
+    },
+    "quickshell-src": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "quickshell-mirror",
+        "repo": "quickshell"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.2.1",
+      "revision": "a1a150fab00a93ea983aaca5df55304bc837f51b",
+      "url": "https://api.github.com/repos/quickshell-mirror/quickshell/tarball/refs/tags/v0.2.1",
       "hash": "sha256-e++Ogy91Sv7gGLMdAqZaBzbH/UmPWZ4GAt7VDCA66aU="
     },
     "stylix": {
