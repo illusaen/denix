@@ -55,19 +55,6 @@
       "url": "https://github.com/numtide/disko-zfs/archive/adaef72fba88b4f313fcb3f7cf02e24b2a09b648.tar.gz",
       "hash": "sha256-nfl7tj3TN8MZI5JpidUjlqax+2ly2BHay3tpM/cc9ik="
     },
-    "dms": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "AvengeMedia",
-        "repo": "DankMaterialShell"
-      },
-      "branch": "stable",
-      "submodules": false,
-      "revision": "9798d78300d402178896f6ee1c370baed490158a",
-      "url": "https://github.com/AvengeMedia/DankMaterialShell/archive/9798d78300d402178896f6ee1c370baed490158a.tar.gz",
-      "hash": "sha256-iYBdSBvcW7bJtc84G6k5TFJEbPHQrif9KzZyE9Lbq8M="
-    },
     "flake-compat": {
       "type": "GitRelease",
       "repository": {
@@ -296,19 +283,6 @@
       "revision": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
       "url": "https://github.com/nix-community/preservation/archive/93416f4614ad2dfed5b0dcf12f27e57d27a5ab11.tar.gz",
       "hash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY="
-    },
-    "quickshell": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "quickshell-mirror",
-        "repo": "quickshell"
-      },
-      "branch": "staging",
-      "submodules": false,
-      "revision": "b83c39c8afd58c86af1c49a7c0e081b30c86d823",
-      "url": "https://github.com/quickshell-mirror/quickshell/archive/b83c39c8afd58c86af1c49a7c0e081b30c86d823.tar.gz",
-      "hash": "sha256-A8I+pyI904K2Z+vZWx8rIt5CxccbC/1VvU6wB1wb1jg="
     },
     "systems": {
       "type": "Git",

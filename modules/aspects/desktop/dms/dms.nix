@@ -1,15 +1,15 @@
-{ den, inputs, ... }:
+{ den, ... }:
 {
   flake-file.inputs = {
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
-    };
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell/staging";
-      flake = false;
-    };
+    # dms = {
+    #   url = "github:AvengeMedia/DankMaterialShell/stable";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # quickshell.url = "github:quickshell-mirror/quickshell/master";
+    # quickshell-src = {
+    #   url = "github:quickshell-mirror/quickshell/master";
+    #   flake = false;
+    # };
   };
 
   den.aspects.desktop.includes = [ den.aspects.dms ];
@@ -20,17 +20,21 @@
     ];
 
     nixos =
+      _:
+      # let
+      #   quickshellPackage = pkgs.quickshell.overrideAttrs (_old: {
+      #     src = inputs.quickshell-src.sourceInfo.outPath;
+      #     version = "0.3.0";
+      #   });
+      # in
       {
-        ...
-      }:
-      {
-        imports = [
-          inputs.dms.nixosModules.dank-material-shell
-        ];
-        programs.dank-material-shell = {
+        # imports = [
+        #   inputs.dms.nixosModules.dank-material-shell
+        # ];
+        programs.dms-shell = {
           enable = true;
           enableVPN = false;
-          systemd.enable = true;
+          # systemd.enable = true;
           # quickshell.package = quickshellPackage;
         };
 
