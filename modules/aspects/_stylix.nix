@@ -1,5 +1,4 @@
 {
-  den,
   lib,
   inputs,
   ...
@@ -13,7 +12,7 @@ in
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.ctx.host.includes = [ den.aspects.stylix ];
+  # den.ctx.host.includes = [ den.aspects.stylix ];
   den.aspects.stylix =
     { host, ... }:
     {

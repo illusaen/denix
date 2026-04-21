@@ -1,60 +1,5 @@
 {
   "pins": {
-    "base16": {
-      "type": "GitRelease",
-      "repository": {
-        "type": "GitHub",
-        "owner": "SenchoPens",
-        "repo": "base16.nix"
-      },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
-      "submodules": false,
-      "version": "v2.2.1",
-      "revision": "633e60754f8a0ddbb20b9b5d5a31729e4cedf548",
-      "url": "https://api.github.com/repos/SenchoPens/base16.nix/tarball/refs/tags/v2.2.1",
-      "hash": "sha256-KXcORItjYJTdEO/BlBd0Uym1Xa3eBu43uvpFiWjJOdY="
-    },
-    "base16-fish": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tomyun",
-        "repo": "base16-fish"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "86cbea4dca62e08fb7fd83a70e96472f92574782",
-      "url": "https://github.com/tomyun/base16-fish/archive/86cbea4dca62e08fb7fd83a70e96472f92574782.tar.gz",
-      "hash": "sha256-XCUQLoLfBJ8saWms2HCIj4NEN+xNsWBlU1NrEPcQG4s="
-    },
-    "base16-helix": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "base16-helix"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "d646af9b7d14bff08824538164af99d0c521b185",
-      "url": "https://github.com/tinted-theming/base16-helix/archive/d646af9b7d14bff08824538164af99d0c521b185.tar.gz",
-      "hash": "sha256-m82fGUYns4uHd+ZTdoLX2vlHikzwzdu2s2rYM2bNwzw="
-    },
-    "base16-vim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "tinted-vim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "577fe8125d74ff456cf942c733a85d769afe58b7",
-      "url": "https://github.com/tinted-theming/tinted-vim/archive/577fe8125d74ff456cf942c733a85d769afe58b7.tar.gz",
-      "hash": "sha256-e0bpPySdJf0F68Ndanwm+KWHgQiZ0s7liLhvJSWDNsA="
-    },
     "darwin": {
       "type": "Git",
       "repository": {
@@ -123,22 +68,6 @@
       "url": "https://github.com/AvengeMedia/DankMaterialShell/archive/9798d78300d402178896f6ee1c370baed490158a.tar.gz",
       "hash": "sha256-iYBdSBvcW7bJtc84G6k5TFJEbPHQrif9KzZyE9Lbq8M="
     },
-    "firefox-gnome-theme": {
-      "type": "GitRelease",
-      "repository": {
-        "type": "GitHub",
-        "owner": "rafaelmardojai",
-        "repo": "firefox-gnome-theme"
-      },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
-      "submodules": false,
-      "version": "v149.1",
-      "revision": "59464fcbe0ffbb15ef2114d4941c71b51005a585",
-      "url": "https://api.github.com/repos/rafaelmardojai/firefox-gnome-theme/tarball/refs/tags/v149.1",
-      "hash": "sha256-QFY6Eu0kmaWl8W76bXs5K2BVtTh+Md+1rGba1WiTYxU="
-    },
     "flake-compat": {
       "type": "GitRelease",
       "repository": {
@@ -200,19 +129,6 @@
       "url": "https://api.github.com/repos/numtide/flake-utils/tarball/refs/tags/v1.0.0",
       "hash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM="
     },
-    "fromYaml": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "SenchoPens",
-        "repo": "fromYaml"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "106af9e2f715e2d828df706c386a685698f3223b",
-      "url": "https://github.com/SenchoPens/fromYaml/archive/106af9e2f715e2d828df706c386a685698f3223b.tar.gz",
-      "hash": "sha256-lq95WydhbUTWig/JpqiB7oViTcHFP8Lv41IGtayokA8="
-    },
     "git-hooks-nix": {
       "type": "Git",
       "repository": {
@@ -238,19 +154,6 @@
       "revision": "cb5e3fdca1de58ccbc3ef53de65bd372b48f567c",
       "url": "https://github.com/hercules-ci/gitignore.nix/archive/cb5e3fdca1de58ccbc3ef53de65bd372b48f567c.tar.gz",
       "hash": "sha256-XmjITeZNMTQXGhhww6ed/Wacy2KzD6svioyCX7pkUu4="
-    },
-    "gnome-shell": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "GNOME",
-        "repo": "gnome-shell"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "ef02db02bf0ff342734d525b5767814770d85b49",
-      "url": "https://github.com/GNOME/gnome-shell/archive/ef02db02bf0ff342734d525b5767814770d85b49.tar.gz",
-      "hash": "sha256-eFujfIUQDgWnSJBablOuG+32hCai192yRdrNHTv0a+s="
     },
     "hjem": {
       "type": "Git",
@@ -365,19 +268,6 @@
       "url": "https://api.github.com/repos/noctalia-dev/noctalia-qs/tarball/refs/tags/v0.0.12",
       "hash": "sha256-79JP2QTdvp1jg7HGxAW+xzhzhLnlKUi8yGXq9nDCeH0="
     },
-    "nur": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nix-community",
-        "repo": "NUR"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "3c9fb8e6b4713062d913c9cc32bc76b3cccebefe",
-      "url": "https://github.com/nix-community/NUR/archive/3c9fb8e6b4713062d913c9cc32bc76b3cccebefe.tar.gz",
-      "hash": "sha256-QnvTNM1OCyn2ZF7Lu9F7LAG++6bng1PRPL06wRbjG5Y="
-    },
     "opnix": {
       "type": "GitRelease",
       "repository": {
@@ -408,50 +298,17 @@
       "hash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY="
     },
     "quickshell": {
-      "type": "GitRelease",
-      "repository": {
-        "type": "Forgejo",
-        "server": "https://git.outfoxxed.me/",
-        "owner": "quickshell",
-        "repo": "quickshell"
-      },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
-      "submodules": false,
-      "version": "v0.2.1",
-      "revision": "a1a150fab00a93ea983aaca5df55304bc837f51b",
-      "url": "https://git.outfoxxed.me/api/v1/repos/quickshell/quickshell/archive/v0.2.1.tar.gz",
-      "hash": "sha256-e++Ogy91Sv7gGLMdAqZaBzbH/UmPWZ4GAt7VDCA66aU="
-    },
-    "quickshell-src": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "quickshell-mirror",
         "repo": "quickshell"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "staging",
       "submodules": false,
-      "version": "v0.2.1",
-      "revision": "a1a150fab00a93ea983aaca5df55304bc837f51b",
-      "url": "https://api.github.com/repos/quickshell-mirror/quickshell/tarball/refs/tags/v0.2.1",
-      "hash": "sha256-e++Ogy91Sv7gGLMdAqZaBzbH/UmPWZ4GAt7VDCA66aU="
-    },
-    "stylix": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nix-community",
-        "repo": "stylix"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "e3861617645a43c9bbefde1aa6ac54dd0a44bfa9",
-      "url": "https://github.com/nix-community/stylix/archive/e3861617645a43c9bbefde1aa6ac54dd0a44bfa9.tar.gz",
-      "hash": "sha256-Tl1aZVP5EIlT+k0+iAKH018GLHJpLz3hhJ0LNQOWxCc="
+      "revision": "b83c39c8afd58c86af1c49a7c0e081b30c86d823",
+      "url": "https://github.com/quickshell-mirror/quickshell/archive/b83c39c8afd58c86af1c49a7c0e081b30c86d823.tar.gz",
+      "hash": "sha256-A8I+pyI904K2Z+vZWx8rIt5CxccbC/1VvU6wB1wb1jg="
     },
     "systems": {
       "type": "Git",
@@ -465,58 +322,6 @@
       "revision": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
       "url": "https://github.com/nix-systems/default/archive/da67096a3b9bf56a91d16901293e51ba5b49a27e.tar.gz",
       "hash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768="
-    },
-    "tinted-kitty": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "tinted-kitty"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "de6f888497f2c6b2279361bfc790f164bfd0f3fa",
-      "url": "https://github.com/tinted-theming/tinted-kitty/archive/de6f888497f2c6b2279361bfc790f164bfd0f3fa.tar.gz",
-      "hash": "sha256-4KtB+FiUzIeK/4aHCKce3V9HwRvYaxX+F1edUrfgzb8="
-    },
-    "tinted-schemes": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "schemes"
-      },
-      "branch": "spec-0.11",
-      "submodules": false,
-      "revision": "f968e4f80228a5992fc0c249165ef76b5ac93d79",
-      "url": "https://github.com/tinted-theming/schemes/archive/f968e4f80228a5992fc0c249165ef76b5ac93d79.tar.gz",
-      "hash": "sha256-ihpN0BRlmPDWjkOc+A1rpZWVCBlXRUexesu8nWUCrLg="
-    },
-    "tinted-tmux": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "tinted-tmux"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "984d3b59d950c9b6f02a595b031d23fb2a665e04",
-      "url": "https://github.com/tinted-theming/tinted-tmux/archive/984d3b59d950c9b6f02a595b031d23fb2a665e04.tar.gz",
-      "hash": "sha256-hfJUiiw9im50YGtDZ+FQQ2xSkcnBqN1pk/4nA65QtzI="
-    },
-    "tinted-zed": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "base16-zed"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "5a1c908c600f391aa8cd5a6a53647de71c4e5a7d",
-      "url": "https://github.com/tinted-theming/base16-zed/archive/5a1c908c600f391aa8cd5a6a53647de71c4e5a7d.tar.gz",
-      "hash": "sha256-+zzizSk/3scmrroGZ/iw2ZnO12IDqPGZDlTE4AWBKII="
     },
     "treefmt-nix": {
       "type": "Git",

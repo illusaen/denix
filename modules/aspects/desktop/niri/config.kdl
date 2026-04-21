@@ -28,13 +28,11 @@ output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505" {
     focus-at-startup
     transform "normal"
     position x=0 y=0
-    mode "4096x2160"
 }
 output "Philips Consumer Electronics Company PHL 288E2 UK52215001852" {
     scale 1.250000
     transform "normal"
     position x=128 y=-1728
-    mode "3840x2160"
 }
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 prefer-no-csd
@@ -53,7 +51,6 @@ layout {
     preset-column-widths {
         proportion 0.333333
         proportion 0.666667
-        proportion 0.200000
     }
     center-focused-column "on-overflow"
     always-center-single-column
@@ -151,7 +148,6 @@ window-rule {
 }
 window-rule {
     match app-id="^steam_app.*"
-    open-focused true
 }
 window-rule {
     geometry-corner-radius 8.000000 8.000000 8.000000 8.000000
@@ -167,6 +163,7 @@ window-rule {
 window-rule {
     match is-floating=true
     match app-id="^vesktop$"
+    match app-id="^discord$"
     match app-id="^nemo$"
     draw-border-with-background false
     shadow {
@@ -177,6 +174,7 @@ window-rule {
 }
 window-rule {
     match app-id="^vesktop$"
+    match app-id="^discord$"
     match app-id="^Element$"
     open-on-workspace "chat"
 }
@@ -200,3 +198,12 @@ window-rule {
     open-on-workspace "code"
 }
 debug { wait-for-frame-completion-before-queueing; }
+
+include "dms/alttab.kdl"
+include "dms/binds.kdl"
+include "dms/colors.kdl"
+include "dms/cursor.kdl"
+include "dms/layout.kdl"
+include "dms/outputs.kdl"
+include "dms/windowrules.kdl"
+include "dms/wpblur.kdl"
