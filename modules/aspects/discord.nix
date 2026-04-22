@@ -27,7 +27,7 @@
           ...
         }:
         {
-          files.".config/autostart/discord.desktop" = lib.mkIf pkgs.stdenv.isLinux {
+          xdg.config.files."autostart/discord.desktop" = lib.mkIf pkgs.stdenv.isLinux {
             text = ''
               [Desktop Entry]
               Type=Application

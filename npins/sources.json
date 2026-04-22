@@ -1,5 +1,21 @@
 {
   "pins": {
+    "base16": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "SenchoPens",
+        "repo": "base16.nix"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v2.2.1",
+      "revision": "633e60754f8a0ddbb20b9b5d5a31729e4cedf548",
+      "url": "https://api.github.com/repos/SenchoPens/base16.nix/tarball/refs/tags/v2.2.1",
+      "hash": "sha256-KXcORItjYJTdEO/BlBd0Uym1Xa3eBu43uvpFiWjJOdY="
+    },
     "darwin": {
       "type": "Git",
       "repository": {
@@ -115,6 +131,19 @@
       "revision": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
       "url": "https://api.github.com/repos/numtide/flake-utils/tarball/refs/tags/v1.0.0",
       "hash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM="
+    },
+    "fromYaml": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "SenchoPens",
+        "repo": "fromYaml"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "106af9e2f715e2d828df706c386a685698f3223b",
+      "url": "https://github.com/SenchoPens/fromYaml/archive/106af9e2f715e2d828df706c386a685698f3223b.tar.gz",
+      "hash": "sha256-lq95WydhbUTWig/JpqiB7oViTcHFP8Lv41IGtayokA8="
     },
     "git-hooks-nix": {
       "type": "Git",
@@ -309,6 +338,19 @@
       "revision": "790751ff7fd3801feeaf96d7dc416a8d581265ba",
       "url": "https://github.com/numtide/treefmt-nix/archive/790751ff7fd3801feeaf96d7dc416a8d581265ba.tar.gz",
       "hash": "sha256-pc20NRoMdiar8oPQceQT47UUZMBTiMdUuWrYu2obUP0="
+    },
+    "tt-schemes": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tinted-theming",
+        "repo": "schemes"
+      },
+      "branch": "spec-0.11",
+      "submodules": false,
+      "revision": "d5ddce0697a91203fd3eccc40140890a69fc279e",
+      "url": "https://github.com/tinted-theming/schemes/archive/d5ddce0697a91203fd3eccc40140890a69fc279e.tar.gz",
+      "hash": "sha256-FwuOyAWXsdG7/1TpndL0gYPzBh5XOi1gNliZB774VaA="
     },
     "with-inputs": {
       "type": "GitRelease",

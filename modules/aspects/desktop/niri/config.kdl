@@ -24,7 +24,7 @@ input {
     focus-follows-mouse max-scroll-amount="20%"
 }
 output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505" {
-    scale 1.250000
+    scale 1
     focus-at-startup
     transform "normal"
     position x=0 y=0
@@ -32,7 +32,7 @@ output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505" {
 output "Philips Consumer Electronics Company PHL 288E2 UK52215001852" {
     scale 1.250000
     transform "normal"
-    position x=128 y=-1728
+    position x=922 y=-1728
 }
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 prefer-no-csd
@@ -60,17 +60,6 @@ cursor {
     xcursor-size 28
 }
 hotkey-overlay { skip-at-startup; }
-environment {
-    "GDK_BACKEND" "wayland,x11,*"
-    "NIXOS_OZONE_WL" "1"
-    "QT_QPA_PLATFORM" "wayland"
-    "QT_QPA_PLATFORMTHEME" "qt6ct"
-    "QT_QPA_PLATFORMTHEME_QT6" "qt6ct"
-    "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
-    "XDG_CURRENT_DESKTOP" "niri"
-    "XDG_SESSION_DESKTOP" "niri"
-    "XDG_SESSION_TYPE" "wayland"
-}
 binds {
     Alt+Shift+4 hotkey-overlay-title="Screenshot" { screenshot show-pointer=false; }
     Alt+Shift+T hotkey-overlay-title="Terminal" { spawn-sh "kitten quick-access-terminal"; }
@@ -127,10 +116,6 @@ workspace "code" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 workspace "gaming" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 layer-rule {
     match namespace="^quickshell$"
-    place-within-backdrop true
-}
-layer-rule {
-    match namespace="dms:blurwallpaper"
     place-within-backdrop true
 }
 window-rule {

@@ -102,6 +102,12 @@
                   version = "26.5415.20818";
                   sha256 = "sha256-Sr+qt5jsxjQ43GJarnXPMPMsxiPR7kmfthtbtYCEaHs=";
                 })
+                (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+                  name = "kdl";
+                  publisher = "kdl-org";
+                  version = "2.1.3";
+                  sha256 = "sha256-Jssmb5owrgNWlmLFSKCgqMJKp3sPpOrlEUBwzZSSpbM=";
+                })
               ];
             userSettings = {
               direnv.restart.automatic = true;
@@ -171,7 +177,10 @@
               };
               treefmt.command = "$(which treefmt)";
               "#js/ts".inlayHints.enumMemberValues.enabled = true;
-              window.titleBarStyle = "custom";
+              window = {
+                zoomLevel = 1;
+                titleBarStyle = "custom";
+              };
               update.mode = "none";
               extensions.autoCheckUpdates = false;
             }
@@ -181,7 +190,7 @@
               "markdown.preview.fontSize"
               "terminal.integrated.fontSize"
               "chat.editor.fontSize"
-            ] (host.fonts.sizes.terminal * 4.0 / 3.0))
+            ] host.fonts.sizes.terminal)
             // (customizeAttrs [
               "editor.fontFamily"
               "editor.inlayHints.fontFamily"
@@ -196,7 +205,7 @@
               "notebook.markup.fontFamily"
             ] host.fonts.sans.name);
 
-            jsonFormat = pkgs.formats.json { };
+            jsonFormat = lib.generators.toJSON { };
 
             userDir =
               if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
@@ -207,21 +216,28 @@
             files = lib.mkMerge (
               lib.flatten [
                 {
-                  ".vscode/argv.json".text = builtins.toJSON {
-                    password-store = "gnome-libsecret";
-                    enable-crash-reporter = true;
-                    crash-reporter-id = "d17b2c57-3182-4ec0-a09f-c8abd1812a80";
+                  ".vscode/argv.json" = {
+                    generator = jsonFormat;
+                    value = {
+                      password-store = "gnome-libsecret";
+                      enable-crash-reporter = true;
+                      crash-reporter-id = "d17b2c57-3182-4ec0-a09f-c8abd1812a80";
+                    };
                   };
                 }
                 {
-                  "${userDir}/settings.json".source = jsonFormat.generate "vscode-user-settings" userSettings;
+                  "${userDir}/settings.json" = {
+                    generator = jsonFormat;
+                    value = userSettings;
+                  };
                 }
 
                 (lib.mkIf (languageSnippets != { }) (
                   lib.mapAttrs' (
                     language: snippet:
                     lib.nameValuePair "${userDir}/snippets/${language}.json" {
-                      source = jsonFormat.generate "user-snippet-${language}.json" snippet;
+                      generator = jsonFormat;
+                      value = snippet;
                     }
                   ) languageSnippets
                 ))

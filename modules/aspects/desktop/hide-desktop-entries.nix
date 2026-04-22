@@ -30,8 +30,6 @@
         hidden = mkHiddenDesktopEntries "other" pkgs {
           kvantummanager = "Kvantum Manager";
           blueman-manager = "Bluetooth Manager";
-          qt5ct = "Qt5 Configuration Tool";
-          qt6ct = "Qt6 Configuration Tool";
           "nixos-manual" = "NixOS Manual";
           fish = "fish";
           vim = "vim";

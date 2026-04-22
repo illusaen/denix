@@ -1,30 +1,46 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.theming ];
-  den.aspects.theming = den.lib.perHost {
-    nixos =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          adw-gtk3
-          adwaita-qt6
-          dracula-icon-theme
-          nordic
-          # (kdePackages.qt6ct.overrideAttrs (oldAttrs: {
-          #   patches = (oldAttrs.patches or [ ]) ++ [ ./qt6ct-0.11.patch ];
-          #   nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [
-          #     pkgs.qt6.wrapQtAppsHook
-          #     pkgs.kdePackages.qttools
-          #     pkgs.kdePackages.qtsvg
-          #     pkgs.kdePackages.qtbase
-          #     cmake
-          #   ];
-          # }))
-          kdePackages.qt6ct
-          kdePackages.qtstyleplugin-kvantum
-          libsForQt5.qt5ct
-          libsForQt5.qtstyleplugin-kvantum
-        ];
-      };
+  den,
+  lib,
+  inputs,
+  ...
+}:
+{
+  flake-file.inputs = {
+    base16.url = "github:SenchoPens/base16.nix";
+    tt-schemes = {
+      url = "github:tinted-theming/schemes/spec-0.11";
+      flake = false;
+    };
   };
+
+  den.aspects.desktop.includes = [ den.aspects.theming ];
+  den.aspects.theming =
+    { ... }:
+    {
+      imports = [
+        {
+          options = {
+            colors = lib.mkOption {
+              type = lib.types.anything;
+              default = "test"; # osConfig.lib.base16.mkSchemeAttrs config.base16Scheme;
+            };
+            base16Scheme = lib.mkOption {
+              type = lib.types.path;
+              default = "${inputs.tt-schemes}/base24/chalk.yaml";
+            };
+          };
+        }
+      ];
+
+      nixos =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = with pkgs; [
+            adw-gtk3
+            adwaita-qt6
+            dracula-icon-theme
+            nordic
+          ];
+        };
+    };
 }

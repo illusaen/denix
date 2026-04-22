@@ -23,18 +23,19 @@
             configDir = if pkgs.stdenv.isDarwin then "Library/Application Support" else ".config";
           in
           {
+            xdg.config.files."autostart/vesktop.desktop" = lib.mkIf pkgs.stdenv.isLinux {
+              text = ''
+                [Desktop Entry]
+                Type=Application
+                Name=Vesktop
+                Exec=${pkgs.vesktop}/bin/vesktop --start-minimized
+                X-GNOME-Autostart-enabled=true
+                NoDisplay=true
+                NotShowIn=niri
+              '';
+            };
             files = {
-              ".config/autostart/vesktop.desktop" = lib.mkIf pkgs.stdenv.isLinux {
-                text = ''
-                  [Desktop Entry]
-                  Type=Application
-                  Name=Vesktop
-                  Exec=${pkgs.vesktop}/bin/vesktop --start-minimized
-                  X-GNOME-Autostart-enabled=true
-                  NoDisplay=true
-                  NotShowIn=niri
-                '';
-              };
+
               "${configDir}/vesktop/settings.json".source = ./vesktop-settings.json;
               "${configDir}/vesktop/settings/settings.json".source = ./vencord-settings.json;
               "${configDir}/vesktop/themes/theme.css".source = ./theme.css;
