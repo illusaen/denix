@@ -1,6 +1,5 @@
 {
   den,
-  inputs,
   lib,
   ...
 }:
@@ -13,7 +12,6 @@
       nixos =
         { pkgs, ... }:
         {
-          imports = [ inputs.base16.nixosModule ];
           environment.systemPackages = with pkgs; [
             kdePackages.qt6ct
             kdePackages.qtstyleplugin-kvantum
@@ -67,11 +65,11 @@
 
             kvantumPackage =
               let
-                kvconfig = den.aspects.theming.colors {
+                kvconfig = osConfig.theming.colors {
                   template = ./_templates/kvconfig.mustache;
                   extension = ".kvconfig";
                 };
-                svg = den.aspects.theming.colors {
+                svg = osConfig.theming.colors {
                   template = ./_templates/kvantum.svg.mustache;
                   extension = ".svg";
                 };

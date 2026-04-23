@@ -25,7 +25,8 @@
             ];
 
           persisted = builtins.toJSON {
-            directories = filterPaths "directories" "directory"; # preservation.preserveAt."/persisted".directories => { directory = "/etc/folder"; ...}
+            # preservation.preserveAt."/persisted".directories => { directory = "/etc/folder"; ...}
+            directories = filterPaths "directories" "directory";
             files = filterPaths "files" "file";
           };
 

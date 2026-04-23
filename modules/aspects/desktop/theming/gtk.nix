@@ -1,7 +1,6 @@
 {
   den,
   lib,
-  inputs,
   ...
 }:
 {
@@ -21,8 +20,6 @@
             ...
           }:
           let
-            colors = osConfig.lib.base16.mkSchemeAttrs "${inputs.tt-schemes}/base24/chalk.yaml";
-
             gtkSettings = {
               theme = {
                 package = pkgs.adw-gtk3;
@@ -30,7 +27,7 @@
               };
             };
 
-            gtkBaseCss = colors {
+            gtkBaseCss = osConfig.theming.colors {
               template = ./_templates/gtk.css.mustache;
               extension = ".css";
             };

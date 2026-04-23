@@ -1,6 +1,5 @@
 {
   den,
-  lib,
   inputs,
   ...
 }:
@@ -14,27 +13,40 @@
   };
 
   den.aspects.desktop.includes = [ den.aspects.theming ];
-  den.aspects.theming =
-    { ... }:
-    {
-      imports = [
-        {
-          options = {
-            colors = lib.mkOption {
-              type = lib.types.anything;
-              default = "test"; # osConfig.lib.base16.mkSchemeAttrs config.base16Scheme;
-            };
-            base16Scheme = lib.mkOption {
-              type = lib.types.path;
-              default = "${inputs.tt-schemes}/base24/chalk.yaml";
+  den.aspects.theming = {
+    nixos =
+      {
+        pkgs,
+        config,
+        lib,
+        ...
+      }:
+      {
+        options.theming = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              colors = lib.mkOption {
+                type = lib.types.anything;
+              };
+              base16Scheme = lib.mkOption {
+                type = lib.types.path;
+              };
+              schemeName = lib.mkOption {
+                type = lib.types.str;
+              };
             };
           };
-        }
-      ];
+        };
 
-      nixos =
-        { pkgs, ... }:
-        {
+        imports = [ inputs.base16.nixosModule ];
+
+        config = {
+          theming = {
+            colors = config.lib.base16.mkSchemeAttrs config.theming.base16Scheme;
+            base16Scheme = "${inputs.tt-schemes}/base24/${config.theming.schemeName}.yaml";
+            schemeName = "chalk";
+          };
+
           environment.systemPackages = with pkgs; [
             adw-gtk3
             adwaita-qt6
@@ -42,5 +54,6 @@
             nordic
           ];
         };
-    };
+      };
+  };
 }
