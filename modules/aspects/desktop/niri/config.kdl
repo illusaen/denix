@@ -56,8 +56,8 @@ layout {
     always-center-single-column
 }
 cursor {
-    xcursor-theme "Nordic-cursors"
-    xcursor-size 28
+    xcursor-theme @cursorTheme@
+    xcursor-size @cursorSize@
 }
 hotkey-overlay { skip-at-startup; }
 binds {

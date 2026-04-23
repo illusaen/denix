@@ -21,19 +21,57 @@
         lib,
         ...
       }:
-      {
-        options.theming = lib.mkOption {
-          type = lib.types.submodule {
+      let
+        cfg = config.myLib.theming;
+
+        mkThemeType =
+          {
+            hasSize ? false,
+          }:
+          lib.types.submodule {
             options = {
-              colors = lib.mkOption {
-                type = lib.types.anything;
-              };
-              base16Scheme = lib.mkOption {
-                type = lib.types.path;
-              };
-              schemeName = lib.mkOption {
+              name = lib.mkOption {
                 type = lib.types.str;
               };
+              package = lib.mkOption {
+                type = lib.types.package;
+              };
+            }
+            // lib.optionalAttrs hasSize {
+              size = lib.mkOption { type = lib.types.int; };
+            };
+          };
+        mkThemingOptionType = lib.types.submodule {
+          options = {
+            colors = lib.mkOption {
+              type = lib.types.anything;
+            };
+            base16Scheme = lib.mkOption {
+              type = lib.types.path;
+            };
+            schemeName = lib.mkOption {
+              type = lib.types.str;
+            };
+            iconTheme = lib.mkOption {
+              type = mkThemeType { };
+            };
+            cursorTheme = lib.mkOption {
+              type = mkThemeType { hasSize = true; };
+            };
+            colorScheme = lib.mkOption {
+              type = lib.types.enum [
+                "dark"
+                "light"
+              ];
+            };
+          };
+        };
+      in
+      {
+        options.myLib = lib.mkOption {
+          type = lib.types.submodule {
+            options.theming = lib.mkOption {
+              type = mkThemingOptionType;
             };
           };
         };
@@ -41,10 +79,20 @@
         imports = [ inputs.base16.nixosModule ];
 
         config = {
-          theming = {
-            colors = config.lib.base16.mkSchemeAttrs config.theming.base16Scheme;
-            base16Scheme = "${inputs.tt-schemes}/base24/${config.theming.schemeName}.yaml";
+          myLib.theming = {
+            colors = config.lib.base16.mkSchemeAttrs cfg.base16Scheme;
+            base16Scheme = "${inputs.tt-schemes}/base24/${cfg.schemeName}.yaml";
             schemeName = "chalk";
+            iconTheme = {
+              name = "Dracula";
+              package = pkgs.dracula-icon-theme;
+            };
+            cursorTheme = {
+              name = "Nordic-cursors";
+              package = pkgs.nordic;
+              size = 28;
+            };
+            colorScheme = "dark";
           };
 
           environment.systemPackages = with pkgs; [

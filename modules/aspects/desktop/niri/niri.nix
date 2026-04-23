@@ -56,7 +56,14 @@
     };
 
     _.configure = den.lib.perUser {
-      hjem.xdg.config.files."niri/config.kdl".source = ./config.kdl;
+      hjem =
+        { pkgs, osConfig, ... }:
+        {
+          xdg.config.files."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
+            cursorTheme = "\"${osConfig.myLib.theming.cursorTheme.name}\"";
+            cursorSize = osConfig.myLib.theming.cursorTheme.size;
+          };
+        };
     };
   };
 }

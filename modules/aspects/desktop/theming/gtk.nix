@@ -8,7 +8,8 @@
   den.aspects.gtk = {
     includes = lib.attrValues den.aspects.gtk._;
 
-    _.enable.nixos.programs.dconf.enable = true;
+    _.enable = den.lib.perHost { nixos.programs.dconf.enable = true; };
+
     _.configure = den.lib.perUser (
       { user, ... }:
       {
@@ -20,14 +21,7 @@
             ...
           }:
           let
-            gtkSettings = {
-              theme = {
-                package = pkgs.adw-gtk3;
-                name = "adw-gtk3";
-              };
-            };
-
-            gtkBaseCss = osConfig.theming.colors {
+            gtkBaseCss = osConfig.myLib.theming.colors {
               template = ./_templates/gtk.css.mustache;
               extension = ".css";
             };
@@ -37,28 +31,39 @@
               echo ${lib.escapeShellArg gtkExtraCss} >>$out
             '';
             gtkSettingsFile = version: { "gtk-${version}/gtk.css".source = gtkFinalCss; };
+
+            inherit (lib)
+              mkMerge
+              flatten
+              ;
+
+            gtk = {
+              theme = {
+                package = pkgs.adw-gtk3;
+                name = "adw-gtk3";
+              };
+            };
           in
           {
-            xdg.config.files = lib.mkMerge (
-              lib.flatten [
-                (map gtkSettingsFile [
-                  "3.0"
-                  "4.0"
-                ])
-              ]
-            );
+
+            xdg.config.files = mkMerge (flatten [
+              (map gtkSettingsFile [
+                "3.0"
+                "4.0"
+              ])
+            ]);
 
             xdg.data.files."flatpak/overrides/global".text = ''
               [Context]
-              filesystems=${osConfig.users.users.${user.name}.home}/.themes/${gtkSettings.theme.name}:ro
+              filesystems=${osConfig.users.users.${user.name}.home}/.themes/${gtk.theme.name}:ro
 
               [Environment]
-              GTK_THEME=${gtkSettings.theme.name}
+              GTK_THEME=${gtk.theme.name}
             '';
 
-            files.".themes/${gtkSettings.theme.name}".source = pkgs.stdenvNoCC.mkDerivation {
+            files.".themes/${gtk.theme.name}".source = pkgs.stdenvNoCC.mkDerivation {
               name = "flattenedGtkTheme";
-              src = "${gtkSettings.theme.package}/share/themes/${gtkSettings.theme.name}";
+              src = "${gtk.theme.package}/share/themes/${gtk.theme.name}";
 
               installPhase = ''
                 cp --recursive . $out

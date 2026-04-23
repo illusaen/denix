@@ -42,6 +42,8 @@
             ...
           }:
           let
+            inherit (osConfig.myLib.theming) colors;
+
             qtSettingsFile = qtct: {
               "${qtct}/${qtct}.conf".source =
                 (pkgs.formats.ini {
@@ -53,7 +55,7 @@
                       custom_palette = true;
                       standard_dialogs = "xdgdesktopportal";
                       inherit (osConfig.qt) style;
-                      icon_theme = "Dracula";
+                      icon_theme = osConfig.myLib.theming.iconTheme.name;
                     };
 
                     Fonts = {
@@ -65,11 +67,11 @@
 
             kvantumPackage =
               let
-                kvconfig = osConfig.theming.colors {
+                kvconfig = colors {
                   template = ./_templates/kvconfig.mustache;
                   extension = ".kvconfig";
                 };
-                svg = osConfig.theming.colors {
+                svg = colors {
                   template = ./_templates/kvantum.svg.mustache;
                   extension = ".svg";
                 };
