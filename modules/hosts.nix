@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, lib, ... }:
 let
   disko = import ./aspects/boot/_disko.nix {
     inherit (den.aspects.preservation) disk persistMount rollbackSnapshot;
@@ -8,6 +8,13 @@ in
   den.hosts.x86_64-linux.odin.users.wendy = { };
   den.hosts.x86_64-linux.thor.users.wendy = { }; # Seedbox server
   den.hosts.aarch64-darwin.idunn.users.wendy = { };
+
+  den.aspects.myLib = den.lib.perHost {
+    os.options.myLib = lib.mkOption {
+      type = lib.types.submodule { };
+    };
+  };
+  den.ctx.host.includes = [ den.aspects.myLib ];
 
   # host aspect
   den.aspects.odin = {

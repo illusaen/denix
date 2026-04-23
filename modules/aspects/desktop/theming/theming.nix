@@ -68,12 +68,8 @@
         };
       in
       {
-        options.myLib = lib.mkOption {
-          type = lib.types.submodule {
-            options.theming = lib.mkOption {
-              type = mkThemingOptionType;
-            };
-          };
+        options.myLib.theming = lib.mkOption {
+          type = mkThemingOptionType;
         };
 
         imports = [ inputs.base16.nixosModule ];
