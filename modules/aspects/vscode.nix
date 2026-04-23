@@ -10,7 +10,10 @@
           environment.systemPackages = with pkgs; [ vscode ];
         };
 
-      persistUser.directories = [ ".codex" ];
+      persistUser.directories = [
+        ".codex"
+        ".config/Code/User/globalStorage"
+      ];
     };
 
     _.configure = den.lib.perUser {

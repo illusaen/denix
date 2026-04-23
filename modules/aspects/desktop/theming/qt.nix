@@ -19,10 +19,6 @@
             libsForQt5.qtstyleplugin-kvantum
           ];
 
-          environment.sessionVariables = {
-            QT_STYLE_OVERRIDE = "kvantum";
-          };
-
           qt = {
             enable = true;
             style = "kvantum";

@@ -28,7 +28,6 @@
         ];
 
         hidden = mkHiddenDesktopEntries "other" pkgs {
-          kvantummanager = "Kvantum Manager";
           blueman-manager = "Bluetooth Manager";
           "nixos-manual" = "NixOS Manual";
           fish = "fish";
