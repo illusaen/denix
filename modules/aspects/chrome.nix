@@ -1,6 +1,7 @@
 { den, lib, ... }:
 {
   den.ctx.host.includes = [ den.aspects.chrome ];
+  den.ctx.user.includes = [ den.aspects.chrome ];
 
   den.aspects.chrome = {
     includes = lib.attrValues den.aspects.chrome._;
