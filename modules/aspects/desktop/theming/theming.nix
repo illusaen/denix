@@ -19,47 +19,33 @@
         pkgs,
         config,
         lib,
+        helpers,
         ...
       }:
       let
+        inherit (lib) mkOption types;
         cfg = config.myLib.theming;
+        inherit (helpers) mkThemeType;
 
-        mkThemeType =
-          {
-            hasSize ? false,
-          }:
-          lib.types.submodule {
-            options = {
-              name = lib.mkOption {
-                type = lib.types.str;
-              };
-              package = lib.mkOption {
-                type = lib.types.package;
-              };
-            }
-            // lib.optionalAttrs hasSize {
-              size = lib.mkOption { type = lib.types.int; };
-            };
-          };
-        mkThemingOptionType = lib.types.submodule {
+        mkThemingOptionType = types.submodule {
           options = {
-            colors = lib.mkOption {
-              type = lib.types.anything;
+            colors = mkOption {
+              type = types.anything;
             };
-            base16Scheme = lib.mkOption {
-              type = lib.types.path;
+            base16Scheme = mkOption {
+              type = types.path;
             };
-            schemeName = lib.mkOption {
-              type = lib.types.str;
+            schemeName = mkOption {
+              type = types.str;
             };
-            iconTheme = lib.mkOption {
+            iconTheme = mkOption {
               type = mkThemeType { };
             };
-            cursorTheme = lib.mkOption {
+            cursorTheme = mkOption {
               type = mkThemeType { hasSize = true; };
             };
-            colorScheme = lib.mkOption {
-              type = lib.types.enum [
+            colorScheme = mkOption {
+              type = types.enum [
                 "dark"
                 "light"
               ];
