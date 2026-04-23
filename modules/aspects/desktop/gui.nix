@@ -20,6 +20,7 @@
 
     persistUser.directories = [
       ".local/share/flatpak"
+      ".var/app/com.bambulab.BambuStudio"
     ];
   };
 }
