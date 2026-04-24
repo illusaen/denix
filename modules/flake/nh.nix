@@ -13,7 +13,7 @@
         programs.fish.shellAbbrs = {
           nd = "nh clean all";
           buildmodi = "nixos-rebuild switch --flake .#modi --target-host wendy@192.168.1.104 --use-remote-sudo";
-          bb = "nh ${host.class} switch -f .";
+          bb = "nh ${host.class} switch .";
         };
       };
     };

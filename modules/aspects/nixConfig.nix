@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, lib, ... }:
 {
   den.ctx.host.includes = [
     den.aspects.nixConfig
@@ -6,6 +6,8 @@
 
   den.aspects.nixConfig = den.lib.perHost {
     os = {
+      system.nixos.versionSuffix = lib.mkForce "";
+
       nix.settings = {
         experimental-features = [
           "nix-command"
