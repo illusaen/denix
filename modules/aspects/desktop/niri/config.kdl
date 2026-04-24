@@ -160,7 +160,7 @@ window-rule {
     open-on-workspace "chat"
 }
 window-rule {
-    match app-id="^^steam.*$"
+    match app-id="^steam.*$"
     open-on-workspace "gaming"
 }
 window-rule {
