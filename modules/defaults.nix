@@ -25,11 +25,6 @@ in
   den.default = {
     nixos.system.stateVersion = "26.05";
     darwin.system.stateVersion = 6;
-
-    includes = [
-      den.provides.inputs'
-      den.provides.self'
-    ];
   };
 
   den.schema.user.classes = lib.mkDefault [ "hjem" ];
@@ -45,6 +40,4 @@ in
     den.provides.mutual-provider
     variablesClass
   ];
-
-  flake.den = den;
 }

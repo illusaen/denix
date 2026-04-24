@@ -1,24 +1,21 @@
 {
   inputs,
-  den,
-  lib,
   ...
 }:
 {
   imports = [
-    (inputs.flake-file.flakeModules.flakeless-parts or { })
-    (inputs.den.flakeModules.dendritic or { })
-    inputs.flake-file.flakeModules.npins
+    # Define the top-level flake output schema explicitly so evaluation
+    # does not depend on a flake-parts input being present in pins.
+    inputs.flake-file.flakeModules.flakeless-parts
+    inputs.den.flakeModule
   ];
 
   flake-file.inputs = {
     den.url = "github:vic/den";
     flake-file.url = "github:vic/flake-file";
     import-tree.url = "github:vic/import-tree";
-    with-inputs = {
-      url = "github:vic/with-inputs";
-      flake = false;
-    };
+    with-inputs.url = "github:vic/with-inputs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     darwin = {
@@ -30,6 +27,4 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  systems = lib.attrNames den.hosts;
 }
