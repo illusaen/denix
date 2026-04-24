@@ -29,10 +29,12 @@
 
         hidden = mkHiddenDesktopEntries "other" pkgs {
           blueman-manager = "Bluetooth Manager";
+          blueman-adapters = "Bluetooth Adapters";
           "nixos-manual" = "NixOS Manual";
           fish = "fish";
           vim = "vim";
           gvim = "gvim";
+          khal = "khal";
           kitty = "kitty";
           kitty-open = "kitty-open";
           "org.pulseaudio.pavucontrol" = "pavucontrol";

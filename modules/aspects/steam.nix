@@ -13,9 +13,18 @@
         };
 
       nixos =
-        { pkgs, ... }:
+        { pkgs, config, ... }:
         {
-          programs.steam.enable = true;
+          programs.steam = {
+            enable = true;
+            package = pkgs.steam.override {
+              extraPkgs =
+                # pkgs': with pkgs'; [
+
+                # ];
+                _pkgs': [ config.myLib.theming.cursorTheme.package ];
+            };
+          };
 
           systemd.user.services.steam-start = {
             description = "Start Steam on login";

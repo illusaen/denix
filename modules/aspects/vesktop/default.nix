@@ -34,7 +34,6 @@
             '';
           };
           files = {
-
             "${configDir}/vesktop/settings.json".source = ./vesktop-settings.json;
             "${configDir}/vesktop/settings/settings.json".source = ./vencord-settings.json;
             "${configDir}/vesktop/themes/theme.css".source = ./theme.css;

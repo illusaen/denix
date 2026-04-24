@@ -84,6 +84,7 @@
               usernamehw.errorlens
               svelte.svelte-vscode
               bradlc.vscode-tailwindcss
+              dracula-theme.theme-dracula
             ]
             ++ [
               (pkgs.vscode-utils.extensionFromVscodeMarketplace {
@@ -93,10 +94,10 @@
                 sha256 = "sha256-ZTRrZDXqK9L7E5fr5NLEa/0ZyTnFdItfytbVuh/qr94=";
               })
               (pkgs.vscode-utils.extensionFromVscodeMarketplace {
-                name = "one-monokai";
-                publisher = "azemoh";
-                version = "0.5.2";
-                sha256 = "sha256-lky8hF5h/VIIEecS+zjoTLhyWwWC0axNnIgnkPJAnOA=";
+                name = "dms-theme";
+                publisher = "danklinux";
+                version = "0.0.3";
+                sha256 = "sha256-MI1x1wiqvwg/N89oMuNVp0qlRT84ubvuMjtpkX0WKQY=";
               })
               (pkgs.vscode-utils.extensionFromVscodeMarketplace {
                 name = "chatgpt";
@@ -166,7 +167,7 @@
               sendKeybindingsToShell = true;
             };
             workbench = {
-              colorTheme = "One Monokai";
+              colorTheme = "Dracula Theme";
               iconTheme = "catppuccin-macchiato";
               sideBar.location = "right";
               startupEditor = "none";
@@ -174,7 +175,6 @@
               colorCustomizations = lib.mergeAttrsList [
                 { "[Catppuccin Macchiato]" = mapListToAttrsWith colorCustomizationAttrs "#242933"; }
                 { "[Nord]" = mapListToAttrsWith colorCustomizationAttrs "#242933"; }
-                { "[One Monokai]" = mapListToAttrsWith colorCustomizationAttrs "#21252b"; }
               ];
             };
             treefmt.command = "$(which treefmt)";
@@ -192,7 +192,7 @@
             "markdown.preview.fontSize"
             "terminal.integrated.fontSize"
             "chat.editor.fontSize"
-          ] osConfig.myLib.fonts.sizes.terminal)
+          ] (osConfig.myLib.fonts.sizes.terminal * 1.1))
           // (mapListToAttrsWith [
             "editor.fontFamily"
             "editor.inlayHints.fontFamily"

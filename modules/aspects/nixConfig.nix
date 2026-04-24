@@ -25,11 +25,7 @@
         ];
       };
 
-      nixpkgs.config = {
-        allowUnfree = true;
-      };
-
-      # nixpkgs.overlays = [ (import ../flake/_overlays.nix) ];
+      nixpkgs.config.allowUnfree = true;
 
       time.timeZone = "America/Chicago";
     };

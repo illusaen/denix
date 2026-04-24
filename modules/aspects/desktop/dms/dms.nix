@@ -6,6 +6,7 @@
       ".config/DankMaterialShell"
       ".config/niri/dms"
       ".cache/DankMaterialShell"
+      ".local/state/DankMaterialShell"
     ];
 
     nixos = {
