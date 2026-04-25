@@ -23,10 +23,14 @@ in
       discord
       fonts
     ];
+
+    _.to-users.includes = [ den.aspects.desktop ];
   };
 
   den.aspects.thor = {
     inherit disko;
+
+    includes = with den.aspects; [ fonts ];
   };
 
   den.aspects.idunn = {
@@ -41,12 +45,7 @@ in
 
   # user aspect
   den.aspects.wendy = {
-    includes = [
-      den.provides.primary-user
-    ]
-    ++ (with den.aspects; [
-      desktop
-    ]);
+    includes = [ den.provides.primary-user ];
 
     user.password = "arst";
 

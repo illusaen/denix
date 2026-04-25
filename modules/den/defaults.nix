@@ -59,6 +59,7 @@ in
 
   den.ctx.user.includes = [
     den.provides.define-user
+    den.provides.mutual-provider
     (den.provides.user-shell "fish")
   ];
 

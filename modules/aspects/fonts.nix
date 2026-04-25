@@ -136,7 +136,6 @@
           serif = sansSerif;
           sansSerif = [ config.myLib.fonts.sans.name ];
         };
-
       };
   };
 }
