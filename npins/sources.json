@@ -71,6 +71,22 @@
       "url": "https://github.com/numtide/disko-zfs/archive/adaef72fba88b4f313fcb3f7cf02e24b2a09b648.tar.gz",
       "hash": "sha256-nfl7tj3TN8MZI5JpidUjlqax+2ly2BHay3tpM/cc9ik="
     },
+    "dms": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.4.4.1",
+      "revision": "9798d78300d402178896f6ee1c370baed490158a",
+      "url": "https://api.github.com/repos/AvengeMedia/DankMaterialShell/tarball/refs/tags/v1.4.4.1",
+      "hash": "sha256-iYBdSBvcW7bJtc84G6k5TFJEbPHQrif9KzZyE9Lbq8M="
+    },
     "flake-compat": {
       "type": "GitRelease",
       "repository": {
@@ -280,6 +296,19 @@
       "revision": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
       "url": "https://github.com/nix-community/preservation/archive/93416f4614ad2dfed5b0dcf12f27e57d27a5ab11.tar.gz",
       "hash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY="
+    },
+    "quickshell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "illusaen",
+        "repo": "quickshell"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "9811d021b13e5bc35d4711f402cb920bab0244c3",
+      "url": "https://github.com/illusaen/quickshell/archive/9811d021b13e5bc35d4711f402cb920bab0244c3.tar.gz",
+      "hash": "sha256-Od25Dl5KWP/jPLXINvRZy/f+OQtxvYDIWCMk0cg9dzc="
     },
     "systems": {
       "type": "Git",

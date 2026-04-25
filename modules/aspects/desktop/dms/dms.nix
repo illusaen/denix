@@ -1,5 +1,17 @@
-{ den, ... }:
+{ den, inputs, ... }:
 {
+  flake-file.inputs = {
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell";
+    };
+    quickshell = {
+      url = "github:illusaen/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
   den.aspects.desktop._.dms = den.lib.perHost {
     persistUser.directories = [
       ".config/DankMaterialShell"
@@ -9,7 +21,8 @@
     ];
 
     nixos = {
-      programs.dms-shell = {
+      imports = [ inputs.dms.nixosModules.dank-material-shell ];
+      programs.dank-material-shell = {
         enable = true;
         enableVPN = false;
       };
