@@ -1,7 +1,6 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.switch-input ];
-  den.aspects.switch-input = den.lib.perHost {
+  den.aspects.desktop._.switch-input = den.lib.perHost {
     nixos =
       { pkgs, ... }:
       let

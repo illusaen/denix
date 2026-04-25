@@ -1,7 +1,6 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.gdm ];
-  den.aspects.gdm = den.lib.perHost {
+  den.aspects.desktop._.gdm = den.lib.perHost {
     nixos = {
       services.displayManager = {
         enable = true;

@@ -21,6 +21,7 @@ in
       vscode
       element
       discord
+      fonts
     ];
   };
 
@@ -34,6 +35,7 @@ in
       darwinConfig
       element
       discord
+      fonts
     ];
   };
 

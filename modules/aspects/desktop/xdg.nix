@@ -3,10 +3,8 @@
   ...
 }:
 {
-  den.aspects.desktop.includes = [ den.aspects.xdg ];
-
-  den.aspects.xdg = {
-    hjem = {
+  den.aspects.desktop._.xdg = den.lib.perHost {
+    hj = {
       xdg.config.files = {
         "user-dirs.dirs".text = ''
           XDG_DOWNLOAD_DIR="$HOME/Downloads"

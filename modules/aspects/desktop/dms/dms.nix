@@ -1,7 +1,6 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.dms ];
-  den.aspects.dms = den.lib.perHost {
+  den.aspects.desktop._.dms = den.lib.perHost {
     persistUser.directories = [
       ".config/DankMaterialShell"
       ".config/niri/dms"

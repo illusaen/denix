@@ -1,7 +1,6 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.polkit ];
-  den.aspects.polkit = den.lib.perHost {
+  den.aspects.desktop._.polkit = den.lib.perHost {
     nixos =
       { pkgs, ... }:
       {

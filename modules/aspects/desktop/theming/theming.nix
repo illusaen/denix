@@ -12,8 +12,7 @@
     };
   };
 
-  den.aspects.desktop.includes = [ den.aspects.theming ];
-  den.aspects.theming = {
+  den.aspects.desktop._.theming = den.lib.perHost {
     nixos =
       {
         pkgs,

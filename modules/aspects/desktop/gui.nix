@@ -1,8 +1,6 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.gui ];
-
-  den.aspects.gui = den.lib.perHost {
+  den.aspects.desktop._.gui = den.lib.perHost {
     nixos =
       { pkgs, ... }:
       {
