@@ -20,6 +20,33 @@ let
       fromAspect = _: lib.head aspect-chain;
       evalConfig = true;
     };
+
+  helpers = import ./_helpers.nix { inherit lib; };
+
+  hjemHostClass =
+    { host }:
+    { aspect-chain, ... }:
+    den._.forward {
+      each =
+        helpers.cartesian
+          {
+            left = "class";
+            right = "username";
+          }
+          [
+            "nixos"
+            "darwin"
+          ]
+          (lib.attrNames host.users);
+      fromClass = _: "hj";
+      intoClass = item: item.class;
+      intoPath = item: [
+        "hjem"
+        "users"
+        item.username
+      ];
+      fromAspect = _: lib.head aspect-chain;
+    };
 in
 {
   den.default = {
@@ -37,7 +64,7 @@ in
 
   den.ctx.host.includes = [
     den.provides.hostname
-    den.provides.mutual-provider
     variablesClass
+    hjemHostClass
   ];
 }

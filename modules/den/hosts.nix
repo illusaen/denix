@@ -1,6 +1,6 @@
 { den, ... }:
 let
-  disko = import ./aspects/boot/_disko.nix {
+  disko = import ../aspects/boot/_disko.nix {
     inherit (den.aspects.preservation) disk persistMount rollbackSnapshot;
   };
 in
@@ -30,7 +30,7 @@ in
 
   den.aspects.idunn = {
     includes = with den.aspects; [
-      vscode
+      # vscode
       darwinConfig
       element
       discord
