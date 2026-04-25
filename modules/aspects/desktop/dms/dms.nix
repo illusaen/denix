@@ -25,6 +25,7 @@
       programs.dank-material-shell = {
         enable = true;
         enableVPN = false;
+        systemd.enable = true;
       };
 
       security.pam.u2f.enable = true;

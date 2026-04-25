@@ -45,9 +45,6 @@ in
       den.provides.primary-user
     ]
     ++ (with den.aspects; [
-      element
-      discord
-      steam
       desktop
     ]);
 

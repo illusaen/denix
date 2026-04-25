@@ -13,11 +13,5 @@
         "user-dirs.conf".text = "enabled=False";
       };
     };
-
-    nixos =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ xdg-user-dirs ];
-      };
   };
 }

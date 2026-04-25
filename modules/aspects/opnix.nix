@@ -2,27 +2,15 @@
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
-  den.aspects.wendy =
-    { user, ... }:
-    {
-      nixos.users.users.${user.name}.extraGroups = [ "onepassword-secrets" ];
-      darwin.users.groups = {
-        name = "onepassword-secrets";
-        members = user.name;
-      };
-    };
+  den.ctx.host.includes = [ den.aspects.opnix._.enable ];
+  den.ctx.user.includes = [ den.aspects.opnix._.opnix-user ];
 
-  den.ctx.host.includes = [ den.aspects.opnix ];
-  den.aspects.opnix = den.lib.perHost {
-    nixos = {
-      imports = [ inputs.opnix.nixosModules.default ];
-    };
-    darwin = {
-      imports = [ inputs.opnix.darwinModules.default ];
-    };
+  den.aspects.opnix = {
+    _.enable = den.lib.perHost {
+      nixos.imports = [ inputs.opnix.nixosModules.default ];
+      darwin.imports = [ inputs.opnix.darwinModules.default ];
 
-    os = {
-      services.onepassword-secrets = {
+      os.services.onepassword-secrets = {
         enable = true;
         tokenFile = "/etc/opnix-token";
         secrets = {
@@ -38,8 +26,19 @@
           };
         };
       };
+
+      persist.files = [ "/etc/opnix-token" ];
     };
 
-    persist.files = [ "/etc/opnix-token" ];
+    _.opnix-user = den.lib.perUser (
+      { user, ... }:
+      {
+        nixos.users.users.${user.name}.extraGroups = [ "onepassword-secrets" ];
+        darwin.users.groups = {
+          name = "onepassword-secrets";
+          members = user.name;
+        };
+      }
+    );
   };
 }
