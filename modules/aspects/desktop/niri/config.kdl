@@ -98,7 +98,7 @@ binds {
     XF86AudioPrev hotkey-overlay-title="Playerctl prev" allow-when-locked=true { spawn "playerctl" "previous"; }
     XF86AudioRaiseVolume hotkey-overlay-title="Vol Up" allow-when-locked=true { spawn-sh "dms ipc call audio increment 5"; }
 }
-workspace "chat" {
+workspace "music" {
     open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
     layout {
         default-column-width { proportion 0.666667; }
@@ -108,6 +108,7 @@ workspace "chat" {
         }
     }
 }
+workspace "chat" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 workspace "code" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 workspace "gaming" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
 layer-rule {

@@ -30,7 +30,10 @@ in
   den.aspects.thor = {
     inherit disko;
 
-    includes = with den.aspects; [ fonts ];
+    includes = with den.aspects; [
+      fonts
+      server
+    ];
   };
 
   den.aspects.idunn = {
