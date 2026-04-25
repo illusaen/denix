@@ -55,7 +55,13 @@ in
   };
 
   den.schema.user.classes = lib.mkDefault [ "hjem" ];
-  den.schema.host.hjem.enable = true;
+  den.schema.host = {
+    options.ip = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+    };
+    config.hjem.enable = true;
+  };
 
   den.ctx.user.includes = [
     den.provides.define-user

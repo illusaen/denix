@@ -65,8 +65,8 @@
             base16Scheme = "${inputs.tt-schemes}/base24/${cfg.schemeName}.yaml";
             schemeName = "chalk";
             iconTheme = {
-              name = "Dracula";
-              package = pkgs.dracula-icon-theme;
+              name = "Nordic-darker";
+              package = pkgs.nordic;
             };
             cursorTheme = {
               name = "Nordic-cursors";

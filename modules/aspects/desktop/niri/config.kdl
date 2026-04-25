@@ -101,10 +101,10 @@ binds {
 workspace "music" {
     open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
     layout {
-        default-column-width { proportion 0.666667; }
+        default-column-width { proportion 0.8; }
         preset-column-widths {
-            proportion 0.666667
             proportion 0.8
+            proportion 0.666667
         }
     }
 }
@@ -129,7 +129,10 @@ window-rule {
     max-height 800
 }
 window-rule {
-    match app-id="^steam_app.*"
+    match app-id="^code$"
+    match app-id="^google-chrome$"
+    match at-startup=false
+    open-on-workspace "code"
 }
 window-rule {
     geometry-corner-radius 8.000000 8.000000 8.000000 8.000000

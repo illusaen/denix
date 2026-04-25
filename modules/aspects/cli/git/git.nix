@@ -31,7 +31,7 @@
           difftastic
           fishGitCloneRepo
         ];
-        environment.etc."gitconfig".source = ./gitconfig;
+        environment.etc."gitconfig".source = lib.mkForce ./gitconfig;
 
         programs.fish = lib.mkIf config.programs.fish.enable {
           interactiveShellInit = ''
@@ -52,7 +52,6 @@
             gpf = "git push --force-with-lease";
           };
         };
-
       };
   };
 }
