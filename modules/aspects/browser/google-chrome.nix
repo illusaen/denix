@@ -1,10 +1,10 @@
 { den, lib, ... }:
 {
-  den.ctx.host.includes = [ den.aspects.chrome ];
-  den.ctx.user.includes = [ den.aspects.chrome ];
+  den.ctx.host.includes = [ den.aspects.google-chrome ];
+  den.ctx.user.includes = [ den.aspects.google-chrome ];
 
-  den.aspects.chrome = {
-    includes = lib.attrValues den.aspects.chrome._;
+  den.aspects.google-chrome = {
+    includes = lib.attrValues den.aspects.google-chrome._;
 
     _.enable = den.lib.perHost {
       persistUser.directories = [ ".config/google-chrome" ];
@@ -21,6 +21,7 @@
       hjem =
         { lib, ... }:
         {
+          xdg.data.files."applications/google-chrome.desktop".source = ./google-chrome.desktop;
           xdg.mime-apps.default-applications =
             let
               application = "google-chrome.desktop";
