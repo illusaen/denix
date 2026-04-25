@@ -10,16 +10,23 @@
 
         environment.systemPackages = with pkgs; [
           (nemo-with-extensions.override {
-            # Disable the default extensions so we can explicity declare them ourself
-            useDefaultExtensions = false;
             extensions = [
-              nemo-python # Dependency of `nemo-emblems`
-              nemo-emblems # Enables folder/file emblem change tab
               nemo-preview # Quick previewer for Nemo
-              nemo-fileroller # Archive management within Nemo
               nemo-seahorse # GNOME encryption keys management
             ];
           })
+        ];
+
+        programs.dconf.profiles.user.databases = [
+          {
+            settings = {
+              "org/nemo/preferences" = {
+                show-image-thumbnails = "always";
+                show-hidden-files = true;
+                thumbnail-limit = lib.gvariant.mkUint64 104857600;
+              };
+            };
+          }
         ];
       };
 

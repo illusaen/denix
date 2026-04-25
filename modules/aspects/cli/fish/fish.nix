@@ -43,6 +43,7 @@
         programs.fish = {
           enable = true;
           interactiveShellInit = ''
+            set -g fish_greeting ""
             set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
           '';
           shellAbbrs = {
