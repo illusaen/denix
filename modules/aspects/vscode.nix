@@ -1,5 +1,6 @@
+{ den, ... }:
 {
-  den.aspects.vscode = {
+  den.aspects.vscode = den.lib.perHost {
     os =
       { pkgs, ... }:
       {

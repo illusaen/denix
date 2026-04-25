@@ -4,6 +4,17 @@
   lib,
   ...
 }:
+let
+  diskoClass =
+    { class, aspect-chain }:
+    den._.forward {
+      each = lib.singleton class;
+      fromClass = _: "disko";
+      intoClass = _: "nixos"; # Disko only supports NixOS
+      intoPath = _: [ ]; # Forwards into root
+      fromAspect = _: lib.head aspect-chain;
+    };
+in
 {
   flake-file.inputs = {
     disko = {
@@ -25,33 +36,20 @@
     den.aspects.disko
   ];
 
-  den.aspects.disko = {
-    includes = lib.attrValues den.aspects.disko._;
+  den.aspects.disko = den.lib.perHost {
+    includes = [ diskoClass ];
 
-    _.diskoClass = den.lib.perHost (
-      { class, aspect-chain }:
-      den._.forward {
-        each = lib.singleton class;
-        fromClass = _: "disko";
-        intoClass = _: "nixos"; # Disko only supports NixOS
-        intoPath = _: [ ]; # Forwards into root
-        fromAspect = _: lib.head aspect-chain;
-      }
-    );
+    nixos = {
+      imports = [
+        inputs.disko-zfs.nixosModules.default
+        inputs.disko.nixosModules.disko
+      ];
 
-    _.core = den.lib.perHost {
-      nixos = {
-        imports = [
-          inputs.disko-zfs.nixosModules.default
-          inputs.disko.nixosModules.disko
-        ];
+      disko.zfs.enable = true;
 
-        disko.zfs.enable = true;
-
-        boot.supportedFilesystems = [
-          "zfs"
-        ];
-      };
+      boot.supportedFilesystems = [
+        "zfs"
+      ];
     };
   };
 }

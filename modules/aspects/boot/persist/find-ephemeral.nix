@@ -5,7 +5,7 @@
       { config, pkgs, ... }:
       lib.mkIf (config ? preservation.preserveAt) (
         let
-          inherit (den.aspects.preservation) persistMount;
+          inherit (den.aspects.preservation.meta.vars) persistMount;
           cfg = config.preservation.preserveAt.${persistMount};
 
           combined =

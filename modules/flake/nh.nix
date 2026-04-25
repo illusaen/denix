@@ -6,7 +6,7 @@
 }:
 {
   den.ctx.host.includes = [ den.aspects.nh ];
-  den.aspects.nh =
+  den.aspects.nh = den.lib.perHost (
     { host }:
     {
       os = {
@@ -16,5 +16,6 @@
           bb = "${host.name} switch";
         };
       };
-    };
+    }
+  );
 }

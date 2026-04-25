@@ -1,7 +1,7 @@
 { den, ... }:
 let
   disko = import ../aspects/boot/_disko.nix {
-    inherit (den.aspects.preservation) disk persistMount rollbackSnapshot;
+    inherit (den.aspects.preservation.meta.vars) disk persistMount rollbackSnapshot;
   };
 in
 {
@@ -30,7 +30,7 @@ in
 
   den.aspects.idunn = {
     includes = with den.aspects; [
-      # vscode
+      vscode
       darwinConfig
       element
       discord
@@ -43,7 +43,6 @@ in
       den.provides.primary-user
     ]
     ++ (with den.aspects; [
-      vscode
       element
       discord
       steam
