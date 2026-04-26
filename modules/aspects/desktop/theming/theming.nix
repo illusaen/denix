@@ -4,7 +4,7 @@
   ...
 }:
 let
-  base16Scheme = ./ashes.yaml;
+  base16Scheme = ./cosmic.yaml;
 in
 {
   flake-file.inputs = {
@@ -73,7 +73,7 @@ in
             cursorTheme = {
               name = "Nordic-cursors";
               package = pkgs.nordic;
-              size = 32;
+              size = 28;
             };
             colorScheme = "dark";
           };

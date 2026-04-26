@@ -99,12 +99,6 @@
               version = "2.1.3";
               sha256 = "sha256-Jssmb5owrgNWlmLFSKCgqMJKp3sPpOrlEUBwzZSSpbM=";
             })
-            # (pkgs.vscode-utils.extensionFromVscodeMarketplace {
-            #   name = "rose-noctis";
-            #   publisher = "ikenshu";
-            #   version = "0.1.2";
-            #   sha256 = "sha256-S1KRsA60wpavY0q+MU8JsH/0quFA1oN5TcwqKBezOOA=";
-            # })
           ]
           ++ lib.singleton (
             pkgs.runCommandLocal "vscode-theme-extension"
@@ -121,7 +115,7 @@
                     template = ./vscode-theme.json.mustache;
                     extension = ".json";
                   }
-                } "$out/share/vscode/extensions/$vscodeExtUniqueId/themes/cosmic.json"
+                } "$out/share/vscode/extensions/$vscodeExtUniqueId/themes/stylix.json"
               ''
           );
         userSettings = {
@@ -185,8 +179,7 @@
             startupEditor = "none";
             panel.defaultLocation = "right";
             colorCustomizations = lib.mergeAttrsList [
-              { "[Catppuccin Macchiato]" = mapListToAttrsWith colorCustomizationAttrs "#242933"; }
-              { "[Rosé Noctis]" = mapListToAttrsWith colorCustomizationAttrs "#1F2831"; }
+              { "[Cosmic]" = mapListToAttrsWith colorCustomizationAttrs "#1F1F21"; }
             ];
           };
           treefmt.command = "$(which treefmt)";
