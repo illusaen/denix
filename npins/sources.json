@@ -281,6 +281,19 @@
       "url": "https://github.com/nix-community/nixpkgs.lib/archive/ec2b7be3c0b3b764aa0380fa32aa304a5b680cf8.tar.gz",
       "hash": "sha256-o2JFoAWll4ZuHnVKX2ld03ynKR2zkvTDxJ/ZTCDz2/I="
     },
+    "nixpkgs-master": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "6c723ca1bfeb8feebaef284be06a2d8ea3d0b3fa",
+      "url": "https://github.com/NixOS/nixpkgs/archive/6c723ca1bfeb8feebaef284be06a2d8ea3d0b3fa.tar.gz",
+      "hash": "sha256-u62SJKO2HgSL4+2CyGN2ZorDHiCqha32OOkLlU0aFOQ="
+    },
     "opnix": {
       "type": "GitRelease",
       "repository": {

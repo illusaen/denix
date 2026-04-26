@@ -1,5 +1,6 @@
 {
   den,
+  inputs,
   ...
 }:
 {
@@ -13,7 +14,10 @@
           "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
         ];
 
-        programs.niri.enable = true;
+        programs.niri = {
+          enable = true;
+          package = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system}.niri;
+        };
 
         systemd.user.services = {
           delayed-startup = {
