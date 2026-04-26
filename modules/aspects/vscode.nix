@@ -79,7 +79,6 @@
             usernamehw.errorlens
             svelte.svelte-vscode
             bradlc.vscode-tailwindcss
-            dracula-theme.theme-dracula
           ]
           ++ [
             (pkgs.vscode-utils.extensionFromVscodeMarketplace {
@@ -99,6 +98,12 @@
               publisher = "kdl-org";
               version = "2.1.3";
               sha256 = "sha256-Jssmb5owrgNWlmLFSKCgqMJKp3sPpOrlEUBwzZSSpbM=";
+            })
+            (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+              name = "rose-noctis";
+              publisher = "ikenshu";
+              version = "0.1.2";
+              sha256 = "sha256-S1KRsA60wpavY0q+MU8JsH/0quFA1oN5TcwqKBezOOA=";
             })
           ];
         userSettings = {
@@ -156,7 +161,7 @@
             sendKeybindingsToShell = true;
           };
           workbench = {
-            colorTheme = "Dracula Theme";
+            colorTheme = "Rosé Noctis";
             iconTheme = "catppuccin-macchiato";
             sideBar.location = "right";
             startupEditor = "none";

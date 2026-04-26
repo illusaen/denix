@@ -30,6 +30,10 @@
       nixpkgs.config.allowUnfree = true;
 
       time.timeZone = "America/Chicago";
+
+      security.sudo.extraConfig = ''
+        Defaults lecture = never
+      '';
     };
   };
 }
