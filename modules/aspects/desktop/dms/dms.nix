@@ -30,5 +30,9 @@
 
       security.pam.u2f.enable = true;
     };
+
+    hj = {
+      xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = ./dms-theme.json;
+    };
   };
 }

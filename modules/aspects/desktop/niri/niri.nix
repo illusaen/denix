@@ -19,21 +19,6 @@
           package = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system}.niri;
         };
 
-        systemd.user.services = {
-          delayed-startup = {
-            wantedBy = [ "graphical-session.target" ];
-            description = "Delayed startup of programs in xdg autostart that have NotShowIn=niri attr";
-            script = ''
-              ${pkgs.coreutils}/bin/sleep 1
-              for file in $HOME/.config/autostart/*.desktop; do
-                if ${pkgs.gnugrep}/bin/grep -q "NotShowIn=.*niri" "$file"; then
-                  echo "Starting $file"
-                  ${pkgs.dex}/bin/dex "$file"
-                fi
-              done
-            '';
-          };
-        };
         services.displayManager.defaultSession = "niri";
 
         environment.systemPackages = with pkgs; [
@@ -50,14 +35,21 @@
           XDG_SESSION_DESKTOP = "niri";
           XDG_SESSION_TYPE = "wayland";
         };
+
+        xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
       };
 
     hj =
       { pkgs, osConfig, ... }:
+      let
+        mainMonitor = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
+        secondaryMonitor = "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
+      in
       {
         xdg.config.files."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
-          cursorTheme = "\"${osConfig.myLib.theming.cursorTheme.name}\"";
+          cursorTheme = osConfig.myLib.theming.cursorTheme.name;
           cursorSize = osConfig.myLib.theming.cursorTheme.size;
+          inherit mainMonitor secondaryMonitor;
         };
       };
   };

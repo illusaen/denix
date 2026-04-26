@@ -1,0 +1,22 @@
+{
+  "name": "stylix",
+  "displayName": "Stylix",
+  "version": "0.0.0",
+  "publisher": "base16",
+  "description": "Theme configured via NixOS or Home Manager.",
+  "categories": [
+    "Themes"
+  ],
+  "engines": {
+    "vscode": "^1.43.0"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Cosmic",
+        "uiTheme": "vs",
+        "path": "./themes/stylix.json"
+      }
+    ]
+  }
+}

@@ -16,7 +16,7 @@
           confirm_os_window_close 0
           linux_display_server wayland
           macos_titlebar_color system
-          opacity 1
+          opacity 0.9
           placement_strategy bottom-left
           tab_activity_symbol ↺ 
           tab_bar_margin_height 0.0 8.0
@@ -43,13 +43,15 @@
         };
       in
       {
-        environment.systemPackages = [ kitty-wrapped ];
+        environment.systemPackages = [
+          kitty-wrapped
+        ];
       };
 
     darwin =
       { pkgs, ... }:
       {
-        environment.systemPackages = with pkgs; [ iterm2 ];
+        environment.systemPackages = with pkgs; [ ghostty-bin ];
         environment.etc."iterm2.plist".source = ./com.googlecode.iterm2.plist;
         system.defaults.CustomUserPreferences = {
           "com.googlecode.iterm2".PrefsCustomFolder = "/etc/iterm2.plist";

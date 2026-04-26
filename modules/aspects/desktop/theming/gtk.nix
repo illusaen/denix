@@ -137,9 +137,7 @@
               inherit (lib) mkMerge flatten;
               inherit (osConfig.myLib) fonts theming;
 
-              gtkExtraCss = ''
-                @import url("dank-colors.css");
-              '';
+              gtkExtraCss = "";
               gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
                 cat ${
                   theming.colors {

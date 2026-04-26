@@ -1,19 +1,4 @@
 input {
-    keyboard {
-        xkb {
-            layout ""
-            model ""
-            rules ""
-            variant ""
-        }
-        repeat-delay 600
-        repeat-rate 25
-        track-layout "global"
-    }
-    touchpad {
-        tap
-        natural-scroll
-    }
     mouse {
         middle-emulation
         scroll-button 274
@@ -21,15 +6,14 @@ input {
         scroll-factor 1.100000
     }
     warp-mouse-to-focus
-    focus-follows-mouse max-scroll-amount="20%"
 }
-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505" {
+output "@mainMonitor@" {
     scale 1
     focus-at-startup
     transform "normal"
     position x=0 y=0
 }
-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852" {
+output "@secondaryMonitor@" {
     scale 1.250000
     transform "normal"
     position x=922 y=-1728
@@ -56,7 +40,7 @@ layout {
     always-center-single-column
 }
 cursor {
-    xcursor-theme @cursorTheme@
+    xcursor-theme "@cursorTheme@"
     xcursor-size @cursorSize@
 }
 hotkey-overlay { skip-at-startup; }
@@ -99,7 +83,7 @@ binds {
     XF86AudioRaiseVolume hotkey-overlay-title="Vol Up" allow-when-locked=true { spawn-sh "dms ipc call audio increment 5"; }
 }
 workspace "music" {
-    open-on-output "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
+    open-on-output "@secondaryMonitor@";
     layout {
         default-column-width { proportion 0.8; }
         preset-column-widths {
@@ -108,13 +92,9 @@ workspace "music" {
         }
     }
 }
-workspace "chat" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
-workspace "code" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
-workspace "gaming" { open-on-output "LG Electronics LG ULTRAGEAR+ 508RMWVJR505"; }
-layer-rule {
-    match namespace="^quickshell$"
-    place-within-backdrop true
-}
+workspace "chat" { open-on-output "@mainMonitor@"; }
+workspace "code" { open-on-output "@mainMonitor@"; }
+workspace "gaming" { open-on-output "@mainMonitor@"; }
 window-rule {
     match app-id="steam" title="^notificationtoasts_\\d+_desktop$"
     open-focused false
@@ -124,14 +104,18 @@ window-rule {
     match title="^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)$"
     match app-id="^org.pulseaudio.pavucontrol$"
     match app-id="^(.*)blueman-manager(.*)$"
+    match app-id="^xdg-desktop-portal-gtk$"
     open-floating true
-    max-width 1280
-    max-height 800
+    max-width 1600
+    max-height 1000
+}
+window-rule {
+    match app-id="^mpv$"
+    open-on-workspace "music"
 }
 window-rule {
     match app-id="^code$"
     match app-id="^google-chrome$"
-    match at-startup=false
     open-on-workspace "code"
 }
 window-rule {
@@ -168,27 +152,12 @@ window-rule {
     open-on-workspace "gaming"
 }
 window-rule {
-    match at-startup=true
-    match app-id="^google-chrome$"
-    exclude at-startup=false
-    open-on-workspace "code"
-}
-window-rule {
     match title="^Viking Rise Steam$"
     open-on-workspace "gaming"
     min-width 4192
 }
-window-rule {
-    match app-id="^code$"
-    open-on-workspace "code"
-}
 debug { wait-for-frame-completion-before-queueing; }
 
-include "dms/alttab.kdl"
-include "dms/binds.kdl"
-include "dms/colors.kdl"
-include "dms/cursor.kdl"
-include "dms/layout.kdl"
-include "dms/outputs.kdl"
-include "dms/windowrules.kdl"
-include "dms/wpblur.kdl"
+include optional=true "dms/alttab.kdl"
+include optional=true "dms/colors.kdl"
+include optional=true "dms/layout.kdl"

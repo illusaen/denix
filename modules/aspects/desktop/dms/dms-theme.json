@@ -1,0 +1,33 @@
+{
+  "id": "custom",
+  "name": "Custom (Cosmic Tree)",
+  "version": "1.0.0",
+  "author": "illusaen",
+  "description": "Taken from cosmic tree picture",
+  "dark": {
+    "primary": "#F1AE9F",
+    "primaryText": "#1F2831",
+    "primaryContainer": "#1F2831",
+    "secondary": "#adc694",
+    "surfaceText": "#e0def4",
+    "surfaceVariantText": "#e0def4",
+    "backgroundText": "#e0def4",
+    "outline": "#908caa",
+    "error": "#eb6f92",
+    "warning": "#f6c177",
+    "info": "#9ccfd8"
+  },
+  "light": {
+    "primary": "#BF8E8E",
+    "primaryContainer": "#dfdad9",
+    "secondary": "#6F7355",
+    "surfaceText": "#151E26",
+    "surfaceVariantText": "#151E26",
+    "backgroundText": "#151E26",
+    "outline": "#474D59",
+    "error": "#b4637a",
+    "warning": "#ea9d34",
+    "info": "#56949f"
+  },
+  "sourceDir": "custom"
+}

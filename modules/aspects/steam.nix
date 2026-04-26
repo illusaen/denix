@@ -10,16 +10,17 @@
       };
 
     nixos =
-      { pkgs, config, ... }:
+      {
+        pkgs,
+        config,
+        lib,
+        ...
+      }:
       {
         programs.steam = {
           enable = true;
           package = pkgs.steam.override {
-            extraPkgs =
-              # pkgs': with pkgs'; [
-
-              # ];
-              _pkgs': [ config.myLib.theming.cursorTheme.package ];
+            extraPkgs = _pkgs': [ config.myLib.theming.cursorTheme.package ];
           };
         };
 
@@ -32,7 +33,7 @@
           wantedBy = [ "graphical-session.target" ];
           serviceConfig = {
             ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
-            ExecStart = "${pkgs.steam}/bin/steam -silent";
+            ExecStart = "${lib.getExe config.programs.steam.package} -silent";
             Restart = "on-failure";
             RestartSec = 5;
           };

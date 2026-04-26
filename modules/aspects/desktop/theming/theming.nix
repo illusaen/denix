@@ -3,6 +3,9 @@
   inputs,
   ...
 }:
+let
+  base16Scheme = ./ashes.yaml;
+in
 {
   flake-file.inputs = {
     base16.url = "github:SenchoPens/base16.nix";
@@ -62,8 +65,7 @@
         config = {
           myLib.theming = {
             colors = config.lib.base16.mkSchemeAttrs cfg.base16Scheme;
-            base16Scheme = "${inputs.tt-schemes}/base24/${cfg.schemeName}.yaml";
-            schemeName = "chalk";
+            inherit base16Scheme;
             iconTheme = {
               name = "Nordic-darker";
               package = pkgs.nordic;
@@ -71,7 +73,7 @@
             cursorTheme = {
               name = "Nordic-cursors";
               package = pkgs.nordic;
-              size = 28;
+              size = 32;
             };
             colorScheme = "dark";
           };

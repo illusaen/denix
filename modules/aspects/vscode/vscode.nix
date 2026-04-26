@@ -99,13 +99,31 @@
               version = "2.1.3";
               sha256 = "sha256-Jssmb5owrgNWlmLFSKCgqMJKp3sPpOrlEUBwzZSSpbM=";
             })
-            (pkgs.vscode-utils.extensionFromVscodeMarketplace {
-              name = "rose-noctis";
-              publisher = "ikenshu";
-              version = "0.1.2";
-              sha256 = "sha256-S1KRsA60wpavY0q+MU8JsH/0quFA1oN5TcwqKBezOOA=";
-            })
-          ];
+            # (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+            #   name = "rose-noctis";
+            #   publisher = "ikenshu";
+            #   version = "0.1.2";
+            #   sha256 = "sha256-S1KRsA60wpavY0q+MU8JsH/0quFA1oN5TcwqKBezOOA=";
+            # })
+          ]
+          ++ lib.singleton (
+            pkgs.runCommandLocal "vscode-theme-extension"
+              {
+                vscodeExtUniqueId = "stylix.stylix";
+                vscodeExtPublisher = "stylix";
+                version = "0.0.0";
+              }
+              ''
+                mkdir -p "$out/share/vscode/extensions/$vscodeExtUniqueId/themes"
+                cp ${./theme-extension-package.json} "$out/share/vscode/extensions/$vscodeExtUniqueId/package.json"
+                cp ${
+                  osConfig.myLib.theming.colors {
+                    template = ./vscode-theme.json.mustache;
+                    extension = ".json";
+                  }
+                } "$out/share/vscode/extensions/$vscodeExtUniqueId/themes/cosmic.json"
+              ''
+          );
         userSettings = {
           direnv.restart.automatic = true;
           editor = {
@@ -161,14 +179,14 @@
             sendKeybindingsToShell = true;
           };
           workbench = {
-            colorTheme = "Rosé Noctis";
+            colorTheme = "Cosmic";
             iconTheme = "catppuccin-macchiato";
             sideBar.location = "right";
             startupEditor = "none";
             panel.defaultLocation = "right";
             colorCustomizations = lib.mergeAttrsList [
               { "[Catppuccin Macchiato]" = mapListToAttrsWith colorCustomizationAttrs "#242933"; }
-              { "[Nord]" = mapListToAttrsWith colorCustomizationAttrs "#242933"; }
+              { "[Rosé Noctis]" = mapListToAttrsWith colorCustomizationAttrs "#1F2831"; }
             ];
           };
           treefmt.command = "$(which treefmt)";

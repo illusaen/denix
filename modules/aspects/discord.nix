@@ -1,4 +1,4 @@
-{ den, lib, ... }:
+{ den, ... }:
 {
   den.aspects.discord = den.lib.perHost {
     persistUser.directories = [
@@ -14,24 +14,20 @@
           })
         ];
         environment.systemPackages = with pkgs; [ discord ];
-      };
 
-    hj =
-      {
-        pkgs,
-        ...
-      }:
-      {
-        xdg.config.files."autostart/discord.desktop" = lib.mkIf pkgs.stdenv.isLinux {
-          text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=Discord
-            Exec=${pkgs.discord}/bin/discord --start-minimized
-            X-GNOME-Autostart-enabled=true
-            NoDisplay=true
-            NotShowIn=niri
-          '';
+        systemd.user.services.discord-start = {
+          description = "Start discord on login";
+          after = [
+            "graphical-session.target"
+            "graphical-session-pre.target"
+          ];
+          wantedBy = [ "graphical-session.target" ];
+          serviceConfig = {
+            ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+            ExecStart = "${pkgs.discord}";
+            Restart = "on-failure";
+            RestartSec = 5;
+          };
         };
       };
   };

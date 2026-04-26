@@ -38,9 +38,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "cc422d0a79397be8b6f5a6bfb48a2f5ada44b251",
-      "url": "https://github.com/vic/den/archive/cc422d0a79397be8b6f5a6bfb48a2f5ada44b251.tar.gz",
-      "hash": "sha256-ve4/2NaH0/Se7J84QDnPkf95fJuDi29emDwmc1nvkGE="
+      "revision": "0af82e24be89b9fd400bd0b58b0fed5ea0f269ad",
+      "url": "https://github.com/vic/den/archive/0af82e24be89b9fd400bd0b58b0fed5ea0f269ad.tar.gz",
+      "hash": "sha256-q4WXIX2E3w9Ld3MZ1Pl8Lh5SgrEFdEuzvY1Lj/Wo2kY="
     },
     "disko": {
       "type": "GitRelease",
@@ -82,10 +82,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.4.4.1",
-      "revision": "9798d78300d402178896f6ee1c370baed490158a",
-      "url": "https://api.github.com/repos/AvengeMedia/DankMaterialShell/tarball/refs/tags/v1.4.4.1",
-      "hash": "sha256-iYBdSBvcW7bJtc84G6k5TFJEbPHQrif9KzZyE9Lbq8M="
+      "version": "v1.4.5",
+      "revision": "429ce96dece722150c6372b5eebddd6f48801d13",
+      "url": "https://api.github.com/repos/AvengeMedia/DankMaterialShell/tarball/refs/tags/v1.4.5",
+      "hash": "sha256-K/DtFratLxaZ4+YS9G+HZA37banWacXYznmul3XPKKM="
     },
     "flake-compat": {
       "type": "GitRelease",
@@ -170,9 +170,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "580633fa3fe5fc0379905986543fd7495481913d",
-      "url": "https://github.com/cachix/git-hooks.nix/archive/580633fa3fe5fc0379905986543fd7495481913d.tar.gz",
-      "hash": "sha256-8Psjt+TWvE4thRKktJsXfR6PA/fWWsZ04DVaY6PUhr4="
+      "revision": "3cfd774b0a530725a077e17354fbdb87ea1c4aad",
+      "url": "https://github.com/cachix/git-hooks.nix/archive/3cfd774b0a530725a077e17354fbdb87ea1c4aad.tar.gz",
+      "hash": "sha256-PcRvlWayisPSjd0UcRQbhG8Oqw78AcPE6x872cPRHN8="
     },
     "gitignore": {
       "type": "Git",
@@ -196,9 +196,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3828faa3b6c14d4e557866db01d06137f33ad9f8",
-      "url": "https://github.com/feel-co/hjem/archive/3828faa3b6c14d4e557866db01d06137f33ad9f8.tar.gz",
-      "hash": "sha256-xjJpa+PGjB2lZi1saUU+ubWw5+FpAud/T0/jC1gLL1A="
+      "revision": "35c2158ba101d7b42b05debfcb169ba32dad3bbc",
+      "url": "https://github.com/feel-co/hjem/archive/35c2158ba101d7b42b05debfcb169ba32dad3bbc.tar.gz",
+      "hash": "sha256-a0O56qWfPEKe0mBKgvcQL5UDpWmon70AKJspHNkEJV8="
     },
     "import-tree": {
       "type": "GitRelease",
@@ -251,9 +251,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "c775c2772ba56e906cbeb4e0b2db19079ef11ff7",
-      "url": "https://github.com/NixOS/nixos-hardware/archive/c775c2772ba56e906cbeb4e0b2db19079ef11ff7.tar.gz",
-      "hash": "sha256-2ZBhDNZZwYkRmefK5XLOusCJHnoeKkoN95hoSGgMxWM="
+      "revision": "2096f3f411ce46e88a79ae4eafcfc9df8ed41c61",
+      "url": "https://github.com/NixOS/nixos-hardware/archive/2096f3f411ce46e88a79ae4eafcfc9df8ed41c61.tar.gz",
+      "hash": "sha256-ZOQyNqSvJ8UdrrqU1p7vaFcdL53idK+LOM8oRWEWh6o="
     },
     "nixpkgs": {
       "type": "Git",
@@ -264,9 +264,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9",
-      "url": "https://github.com/NixOS/nixpkgs/archive/4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9.tar.gz",
-      "hash": "sha256-l/iNYDZ4bGOAFQY2q8y5OAfBBtrDAaPuRQqWaFHVRXM="
+      "revision": "0726a0ecb6d4e08f6adced58726b95db924cef57",
+      "url": "https://github.com/NixOS/nixpkgs/archive/0726a0ecb6d4e08f6adced58726b95db924cef57.tar.gz",
+      "hash": "sha256-EHq1/OX139R1RvBzOJ0aMRT3xnWyqtHBRUBuO1gFzjI="
     },
     "nixpkgs-lib": {
       "type": "Git",
@@ -277,9 +277,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "ec2b7be3c0b3b764aa0380fa32aa304a5b680cf8",
-      "url": "https://github.com/nix-community/nixpkgs.lib/archive/ec2b7be3c0b3b764aa0380fa32aa304a5b680cf8.tar.gz",
-      "hash": "sha256-o2JFoAWll4ZuHnVKX2ld03ynKR2zkvTDxJ/ZTCDz2/I="
+      "revision": "927c9af2765fead764f1a6b9557feef2a40201f5",
+      "url": "https://github.com/nix-community/nixpkgs.lib/archive/927c9af2765fead764f1a6b9557feef2a40201f5.tar.gz",
+      "hash": "sha256-01CvP7g0lwWuB1ruUKUy/xZqorQYKaTd4iPdCAoToFk="
     },
     "nixpkgs-master": {
       "type": "Git",
@@ -290,9 +290,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "6c723ca1bfeb8feebaef284be06a2d8ea3d0b3fa",
-      "url": "https://github.com/NixOS/nixpkgs/archive/6c723ca1bfeb8feebaef284be06a2d8ea3d0b3fa.tar.gz",
-      "hash": "sha256-u62SJKO2HgSL4+2CyGN2ZorDHiCqha32OOkLlU0aFOQ="
+      "revision": "78bef71505e1003799b21d9025e24468c843b248",
+      "url": "https://github.com/NixOS/nixpkgs/archive/78bef71505e1003799b21d9025e24468c843b248.tar.gz",
+      "hash": "sha256-mjMtHYADmEFAH3AuUlMPD0ngqOA/ULgyqGazEolixD8="
     },
     "opnix": {
       "type": "GitRelease",
@@ -332,9 +332,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "9811d021b13e5bc35d4711f402cb920bab0244c3",
-      "url": "https://github.com/illusaen/quickshell/archive/9811d021b13e5bc35d4711f402cb920bab0244c3.tar.gz",
-      "hash": "sha256-Od25Dl5KWP/jPLXINvRZy/f+OQtxvYDIWCMk0cg9dzc="
+      "revision": "60cab697b97b22539444acc7e204b3807abf5fa3",
+      "url": "https://github.com/illusaen/quickshell/archive/60cab697b97b22539444acc7e204b3807abf5fa3.tar.gz",
+      "hash": "sha256-7ABTKCZazz/IS3oxujwStHoR60/6/CMS8oLZDnk1Kzw="
     },
     "systems": {
       "type": "Git",
@@ -371,9 +371,9 @@
       },
       "branch": "spec-0.11",
       "submodules": false,
-      "revision": "d5ddce0697a91203fd3eccc40140890a69fc279e",
-      "url": "https://github.com/tinted-theming/schemes/archive/d5ddce0697a91203fd3eccc40140890a69fc279e.tar.gz",
-      "hash": "sha256-FwuOyAWXsdG7/1TpndL0gYPzBh5XOi1gNliZB774VaA="
+      "revision": "5f868b3a338b6904c47f3833b9c411be641983a8",
+      "url": "https://github.com/tinted-theming/schemes/archive/5f868b3a338b6904c47f3833b9c411be641983a8.tar.gz",
+      "hash": "sha256-BAGZ7ObFV/9Z61OJZun7ifPyhkuHqNuW1QIhQ8LuzCo="
     },
     "with-inputs": {
       "type": "GitRelease",
