@@ -69,6 +69,7 @@ in
   };
 
   # Bootable ISO
+  # nix build .#nixosConfigurations.fenrir.config.system.build.isoImage
   den.aspects.fenrir = {
     includes = with den.aspects; [
       fonts
