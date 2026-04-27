@@ -55,11 +55,11 @@
         kvantumPackage =
           let
             kvconfig = theming.colors {
-              template = ./_templates/kvconfig.mustache;
+              template = ./kvconfig.mustache;
               extension = ".kvconfig";
             };
             svg = theming.colors {
-              template = ./_templates/kvantum.svg.mustache;
+              template = ./kvantum.svg.mustache;
               extension = ".svg";
             };
           in

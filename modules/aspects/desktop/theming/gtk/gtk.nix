@@ -141,7 +141,7 @@
               gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
                 cat ${
                   theming.colors {
-                    template = ./_templates/gtk.css.mustache;
+                    template = ./gtk.css.mustache;
                     extension = ".css";
                   }
                 } >>$out

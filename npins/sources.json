@@ -362,19 +362,6 @@
       "url": "https://github.com/numtide/treefmt-nix/archive/790751ff7fd3801feeaf96d7dc416a8d581265ba.tar.gz",
       "hash": "sha256-pc20NRoMdiar8oPQceQT47UUZMBTiMdUuWrYu2obUP0="
     },
-    "tt-schemes": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "schemes"
-      },
-      "branch": "spec-0.11",
-      "submodules": false,
-      "revision": "5f868b3a338b6904c47f3833b9c411be641983a8",
-      "url": "https://github.com/tinted-theming/schemes/archive/5f868b3a338b6904c47f3833b9c411be641983a8.tar.gz",
-      "hash": "sha256-BAGZ7ObFV/9Z61OJZun7ifPyhkuHqNuW1QIhQ8LuzCo="
-    },
     "with-inputs": {
       "type": "GitRelease",
       "repository": {

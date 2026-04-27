@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Original template: https://github.com/sharkdp/bat/blob/master/assets/themes/base16.tmTheme -->
+<!-- Copyright (c) 2018-2023 bat-developers (https://github.com/sharkdp/bat). -->
 <plist version="1.0">
     <dict>
-        <!--
-        This theme is meant for users who configure their terminal with a base16
-        color theme. If you use a 256-color variant along with base16-shell, use
-        the bat theme base16-256 instead.
-
-        base16: https://github.com/chriskempson/base16
-        base16-shell: https://github.com/chriskempson/base16-shell
-
-        The colors in this theme are encoded as #RRGGBBAA where RR is an ANSI
-        palette number from 00 to 0f (the 8 colors and their bright versions),
-        and AA is the special value 00 to indicate this encoding is being used.
-        -->
         <key>author</key>
         <string>Template: Chris Kempson, Scheme: Mitchell Kember</string>
         <key>name</key>
-        <string>Base16-custom</string>
+        <string>Base16 Stylix</string>
         <key>colorSpaceName</key>
         <string>sRGB</string>
         <key>settings</key>
@@ -26,21 +16,21 @@
                 <key>settings</key>
                 <dict>
                     <key>background</key>
-                    <string>#00000000</string>
+                    <string>#{{base00-hex}}</string>
                     <key>caret</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                     <key>foreground</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                     <key>invisibles</key>
-                    <string>#08000000</string>
+                    <string>#{{base03-hex}}</string>
                     <key>lineHighlight</key>
-                    <string>#08000000</string>
+                    <string>#{{base03-hex}}</string>
                     <key>selection</key>
-                    <string>#0b000000</string>
+                    <string>#{{base02-hex}}</string>
                     <key>gutter</key>
-                    <string>#0a000000</string>
+                    <string>#{{base01-hex}}</string>
                     <key>gutterForeground</key>
-                    <string>#08000000</string>
+                    <string>#{{base03-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -51,7 +41,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -62,7 +52,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#08000000</string>
+                    <string>#{{base03-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -73,7 +63,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -84,7 +74,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -95,7 +85,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -106,7 +96,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#05000000</string>
+                    <string>#{{base0E-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -117,7 +107,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -128,7 +118,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#04000000</string>
+                    <string>#{{base0D-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -139,18 +129,18 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#0e000000</string>
+                    <string>#{{base0F-hex}}</string>
                 </dict>
             </dict>
             <dict>
                 <key>name</key>
                 <string>Classes</string>
                 <key>scope</key>
-                <string>support.class, entity.name.class, entity.name.type.class</string>
+                <string>support.class, entity.name.class, entity.name.type.class, entity.name</string>
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#03000000</string>
+                    <string>#{{base0A-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -161,7 +151,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#0f000000</string>
+                    <string>#{{base07-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -172,7 +162,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#04000000</string>
+                    <string>#{{base0D-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -183,7 +173,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#05000000</string>
+                    <string>#{{base0E-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -194,7 +184,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#06000000</string>
+                    <string>#{{base0C-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -205,7 +195,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#02000000</string>
+                    <string>#{{base0B-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -216,7 +206,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -227,7 +217,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -238,7 +228,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -249,18 +239,18 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
                 <key>name</key>
                 <string>Tags</string>
                 <key>scope</key>
-                <string>entity.name.tag, entity.name</string>
+                <string>entity.name.tag</string>
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#01000000</string>
+                    <string>#{{base08-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -271,7 +261,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -282,7 +272,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#04000000</string>
+                    <string>#{{base0D-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -293,7 +283,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#05000000</string>
+                    <string>#{{base0E-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -304,20 +294,20 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
                 <key>name</key>
                 <string>Headings</string>
                 <key>scope</key>
-                <string>markup.heading punctuation.definition.heading, entity.name.section, markup.heading - text.html.markdown</string>
+                <string>markup.heading, punctuation.definition.heading, entity.name.section</string>
                 <key>settings</key>
                 <dict>
                     <key>fontStyle</key>
                     <string></string>
                     <key>foreground</key>
-                    <string>#04000000</string>
+                    <string>#{{base0D-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -328,7 +318,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -341,7 +331,7 @@
                     <key>fontStyle</key>
                     <string>bold</string>
                     <key>foreground</key>
-                    <string>#03000000</string>
+                    <string>#{{base0A-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -354,7 +344,7 @@
                     <key>fontStyle</key>
                     <string>italic</string>
                     <key>foreground</key>
-                    <string>#05000000</string>
+                    <string>#{{base0E-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -365,7 +355,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#02000000</string>
+                    <string>#{{base0B-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -376,7 +366,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#01000000</string>
+                    <string>#{{base08-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -387,7 +377,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -398,7 +388,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -409,9 +399,9 @@
                 <key>settings</key>
                 <dict>
                     <key>background</key>
-                    <string>#0b000000</string>
+                    <string>#{{base02-hex}}</string>
                     <key>foreground</key>
-                    <string>#07000000</string>
+                    <string>#{{base05-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -422,7 +412,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#02000000</string>
+                    <string>#{{base0B-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -433,7 +423,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#01000000</string>
+                    <string>#{{base08-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -444,7 +434,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#05000000</string>
+                    <string>#{{base0E-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -455,7 +445,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#06000000</string>
+                    <string>#{{base0C-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -466,7 +456,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#06000000</string>
+                    <string>#{{base0C-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -477,7 +467,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#06000000</string>
+                    <string>#{{base0C-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -488,7 +478,7 @@
                 <key>settings</key>
                 <dict>
                     <key>foreground</key>
-                    <string>#05000000</string>
+                    <string>#{{base0E-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -499,9 +489,9 @@
                 <key>settings</key>
                 <dict>
                     <key>background</key>
-                    <string>#01000000</string>
+                    <string>#{{base08-hex}}</string>
                     <key>foreground</key>
-                    <string>#0f000000</string>
+                    <string>#{{base07-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -512,9 +502,9 @@
                 <key>settings</key>
                 <dict>
                     <key>background</key>
-                    <string>#09000000</string>
+                    <string>#{{base09-hex}}</string>
                     <key>foreground</key>
-                    <string>#00000000</string>
+                    <string>#{{base00-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -525,9 +515,9 @@
                 <key>settings</key>
                 <dict>
                     <key>background</key>
-                    <string>#0e000000</string>
+                    <string>#{{base0F-hex}}</string>
                     <key>foreground</key>
-                    <string>#0f000000</string>
+                    <string>#{{base07-hex}}</string>
                 </dict>
             </dict>
             <dict>
@@ -538,9 +528,9 @@
                 <key>settings</key>
                 <dict>
                     <key>background</key>
-                    <string>#08000000</string>
+                    <string>#{{base03-hex}}</string>
                     <key>foreground</key>
-                    <string>#0f000000</string>
+                    <string>#{{base07-hex}}</string>
                 </dict>
             </dict>
         </array>

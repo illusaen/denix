@@ -4,6 +4,10 @@
     nixos =
       { pkgs, config, ... }:
       let
+        kitty-theme = config.myLib.theming.colors {
+          template = ./kitty-theme.conf.mustache;
+          extension = "conf";
+        };
         kitty-settings = pkgs.writeText "kitty.conf" ''
           font_family ${config.myLib.fonts.mono.name}
           font_size ${toString config.myLib.fonts.sizes.terminal}
@@ -36,7 +40,7 @@
             mkdir -p $out/themes
             install -Dm644 ${kitty-settings} $out/kitty.conf
             install -Dm644 ${./quick-access-terminal.conf} $out/quick-access-terminal.conf
-            install -Dm644 ${./kitty-theme.conf} $out/themes/colors.conf
+            install -Dm644 ${kitty-theme} $out/themes/colors.conf
             wrapProgram $out/bin/kitty --add-flag --config --add-flag $out/kitty.conf --add-flag --themes-dir --add-flag $out/themes --set KITTY_CONFIG_DIRECTORY $out
             wrapProgram $out/bin/kitten --set KITTY_CONFIG_DIRECTORY $out
           '';

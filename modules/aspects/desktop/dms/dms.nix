@@ -31,8 +31,15 @@
       security.pam.u2f.enable = true;
     };
 
-    hj = {
-      xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = ./dms-theme.json;
-    };
+    hj =
+      { osConfig, ... }:
+      {
+        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source =
+          osConfig.myLib.theming.colors
+            {
+              template = ./dms-theme.json.mustache;
+              extension = "json";
+            };
+      };
   };
 }

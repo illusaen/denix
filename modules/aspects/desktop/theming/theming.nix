@@ -9,10 +9,6 @@ in
 {
   flake-file.inputs = {
     base16.url = "github:SenchoPens/base16.nix";
-    tt-schemes = {
-      url = "github:tinted-theming/schemes/spec-0.11";
-      flake = false;
-    };
   };
 
   den.aspects.desktop._.theming = den.lib.perHost {
