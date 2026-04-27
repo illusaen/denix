@@ -3,7 +3,7 @@
   ...
 }:
 {
-  den.aspects.desktop._.qt = den.lib.perHost {
+  den.aspects.theming._.qt = den.lib.perHost {
     nixos =
       { pkgs, ... }:
       {

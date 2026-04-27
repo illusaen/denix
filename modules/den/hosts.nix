@@ -32,10 +32,13 @@ in
       element
       discord
       fonts
+      theming
     ];
 
-    # `desktop` has both host and user subaspects
-    _.to-users.includes = [ den.aspects.desktop ];
+    # `theming` has both host and user subaspects
+    _.to-users.includes = [
+      den.aspects.theming
+    ];
   };
 
   # Seedbox server
@@ -44,7 +47,13 @@ in
 
     includes = with den.aspects; [
       fonts
+      theming
       server
+    ];
+
+    # `theming` has both host and user subaspects
+    _.to-users.includes = [
+      den.aspects.theming
     ];
   };
 
@@ -64,31 +73,15 @@ in
     includes = with den.aspects; [
       fonts
       server
+      theming
+      iso
     ];
 
-    nixos =
-      {
-        modulesPath,
-        config,
-        lib,
-        ...
-      }:
-      {
-        imports = [
-          "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"
-        ];
-
-        lib.isoFileSystems."/home/wendy" = {
-          device = "/dev/disk/by-label/wendy";
-          fsType = "ext4";
-        };
-
-        users.users.wendy.uid = 1000;
-        users.users.nixos.uid = 1001;
-
-        isoImage.edition = lib.mkDefault config.networking.hostName;
-        networking.wireless.enable = lib.mkImageMediaOverride false;
-      };
+    # IMPORTANT! ISO uses `wendy` as main user
+    # `theming` has both host and user subaspects
+    _.to-users.includes = [
+      den.aspects.theming
+    ];
   };
 
   # Common user

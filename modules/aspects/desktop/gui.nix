@@ -7,6 +7,7 @@
         environment.systemPackages = with pkgs; [
           qalculate-gtk
           inkscape
+          usbimager
         ];
 
         services.flatpak.enable = true;

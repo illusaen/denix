@@ -1,6 +1,7 @@
 {
   den,
   inputs,
+  lib,
   ...
 }:
 let
@@ -11,7 +12,9 @@ in
     base16.url = "github:SenchoPens/base16.nix";
   };
 
-  den.aspects.desktop._.theming = den.lib.perHost {
+  den.aspects.theming = {
+    includes = lib.attrValues den.aspects.theming._;
+
     nixos =
       {
         pkgs,

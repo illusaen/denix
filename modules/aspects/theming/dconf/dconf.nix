@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.desktop._.dconf = den.lib.perHost {
+  den.aspects.theming._.dconf = den.lib.perHost {
     nixos =
       { pkgs, ... }:
       {

@@ -4,7 +4,7 @@
   ...
 }:
 {
-  den.aspects.desktop._.gtk =
+  den.aspects.theming._.gtk =
     let
       inherit (lib)
         generators
@@ -80,7 +80,7 @@
       };
     in
     {
-      includes = lib.attrValues den.aspects.desktop._.gtk._;
+      includes = lib.attrValues den.aspects.theming._.gtk._;
 
       _.enable = den.lib.perHost {
         nixos =
