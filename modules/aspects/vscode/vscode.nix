@@ -22,33 +22,7 @@
       }:
       let
         inherit (helpers) mapListToAttrsWith;
-        colorCustomizationAttrs = [
-          "titleBar.activeBackground"
-          "titleBar.inactiveBackground"
-          "editor.background"
-          "editorGutter.background"
-          "editorPane.background"
-          "editorGroupHeader.tabsBackground"
-          "editorOverviewRuler.background"
-          "breadcrumb.background"
-          "tab.activeBackground"
-          "tab.unfocusedActiveBackground"
-          "tab.selectedBackground"
-          "sideBar.background"
-          "sideBarSectionHeader.background"
-          "panel.background"
-          "statusBar.background"
-          "menu.background"
-          "commandCenter.background"
-          "commandCenter.activeBackground"
-          "commandCenter.debuggingBackground"
-          "scrollbar.background"
-          "scrollbarSlider.activeBackground"
-          "scrollbar.shadow"
-          "terminal.background"
-          "notifications.background"
-          "activityBar.background"
-        ];
+
         languageSnippets = {
           nix."Den Aspect" = {
             prefix = [
@@ -103,8 +77,8 @@
           ++ lib.singleton (
             pkgs.runCommandLocal "vscode-theme-extension"
               {
-                vscodeExtUniqueId = "stylix.stylix";
-                vscodeExtPublisher = "stylix";
+                vscodeExtUniqueId = "custom";
+                vscodeExtPublisher = "illusaen";
                 version = "0.0.0";
               }
               ''
@@ -115,7 +89,7 @@
                     template = ./vscode-theme.json.mustache;
                     extension = ".json";
                   }
-                } "$out/share/vscode/extensions/$vscodeExtUniqueId/themes/stylix.json"
+                } "$out/share/vscode/extensions/$vscodeExtUniqueId/themes/custom.json"
               ''
           );
         userSettings = {
@@ -173,14 +147,11 @@
             sendKeybindingsToShell = true;
           };
           workbench = {
-            colorTheme = "Cosmic";
+            colorTheme = "Custom";
             iconTheme = "catppuccin-macchiato";
             sideBar.location = "right";
             startupEditor = "none";
             panel.defaultLocation = "right";
-            colorCustomizations = lib.mergeAttrsList [
-              { "[Cosmic]" = mapListToAttrsWith colorCustomizationAttrs "#1F1F21"; }
-            ];
           };
           treefmt.command = "$(which treefmt)";
           "#js/ts".inlayHints.enumMemberValues.enabled = true;

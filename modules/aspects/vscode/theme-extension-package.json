@@ -1,6 +1,6 @@
 {
-  "name": "stylix",
-  "displayName": "Stylix",
+  "name": "custom",
+  "displayName": "Custom (Cosmic Tree)",
   "version": "0.0.0",
   "publisher": "base16",
   "description": "Theme configured via NixOS or Home Manager.",
@@ -13,9 +13,9 @@
   "contributes": {
     "themes": [
       {
-        "label": "Cosmic",
+        "label": "Custom",
         "uiTheme": "vs",
-        "path": "./themes/stylix.json"
+        "path": "./themes/custom.json"
       }
     ]
   }
