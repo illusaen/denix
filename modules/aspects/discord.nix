@@ -24,7 +24,7 @@
           wantedBy = [ "graphical-session.target" ];
           serviceConfig = {
             ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
-            ExecStart = "${pkgs.discord}";
+            ExecStart = "${pkgs.discord}/bin/discord";
             Restart = "on-failure";
             RestartSec = 5;
           };

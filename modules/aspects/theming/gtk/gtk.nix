@@ -137,7 +137,9 @@
               inherit (lib) mkMerge flatten;
               inherit (osConfig.myLib) fonts theming;
 
-              gtkExtraCss = "";
+              gtkExtraCss = ''
+                .window { opacity: 0.9; }
+              '';
               gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
                 cat ${
                   theming.colors {

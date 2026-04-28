@@ -105,9 +105,19 @@ window-rule {
     match app-id="^org.pulseaudio.pavucontrol$"
     match app-id="^(.*)blueman-manager(.*)$"
     match app-id="^xdg-desktop-portal-gtk$"
+    match app-id="^xdg-desktop-portal-gtk$"
+    match app-id="^nemo$"
+    shadow {
+        draw-behind-window true
+        color "#000000B3"
+    }
+    opacity 0.8
+    background-effect {
+        blur true
+    }
     open-floating true
-    max-width 1600
-    max-height 1000
+    max-width 2400
+    max-height 1600
 }
 window-rule {
     match app-id="^mpv$"
@@ -130,32 +140,21 @@ window-rule {
     }
 }
 window-rule {
-    match is-floating=true
-    match app-id="^vesktop$"
-    match app-id="^discord$"
-    match app-id="^nemo$"
-    draw-border-with-background false
-    shadow {
-        draw-behind-window true
-        color "#000000B3"
-    }
-    opacity 0.900000
-}
-window-rule {
     match app-id="^vesktop$"
     match app-id="^discord$"
     match app-id="^Element$"
     open-on-workspace "chat"
 }
 window-rule {
+    match title="^Viking Rise Steam$"
     match app-id="^steam.*$"
     open-on-workspace "gaming"
 }
 window-rule {
     match title="^Viking Rise Steam$"
-    open-on-workspace "gaming"
     min-width 4192
 }
+
 debug { wait-for-frame-completion-before-queueing; }
 
 include optional=true "dms/alttab.kdl"
