@@ -187,8 +187,6 @@
 
         userDir =
           if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
-        extensionPath = ".vscode/extensions";
-        extensionDrv = pkgs.writeText "extensions-json" (pkgs.vscode-utils.toExtensionJson extensions);
       in
       {
         files = lib.mkMerge (
@@ -227,7 +225,7 @@
                 subDir = "share/vscode/extensions";
                 toPaths =
                   ext:
-                  map (k: { "${extensionPath}/${k}".source = "${ext}/${subDir}/${k}"; }) (
+                  map (k: { ".vscode/extensions/${k}".source = "${ext}/${subDir}/${k}"; }) (
                     if ext ? vscodeExtUniqueId then
                       [ ext.vscodeExtUniqueId ]
                     else
@@ -244,7 +242,9 @@
                   {
                     # Whenever our immutable extensions.json changes, force VSCode to regenerate
                     # extensions.json with both mutable and immutable extensions.
-                    "${extensionPath}/.extensions-immutable.json".source = extensionDrv;
+                    ".vscode/extensions/extensions.json".source = pkgs.writeText "extensions-json" (
+                      pkgs.vscode-utils.toExtensionJson extensions
+                    );
                   }
                 ]
               )
