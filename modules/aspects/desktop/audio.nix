@@ -10,6 +10,7 @@
             scripts = [
               mpvScripts.uosc
               mpvScripts.sponsorblock
+              mpvScripts.mpris
             ];
           })
         ];
