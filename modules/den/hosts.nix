@@ -56,6 +56,7 @@ in
       darwinConfig
       element
       discord
+      paneru
     ];
   };
 

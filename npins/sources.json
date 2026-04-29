@@ -310,6 +310,19 @@
       "url": "https://api.github.com/repos/brizzbuzz/opnix/tarball/refs/tags/v0.9.0",
       "hash": "sha256-cqID7TDVAQotuAxrrOHeguhnrIgdJ/CwET1SrkXvxpY="
     },
+    "paneru": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "karinushka",
+        "repo": "paneru"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "de6b21dbf958baa83cd6e363595d3c02e21307af",
+      "url": "https://github.com/karinushka/paneru/archive/de6b21dbf958baa83cd6e363595d3c02e21307af.tar.gz",
+      "hash": "sha256-5LeIIEsjYcRBTi62YsSroYtvp1lNWzL7TI3OK+u83v8="
+    },
     "preservation": {
       "type": "Git",
       "repository": {

@@ -35,6 +35,7 @@
               orientation = "left";
               show-recents = false;
               static-only = true;
+              autohide = true;
             };
             menuExtraClock = {
               ShowDayOfWeek = true;
