@@ -57,13 +57,19 @@
 
         environment.systemPackages = with pkgs.fishPlugins; [
           puffer
-          fzf-fish
           colored-man-pages
           fishVendorPkg
         ];
       };
 
-    nixos.documentation.man.cache.enable = false;
+    nixos =
+      { pkgs, ... }:
+      {
+        documentation.man.cache.enable = false;
+        environment.systemPackages = with pkgs.fishPlugins; [
+          fzf-fish
+        ];
+      };
 
     darwin = {
       documentation.man.enable = false;

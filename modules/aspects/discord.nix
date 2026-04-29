@@ -14,7 +14,11 @@
           })
         ];
         environment.systemPackages = with pkgs; [ discord ];
+      };
 
+    nixos =
+      { pkgs, ... }:
+      {
         systemd.user.services.discord-start = {
           description = "Start discord on login";
           after = [

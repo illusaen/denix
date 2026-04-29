@@ -1,6 +1,17 @@
 { den, ... }:
 {
   den.aspects.cli._.direnv = den.lib.perHost {
+    # Temporary workaround: https://github.com/nixos/nixpkgs/issues/513019
+    darwin = {
+      nixpkgs.overlays = [
+        (_: prev: {
+          direnv = prev.direnv.overrideAttrs (_: {
+            doCheck = false;
+          });
+        })
+      ];
+    };
+
     os = {
       programs.direnv = {
         enable = true;

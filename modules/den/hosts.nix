@@ -31,7 +31,6 @@ in
       vscode
       element
       discord
-      fonts
       theming
     ];
 
@@ -46,14 +45,7 @@ in
     inherit disko;
 
     includes = with den.aspects; [
-      fonts
-      theming
       server
-    ];
-
-    # `theming` has both host and user subaspects
-    _.to-users.includes = [
-      den.aspects.theming
     ];
   };
 
@@ -64,7 +56,6 @@ in
       darwinConfig
       element
       discord
-      fonts
     ];
   };
 
@@ -72,29 +63,25 @@ in
   # nix build .#nixosConfigurations.fenrir.config.system.build.isoImage
   den.aspects.fenrir = {
     includes = with den.aspects; [
-      fonts
       server
-      theming
       iso
     ];
 
     # IMPORTANT! ISO uses `wendy` as main user
-    # `theming` has both host and user subaspects
-    _.to-users.includes = [
-      den.aspects.theming
-    ];
   };
 
   # Common user
-  den.aspects.wendy = {
-    includes = [ den.provides.primary-user ];
+  den.aspects.wendy =
+    { user, ... }:
+    {
+      includes = [ den.provides.primary-user ];
 
-    user.password = "arst";
+      nixos.users.users.${user.name}.password = "arst";
 
-    persistUser.directories = [
-      "Downloads"
-      "Projects"
-      "Pictures"
-    ];
-  };
+      persistUser.directories = [
+        "Downloads"
+        "Projects"
+        "Pictures"
+      ];
+    };
 }

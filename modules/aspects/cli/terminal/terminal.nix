@@ -57,10 +57,34 @@
       { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [ ghostty-bin ];
-        environment.etc."iterm2.plist".source = ./com.googlecode.iterm2.plist;
-        system.defaults.CustomUserPreferences = {
-          "com.googlecode.iterm2".PrefsCustomFolder = "/etc/iterm2.plist";
-          "com.googlecode.iterm2".LoadPrefsFromCustomFolder = true;
+      };
+
+    hj =
+      {
+        pkgs,
+        lib,
+        osConfig,
+        ...
+      }:
+      {
+        xdg.config.files = lib.mkIf pkgs.stdenv.isDarwin {
+          "ghostty/config.ghostty".text = ''
+            font-family = ${osConfig.myLib.fonts.mono.name}
+            font-size = ${toString osConfig.myLib.fonts.sizes.terminal}
+
+            background-opacity = 0.9
+            background-opacity-cells = true
+            background-blur = macos-glass-regular
+
+            window-padding-x = 16
+            window-padding-y = 16
+            window-padding-balance = true
+
+            macos-hidden = always
+
+            command = ${lib.getExe pkgs.fish}
+            keybind = global:cmd+backquote=toggle_quick_terminal
+          '';
         };
       };
   };

@@ -34,10 +34,7 @@
       { user, ... }:
       {
         nixos.users.users.${user.name}.extraGroups = [ "onepassword-secrets" ];
-        darwin.users.groups = {
-          name = "onepassword-secrets";
-          members = user.name;
-        };
+        darwin.users.groups.onepassword-secrets.members = [ user.name ];
       }
     );
   };

@@ -5,9 +5,9 @@
   ];
 
   den.aspects.nixConfig = den.lib.perHost {
-    os = {
-      system.nixos.versionSuffix = lib.mkForce "";
+    nixos.system.nixos.versionSuffix = lib.mkForce "";
 
+    os = {
       nix.settings = {
         experimental-features = [
           "nix-command"
