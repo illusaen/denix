@@ -10,9 +10,9 @@ function dev
     end
 
     set -l NAME $argv[1]
-    set -l DEVSHELL_FILE "$NIX_CONF/templates/nix/$NAME-devshell.nix"
-    set -l GITIGNORE_FILE "$NIX_CONF/templates/gitignore"
-    set -l ENVRC_FILE "$NIX_CONF/templates/envrc"
+    set -l NIX_CONF_ROOT (string replace -r '^~' "$HOME" -- "$NIX_CONF")
+    set -l TEMPLATE_ROOT "$NIX_CONF_ROOT/templates"
+    set -l DEVSHELL_FILE "$TEMPLATE_ROOT/nix/$NAME-devshell.nix"
 
     if not test -f "$DEVSHELL_FILE"
         echo "$NAME template at $DEVSHELL_FILE doesn't exist yet."
@@ -23,17 +23,17 @@ function dev
 
     mkdir -p nix
     cp -f "$DEVSHELL_FILE" nix/devshell.nix
-    cp -f "$NIX_CONF/templates/nix/default.nix" nix/default.nix
+    cp -f "$TEMPLATE_ROOT/nix/default.nix" nix/default.nix
 
-    cp -r "$NIX_CONF/templates/nix/npins" .
-    cp "$NIX_CONF/templates/nix/default.nix" default.nix
-    cp "$NIX_CONF/templates/nix/flake.nix" flake.nix
-    cp "$NIX_CONF/templates/nix/shell.nix" shell.nix
+    cp -r "$TEMPLATE_ROOT/npins" .
+    cp "$TEMPLATE_ROOT/default.nix" default.nix
+    cp "$TEMPLATE_ROOT/flake.nix" flake.nix
+    cp "$TEMPLATE_ROOT/shell.nix" shell.nix
 
     set -l GITIGNORE_CONTENT ".direnv\nresult\n.pre-commit-config.yaml"
     if not test -f .gitignore
         echo "  Creating .gitignore file..."
-        cp $GITIGNORE_FILE .gitignore
+        cp "$TEMPLATE_ROOT/gitignore" .gitignore
     else
         if not grep -Fxq $GITIGNORE_CONTENT .gitignore
             echo "  Adding $GITIGNORE_CONTENT to .gitignore"
@@ -43,7 +43,7 @@ function dev
 
     if not test -f .envrc
         echo "  .envrc doesn't exist, manually creating with default."
-        cp $ENVRC_FILE .envrc
+        cp "$TEMPLATE_ROOT/envrc" .envrc
 
         if test "$NAME" = python
             echo "layout python3" >>.envrc
