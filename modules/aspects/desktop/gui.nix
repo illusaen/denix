@@ -8,6 +8,7 @@
           qalculate-gtk
           inkscape
           usbimager
+          libreoffice-fresh
         ];
 
         services.flatpak.enable = true;

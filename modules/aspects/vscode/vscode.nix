@@ -73,6 +73,12 @@
               version = "2.1.3";
               sha256 = "sha256-Jssmb5owrgNWlmLFSKCgqMJKp3sPpOrlEUBwzZSSpbM=";
             })
+            (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+              name = "vscode-shadcn-svelte";
+              publisher = "Selemondev";
+              version = "0.6.8";
+              sha256 = "sha256-u623oSLBK14u30dDQwFl/QtjjV1410OUldsck0gafLo=";
+            })
           ]
           ++ lib.singleton (
             pkgs.runCommandLocal "vscode-theme-extension"
@@ -158,6 +164,17 @@
           window = {
             zoomLevel = 1;
             titleBarStyle = "custom";
+          };
+          "json.schemaDownload.trustedDomains" = {
+            "https://developer.microsoft.com/json-schemas/" = true;
+            "https://json-schema.org/" = true;
+            "https://json.schemastore.org/" = true;
+            "https://raw.githubusercontent.com/devcontainers/spec/" = true;
+            "https://raw.githubusercontent.com/microsoft/vscode/" = true;
+            "https://schemastore.azurewebsites.net/" = true;
+            "https://shadcn-svelte.com" = true;
+            "https://www.schemastore.org/" = true;
+            "https://inlang.com/schema/" = true;
           };
           update.mode = "none";
           extensions.autoCheckUpdates = false;
