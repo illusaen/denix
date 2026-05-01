@@ -4,7 +4,7 @@
     nixos =
       { pkgs, config, ... }:
       let
-        kitty-theme = config.myLib.theming.colors {
+        kitty-theme = config.myLib.base16.colors {
           template = ./kitty-theme.conf.mustache;
           extension = "conf";
         };

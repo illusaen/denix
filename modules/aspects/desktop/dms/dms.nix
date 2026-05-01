@@ -35,7 +35,7 @@
       { osConfig, ... }:
       {
         xdg.config.files."DankMaterialShell/themes/custom/theme.json".source =
-          osConfig.myLib.theming.colors
+          osConfig.myLib.base16.colors
             {
               template = ./dms-theme.json.mustache;
               extension = "json";

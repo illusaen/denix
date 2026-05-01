@@ -7,7 +7,7 @@
     os =
       { pkgs, config, ... }:
       let
-        bat-theme = config.myLib.theming.colors {
+        bat-theme = config.myLib.base16.colors {
           template = ./bat.tmTheme.mustache;
           extension = "tmTheme";
         };

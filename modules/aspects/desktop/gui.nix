@@ -9,6 +9,7 @@
           inkscape
           usbimager
           libreoffice-fresh
+          jetbrains.webstorm
         ];
 
         services.flatpak.enable = true;

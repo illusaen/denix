@@ -91,7 +91,7 @@
                 mkdir -p "$out/share/vscode/extensions/$vscodeExtUniqueId/themes"
                 cp ${./theme-extension-package.json} "$out/share/vscode/extensions/$vscodeExtUniqueId/package.json"
                 cp ${
-                  osConfig.myLib.theming.colors {
+                  osConfig.myLib.base16.colors {
                     template = ./vscode-theme.json.mustache;
                     extension = ".json";
                   }

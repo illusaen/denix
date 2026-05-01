@@ -70,13 +70,13 @@
         };
       };
 
-      _commonSettings = fonts: theming: {
-        font = fonts.sans // {
-          size = fonts.sizes.applications;
+      _commonSettings = myLib: {
+        font = myLib.fonts.sans // {
+          size = myLib.fonts.sizes.applications;
         };
-        inherit (theming) iconTheme;
-        inherit (theming) cursorTheme;
-        inherit (theming) colorScheme;
+        inherit (myLib.theming) iconTheme;
+        inherit (myLib.theming) cursorTheme;
+        inherit (myLib.base16) colorScheme;
       };
     in
     {
@@ -86,10 +86,8 @@
         nixos =
           { pkgs, config, ... }:
           let
-            inherit (config.myLib) fonts theming;
-
             gtk = _gtk pkgs;
-            commonSettings = _commonSettings fonts theming;
+            commonSettings = _commonSettings config.myLib;
           in
           {
             programs.dconf = {
@@ -135,14 +133,13 @@
             }:
             let
               inherit (lib) mkMerge flatten;
-              inherit (osConfig.myLib) fonts theming;
 
               gtkExtraCss = ''
                 .window { opacity: 0.9; }
               '';
               gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
                 cat ${
-                  theming.colors {
+                  osConfig.myLib.base16.colors {
                     template = ./gtk.css.mustache;
                     extension = ".css";
                   }
@@ -153,7 +150,7 @@
 
               gtk = _gtk pkgs;
 
-              commonSettings = _commonSettings fonts theming;
+              commonSettings = _commonSettings osConfig.myLib;
 
               bookmarks = [
                 "file:///home/${user.name}/Projects"

@@ -11,6 +11,31 @@
   den.aspects.theming = {
     includes = lib.attrValues den.aspects.theming._;
 
+    os =
+      {
+        lib,
+        helpers,
+        ...
+      }:
+      let
+        inherit (lib) mkOption types;
+        inherit (helpers) mkThemeType;
+      in
+      {
+        options.myLib.theming = lib.mkOption {
+          type = types.submodule {
+            options = {
+              iconTheme = mkOption {
+                type = mkThemeType { };
+              };
+              cursorTheme = mkOption {
+                type = mkThemeType { hasSize = true; };
+              };
+            };
+          };
+        };
+      };
+
     nixos =
       { pkgs, ... }:
       {

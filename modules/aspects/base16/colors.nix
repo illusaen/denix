@@ -17,13 +17,11 @@ in
       {
         config,
         lib,
-        helpers,
         ...
       }:
       let
         inherit (lib) mkOption types;
-        cfg = config.myLib.theming;
-        inherit (helpers) mkThemeType;
+        cfg = config.myLib.base16;
 
         mkThemingOptionType = types.submodule {
           options = {
@@ -32,15 +30,6 @@ in
             };
             base16Scheme = mkOption {
               type = types.path;
-            };
-            schemeName = mkOption {
-              type = types.str;
-            };
-            iconTheme = mkOption {
-              type = mkThemeType { };
-            };
-            cursorTheme = mkOption {
-              type = mkThemeType { hasSize = true; };
             };
             colorScheme = mkOption {
               type = types.enum [
@@ -52,14 +41,14 @@ in
         };
       in
       {
-        options.myLib.theming = lib.mkOption {
+        options.myLib.base16 = lib.mkOption {
           type = mkThemingOptionType;
         };
 
         imports = [ inputs.base16.nixosModule ];
 
         config = {
-          myLib.theming = {
+          myLib.base16 = {
             colors = config.lib.base16.mkSchemeAttrs cfg.base16Scheme;
             inherit base16Scheme;
             colorScheme = "dark";
