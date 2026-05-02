@@ -70,4 +70,12 @@
     "toml": true,
     "catppuccin-icons": true,
   },
+  "agent_servers": {
+    "Codex ACP (Nix)": {
+      "type": "custom",
+      "command": "/run/current-system/sw/bin/codex-acp",
+      "args": [],
+      "env": {},
+    },
+  },
 }

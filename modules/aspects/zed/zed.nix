@@ -14,6 +14,23 @@
       {
         environment.systemPackages = with pkgs; [
           zed-editor
+          codex
+          (stdenvNoCC.mkDerivation rec {
+            pname = "codex-acp";
+            version = "0.12.0";
+
+            src = fetchurl {
+              url = "https://github.com/zed-industries/codex-acp/releases/download/v${version}/codex-acp-${version}-x86_64-unknown-linux-musl.tar.gz";
+              hash = "sha256-nJ/BN3qcWDTN16QsIftObg0nh8GFPRjv/nBxigkcpCo=";
+            };
+
+            sourceRoot = ".";
+
+            installPhase = ''
+              mkdir -p $out/bin
+              install -m755 codex-acp $out/bin/codex-acp
+            '';
+          })
         ];
       };
 

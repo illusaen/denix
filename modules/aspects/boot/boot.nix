@@ -20,6 +20,8 @@
           "usb_storage"
           "sd_mod"
         ];
+
+        zfs.forceImportRoot = false;
       };
     };
   };
