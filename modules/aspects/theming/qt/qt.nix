@@ -29,7 +29,7 @@
         ...
       }:
       let
-        inherit (osConfig.myLib) fonts base16;
+        inherit (osConfig.myLib) fonts;
 
         qtSettingsFile = qtct: {
           "${qtct}/${qtct}.conf".source =
@@ -54,11 +54,11 @@
 
         kvantumPackage =
           let
-            kvconfig = base16.colors {
+            kvconfig = osConfig.scheme {
               template = ./kvconfig.mustache;
               extension = ".kvconfig";
             };
-            svg = base16.colors {
+            svg = osConfig.scheme {
               template = ./kvantum.svg.mustache;
               extension = ".svg";
             };

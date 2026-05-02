@@ -15,22 +15,14 @@ in
   den.aspects.colors = {
     os =
       {
-        config,
         lib,
         ...
       }:
       let
         inherit (lib) mkOption types;
-        cfg = config.myLib.base16;
 
         mkThemingOptionType = types.submodule {
           options = {
-            colors = mkOption {
-              type = types.anything;
-            };
-            base16Scheme = mkOption {
-              type = types.path;
-            };
             colorScheme = mkOption {
               type = types.enum [
                 "dark"
@@ -48,11 +40,8 @@ in
         imports = [ inputs.base16.nixosModule ];
 
         config = {
-          myLib.base16 = {
-            colors = config.lib.base16.mkSchemeAttrs cfg.base16Scheme;
-            inherit base16Scheme;
-            colorScheme = "dark";
-          };
+          scheme = base16Scheme;
+          myLib.base16.colorScheme = "dark";
         };
       };
   };

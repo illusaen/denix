@@ -10,13 +10,17 @@
     os =
       { pkgs, ... }:
       {
-        environment.systemPackages = with pkgs; [ zed-editor ];
+        environment.systemPackages = with pkgs; [
+          zed-editor
+          codex
+          codex-acp
+        ];
       };
 
     hj =
       { pkgs, osConfig, ... }:
       let
-        theme = osConfig.myLib.base16.colors {
+        theme = osConfig.scheme {
           templateRepo = inputs.tinted-zed;
           target = "base16";
         };
@@ -26,8 +30,8 @@
           "zed/settings.json".source = pkgs.replaceVars ./settings.json {
             sans = osConfig.myLib.fonts.sans.name;
             mono = osConfig.myLib.fonts.mono.name;
-            theme-light = "Base16 ${osConfig.myLib.base16.colors.scheme-name}";
-            theme-dark = "Base16 ${osConfig.myLib.base16.colors.scheme-name}";
+            theme-light = "Base16 ${osConfig.scheme.scheme-name}";
+            theme-dark = "Base16 ${osConfig.scheme.scheme-name}";
           };
           "zed/themes/custom.json".source = theme;
         };

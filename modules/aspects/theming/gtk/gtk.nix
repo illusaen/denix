@@ -139,7 +139,7 @@
               '';
               gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
                 cat ${
-                  osConfig.myLib.base16.colors {
+                  osConfig.scheme {
                     template = ./gtk.css.mustache;
                     extension = ".css";
                   }

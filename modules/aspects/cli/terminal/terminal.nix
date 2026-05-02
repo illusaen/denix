@@ -4,7 +4,7 @@
     nixos =
       { pkgs, config, ... }:
       let
-        kitty-theme = config.myLib.base16.colors {
+        kitty-theme = config.scheme {
           template = ./kitty-theme.conf.mustache;
           extension = "conf";
         };
@@ -22,7 +22,7 @@
           macos_titlebar_color system
           opacity 0.9
           placement_strategy bottom-left
-          tab_activity_symbol ↺ 
+          tab_activity_symbol ↺
           tab_bar_margin_height 0.0 8.0
           tab_bar_margin_width 0.0
           tab_bar_style powerline
