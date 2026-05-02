@@ -23,7 +23,7 @@ jobs:
 
       - uses: cachix/cachix-action@v16
         with:
-          name: YOUR-CACHIX-CACHE-NAME
+          name: illusaen
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       # Build your NixOS system closure.
