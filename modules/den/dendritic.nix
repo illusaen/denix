@@ -30,6 +30,5 @@
     };
   };
 
-  flake.den = den;
   systems = builtins.attrNames den.hosts;
 }
