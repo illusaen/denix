@@ -28,12 +28,11 @@ jobs:
 
       # Build your NixOS system closure.
       # Replace hostname with your nixosConfigurations attr.
-      - name: Build NixOS configuration
-        run: |
-          nix build .#nixosConfigurations.odin.config.system.build.toplevel \
-            --print-build-logs
+      # - name: Build NixOS configuration
+      #   run: |
+      #     nix build .#nixosConfigurations.odin.config.system.build.toplevel
 
       # Optional: build specific packages exposed by your flake.
-      # - name: Build bambu-studio package
-      #   run: |
-      #     nix build .#bambu-studio --print-build-logs
+      - name: Build bambu-studio package
+        run: |
+          nix build .#bambu-studio --print-build-logs

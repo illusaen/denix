@@ -33,6 +33,7 @@ in
       discord
       theming
       word
+      bambu-studio
     ];
 
     # `theming` has both host and user subaspects
