@@ -36,5 +36,7 @@
           "zed/themes/custom.json".source = theme;
         };
       };
+
+    persistUser.directories = [ ".local/share/zed" ];
   };
 }
