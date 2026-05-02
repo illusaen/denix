@@ -32,6 +32,7 @@ in
       element
       discord
       theming
+      word
     ];
 
     # `theming` has both host and user subaspects
@@ -57,6 +58,7 @@ in
       element
       discord
       paneru
+      word
     ];
   };
 
