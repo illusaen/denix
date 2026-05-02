@@ -1,7 +1,17 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   perSystem =
-    { pkgs, ... }:
+    {
+      system,
+      inputs',
+      ...
+    }:
+    let
+      pkgs = import inputs'.nixpkgs.legacyPackages.path {
+        inherit system;
+        overlays = [ self.overlays.default ];
+      };
+    in
     {
       packages.bambu-studio = pkgs.bambu-studio;
     };
@@ -22,6 +32,7 @@
     nixos =
       { pkgs, ... }:
       {
+        nixpkgs.overlays = [ self.overlays.default ];
         environment.systemPackages = with pkgs; [ bambu-studio ];
       };
   };
