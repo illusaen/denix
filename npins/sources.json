@@ -128,9 +128,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3107b77cd68437b9a76194f0f7f9c55f2329ca5b",
-      "url": "https://github.com/hercules-ci/flake-parts/archive/3107b77cd68437b9a76194f0f7f9c55f2329ca5b.tar.gz",
-      "hash": "sha256-91qqW8lhL7TLwgQWijoGBbiD4t7/q75KTi8NxjVmSmA="
+      "revision": "5250617bffd85403b14dbf43c3870e7f255d2c16",
+      "url": "https://github.com/hercules-ci/flake-parts/archive/5250617bffd85403b14dbf43c3870e7f255d2c16.tar.gz",
+      "hash": "sha256-EPIFsulyon7Z1vLQq5Fk64GR8L7cQsT+IPhcsukVbgk="
     },
     "flake-utils": {
       "type": "GitRelease",
@@ -264,9 +264,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "1c3fe55ad329cbcb28471bb30f05c9827f724c76",
-      "url": "https://github.com/NixOS/nixpkgs/archive/1c3fe55ad329cbcb28471bb30f05c9827f724c76.tar.gz",
-      "hash": "sha256-bxrdOn8SCOv8tN4JbTF/TXq7kjo9ag4M+C8yzzIRYbE="
+      "revision": "15f4ee454b1dce334612fa6843b3e05cf546efab",
+      "url": "https://github.com/NixOS/nixpkgs/archive/15f4ee454b1dce334612fa6843b3e05cf546efab.tar.gz",
+      "hash": "sha256-Ad49moKWeXtKBJNy2ebiTQUEgdLyvGmTeykAQ9xM+Z4="
     },
     "nixpkgs-lib": {
       "type": "Git",
@@ -290,9 +290,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b540331d6f1e343b6812b5aa1d97c707a0de0da2",
-      "url": "https://github.com/NixOS/nixpkgs/archive/b540331d6f1e343b6812b5aa1d97c707a0de0da2.tar.gz",
-      "hash": "sha256-luE+pNcTx3gz109lEC/xUxPHrx1aEZsp5X4OEBcnGaw="
+      "revision": "b944aa845fc41ebdc3903a16b10ad92e13465da4",
+      "url": "https://github.com/NixOS/nixpkgs/archive/b944aa845fc41ebdc3903a16b10ad92e13465da4.tar.gz",
+      "hash": "sha256-WGFgLapeCHYcW2na+NlnCji5Mb0HwejSCXdPH0RIUwY="
     },
     "opnix": {
       "type": "GitRelease",
@@ -319,9 +319,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "de6b21dbf958baa83cd6e363595d3c02e21307af",
-      "url": "https://github.com/karinushka/paneru/archive/de6b21dbf958baa83cd6e363595d3c02e21307af.tar.gz",
-      "hash": "sha256-5LeIIEsjYcRBTi62YsSroYtvp1lNWzL7TI3OK+u83v8="
+      "revision": "462f35320622d3d0e284fffe3b9021d39eb2846d",
+      "url": "https://github.com/karinushka/paneru/archive/462f35320622d3d0e284fffe3b9021d39eb2846d.tar.gz",
+      "hash": "sha256-mneq3VG1rVooJ1d9kLQyPQMek3NHBGdki94FWvEAx+U="
     },
     "preservation": {
       "type": "Git",

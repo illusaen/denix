@@ -30,10 +30,21 @@
 
   den.aspects.bambu-studio = den.lib.perHost {
     nixos =
-      { pkgs, ... }:
+      # { pkgs, ... }:
       {
-        nixpkgs.overlays = [ self.overlays.default ];
-        environment.systemPackages = with pkgs; [ bambu-studio ];
+        # nixpkgs.overlays = [ self.overlays.default ];
+        # environment.systemPackages = with pkgs; [ bambu-studio ];
+        # Forced to use flatpak until login issue fixed
+        services.flatpak.enable = true;
       };
+
+    persist.directories = [
+      "/var/lib/flatpak"
+    ];
+
+    persistUser.directories = [
+      ".local/share/flatpak"
+      ".var/app/com.bambulab.BambuStudio"
+    ];
   };
 }

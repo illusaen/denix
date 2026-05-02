@@ -8,17 +8,6 @@
           qalculate-gtk
           usbimager
         ];
-
-        services.flatpak.enable = true;
       };
-
-    persist.directories = [
-      "/var/lib/flatpak"
-    ];
-
-    persistUser.directories = [
-      ".local/share/flatpak"
-      ".var/app/com.bambulab.BambuStudio"
-    ];
   };
 }

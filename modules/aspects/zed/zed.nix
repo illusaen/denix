@@ -1,8 +1,10 @@
 { den, inputs, ... }:
 {
-  flake-file.inputs.tinted-zed = {
-    url = "github:tinted-theming/tinted-zed";
-    flake = false;
+  flake-file.inputs = {
+    tinted-zed = {
+      url = "github:tinted-theming/tinted-zed";
+      flake = false;
+    };
   };
 
   den.ctx.host.includes = [ den.aspects.zed ];
@@ -12,8 +14,6 @@
       {
         environment.systemPackages = with pkgs; [
           zed-editor
-          codex
-          codex-acp
         ];
       };
 
