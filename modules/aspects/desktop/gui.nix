@@ -6,7 +6,6 @@
       {
         environment.systemPackages = with pkgs; [
           qalculate-gtk
-          inkscape
           usbimager
         ];
 

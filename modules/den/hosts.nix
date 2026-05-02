@@ -55,7 +55,6 @@ in
   den.aspects.idunn = {
     includes = with den.aspects; [
       vscode
-      darwinConfig
       element
       discord
       paneru
