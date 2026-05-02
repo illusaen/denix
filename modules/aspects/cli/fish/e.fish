@@ -1,5 +1,5 @@
 function e
-    for editor in antigravity code-insiders codium code vim
+    for editor in zeditor antigravity code vim
         if type -q $editor
             $editor $argv
             return

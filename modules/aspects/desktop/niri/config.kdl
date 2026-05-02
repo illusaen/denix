@@ -95,18 +95,19 @@ workspace "music" {
 workspace "chat" { open-on-output "@mainMonitor@"; }
 workspace "code" { open-on-output "@mainMonitor@"; }
 workspace "gaming" { open-on-output "@mainMonitor@"; }
+
 window-rule {
-    match app-id="steam" title="^notificationtoasts_\\d+_desktop$"
-    open-focused false
-    default-floating-position relative-to="bottom-right" x=2 y=2
+    geometry-corner-radius 8.000000 8.000000 8.000000 8.000000
+    clip-to-geometry true
+    popups {
+        opacity 0.85
+        background-effect {
+            blur true
+        }
+    }
 }
 window-rule {
-    match title="^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)$"
-    match app-id="^org.pulseaudio.pavucontrol$"
-    match app-id="^(.*)blueman-manager(.*)$"
-    match app-id="^xdg-desktop-portal-gtk$"
-    match app-id="^xdg-desktop-portal-gtk$"
-    match app-id="^nemo$"
+    match is-floating=true
     shadow {
         draw-behind-window true
         color "#000000B3"
@@ -115,44 +116,55 @@ window-rule {
     background-effect {
         blur true
     }
-    open-floating true
-    max-width 2400
-    max-height 1600
 }
 window-rule {
-    match app-id="^mpv$"
+    match title="^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)$"
+    match app-id="org.pulseaudio.pavucontrol"
+    match app-id=r#"^(.*)blueman-manager(.*)$"#
+    match app-id="xdg-desktop-portal-gtk"
+    match app-id="xdg-desktop-portal-gnome"
+    match app-id="nemo"
+    
+    open-floating true
+    max-width 1800
+    max-height 1200
+}
+window-rule {
+    match app-id="mpv"
     open-on-workspace "music"
 }
 window-rule {
-    match app-id="^code$"
-    match app-id="^google-chrome$"
+    match app-id="code"
+    match app-id="google-chrome"
     open-on-workspace "code"
 }
 window-rule {
-    geometry-corner-radius 8.000000 8.000000 8.000000 8.000000
-    clip-to-geometry true
-}
-window-rule {
-    match app-id="^kitty$"
+    match app-id="kitty"
     shadow {
         draw-behind-window true
         color "#000000B3"
     }
 }
 window-rule {
-    match app-id="^vesktop$"
-    match app-id="^discord$"
-    match app-id="^Element$"
+    match app-id="vesktop"
+    match app-id="discord"
+    match app-id="Element"
+    match app-id="org.telegram.desktop"
     open-on-workspace "chat"
 }
 window-rule {
-    match title="^Viking Rise Steam$"
-    match app-id="^steam.*$"
+    match title="Viking Rise Steam"
+    match app-id="steam.*"
     open-on-workspace "gaming"
 }
 window-rule {
-    match title="^Viking Rise Steam$"
+    match title="Viking Rise Steam"
     min-width 4192
+}
+window-rule {
+    match app-id="steam" title="^notificationtoasts_\\d+_desktop$"
+    open-focused false
+    default-floating-position relative-to="bottom-right" x=2 y=2
 }
 
 debug { wait-for-frame-completion-before-queueing; }

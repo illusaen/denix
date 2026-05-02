@@ -10,16 +10,16 @@
   "project_panel": {
     "git_status_indicator": false,
     "entry_spacing": "standard",
-    "hide_gitignore": true
+    "hide_gitignore": true,
   },
   "git": {
     "inline_blame": {
-      "enabled": false
-    }
+      "enabled": false,
+    },
   },
   "colorize_brackets": true,
   "inlay_hints": {
-    "enabled": true
+    "enabled": true,
   },
   "preferred_line_length": 120,
   "soft_wrap": "bounded",
@@ -27,35 +27,47 @@
   "vim": {
     "gdefault": true,
     "use_smartcase_find": true,
-    "toggle_relative_line_numbers": true
+    "toggle_relative_line_numbers": true,
   },
   "scrollbar": {
-    "show": "never"
+    "show": "never",
   },
   "diff_view_style": "unified",
   "which_key": {
-    "enabled": true
+    "enabled": true,
   },
   "autosave": {
     "after_delay": {
-      "milliseconds": 1000
-    }
+      "milliseconds": 1000,
+    },
   },
-  "ui_font_family": "SF Pro Display",
+  "ui_font_family": "@sans@",
   "buffer_line_height": "standard",
   "buffer_font_weight": 500.0,
-  "buffer_font_family": "Liga SFMono Nerd Font",
+  "buffer_font_family": "@mono@",
   "auto_update": false,
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "on_last_window_closed": "quit_app",
   "ui_font_size": 18.0,
   "buffer_font_size": 16.0,
   "theme": {
     "mode": "system",
-    "light": "Ayu Light",
-    "dark": "Ayu Dark",
+    "light": "@theme-light@",
+    "dark": "@theme-dark@",
+  },
+  "load_direnv": "shell_hook",
+  "auto_install_extensions": {
+    "html": true,
+    "fish": true,
+    "lua": true,
+    "kdl": true,
+    "nix": true,
+    "svelte": true,
+    "svelte-mcp": true,
+    "toml": true,
+    "catppuccin-icons": true,
   },
 }
