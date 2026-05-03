@@ -1,28 +1,26 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
   "project_panel": {
     "git_status_indicator": false,
     "entry_spacing": "standard",
-    "hide_gitignore": true,
   },
   "git": {
     "inline_blame": {
       "enabled": false,
     },
   },
-  "colorize_brackets": true,
+  "git_panel": {
+    "button": true,
+  },
+  "terminal": {
+    "dock": "right",
+    "copy_on_select": true,
+  },
   "inlay_hints": {
     "enabled": true,
   },
+  "code_lens": "on",
   "preferred_line_length": 120,
-  "soft_wrap": "bounded",
+  "soft_wrap": "editor_width",
   "tab_size": 2,
   "vim": {
     "gdefault": true,
@@ -46,6 +44,7 @@
   "buffer_font_weight": 500.0,
   "buffer_font_family": "@mono@",
   "auto_update": false,
+  "colorize_brackets": true,
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
@@ -53,6 +52,7 @@
   "on_last_window_closed": "quit_app",
   "ui_font_size": 18.0,
   "buffer_font_size": 16.0,
+  "semantic_tokens": "combined",
   "theme": {
     "mode": "system",
     "light": "@theme-light@",
@@ -76,6 +76,29 @@
       "command": "/run/current-system/sw/bin/codex-acp",
       "args": [],
       "env": {},
+    },
+  },
+  "languages": {
+    "CSS": {
+      "language_servers": ["tailwindcss-intellisense-css", "!vscode-css-language-server", "..."],
+    },
+  },
+  "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "includeLanguages": {
+          "svelte": "html",
+        },
+        "experimental": {
+          "classRegex": [
+            "class=\"([^\"]*)\"",
+            "class='([^']*)'",
+            "class:\\s*([^\\s{]+)",
+            "\\{\\s*class:\\s*\"([^\"]*)\"",
+            "\\{\\s*class:\\s*'([^']*)'",
+          ],
+        },
+      },
     },
   },
 }
