@@ -9,7 +9,7 @@
       };
 
     darwin = {
-      homebrew.masApps."Pixelmator Pro" = "1289583905";
+      homebrew.masApps."Pixelmator Pro" = 1289583905;
     };
   };
 }
