@@ -47,8 +47,8 @@
           "zed/settings.json".source = pkgs.replaceVars ./settings.json {
             sans = osConfig.myLib.fonts.sans.name;
             mono = osConfig.myLib.fonts.mono.name;
-            theme-light = "Base16 ${osConfig.scheme.scheme-name}";
-            theme-dark = "Base16 ${osConfig.scheme.scheme-name}";
+            theme-light = "Catppuccin Latte (Blur) [Heavy]";
+            theme-dark = "Catppuccin Mocha (Blur) [Heavy]";
           };
           "zed/themes/custom.json".source = theme;
         };

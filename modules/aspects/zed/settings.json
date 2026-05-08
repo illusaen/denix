@@ -11,6 +11,9 @@
   "git_panel": {
     "button": true,
   },
+  "collaboration_panel": {
+    "button": false,
+  },
   "terminal": {
     "dock": "right",
     "copy_on_select": true,
@@ -18,7 +21,7 @@
   "inlay_hints": {
     "enabled": true,
   },
-  "code_lens": "on",
+  "code_lens": "menu",
   "preferred_line_length": 120,
   "soft_wrap": "editor_width",
   "tab_size": 2,
@@ -69,6 +72,7 @@
     "svelte-mcp": true,
     "toml": true,
     "catppuccin-icons": true,
+    "catppuccin-blur": true,
   },
   "agent_servers": {
     "Codex ACP (Nix)": {
