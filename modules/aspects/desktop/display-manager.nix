@@ -16,6 +16,9 @@
         environment.etc."greetd/config.toml".text = ''
           [default_session]
           user = "wendy"
+
+          [initial_session]
+          user = "wendy"
         '';
       };
   };

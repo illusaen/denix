@@ -1,11 +1,31 @@
 {
   den,
+  lib,
   ...
 }:
+let
+  fishClass =
+    { aspect-chain, ... }:
+    den._.forward {
+      each = [
+        "nixos"
+        "darwin"
+      ];
+      fromClass = _: "fish";
+      intoClass = lib.id;
+      intoPath = _: [
+        "programs"
+        "fish"
+      ];
+      fromAspect = _: lib.head aspect-chain;
+      guard = { config, ... }: _: lib.mkIf config.programs.fish.enable;
+    };
+in
 {
   den.aspects.cli._.fish = den.lib.perHost {
-    vars.EDITOR = "vim";
+    includes = [ fishClass ];
 
+    vars.EDITOR = "vim";
     persistUser.directories = [ ".local/share/fish" ];
 
     os =

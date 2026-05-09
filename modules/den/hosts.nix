@@ -41,12 +41,13 @@ in
     ];
   };
 
-  # Seedbox server
+  # Seedbox server and Bootable ISO
   den.aspects.thor = {
     inherit disko;
 
     includes = with den.aspects; [
       server
+      iso
     ];
   };
 
@@ -58,17 +59,6 @@ in
       paneru
       word
     ];
-  };
-
-  # Bootable ISO
-  # nix build .#nixosConfigurations.fenrir.config.system.build.isoImage
-  den.aspects.fenrir = {
-    includes = with den.aspects; [
-      server
-      iso
-    ];
-
-    # IMPORTANT! ISO uses `wendy` as main user
   };
 
   # Common user

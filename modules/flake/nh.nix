@@ -9,12 +9,10 @@
   den.aspects.nh = den.lib.perHost (
     { host }:
     {
-      os = {
-        programs.fish.shellAbbrs = {
-          nd = "nh clean all";
-          buildmodi = "nixos-rebuild switch --flake .#modi --target-host wendy@192.168.1.104 --use-remote-sudo";
-          bb = "${host.name} switch";
-        };
+      fish.shellAbbrs = {
+        nd = "nh clean all";
+        buildmodi = "nixos-rebuild switch --flake .#modi --target-host wendy@192.168.1.104 --use-remote-sudo";
+        bb = "${host.name} switch";
       };
     }
   );
