@@ -1,16 +1,22 @@
 { den, ... }:
 {
-  den.aspects.desktop._.gdm = den.lib.perHost {
-    nixos = {
-      services.displayManager = {
-        enable = true;
-        gdm = {
+  den.aspects.desktop._.display-manager = den.lib.perHost {
+    nixos =
+      { config, ... }:
+      {
+        services.displayManager = {
           enable = true;
-          wayland = true;
+          dms-greeter = {
+            enable = true;
+            compositor.name = "hyprland";
+            quickshell.package = config.programs.dank-material-shell.quickshell.package;
+          };
         };
-      };
-    };
 
-    persist.directories = [ "/var/lib/gdm" ];
+        environment.etc."greetd/config.toml".text = ''
+          [default_session]
+          user = "wendy"
+        '';
+      };
   };
 }

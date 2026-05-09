@@ -84,7 +84,12 @@
 
             command = ${lib.getExe pkgs.fish}
             keybind = global:cmd+backquote=toggle_quick_terminal
+            theme = Cosmic.ghostty
           '';
+          "ghostty/themes/Cosmic.ghostty".source = osConfig.scheme {
+            template = ./theme.ghostty.mustache;
+            extension = "ghostty";
+          };
         };
       };
   };

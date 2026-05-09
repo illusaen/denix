@@ -1,0 +1,35 @@
+hl.config({
+  general = {
+    border_size = 0,
+    layout = "scrolling",
+    resize_on_border = true,
+    gaps_in = 8,
+    gaps_out = 16,
+  },
+  decoration = {
+    rounding = 8,
+    inactive_opacity = 0.8,
+    blur = {
+      popups = true,
+      special = true,
+    },
+  },
+  input = {
+    scroll_factor = 1.1,
+    follow_mouse = 2,
+    scroll_button = 274,
+    scroll_method = "on_button_down",
+  },
+  scrolling = {
+    fullscreen_on_one_column = false,
+    column_width = 0.4,
+    explicit_column_widths = "0.333, 0.666",
+  },
+  misc = {
+    disable_hyprland_logo = true,
+    disable_splash_rendering = true,
+    initial_workspace_tracking = 1,
+    mouse_move_enables_dpms = true,
+    key_press_enables_dpms = true,
+  },
+})

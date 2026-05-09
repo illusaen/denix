@@ -2,7 +2,7 @@
 {
   den.aspects.desktop._.audio = den.lib.perHost {
     nixos =
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
       {
         environment.systemPackages = with pkgs; [
           pavucontrol
@@ -27,13 +27,9 @@
           };
         };
         security.rtkit.enable = true;
-      };
 
-    hj =
-      { pkgs, lib, ... }:
-      {
-        xdg.config.files = lib.mkIf pkgs.stdenv.isLinux {
-          "autostart/mpv.desktop".text = ''
+        environment.etc = lib.mkIf pkgs.stdenv.isLinux {
+          "xdg/autostart/mpv.desktop".text = ''
             [Desktop Entry]
             Type=Application
             Name=MPV

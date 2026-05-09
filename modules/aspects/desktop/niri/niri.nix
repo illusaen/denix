@@ -20,8 +20,6 @@
           package = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system}.niri;
         };
 
-        services.displayManager.defaultSession = "niri";
-
         environment.systemPackages = with pkgs; [
           xwayland-satellite
         ];

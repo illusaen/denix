@@ -1,5 +1,21 @@
 {
   "pins": {
+    "aquamarine": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "aquamarine"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.11.0",
+      "revision": "cd8321eba285e3cce50c50f19d5174a0b2567297",
+      "url": "https://api.github.com/repos/hyprwm/aquamarine/tarball/refs/tags/v0.11.0",
+      "hash": "sha256-nGiqEpbQK/tg7Mzyb8kIik9uDcm3cInWDcHRquFAOS4="
+    },
     "base16": {
       "type": "GitRelease",
       "repository": {
@@ -200,6 +216,163 @@
       "url": "https://github.com/feel-co/hjem/archive/35c2158ba101d7b42b05debfcb169ba32dad3bbc.tar.gz",
       "hash": "sha256-a0O56qWfPEKe0mBKgvcQL5UDpWmon70AKJspHNkEJV8="
     },
+    "hyprcursor": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprcursor"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.1.13",
+      "revision": "44e91d467bdad8dcf8bbd2ac7cf49972540980a5",
+      "url": "https://api.github.com/repos/hyprwm/hyprcursor/tarball/refs/tags/v0.1.13",
+      "hash": "sha256-lIqabfBY7z/OANxHoPeIrDJrFyYy9jAM4GQLzZ2feCM="
+    },
+    "hyprgraphics": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprgraphics"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.5.1",
+      "revision": "482d4b7ec36ffdaf3573086aa586b178fd5404be",
+      "url": "https://api.github.com/repos/hyprwm/hyprgraphics/tarball/refs/tags/v0.5.1",
+      "hash": "sha256-48DubZbx8PDfuJkksNgi5aWFnX/Rq1OUaLsUvsdf2Bo="
+    },
+    "hyprland": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "Hyprland"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "de9f8dc9831d921cd1ee30d5d14f45f0e345a8ca",
+      "url": "https://github.com/hyprwm/Hyprland/archive/de9f8dc9831d921cd1ee30d5d14f45f0e345a8ca.tar.gz",
+      "hash": "sha256-vmCYnK7/iRQGWj+s0l3+cf/IVoUcCTrlFtgUCTwRdjU="
+    },
+    "hyprland-guiutils": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprland-guiutils"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.2.1",
+      "revision": "c2e906261142f5dd1ee0bfc44abba23e2754c660",
+      "url": "https://api.github.com/repos/hyprwm/hyprland-guiutils/tarball/refs/tags/v0.2.1",
+      "hash": "sha256-R2HgtVS1G3KSIKAQ77aOZ+Q0HituOmPgXW9nBNkpp3Q="
+    },
+    "hyprland-protocols": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprland-protocols"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.7.0",
+      "revision": "bd153e76f751f150a09328dbdeb5e4fab9d23622",
+      "url": "https://api.github.com/repos/hyprwm/hyprland-protocols/tarball/refs/tags/v0.7.0",
+      "hash": "sha256-+KEVnKBe8wz+a6dTLq8YDcF3UrhQElwsYJaVaHXJtoI="
+    },
+    "hyprlang": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprlang"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.6.8",
+      "revision": "3a1c1b25b059dae2c6bbc46991562ba1158d125c",
+      "url": "https://api.github.com/repos/hyprwm/hyprlang/tarball/refs/tags/v0.6.8",
+      "hash": "sha256-ZGzcH3gKD9nj8oDLV1+o6ice6kMHZRXkNx24cfyPkRs="
+    },
+    "hyprtoolkit": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprtoolkit"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.5.4",
+      "revision": "795d06e76434a951855762104f2b0c8c3842e052",
+      "url": "https://api.github.com/repos/hyprwm/hyprtoolkit/tarball/refs/tags/v0.5.4",
+      "hash": "sha256-gJSBj4Pd4e9nERAKo/qiHqDMpS2hBfyOI0uGCbbiML4="
+    },
+    "hyprutils": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprutils"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.13.0",
+      "revision": "ec5c0c709706bad5b82f667fd8758eae442577ce",
+      "url": "https://api.github.com/repos/hyprwm/hyprutils/tarball/refs/tags/v0.13.0",
+      "hash": "sha256-PwuoEJQcjSKJNP5T55qhfDwIP0tw5zxEhfu8GDfKfeg="
+    },
+    "hyprwayland-scanner": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprwayland-scanner"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.4.6",
+      "revision": "b8632713a6beaf28b56f2a7b0ab2fb7088dbb404",
+      "url": "https://api.github.com/repos/hyprwm/hyprwayland-scanner/tarball/refs/tags/v0.4.6",
+      "hash": "sha256-Jxixw6wZphUp+nHYxOKUYSckL17QMBx2d5Zp0rJHr1g="
+    },
+    "hyprwire": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "hyprwire"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.3.1",
+      "revision": "3e6865ce5fd9237b58f5b2ce5de18814df3baff5",
+      "url": "https://api.github.com/repos/hyprwm/hyprwire/tarball/refs/tags/v0.3.1",
+      "hash": "sha256-AKPaKeLDy0QXRBk/XzR7RktX7CV63ejYsTUgsPdXKvg="
+    },
     "import-tree": {
       "type": "GitRelease",
       "repository": {
@@ -323,6 +496,19 @@
       "url": "https://github.com/karinushka/paneru/archive/462f35320622d3d0e284fffe3b9021d39eb2846d.tar.gz",
       "hash": "sha256-mneq3VG1rVooJ1d9kLQyPQMek3NHBGdki94FWvEAx+U="
     },
+    "pre-commit-hooks": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "cachix",
+        "repo": "git-hooks.nix"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "3cfd774b0a530725a077e17354fbdb87ea1c4aad",
+      "url": "https://github.com/cachix/git-hooks.nix/archive/3cfd774b0a530725a077e17354fbdb87ea1c4aad.tar.gz",
+      "hash": "sha256-PcRvlWayisPSjd0UcRQbhG8Oqw78AcPE6x872cPRHN8="
+    },
     "preservation": {
       "type": "Git",
       "repository": {
@@ -345,9 +531,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "60cab697b97b22539444acc7e204b3807abf5fa3",
-      "url": "https://github.com/illusaen/quickshell/archive/60cab697b97b22539444acc7e204b3807abf5fa3.tar.gz",
-      "hash": "sha256-7ABTKCZazz/IS3oxujwStHoR60/6/CMS8oLZDnk1Kzw="
+      "revision": "a6984831320521e1dba40471c4cf1696305e3fc9",
+      "url": "https://github.com/illusaen/quickshell/archive/a6984831320521e1dba40471c4cf1696305e3fc9.tar.gz",
+      "hash": "sha256-oGH7rJBFQwtVmi6tx/hXCa38QUeRvtMMoa14Lv53pxM="
     },
     "systems": {
       "type": "Git",
@@ -403,6 +589,22 @@
       "revision": "920b35279fb800c147017c8332e04a3daa994af4",
       "url": "https://api.github.com/repos/vic/with-inputs/tarball/refs/tags/v0.3.0",
       "hash": "sha256-3rNFfdLJ/nivZkgBoVi+M8tJQQpupuojaHyNig1Qzrs="
+    },
+    "xdph": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "xdg-desktop-portal-hyprland"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.3.12",
+      "revision": "01e13c0a027a2d177df4dead76ac9d069e2cc8e6",
+      "url": "https://api.github.com/repos/hyprwm/xdg-desktop-portal-hyprland/tarball/refs/tags/v1.3.12",
+      "hash": "sha256-B7nwX0PE0KBo1/ZtuwJtA7dBG6gdPW5tSBb0skY8DHA="
     }
   },
   "version": 7
