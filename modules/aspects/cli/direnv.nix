@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.cli._.direnv = den.lib.perHost {
+_: {
+  den.aspects.cli._.direnv = {
     # Temporary workaround: https://github.com/nixos/nixpkgs/issues/513019
     darwin = {
       nixpkgs.overlays = [

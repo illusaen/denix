@@ -1,8 +1,8 @@
 { den, ... }:
 {
-  den.ctx.host.includes = [ den.aspects.google-chrome ];
+  den.schema.host.includes = [ den.aspects.google-chrome ];
 
-  den.aspects.google-chrome = den.lib.perHost {
+  den.aspects.google-chrome = {
     persistUser.directories = [ ".config/google-chrome" ];
 
     darwin.homebrew.casks = [ "google-chrome@beta" ];

@@ -5,9 +5,9 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.ctx.host.includes = [ den.aspects.nix-index ];
+  den.schema.host.includes = [ den.aspects.nix-index ];
 
-  den.aspects.nix-index = den.lib.perHost {
+  den.aspects.nix-index = {
     os.programs.nix-index-database.comma.enable = true;
 
     nixos.imports = [ inputs.nix-index-database.nixosModules.default ];

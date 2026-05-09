@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.cli._.fd = den.lib.perHost {
+_: {
+  den.aspects.cli._.fd = {
     os =
       { pkgs, ... }:
       let

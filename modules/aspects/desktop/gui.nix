@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.desktop._.gui = den.lib.perHost {
+_: {
+  den.aspects.desktop._.gui = {
     nixos =
       { pkgs, ... }:
       {

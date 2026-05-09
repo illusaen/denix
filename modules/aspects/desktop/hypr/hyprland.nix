@@ -25,12 +25,12 @@
       };
 
     hj =
-      { osConfig, ... }:
+      { config, ... }:
       {
         xdg.config.files =
           let
-            cursorTheme = osConfig.myLib.theming.cursorTheme.name;
-            cursorSize = osConfig.myLib.theming.cursorTheme.size;
+            cursorTheme = config.myLib.theming.cursorTheme.name;
+            cursorSize = config.myLib.theming.cursorTheme.size;
           in
           {
             "hypr/hyprland.lua".source = ./hyprland.lua;

@@ -7,8 +7,8 @@
     };
   };
 
-  den.ctx.host.includes = [ den.aspects.zed ];
-  den.aspects.zed = den.lib.perHost {
+  den.schema.host.includes = [ den.aspects.zed ];
+  den.aspects.zed = {
     os =
       { pkgs, ... }:
       {
@@ -35,9 +35,9 @@
       };
 
     hj =
-      { pkgs, osConfig, ... }:
+      { pkgs, config, ... }:
       let
-        theme = osConfig.scheme {
+        theme = config.scheme {
           templateRepo = inputs.tinted-zed;
           target = "base16";
         };
@@ -45,8 +45,8 @@
       {
         xdg.config.files = {
           "zed/settings.json".source = pkgs.replaceVars ./settings.json {
-            sans = osConfig.myLib.fonts.sans.name;
-            mono = osConfig.myLib.fonts.mono.name;
+            sans = config.myLib.fonts.sans.name;
+            mono = config.myLib.fonts.mono.name;
             theme-light = "Catppuccin Latte (Blur) [Heavy]";
             theme-dark = "Catppuccin Mocha (Blur) [Heavy]";
           };

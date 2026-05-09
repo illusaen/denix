@@ -1,35 +1,34 @@
 {
-  den,
-  lib,
-  ...
-}:
-let
-  fishClass =
-    { aspect-chain, ... }:
-    den._.forward {
-      each = [
-        "nixos"
-        "darwin"
-      ];
-      fromClass = _: "fish";
-      intoClass = lib.id;
-      intoPath = _: [
-        "programs"
-        "fish"
-      ];
-      fromAspect = _: lib.head aspect-chain;
-      guard = { config, ... }: _: lib.mkIf config.programs.fish.enable;
-    };
-in
-{
-  den.aspects.cli._.fish = den.lib.perHost {
-    includes = [ fishClass ];
+  den.quirks.shell = {
+    description = "Shell config";
+  };
 
+  den.aspects.cli._.fish = {
     vars.EDITOR = "vim";
     persistUser.directories = [ ".local/share/fish" ];
 
+    shell = {
+      enable = true;
+      interactiveShellInit = ''
+        set -g fish_greeting ""
+        set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
+      '';
+      shellAbbrs = {
+        rmr = "rm -r";
+        rmf = "rm -rf";
+
+        cd = "n";
+        cat = "bat";
+      };
+    };
+
     os =
-      { pkgs, ... }:
+      {
+        pkgs,
+        shell,
+        lib,
+        ...
+      }:
       let
         fishVendorPkg = pkgs.stdenvNoCC.mkDerivation {
           pname = "autols-fish";
@@ -58,22 +57,26 @@ in
             runHook postInstall
           '';
         };
+
+        merge =
+          acc: item:
+          builtins.zipAttrsWith
+            (
+              name: values:
+              if name == "interactiveShellInit" then
+                lib.concatStringsSep "\n" values
+              else if lib.all lib.isAttrs values then
+                lib.foldl' lib.recursiveUpdate { } values
+              else
+                lib.last values
+            )
+            [
+              acc
+              item
+            ];
       in
       {
-        programs.fish = {
-          enable = true;
-          interactiveShellInit = ''
-            set -g fish_greeting ""
-            set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
-          '';
-          shellAbbrs = {
-            rmr = "rm -r";
-            rmf = "rm -rf";
-
-            cd = "n";
-            cat = "bat";
-          };
-        };
+        programs.fish = lib.foldl' merge { } shell;
 
         environment.systemPackages = with pkgs.fishPlugins; [
           puffer

@@ -1,4 +1,4 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 let
   settings = {
     options = {
@@ -23,7 +23,7 @@ in
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.aspects.paneru = den.lib.perHost {
+  den.aspects.paneru = {
     darwin = {
       imports = [ inputs.paneru.darwinModules.paneru ];
       services.paneru = {

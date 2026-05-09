@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.desktop._.audio = den.lib.perHost {
+_: {
+  den.aspects.desktop._.audio = {
     nixos =
       { pkgs, lib, ... }:
       {

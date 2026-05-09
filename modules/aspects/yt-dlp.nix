@@ -1,8 +1,8 @@
 { den, ... }:
 {
-  den.ctx.host.includes = [ den.aspects.yt-dlp ];
-  den.aspects.yt-dlp = den.lib.perHost {
-    fish =
+  den.schema.host.includes = [ den.aspects.yt-dlp ];
+  den.aspects.yt-dlp = {
+    shell =
       { config, ... }:
       {
         shellAbbrs.yt =

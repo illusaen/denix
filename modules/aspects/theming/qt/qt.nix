@@ -1,9 +1,5 @@
-{
-  den,
-  ...
-}:
-{
-  den.aspects.theming._.qt = den.lib.perHost {
+_: {
+  den.aspects.theming._.qt = {
     nixos =
       { pkgs, ... }:
       {
@@ -25,11 +21,11 @@
       {
         pkgs,
         lib,
-        osConfig,
+        config,
         ...
       }:
       let
-        inherit (osConfig.myLib) fonts;
+        inherit (config.myLib) fonts;
 
         qtSettingsFile = qtct: {
           "${qtct}/${qtct}.conf".source =
@@ -41,8 +37,8 @@
                 Appearance = {
                   custom_palette = true;
                   standard_dialogs = "xdgdesktopportal";
-                  inherit (osConfig.qt) style;
-                  icon_theme = osConfig.myLib.theming.iconTheme.name;
+                  inherit (config.qt) style;
+                  icon_theme = config.myLib.theming.iconTheme.name;
                 };
 
                 Fonts = {
@@ -54,11 +50,11 @@
 
         kvantumPackage =
           let
-            kvconfig = osConfig.scheme {
+            kvconfig = config.scheme {
               template = ./kvconfig.mustache;
               extension = ".kvconfig";
             };
-            svg = osConfig.scheme {
+            svg = config.scheme {
               template = ./kvantum.svg.mustache;
               extension = ".svg";
             };
@@ -77,7 +73,7 @@
               "qt5ct"
               "qt6ct"
             ])
-            (lib.mkIf (osConfig.qt.style == "kvantum") {
+            (lib.mkIf (config.qt.style == "kvantum") {
               "Kvantum/kvantum.kvconfig" = {
                 generator = lib.generators.toINI { };
                 value = {

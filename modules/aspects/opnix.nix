@@ -2,11 +2,11 @@
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
-  den.ctx.host.includes = [ den.aspects.opnix._.enable ];
-  den.ctx.user.includes = [ den.aspects.opnix._.opnix-user ];
+  den.schema.host.includes = [ den.aspects.opnix._.enable ];
+  den.schema.user.includes = [ den.aspects.opnix._.opnix-user ];
 
   den.aspects.opnix = {
-    _.enable = den.lib.perHost {
+    _.enable = {
       nixos.imports = [ inputs.opnix.nixosModules.default ];
       darwin.imports = [ inputs.opnix.darwinModules.default ];
 
@@ -30,12 +30,11 @@
       persist.files = [ "/etc/opnix-token" ];
     };
 
-    _.opnix-user = den.lib.perUser (
+    _.opnix-user =
       { user, ... }:
       {
         nixos.users.users.${user.name}.extraGroups = [ "onepassword-secrets" ];
         darwin.users.groups.onepassword-secrets.members = [ user.name ];
-      }
-    );
+      };
   };
 }

@@ -3,8 +3,8 @@
   ...
 }:
 {
-  den.ctx.host.includes = [ den.aspects.fonts ];
-  den.aspects.fonts = den.lib.perHost {
+  den.schema.host.includes = [ den.aspects.fonts ];
+  den.aspects.fonts = {
     os =
       {
         pkgs,

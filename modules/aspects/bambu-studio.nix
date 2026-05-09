@@ -1,4 +1,4 @@
-{ den, self, ... }:
+{ self, ... }:
 {
   perSystem =
     {
@@ -28,7 +28,7 @@
     });
   };
 
-  den.aspects.bambu-studio = den.lib.perHost {
+  den.aspects.bambu-studio = {
     nixos =
       # { pkgs, ... }:
       {

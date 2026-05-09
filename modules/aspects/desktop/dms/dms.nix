@@ -1,4 +1,4 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs = {
     dms = {
@@ -12,7 +12,7 @@
     };
   };
 
-  den.aspects.desktop._.dms = den.lib.perHost {
+  den.aspects.desktop._.dms = {
     persistUser.directories = [
       ".config/DankMaterialShell"
       ".cache/DankMaterialShell"
@@ -31,9 +31,9 @@
     };
 
     hj =
-      { osConfig, ... }:
+      { config, ... }:
       {
-        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = osConfig.scheme {
+        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = config.scheme {
           template = ./dms-theme.json.mustache;
           extension = "json";
         };

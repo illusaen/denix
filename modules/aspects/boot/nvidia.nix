@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.nvidia = den.lib.perHost {
+_: {
+  den.aspects.nvidia = {
     nixos =
       { config, ... }:
       {

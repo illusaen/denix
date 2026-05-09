@@ -32,11 +32,11 @@ in
     };
   };
 
-  den.ctx.host.includes = [
+  den.schema.host.includes = [
     den.aspects.disko
   ];
 
-  den.aspects.disko = den.lib.perHost {
+  den.aspects.disko = {
     includes = [ diskoClass ];
 
     nixos = {

@@ -63,13 +63,13 @@ in
     config.hjem.enable = true;
   };
 
-  den.ctx.user.includes = [
+  den.schema.user.includes = [
     den.provides.define-user
     den.provides.mutual-provider
     (den.provides.user-shell "fish")
   ];
 
-  den.ctx.host.includes = [
+  den.schema.host.includes = [
     den.provides.hostname
     variablesClass
     hjemHostClass

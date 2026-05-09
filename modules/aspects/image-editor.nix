@@ -1,7 +1,7 @@
 { den, ... }:
 {
-  den.ctx.host.includes = [ den.aspects.image-editor ];
-  den.aspects.image-editor = den.lib.perHost {
+  den.schema.host.includes = [ den.aspects.image-editor ];
+  den.aspects.image-editor = {
     nixos =
       { pkgs, ... }:
       {

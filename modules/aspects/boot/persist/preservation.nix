@@ -62,7 +62,7 @@ in
 {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
 
-  den.ctx.host.includes = [
+  den.schema.host.includes = [
     den.aspects.preservation
     den.aspects.find-ephemeral
   ];

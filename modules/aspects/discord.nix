@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.discord = den.lib.perHost {
+_: {
+  den.aspects.discord = {
     persistUser.directories = [
       ".config/discord"
     ];

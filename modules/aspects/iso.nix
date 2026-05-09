@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.iso = den.lib.perHost {
+_: {
+  den.aspects.iso = {
     nixos =
       {
         modulesPath,

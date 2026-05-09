@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.desktop._.display-manager = den.lib.perHost {
+_: {
+  den.aspects.desktop._.display-manager = {
     nixos =
       { config, ... }:
       {

@@ -1,8 +1,8 @@
 { den, lib, ... }:
 {
-  den.ctx.host.includes = [ den.aspects.onepassword ];
+  den.schema.host.includes = [ den.aspects.onepassword ];
 
-  den.aspects.onepassword = den.lib.perHost (
+  den.aspects.onepassword =
     { host, ... }:
     {
       os = {
@@ -31,6 +31,5 @@
         };
 
       persistUser.directories = [ ".config/1Password" ];
-    }
-  );
+    };
 }

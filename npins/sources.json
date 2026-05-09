@@ -54,9 +54,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "0af82e24be89b9fd400bd0b58b0fed5ea0f269ad",
-      "url": "https://github.com/vic/den/archive/0af82e24be89b9fd400bd0b58b0fed5ea0f269ad.tar.gz",
-      "hash": "sha256-q4WXIX2E3w9Ld3MZ1Pl8Lh5SgrEFdEuzvY1Lj/Wo2kY="
+      "revision": "c2c23612f892f2e1c0d506c3af59f6f4d2122a9b",
+      "url": "https://github.com/vic/den/archive/c2c23612f892f2e1c0d506c3af59f6f4d2122a9b.tar.gz",
+      "hash": "sha256-f8aDZU0IZmwzPweimLgAaYTu8cj5VxVbGz3rL+mfWTY="
     },
     "disko": {
       "type": "GitRelease",
@@ -257,9 +257,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "8b78de5d90cb81ebf01df1c84ca205b22aced7d1",
-      "url": "https://github.com/hyprwm/Hyprland/archive/8b78de5d90cb81ebf01df1c84ca205b22aced7d1.tar.gz",
-      "hash": "sha256-CKBdOcA2xt8MWjvlOICRYgh5lN2nTzy5+jqIP29Y6K4="
+      "revision": "af923e30d1d24f1f4a4f5cb8308065173c1d9539",
+      "url": "https://github.com/hyprwm/Hyprland/archive/af923e30d1d24f1f4a4f5cb8308065173c1d9539.tar.gz",
+      "hash": "sha256-RGYGbW6aH3jUwGVB9BrSYcKsQj7Dl2K32ao5aWbTK40="
     },
     "hyprland-guiutils": {
       "type": "GitRelease",
@@ -463,9 +463,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "084a30165d696989fe854421b1c71c4b01c3ed48",
-      "url": "https://github.com/NixOS/nixpkgs/archive/084a30165d696989fe854421b1c71c4b01c3ed48.tar.gz",
-      "hash": "sha256-DjgukqjGhtyvgHsAGLDuZHm5NixzYvJWDVBaHT31c9I="
+      "revision": "79426d72f3d218120a7d018a754a027033c186ad",
+      "url": "https://github.com/NixOS/nixpkgs/archive/79426d72f3d218120a7d018a754a027033c186ad.tar.gz",
+      "hash": "sha256-V8XDX+nRWEYQqk8ma88idf5Lw9n5vUOIbNGgfgSvlT8="
     },
     "opnix": {
       "type": "GitRelease",

@@ -1,5 +1,4 @@
 {
-  den,
   lib,
   ...
 }:
@@ -91,14 +90,12 @@ let
     };
 in
 {
-  den.aspects.cli._.starship = den.lib.perHost {
-    fish =
-      { pkgs, ... }:
-      {
-        interactiveShellInit = ''
-          ${lib.getExe (starship-wrapped pkgs)} init fish | source
-        '';
-      };
+  den.aspects.cli._.starship = {
+    shell = {
+      interactiveShellInit = ''
+        starship init fish | source
+      '';
+    };
 
     os =
       { pkgs, ... }:

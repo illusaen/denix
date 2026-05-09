@@ -1,8 +1,8 @@
 { den, ... }:
 {
-  den.ctx.host.includes = [ den.aspects.networking ];
-  den.aspects.networking = den.lib.perHost (
-    { host }:
+  den.schema.host.includes = [ den.aspects.networking ];
+  den.aspects.networking =
+    { host, ... }:
     {
       nixos = _: {
         # networking = {
@@ -53,6 +53,5 @@
         "/etc/NetworkManager/system-connections"
         "/var/lib/bluetooth"
       ];
-    }
-  );
+    };
 }

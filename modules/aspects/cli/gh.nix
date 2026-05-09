@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.cli._.gh = den.lib.perHost {
+_: {
+  den.aspects.cli._.gh = {
     persistUser.files = [
       ".config/gh/config.yml"
       ".config/gh/hosts.yml"

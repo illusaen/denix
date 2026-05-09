@@ -4,14 +4,14 @@
   ...
 }:
 {
-  den.ctx.host.includes = [
+  den.schema.host.includes = [
     den.aspects.cli
   ];
 
   den.aspects.cli = {
     includes = lib.attrValues den.aspects.cli._;
 
-    _.packages = den.lib.perHost {
+    _.packages = {
       vars.NIX_CONF = "~/Projects/denix";
 
       os =

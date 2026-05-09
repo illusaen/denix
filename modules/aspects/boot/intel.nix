@@ -1,8 +1,8 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-  den.aspects.intel = den.lib.perHost {
+  den.aspects.intel = {
     nixos =
       { config, modulesPath, ... }:
       {

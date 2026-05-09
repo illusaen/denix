@@ -1,10 +1,6 @@
-{
-  den,
-  ...
-}:
-{
-  den.aspects.cli._.eza = den.lib.perHost {
-    fish.shellAliases = {
+_: {
+  den.aspects.cli._.eza = {
+    shell.shellAliases = {
       l = "eza -alg";
       ll = "eza --tree --git-ignore --all";
     };

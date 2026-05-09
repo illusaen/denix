@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.theming._.dconf = den.lib.perHost {
+_: {
+  den.aspects.theming._.dconf = {
     nixos =
       { pkgs, ... }:
       {

@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.word = den.lib.perHost {
+_: {
+  den.aspects.word = {
     nixos =
       { pkgs, ... }:
       {

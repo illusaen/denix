@@ -82,7 +82,7 @@
     {
       includes = lib.attrValues den.aspects.theming._.gtk._;
 
-      _.enable = den.lib.perHost {
+      _.enable = {
         nixos =
           { pkgs, config, ... }:
           let
@@ -121,7 +121,7 @@
           };
       };
 
-      _.configure = den.lib.perUser (
+      _.configure =
         { user, ... }:
         {
           hjem =
@@ -221,7 +221,6 @@
                 '';
               };
             };
-        }
-      );
+        };
     };
 }

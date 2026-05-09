@@ -1,7 +1,7 @@
-{ den, lib, ... }:
+{ lib, ... }:
 {
-  den.aspects.cli._.git = den.lib.perHost {
-    fish = {
+  den.aspects.cli._.git = {
+    shell = {
       interactiveShellInit = ''
         abbr -a gcm --set-cursor 'git commit -m "%"'
         abbr -a git_clone_own_repo --set-cursor --regex "^g(gc|r)l\$" --function _git_clone_repo

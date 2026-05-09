@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.steam = den.lib.perHost {
+_: {
+  den.aspects.steam = {
     persistUser.directories = [ ".local/share/Steam" ];
 
     darwin =

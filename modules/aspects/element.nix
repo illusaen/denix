@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.element = den.lib.perHost {
+_: {
+  den.aspects.element = {
     persistUser.directories = [
       ".config/Element"
     ];

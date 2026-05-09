@@ -3,8 +3,8 @@
   ...
 }:
 {
-  den.ctx.host.includes = [ den.aspects.xdg ];
-  den.aspects.xdg = den.lib.perHost {
+  den.schema.host.includes = [ den.aspects.xdg ];
+  den.aspects.xdg = {
     nixos.xdg.autostart.enable = true;
 
     hj = {

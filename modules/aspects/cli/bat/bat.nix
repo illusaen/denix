@@ -1,9 +1,5 @@
-{
-  den,
-  ...
-}:
-{
-  den.aspects.cli._.bat = den.lib.perHost {
+_: {
+  den.aspects.cli._.bat = {
     os =
       { pkgs, config, ... }:
       let

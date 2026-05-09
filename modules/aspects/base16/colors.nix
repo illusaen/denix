@@ -11,7 +11,7 @@ in
     base16.url = "github:SenchoPens/base16.nix";
   };
 
-  den.ctx.host.includes = [ den.aspects.colors ];
+  den.schema.host.includes = [ den.aspects.colors ];
   den.aspects.colors = {
     os =
       {

@@ -1,6 +1,6 @@
-{ den, lib, ... }:
+{ lib, ... }:
 {
-  den.aspects.desktop._.nemo = den.lib.perHost {
+  den.aspects.desktop._.nemo = {
     nixos =
       { pkgs, ... }:
       {

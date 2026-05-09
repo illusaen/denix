@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.desktop._.hideDesktopEntries = den.lib.perHost {
+_: {
+  den.aspects.desktop._.hideDesktopEntries = {
     nixos =
       { pkgs, lib, ... }:
       let

@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.server._.pihole = den.lib.perHost {
+_: {
+  den.aspects.server._.pihole = {
     services.pihole-ftl = {
       enable = true;
       settings = {

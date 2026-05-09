@@ -1,6 +1,6 @@
 { den, lib, ... }:
 {
-  den.aspects.find-ephemeral = den.lib.perHost {
+  den.aspects.find-ephemeral = {
     nixos =
       { config, pkgs, ... }:
       lib.mkIf (config ? preservation.preserveAt) (

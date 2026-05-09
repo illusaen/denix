@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.cli._.terminal = den.lib.perHost {
+_: {
+  den.aspects.cli._.terminal = {
     nixos =
       { pkgs, config, ... }:
       let
@@ -61,14 +60,14 @@
       {
         pkgs,
         lib,
-        osConfig,
+        config,
         ...
       }:
       {
         xdg.config.files = lib.mkIf pkgs.stdenv.isDarwin {
           "ghostty/config.ghostty".text = ''
-            font-family = ${osConfig.myLib.fonts.mono.name}
-            font-size = ${toString osConfig.myLib.fonts.sizes.terminal}
+            font-family = ${config.myLib.fonts.mono.name}
+            font-size = ${toString config.myLib.fonts.sizes.terminal}
 
             background-opacity = 0.9
             background-opacity-cells = true
@@ -84,7 +83,7 @@
             keybind = global:cmd+backquote=toggle_quick_terminal
             theme = Cosmic.ghostty
           '';
-          "ghostty/themes/Cosmic.ghostty".source = osConfig.scheme {
+          "ghostty/themes/Cosmic.ghostty".source = config.scheme {
             template = ./theme.ghostty.mustache;
             extension = "ghostty";
           };
