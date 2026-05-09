@@ -16,11 +16,10 @@
           shell_integration no-rc
 
           active_border_color none
-          background_opacity 0.9
+          background_opacity 0.7
           confirm_os_window_close 0
           linux_display_server wayland
           macos_titlebar_color system
-          opacity 0.9
           placement_strategy bottom-left
           tab_activity_symbol ↺
           tab_bar_margin_height 0.0 8.0
@@ -28,7 +27,6 @@
           tab_bar_style powerline
           tab_powerline_style slanted
           window_padding_width 8
-          background_blur 20
 
           include themes/colors.conf
         '';

@@ -135,7 +135,7 @@
               inherit (lib) mkMerge flatten;
 
               gtkExtraCss = ''
-                .window { opacity: 0.9; }
+                window { opacity: 0.9; }
               '';
               gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
                 cat ${
