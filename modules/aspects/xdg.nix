@@ -3,7 +3,10 @@
   ...
 }:
 {
-  den.aspects.desktop._.xdg = den.lib.perHost {
+  den.ctx.host.includes = [ den.aspects.xdg ];
+  den.aspects.xdg = den.lib.perHost {
+    nixos.xdg.autostart.enable = true;
+
     hj = {
       xdg.config.files = {
         "user-dirs.dirs".text = ''
