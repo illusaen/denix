@@ -17,8 +17,6 @@
           extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
         };
 
-        environment.systemPackages = with pkgs; [ grimblast ];
-
         nix.settings = {
           substituters = [ "https://hyprland.cachix.org" ];
           trusted-substituters = [ "https://hyprland.cachix.org" ];
