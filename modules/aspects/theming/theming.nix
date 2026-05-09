@@ -1,5 +1,6 @@
 {
   den,
+  helpers,
   lib,
   ...
 }:
@@ -12,11 +13,6 @@
     includes = lib.attrValues den.aspects.theming._;
 
     os =
-      {
-        lib,
-        helpers,
-        ...
-      }:
       let
         inherit (lib) mkOption types;
         inherit (helpers) mkThemeType;

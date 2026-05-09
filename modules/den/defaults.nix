@@ -1,28 +1,10 @@
 {
   lib,
   den,
+  helpers,
   ...
 }:
 let
-  variablesClass =
-    { aspect-chain, ... }:
-    den._.forward {
-      each = [
-        "nixos"
-        "darwin"
-      ];
-      fromClass = _: "env";
-      intoClass = lib.id;
-      intoPath = item: [
-        "environment"
-        (if (item == "darwin") then "variables" else "sessionVariables")
-      ];
-      fromAspect = _: lib.head aspect-chain;
-      evalConfig = true;
-    };
-
-  helpers = import ./_helpers.nix { inherit lib; };
-
   hjemHostClass =
     { host }:
     { aspect-chain, ... }:
@@ -71,7 +53,6 @@ in
 
   den.schema.host.includes = [
     den.provides.hostname
-    variablesClass
     hjemHostClass
   ];
 }

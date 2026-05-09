@@ -1,5 +1,6 @@
 {
   den,
+  helpers,
   ...
 }:
 {
@@ -10,7 +11,6 @@
         pkgs,
         lib,
         config,
-        helpers,
         ...
       }:
       let

@@ -7,7 +7,17 @@ let
   };
 
   outputs =
-    inputs@{ flake-parts, import-tree, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (import-tree ./modules);
+    inputs@{
+      flake-parts,
+      import-tree,
+      nixpkgs,
+      ...
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      (import-tree ./modules)
+      // {
+        _module.args.helpers = import ./modules/den/_helpers.nix { inherit (nixpkgs) lib; };
+      }
+    );
 in
 with-inputs outputs
