@@ -12,7 +12,7 @@
     includes = lib.attrValues den.aspects.cli._;
 
     _.packages = {
-      vars.NIX_CONF = "~/Projects/denix";
+      env.NIX_CONF = "~/Projects/denix";
 
       os =
         { config, pkgs, ... }:

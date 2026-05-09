@@ -4,7 +4,7 @@
   };
 
   den.aspects.cli._.fish = {
-    vars.EDITOR = "vim";
+    env.EDITOR = "vim";
     persistUser.directories = [ ".local/share/fish" ];
 
     shell = {

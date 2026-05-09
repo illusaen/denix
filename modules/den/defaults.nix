@@ -11,7 +11,7 @@ let
         "nixos"
         "darwin"
       ];
-      fromClass = _: "vars";
+      fromClass = _: "env";
       intoClass = lib.id;
       intoPath = item: [
         "environment"
