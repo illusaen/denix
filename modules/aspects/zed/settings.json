@@ -86,6 +86,9 @@
     "CSS": {
       "language_servers": ["tailwindcss-intellisense-css", "!vscode-css-language-server", "..."],
     },
+    "Nix": {
+      "language_servers": ["!nil", "..."],
+    },
   },
   "lsp": {
     "tailwindcss-language-server": {
