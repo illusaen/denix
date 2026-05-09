@@ -22,6 +22,8 @@
         ];
 
         zfs.forceImportRoot = false;
+
+        kernelParams = [ "usbcore.autosuspend=-1" ];
       };
     };
   };
