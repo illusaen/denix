@@ -15,7 +15,6 @@
   den.aspects.desktop._.dms = den.lib.perHost {
     persistUser.directories = [
       ".config/DankMaterialShell"
-      ".config/niri/dms"
       ".cache/DankMaterialShell"
       ".local/state/DankMaterialShell"
     ];

@@ -28,7 +28,6 @@ in
       nvidia
       desktop
       steam
-      vscode
       element
       discord
       theming
@@ -54,7 +53,6 @@ in
   # Macbook
   den.aspects.idunn = {
     includes = with den.aspects; [
-      vscode
       element
       discord
       paneru

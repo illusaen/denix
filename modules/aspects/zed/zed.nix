@@ -54,6 +54,9 @@
         };
       };
 
-    persistUser.directories = [ ".local/share/zed" ];
+    persistUser.directories = [
+      ".local/share/zed"
+      ".codex"
+    ];
   };
 }
