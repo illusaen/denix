@@ -52,14 +52,12 @@ hl.window_rule({
 hl.window_rule({
   name = "viking-rise",
   match = { title = "^Viking Rise Steam$" },
-  size = { 5160, 2080 },
-  center = true,
-  float = true,
+  maximize = true,
 })
 
 hl.curve("rubber", { type = "spring", mass = 1, stiffness = 70, dampening = 10 })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 2, spring = "rubber", style = "slidefadevert", })
-hl.animation({ leaf = "windows", enabled = true, speed = 2, spring = "rubber", })
+hl.animation({ leaf = "windows", enabled = true, speed = 2, bezier = "default", })
 hl.animation({ leaf = "fade", enabled = true, speed = 2, spring = "rubber", })
 
 hl.layer_rule({ match = { namespace = "kitty\\-quick\\-access" }, blur = true })
