@@ -31,11 +31,11 @@ hl.bind("SUPER + X", hl.dsp.window.center(), { description = "Center Window" })
 
 hl.bind(
   "SUPER + Up",
-  hl.dsp.focus({ workspace = "e-1", on_current_monitor = true, }),
+  hl.dsp.focus({ workspace = "m-1" }),
   { description = "Focus Previous Workspace" })
 hl.bind(
   "SUPER + Down",
-  hl.dsp.focus({ workspace = "e+1", on_current_monitor = true, }),
+  hl.dsp.focus({ workspace = "m+1" }),
   { description = "Focus Next Workspace" })
 hl.bind(
   "SUPER + SHIFT + Up",
