@@ -2,6 +2,7 @@
   den,
   lib,
   inputs,
+  helpers,
   ...
 }:
 let
@@ -16,29 +17,9 @@ let
     in
     [
       (pipe.from class [
-        (pipe.fold mergePersist { })
+        (pipe.fold helpers.mergeModule { })
       ])
     ];
-
-  mergePersist =
-    lhs: rhs:
-    if lib.isAttrs lhs && lib.isAttrs rhs then
-      builtins.zipAttrsWith
-        (
-          _: values:
-          if builtins.length values == 1 then
-            builtins.head values
-          else
-            mergePersist (builtins.elemAt values 0) (builtins.elemAt values 1)
-        )
-        [
-          lhs
-          rhs
-        ]
-    else if lib.isList lhs && lib.isList rhs then
-      lib.unique (lhs ++ rhs)
-    else
-      rhs;
 in
 {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
