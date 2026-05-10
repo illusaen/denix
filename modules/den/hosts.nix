@@ -5,8 +5,6 @@ let
   };
 in
 {
-  flake.den = den;
-
   den.hosts.x86_64-linux.odin = {
     users.wendy = { };
     ip = "192.168.1.163";
