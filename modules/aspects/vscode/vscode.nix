@@ -78,6 +78,12 @@
               version = "0.6.8";
               sha256 = "sha256-u623oSLBK14u30dDQwFl/QtjjV1410OUldsck0gafLo=";
             })
+            (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+              name = "vs-code-extension";
+              publisher = "inlang";
+              version = "2.2.0";
+              sha256 = "sha256-+BUtdmrPztTx7Hoc/SP4MNOPrUyT1n1DWabuxTUylnw=";
+            })
           ]
           ++ lib.singleton (
             pkgs.runCommandLocal "vscode-theme-extension"
@@ -101,11 +107,11 @@
           direnv.restart.automatic = true;
           editor = {
             defaultFormatter = "ibecker.treefmt-vscode";
-            fontLigatures = "'ss01','ss05','dlig'";
-            fontWeight = "600";
+            fontWeight = 500;
+            fontLigatures = true;
             formatOnPaste = true;
             formatOnSave = true;
-            lineHeight = 1.2;
+            lineHeight = 1.4;
             minimap.enabled = false;
             quickSuggestions.strings = "on";
             wordWrap = "on";
@@ -159,7 +165,17 @@
             panel.defaultLocation = "right";
           };
           treefmt.command = "$(which treefmt)";
-          "#js/ts".inlayHints.enumMemberValues.enabled = true;
+          "#js/ts" = {
+            inlayHints = {
+              enumMemberValues.enabled = true;
+              parameterTypes.enabled = true;
+              variableTypes.enabled = true;
+              functionLikeReturnTypes.enabled = true;
+              propertyDeclarationTypes.enabled = true;
+            };
+            referencesCodeLens.enabled = true;
+            implementationsCodeLens.enabled = true;
+          };
           window = {
             zoomLevel = 1;
             titleBarStyle = "custom";
@@ -184,7 +200,7 @@
           "markdown.preview.fontSize"
           "terminal.integrated.fontSize"
           "chat.editor.fontSize"
-        ] (config.myLib.fonts.sizes.terminal * 1.1))
+        ] (builtins.floor (config.myLib.fonts.sizes.terminal * 1.1)))
         // (mapListToAttrsWith [
           "editor.fontFamily"
           "editor.inlayHints.fontFamily"
@@ -192,7 +208,11 @@
           "scm.inputFontFamily"
           "debug.console.fontFamily"
           "chat.editor.fontFamily"
-        ] config.myLib.fonts.mono.name)
+        ] "${config.myLib.fonts.mono.name},Maple Mono NF CN")
+        // (mapListToAttrsWith [
+          "editor.inlayHints.fontFamily"
+          "editor.inlineSuggest.fontFamily"
+        ] "Monaspace Xenon NF,${config.myLib.fonts.mono.name},Maple Mono NF CN")
         // (mapListToAttrsWith [
           "markdown.preview.fontFamily"
           "chat.fontFamily"
