@@ -9,70 +9,56 @@ let
   disk = "nvme1n1";
   rollbackSnapshot = "zroot/local/root@blank";
 
-  dedupModule = {
-    options = {
-      directories = lib.mkOption {
-        type = with lib.types; listOf anything;
-        default = [ ];
-        apply = lib.unique;
-      };
-      files = lib.mkOption {
-        type = with lib.types; listOf anything;
-        default = [ ];
-        apply = lib.unique;
-      };
-    };
-  };
+  mergeFn =
+    class: _:
+    let
+      inherit (den.lib.policy) pipe;
+    in
+    [
+      (pipe.from class [
+        (pipe.fold mergePersist { })
+      ])
+    ];
 
-  persistedClass =
-    { aspect-chain, ... }:
-    den._.forward {
-      each = lib.singleton true;
-      fromClass = _: "persist";
-      intoClass = _: "nixos";
-      intoPath = _: [
-        "preservation"
-        "preserveAt"
-        persistMount
-      ];
-      fromAspect = _: lib.head aspect-chain;
-      guard = { options, ... }: options ? preservation.preserveAt;
-      adapterModule = dedupModule;
-    };
-
-  persistedUserClass =
-    { host }:
-    { aspect-chain, ... }:
-    den._.forward {
-      each = lib.attrNames host.users;
-      fromClass = _: "persistUser";
-      intoClass = _: "nixos";
-      intoPath = userName: [
-        "preservation"
-        "preserveAt"
-        persistMount
-        "users"
-        userName
-      ];
-      fromAspect = _: lib.head aspect-chain;
-      guard = { options, ... }: options ? preservation.preserveAt;
-      adapterModule = dedupModule;
-    };
+  mergePersist =
+    lhs: rhs:
+    if lib.isAttrs lhs && lib.isAttrs rhs then
+      builtins.zipAttrsWith
+        (
+          _: values:
+          if builtins.length values == 1 then
+            builtins.head values
+          else
+            mergePersist (builtins.elemAt values 0) (builtins.elemAt values 1)
+        )
+        [
+          lhs
+          rhs
+        ]
+    else if lib.isList lhs && lib.isList rhs then
+      lib.unique (lhs ++ rhs)
+    else
+      rhs;
 in
 {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
 
+  den.quirks = {
+    persist.description = "System persisted directories and files.";
+    persistUser.description = "User persisted directories and files.";
+  };
+
+  den.policies.merge-persist = mergeFn "persist";
+  den.policies.merge-persist-user = mergeFn "persistUser";
+
   den.schema.host.includes = [
     den.aspects.preservation
     den.aspects.find-ephemeral
+    den.policies.merge-persist
+    den.policies.merge-persist-user
   ];
 
   den.aspects.preservation = {
-    includes = [
-      persistedClass
-      persistedUserClass
-    ];
-
     meta.vars = {
       inherit disk persistMount rollbackSnapshot;
     };
@@ -112,14 +98,27 @@ in
           directory = ".local/share/keyrings";
           mode = "0700";
         }
+        "Downloads"
+        "Projects"
+        "Pictures"
       ];
     };
 
     nixos =
-      { pkgs, ... }:
+      {
+        host,
+        pkgs,
+        persist,
+        persistUser,
+        ...
+      }:
       {
         imports = [ inputs.preservation.nixosModules.preservation ];
+
         preservation.enable = true;
+        preservation.preserveAt.${persistMount} = (lib.head persist) // {
+          users = lib.mapAttrs (_: _: lib.head persistUser) host.users;
+        };
 
         boot.initrd.systemd.services.zfs-rollback = {
           description = "Rollback ZFS root dataset to blank snapshot";

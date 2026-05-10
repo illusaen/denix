@@ -5,15 +5,13 @@ let
   };
 in
 {
+  flake.den = den;
+
   den.hosts.x86_64-linux.odin = {
     users.wendy = { };
     ip = "192.168.1.163";
   };
   den.hosts.x86_64-linux.thor = {
-    users.wendy = { };
-    ip = "192.168.1.164";
-  };
-  den.hosts.x86_64-linux.fenrir = {
     users.wendy = { };
     ip = "192.168.1.164";
   };
@@ -68,11 +66,5 @@ in
       includes = [ den.provides.primary-user ];
 
       nixos.users.users.${user.name}.password = "arst";
-
-      persistUser.directories = [
-        "Downloads"
-        "Projects"
-        "Pictures"
-      ];
     };
 }

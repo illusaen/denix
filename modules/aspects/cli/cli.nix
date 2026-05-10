@@ -6,6 +6,7 @@
 {
   den.schema.host.includes = [
     den.aspects.cli
+    den.policies.merge-env
   ];
 
   den.quirks.env.description = "Environment variables";
@@ -21,7 +22,7 @@
     ];
 
   den.aspects.cli = {
-    includes = lib.attrValues den.aspects.cli._ ++ [ den.policies.merge-env ];
+    includes = lib.attrValues den.aspects.cli._;
 
     env.NIX_CONF = "~/Projects/denix";
 
