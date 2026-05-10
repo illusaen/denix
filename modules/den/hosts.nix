@@ -29,7 +29,7 @@ in
       theming
       word
       bambu-studio
-      zed
+      vscode
     ];
 
     # `theming` has both host and user subaspects

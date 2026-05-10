@@ -62,6 +62,6 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 2, spring = "rubber"
 hl.animation({ leaf = "windows", enabled = true, speed = 2, spring = "rubber", })
 hl.animation({ leaf = "fade", enabled = true, speed = 2, spring = "rubber", })
 
-hl.layer_rule({ match = { namespace = "kitty-quick-access" }, blur = true })
+hl.layer_rule({ match = { namespace = "kitty\\-quick\\-access" }, blur = true })
 hl.layer_rule({ match = { namespace = "dms:desktop\\-widget:.*" }, blur = true })
 hl.layer_rule({ match = { namespace = "dms:(dash|notification\\-center\\-popout|app\\-launcher|spotlight)" }, blur = true })
