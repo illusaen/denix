@@ -36,6 +36,7 @@ hl.config({
     fullscreen_on_one_column = false,
     column_width = 0.333,
     explicit_column_widths = "0.333, 0.667",
+    focus_fit_method = 0,
   },
   misc = {
     disable_hyprland_logo = true,

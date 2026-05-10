@@ -27,7 +27,7 @@ hl.bind("SUPER + Right", hl.dsp.layout("focus r"), { description = "Focus Right"
 hl.bind("SUPER + SHIFT + Left", hl.dsp.layout("swapcol l"), { description = "Swap Column Left" })
 hl.bind("SUPER + SHIFT + Right", hl.dsp.layout("swapcol r"), { description = "Swap Column Right" })
 hl.bind("SUPER + Z", hl.dsp.layout("colresize +conf"), { description = "Resize Preset Column Width" })
-hl.bind("SUPER + X", hl.dsp.window.center(), { description = "Center Window" })
+hl.bind("SUPER + X", hl.dsp.exec_cmd("hypr-toggle-fit"), { description = "Toggle Focus Fit" })
 
 hl.bind(
   "SUPER + Up",

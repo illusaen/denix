@@ -4,7 +4,7 @@
 
   den.aspects.desktop._.hyprland = {
     nixos =
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
       {
         programs.hyprland = {
           enable = true;
@@ -23,6 +23,21 @@
           trusted-substituters = [ "https://hyprland.cachix.org" ];
           trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
         };
+
+        environment.systemPackages = [
+          (pkgs.writeShellScriptBin "hypr-toggle-fit" ''
+            curr_val="$(hyprctl getoption scrolling:focus_fit_method -j | ${lib.getExe pkgs.jq} '. | .int')"
+            if [[ $curr_val == 0 ]]; then
+                val=1
+                mode="fit"
+            else
+                val=0
+                mode="center"
+            fi
+            hyprctl eval "hl.config" "{ scrolling = { focus_fit_method = $val } }"
+            ${lib.getExe pkgs.libnotify} "Focus fit method: $mode"
+          '')
+        ];
       };
 
     hj =
@@ -40,7 +55,6 @@
             "hypr/monitors.lua".source = ./monitors.lua;
             "hypr/rules.lua".source = ./rules.lua;
 
-            # "hypr/hyprland.conf".source = ./hyprland.conf;
             "uwsm/env".text = ''
               export GBM_BACKEND=nvidia-drm
               export __GLX_VENDOR_LIBRARY_NAME=nvidia
