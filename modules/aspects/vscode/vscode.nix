@@ -84,6 +84,12 @@
               version = "2.2.0";
               sha256 = "sha256-+BUtdmrPztTx7Hoc/SP4MNOPrUyT1n1DWabuxTUylnw=";
             })
+            (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+              name = "catppuccin-vsc";
+              publisher = "Catppuccin";
+              version = "3.19.0";
+              sha256 = "sha256-6/NHZkg37b6RyZIP89FMltSii+7sC5UTfHYFgyYyl4A=";
+            })
           ]
           ++ lib.singleton (
             pkgs.runCommandLocal "vscode-theme-extension"
@@ -104,82 +110,54 @@
               ''
           );
         userSettings = {
-          direnv.restart.automatic = true;
-          editor = {
-            defaultFormatter = "ibecker.treefmt-vscode";
-            fontWeight = 500;
-            fontLigatures = true;
-            formatOnPaste = true;
-            formatOnSave = true;
-            lineHeight = 1.4;
-            minimap.enabled = false;
-            quickSuggestions.strings = "on";
-            wordWrap = "on";
-            wordWrapColumn = 120;
+          "direnv.restart.automatic" = true;
+          "editor.defaultFormatter" = "ibecker.treefmt-vscode";
+          "editor.fontWeight" = 500;
+          "editor.fontLigatures" = true;
+          "editor.formatOnPaste" = true;
+          "editor.formatOnSave" = true;
+          "editor.lineHeight" = 1.4;
+          "editor.minimap.enabled" = false;
+          "editor.wordWrap" = "on";
+          "editor.wordWrapColumn" = 120;
+          "evenBetterToml.formatter.allowedBlankLines" = 1;
+          "evenBetterToml.formatter.arrayAutoCollapse" = true;
+          "evenBetterToml.formatter.arrayTrailingComma" = true;
+          "evenBetterToml.formatter.columnWidth" = 120;
+          "explorer.confirmDelete" = false;
+          "explorer.confirmDragAndDrop" = false;
+          "explorer.decorations.badges" = false;
+          "files.associations" = {
+            "*.css" = "tailwindcss";
           };
-          evenBetterToml.formatter = {
-            allowedBlankLines = 1;
-            arrayAutoCollapse = true;
-            arrayTrailingComma = true;
-            columnWidth = 120;
+          "files.autoSave" = "afterDelay";
+          "git.autofetch" = true;
+          "git.confirmSync" = false;
+          "git.enableSmartCommit" = true;
+          "nix.enableLanguageServer" = true;
+          "nix.formatterPath" = "treefmt";
+          "nix.hiddenLanguageServerErrors" = [ "Request textDocument/definition failed." ];
+          "nix.serverPath" = "nixd";
+          "rust-analyzer.restartServerOnConfigChange" = true;
+          "svelte.enable-ts-plugin" = true;
+          "svelte.plugin.svelte.format.config.singleQuote" = true;
+          "svelte.plugin.svelte.format.config.svelteStrictMode" = true;
+          "terminal.integrated.profiles.osx" = {
+            fish.path = "fish";
           };
-          explorer = {
-            confirmDelete = false;
-            confirmDragAndDrop = false;
-            decorations.badges = false;
-          };
-          files = {
-            associations."*.css" = "tailwindcss";
-            autoSave = "afterDelay";
-          };
-          git = {
-            autofetch = true;
-            confirmSync = false;
-            enableSmartCommit = true;
-          };
-          nix = {
-            enableLanguageServer = true;
-            formatterPath = "treefmt";
-            hiddenLanguageServerErrors = [ "Request textDocument/definition failed." ];
-            serverPath = "nixd";
-            serverSettings.nixd.formatting.command = null;
-          };
-          "[nix]".editor.defaultFormatter = "jnoortheen.nix-ide";
-          "[jsonc]".editor.defaultFormatter = "vscode.json-language-features";
-          rust-analyzer.restartServerOnConfigChange = true;
-          svelte = {
-            enable-ts-plugin = true;
-            plugin.svelte.format.config.singleQuote = true;
-            plugin.svelte.format.config.svelteStrictMode = true;
-          };
-          terminal.integrated = {
-            defaultProfile.osx = "fish";
-            profiles.osx.fish.path = "fish";
-            sendKeybindingsToShell = true;
-          };
-          workbench = {
-            colorTheme = "Custom";
-            iconTheme = "catppuccin-macchiato";
-            sideBar.location = "right";
-            startupEditor = "none";
-            panel.defaultLocation = "right";
-          };
-          treefmt.command = "$(which treefmt)";
-          "#js/ts" = {
-            inlayHints = {
-              enumMemberValues.enabled = true;
-              parameterTypes.enabled = true;
-              variableTypes.enabled = true;
-              functionLikeReturnTypes.enabled = true;
-              propertyDeclarationTypes.enabled = true;
-            };
-            referencesCodeLens.enabled = true;
-            implementationsCodeLens.enabled = true;
-          };
-          window = {
-            zoomLevel = 1;
-            titleBarStyle = "custom";
-          };
+          "terminal.integrated.defaultProfile.osx" = "fish";
+          "terminal.integrated.defaultProfile.linux" = "fish";
+          "terminal.integrated.sendKeybindingsToShell" = true;
+          "treefmt.command" = "$(which treefmt)";
+          "js/ts.inlayHints.enumMemberValues.enabled" = true;
+          "js/ts.inlayHints.parameterTypes.enabled" = true;
+          "js/ts.inlayHints.variableTypes.enabled" = true;
+          "js/ts.inlayHints.functionLikeReturnTypes.enabled" = true;
+          "js/ts.inlayHints.propertyDeclarationTypes.enabled" = true;
+          "js/ts.referencesCodeLens.enabled" = true;
+          "js/ts.implementationsCodeLens.enabled" = true;
+          "window.zoomLevel" = 1;
+          "window.titleBarStyle" = "custom";
           "json.schemaDownload.trustedDomains" = {
             "https://developer.microsoft.com/json-schemas/" = true;
             "https://json-schema.org/" = true;
@@ -191,8 +169,44 @@
             "https://www.schemastore.org/" = true;
             "https://inlang.com/schema/" = true;
           };
-          update.mode = "none";
-          extensions.autoCheckUpdates = false;
+          "update.mode" = "none";
+          "extensions.autoCheckUpdates" = false;
+          "workbench.sideBar.location" = "right";
+          "workbench.panel.defaultLocation" = "right";
+          "workbench.startupEditor" = "none";
+          "workbench.iconTheme" = "catppuccin-macchiato";
+          "workbench.colorTheme" = "Catppuccin Macchiato";
+          "workbench.colorCustomizations" =
+            (mapListToAttrsWith [
+              "titleBar.activeBackground"
+              "titleBar.inactiveBackground"
+              "editor.background"
+              "editorGutter.background"
+              "editorPane.background"
+              "editorGroupHeader.tabsBackground"
+              "editorOverviewRuler.background"
+              "breadcrumb.background"
+              "tab.activeBackground"
+              "tab.inactiveBackground"
+              "tab.selectedBackground"
+              "tab.unfocusedActiveBackground"
+              "sideBar.background"
+              "sideBarSectionHeader.background"
+              "panel.background"
+              "statusBar.background"
+              "menu.background"
+              "commandCenter.background"
+              "commandCenter.activeBackground"
+              "commandCenter.debuggingBackground"
+              "scrollbar.background"
+              "scrollbarSlider.activeBackground"
+              "scrollbar.shadow"
+              "terminal.background"
+              "notifications.background"
+              "activityBar.background"
+            ] config.scheme.withHashtag.base00)
+            // (mapListToAttrsWith [
+            ] config.scheme.withHashtag.base03);
         }
         // (mapListToAttrsWith [
           "editor.fontSize"
