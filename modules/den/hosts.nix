@@ -29,6 +29,7 @@ in
       theming
       word
       bambu-studio
+      zed
     ];
 
     # `theming` has both host and user subaspects

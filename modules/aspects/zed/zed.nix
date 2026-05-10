@@ -1,4 +1,4 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs = {
     tinted-zed = {
@@ -7,7 +7,6 @@
     };
   };
 
-  den.schema.host.includes = [ den.aspects.zed ];
   den.aspects.zed = {
     os =
       { pkgs, ... }:
