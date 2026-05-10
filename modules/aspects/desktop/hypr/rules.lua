@@ -1,4 +1,4 @@
-hl.workspace_rule({ workspace = "1", default_name = "music", monitor = "desc:" .. MainMonitor, persistent = true })
+hl.workspace_rule({ workspace = "4", default_name = "music", monitor = "desc:" .. MainMonitor, persistent = true })
 hl.workspace_rule({
   workspace = "1",
   default_name = "code",
