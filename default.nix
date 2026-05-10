@@ -13,7 +13,14 @@ let
       nixpkgs,
       ...
     }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
+    let
+      inputs' = inputs // {
+        self = inputs.self // {
+          outPath = ./.;
+        };
+      };
+    in
+    flake-parts.lib.mkFlake { inputs = inputs'; } (
       (import-tree ./modules)
       // {
         _module.args.helpers = import ./modules/den/_helpers.nix { inherit (nixpkgs) lib; };
