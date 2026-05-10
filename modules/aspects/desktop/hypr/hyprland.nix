@@ -1,6 +1,6 @@
-# { inputs, ... }:
+{ inputs, ... }:
 {
-  flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland/main";
+  flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland/af923e30d1d24f1f4a4f5cb8308065173c1d9539";
 
   den.aspects.desktop._.hyprland = {
     nixos =
@@ -9,6 +9,7 @@
         programs.hyprland = {
           enable = true;
           withUWSM = true;
+          package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
         };
 
         xdg.portal = {
@@ -39,7 +40,7 @@
             "hypr/monitors.lua".source = ./monitors.lua;
             "hypr/rules.lua".source = ./rules.lua;
 
-            "hypr/hyprland.conf".source = ./hyprland.conf;
+            # "hypr/hyprland.conf".source = ./hyprland.conf;
             "uwsm/env".text = ''
               export GBM_BACKEND=nvidia-drm
               export __GLX_VENDOR_LIBRARY_NAME=nvidia
