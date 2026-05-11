@@ -41,6 +41,15 @@
             echo "WARNING: failed to resolve opnix environment variables" >&2
           fi
         '';
+
+      link-treefmt-toml = pkgs.writeShellScriptBin "link-treefmt-toml" ''
+        NIX_CONF_ROOT=''${NIX_CONF/#\~/$HOME}
+          if [ ! -d "$NIX_CONF_ROOT" ] || [ -e "$NIX_CONF_ROOT/treefmt.toml" ]; then
+            exit 0
+          fi
+          ln -s ${config.treefmt.build.configFile} "$NIX_CONF_ROOT/treefmt.toml"
+          echo "treefmt.toml linked."
+      '';
     in
     {
       treefmt = {
@@ -85,13 +94,17 @@
           shellHook = ''
             ${config.pre-commit.shellHook}
             load-opnix
+            link-treefmt-toml
           '';
           inputsFrom = [
             config.treefmt.build.devShell
           ];
           packages =
             denApps
-            ++ [ opnix ]
+            ++ [
+              opnix
+              link-treefmt-toml
+            ]
             ++ config.pre-commit.settings.enabledPackages
             ++ (with pkgs; [
               nixd

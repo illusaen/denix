@@ -110,6 +110,9 @@
               ''
           );
         userSettings = {
+          "[nix]" = {
+            "editor.defaultFormatter" = "ibecker.treefmt-vscode";
+          };
           "direnv.restart.automatic" = true;
           "editor.defaultFormatter" = "ibecker.treefmt-vscode";
           "editor.fontWeight" = 500;
@@ -148,7 +151,8 @@
           "terminal.integrated.defaultProfile.osx" = "fish";
           "terminal.integrated.defaultProfile.linux" = "fish";
           "terminal.integrated.sendKeybindingsToShell" = true;
-          "treefmt.command" = "$(which treefmt)";
+          "treefmt.command" = "treefmt";
+          "treefmt.config" = "treefmt.toml";
           "js/ts.inlayHints.enumMemberValues.enabled" = true;
           "js/ts.inlayHints.parameterTypes.enabled" = true;
           "js/ts.inlayHints.variableTypes.enabled" = true;
@@ -168,6 +172,7 @@
             "https://shadcn-svelte.com" = true;
             "https://www.schemastore.org/" = true;
             "https://inlang.com/schema/" = true;
+            "https://raw.githubusercontent.com/catppuccin/vscode/catppuccin-vsc-v3.19.0/" = true;
           };
           "update.mode" = "none";
           "extensions.autoCheckUpdates" = false;
