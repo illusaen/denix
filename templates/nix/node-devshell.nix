@@ -2,6 +2,7 @@ _: {
   perSystem =
     {
       pkgs,
+      config,
       ...
     }:
     let
@@ -41,19 +42,23 @@ _: {
     in
     {
       treefmt = {
-        projectRoot = ../.;
-        programs = {
-          prettier = {
-            enable = true;
-            settings = {
-              bracketSameLine = true;
-              bracketSpacing = true;
-              semi = true;
-              singleQuote = true;
-              trailingComma = "all";
-            };
+        programs.prettier = {
+          enable = true;
+          includes = [
+            "*.svelte"
+          ];
+          settings = {
+            plugins = [ "prettier-plugin-svelte" ];
+            bracketSameLine = true;
+            bracketSpacing = true;
+            semi = true;
+            singleQuote = true;
+            trailingComma = "all";
           };
         };
+        settings.global.excludes = [
+          "pnpm-lock.yaml"
+        ];
       };
 
       pre-commit.settings.hooks.eslint = {
@@ -63,12 +68,23 @@ _: {
 
       devShells.default = pkgs.mkShell {
         shellHook = ''
+          ${config.pre-commit.shellHook}
+          link-treefmt-toml
           source ${initPnpmScript}
         '';
-        packages = with pkgs; [
-          nodejs_latest
-          pnpm
+        inputsFrom = [
+          config.treefmt.build.devShell
         ];
+        packages =
+          with pkgs;
+          [
+            nixd
+            npins
+            nodejs_latest
+            pnpm
+            config.packages.link-treefmt-toml
+          ]
+          ++ config.pre-commit.settings.enabledPackages;
       };
     };
 }

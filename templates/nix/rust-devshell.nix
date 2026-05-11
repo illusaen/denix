@@ -9,6 +9,7 @@ _: {
       pkgs,
       system,
       inputs,
+      config,
       ...
     }:
     {
@@ -21,9 +22,24 @@ _: {
       pre-commit.settings.hooks.clippy.enable = true;
 
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [
-          rust-bin.stable.latest.default
+        shellHook = ''
+          ${config.pre-commit.shellHook}
+          link-treefmt-toml
+        '';
+        inputsFrom = [
+          config.treefmt.build.devShell
         ];
+        packages =
+          with pkgs;
+          [
+            nixd
+            npins
+            nodejs_latest
+            pnpm
+            config.packages.link-treefmt-toml
+            rust-bin.stable.latest.default
+          ]
+          ++ config.pre-commit.settings.enabledPackages;
       };
     };
 }

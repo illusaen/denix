@@ -62,22 +62,6 @@
       };
 
       pre-commit.settings.hooks.treefmt.enable = true;
-
-      devShells.default = pkgs.mkShell {
-        shellHook = ''
-          ${config.pre-commit.shellHook}
-          link-treefmt-toml
-        '';
-        inputsFrom = [
-          config.treefmt.build.devShell
-        ];
-        packages = [
-          link-treefmt-toml
-        ]
-        ++ config.pre-commit.settings.enabledPackages
-        ++ (with pkgs; [
-          nixd
-        ]);
-      };
+      packages.link-treefmt-toml = link-treefmt-toml;
     };
 }
