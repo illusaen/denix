@@ -41,7 +41,7 @@
       };
 
     hj =
-      { config, ... }:
+      { pkgs, config, ... }:
       {
         xdg.config.files =
           let
@@ -51,7 +51,9 @@
           {
             "hypr/hyprland.lua".source = ./hyprland.lua;
             "hypr/binds.lua".source = ./binds.lua;
-            "hypr/config.lua".source = ./config.lua;
+            "hypr/config.lua".source = pkgs.replaceVars ./config.lua {
+              inherit (config.scheme) base00;
+            };
             "hypr/monitors.lua".source = ./monitors.lua;
             "hypr/rules.lua".source = ./rules.lua;
 

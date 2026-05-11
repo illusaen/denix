@@ -72,6 +72,7 @@
               quote_style = "AutoPreferDouble";
               sort_requires.enabled = true;
             };
+            excludes = [ "./modules/aspects/desktop/hypr/config.lua" ];
           };
           fish_indent.enable = true;
         };

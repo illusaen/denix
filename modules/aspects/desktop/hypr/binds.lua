@@ -1,6 +1,6 @@
 hl.bind("ALT + SHIFT + 4", hl.dsp.exec_cmd("dms screenshot -d ~/Pictures/Screenshots"), { description = "Screenshot" })
-hl.bind("ALT + SHIFT + T", hl.dsp.exec_cmd("kitten quick-access-terminal"), { description = "Terminal" })
-hl.bind("SUPER + ALT + SHIFT + T", hl.dsp.workspace.toggle_special("terminal"), { description = "Terminal" })
+hl.bind("SUPER + ALT + SHIFT + T", hl.dsp.exec_cmd("kitten quick-access-terminal"), { description = "Kitty" })
+hl.bind("ALT + SHIFT + T", hl.dsp.workspace.toggle_special("terminal"), { description = "Ghostty" })
 hl.bind("CTRL + Space", hl.dsp.exec_cmd("dms ipc call spotlight toggle"), { description = "Launcher" })
 hl.bind("CTRL + SHIFT + Space", hl.dsp.exec_cmd("dms ipc call notepad toggle"), { description = "Notepad" })
 hl.bind("SUPER + CTRL + Space", hl.dsp.exec_cmd("dms ipc call powermenu toggle"), { description = "Power Menu" })
@@ -29,11 +29,6 @@ hl.bind("SUPER + ALT + Left", hl.dsp.layout("fit tobeg"), { description = "Expan
 hl.bind("SUPER + ALT + Right", hl.dsp.layout("fit toend"), { description = "Expand to End" })
 hl.bind("SUPER + Z", hl.dsp.layout("colresize +conf"), { description = "Resize Preset Column Width" })
 hl.bind("SUPER + X", hl.dsp.exec_cmd("hypr-toggle-fit"), { description = "Toggle Focus Fit" })
-hl.bind(
-  "SUPER + M",
-  hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }),
-  { description = "Toggle Maximize" }
-)
 
 hl.bind("SUPER + Up", hl.dsp.focus({ workspace = "m-1" }), { description = "Focus Previous Workspace" })
 hl.bind("SUPER + Down", hl.dsp.focus({ workspace = "m+1" }), { description = "Focus Next Workspace" })

@@ -1,10 +1,15 @@
-hl.workspace_rule({ workspace = "4", default_name = "music", monitor = "desc:" .. SecondaryMonitor, persistent = true })
+hl.workspace_rule({
+  workspace = "4",
+  default_name = "music",
+  monitor = "desc:" .. SecondaryMonitor,
+  persistent = true,
+  default = true,
+})
 hl.workspace_rule({
   workspace = "1",
   default_name = "misc",
   monitor = "desc:" .. MainMonitor,
   persistent = true,
-  default = true,
 })
 hl.workspace_rule({
   workspace = "2",
@@ -19,15 +24,11 @@ hl.workspace_rule({
   workspace = "special:chat",
   monitor = "desc:" .. MainMonitor,
   persistent = true,
-  layout = "master",
-  layout_opts = { orientation = "right" },
 })
 hl.workspace_rule({
   workspace = "special:terminal",
   monitor = "desc:" .. MainMonitor,
   persistent = true,
-  layout = "master",
-  layout_opts = { orientation = "top" },
   on_created_empty = "uwsm app -- ghostty +new-window",
 })
 
@@ -35,6 +36,7 @@ hl.window_rule({
   name = "float-opacity",
   match = { float = true },
   opacity = 0.8,
+  dim_around = true,
 })
 hl.window_rule({
   name = "float-open-save-dialog",
@@ -56,20 +58,25 @@ hl.window_rule({
   size = { "monitor_w*0.35", "monitor_h*0.45" },
 })
 hl.window_rule({
-  name = "workspace-ghostty-terminal",
-  match = { class = "^com.mitchellh.ghostty$" },
-  workspace = "special:terminal",
-})
-hl.window_rule({
   name = "workspace-mpv-music",
   match = { class = "^mpv$" },
   workspace = "name:music silent",
 })
 hl.window_rule({
+  name = "workspace-ghostty-terminal",
+  match = { class = "^com.mitchellh.ghostty$" },
+  workspace = "special:terminal",
+  size = { "monitor_w * 0.3", 2096 },
+  move = { 0, 56 },
+  float = true,
+})
+hl.window_rule({
   name = "workspace-chat",
   match = { class = "^(.*)(vesktop|discord|Element|telegram)(.*)$" },
   workspace = "special:chat silent",
-  scrolling_width = 0.3,
+  size = { "monitor_w * 0.3", 2096 },
+  move = { "monitor_w - window_w", 56 },
+  float = true,
 })
 hl.window_rule({
   name = "workspace-steam-gaming",
@@ -81,7 +88,7 @@ hl.window_rule({
   match = { title = "^Viking Rise Steam$" },
   float = true,
   center = true,
-  size = { 4968, 2090 },
+  size = { 4968, 2096 },
 })
 
 hl.curve("rubber", { type = "spring", mass = 1, stiffness = 70, dampening = 10 })
@@ -91,8 +98,7 @@ hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 2, bezier = "o
 hl.animation({ leaf = "windows", enabled = true, speed = 2, bezier = "overshoot" })
 hl.animation({ leaf = "fade", enabled = true, speed = 1, bezier = "overshoot" })
 
-hl.layer_rule({ match = { namespace = "kitty\\-quick\\-access" }, blur = true })
-hl.layer_rule({ match = { namespace = "dms:desktop\\-widget:.*" }, blur = true })
+hl.layer_rule({ match = { namespace = "dms:desktop\\-widget:(systemMonitor|desktopClock).*" }, blur = true })
 hl.layer_rule({
   match = { namespace = "dms:(dash|notification\\-center\\-popout|app\\-launcher|spotlight)$" },
   blur = true,

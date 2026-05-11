@@ -11,7 +11,6 @@ hl.config({
     inactive_opacity = 0.8,
     blur = {
       popups = true,
-      special = true,
       size = 24,
       passes = 2,
       xray = false,
@@ -20,7 +19,7 @@ hl.config({
     shadow = {
       render_power = 2,
       range = 8,
-      color = 0x661a1a1a,
+      color = 0x50@base00@,
     },
   },
   animations = {
@@ -31,15 +30,13 @@ hl.config({
     follow_mouse = 2,
     scroll_button = 274,
     scroll_method = "on_button_down",
+    float_switch_override_focus = 0,
   },
   scrolling = {
     fullscreen_on_one_column = false,
     column_width = 0.333,
-    explicit_column_widths = "0.333, 0.667",
-    focus_fit_method = 0,
-  },
-  master = {
-    special_scale_factor = 0.3,
+    explicit_column_widths = "0.333, 0.65, 0.9",
+    focus_fit_method = 1,
   },
   misc = {
     disable_hyprland_logo = true,
