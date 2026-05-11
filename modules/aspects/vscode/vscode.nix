@@ -121,6 +121,7 @@
           "editor.minimap.enabled" = false;
           "editor.wordWrap" = "on";
           "editor.wordWrapColumn" = 120;
+          "editor.inlayHints.padding" = true;
           "evenBetterToml.formatter.allowedBlankLines" = 1;
           "evenBetterToml.formatter.arrayAutoCollapse" = true;
           "evenBetterToml.formatter.arrayTrailingComma" = true;
@@ -155,7 +156,8 @@
           "js/ts.inlayHints.parameterTypes.enabled" = true;
           "js/ts.inlayHints.variableTypes.enabled" = false;
           "js/ts.inlayHints.functionLikeReturnTypes.enabled" = true;
-          "js/ts.inlayHints.propertyDeclarationTypes.enabled" = true;
+          "js/ts.inlayHints.propertyDeclarationTypes.enabled" = false;
+          "js/ts.inlayHints.parameterNames.enabled" = "literals";
           "js/ts.referencesCodeLens.enabled" = true;
           "js/ts.implementationsCodeLens.enabled" = true;
           "window.zoomLevel" = 1;
@@ -190,6 +192,8 @@
               "editorGroupHeader.tabsBackground"
               "editorOverviewRuler.background"
               "editorInlayHint.background"
+              "editorInlayHint.typeBackground"
+              "editorInlayHint.parameterBackground"
               "breadcrumb.background"
               "tab.activeBackground"
               "tab.inactiveBackground"
