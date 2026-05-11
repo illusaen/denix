@@ -52,6 +52,7 @@
             usernamehw.errorlens
             svelte.svelte-vscode
             bradlc.vscode-tailwindcss
+            catppuccin.catppuccin-vsc-icons
           ]
           ++ [
             (pkgs.vscode-utils.extensionFromVscodeMarketplace {
@@ -110,16 +111,13 @@
               ''
           );
         userSettings = {
-          "[nix]" = {
-            "editor.defaultFormatter" = "ibecker.treefmt-vscode";
-          };
           "direnv.restart.automatic" = true;
           "editor.defaultFormatter" = "ibecker.treefmt-vscode";
           "editor.fontWeight" = 500;
           "editor.fontLigatures" = true;
           "editor.formatOnPaste" = true;
           "editor.formatOnSave" = true;
-          "editor.lineHeight" = 1.4;
+          "editor.lineHeight" = 0;
           "editor.minimap.enabled" = false;
           "editor.wordWrap" = "on";
           "editor.wordWrapColumn" = 120;
@@ -155,7 +153,7 @@
           "treefmt.config" = "treefmt.toml";
           "js/ts.inlayHints.enumMemberValues.enabled" = true;
           "js/ts.inlayHints.parameterTypes.enabled" = true;
-          "js/ts.inlayHints.variableTypes.enabled" = true;
+          "js/ts.inlayHints.variableTypes.enabled" = false;
           "js/ts.inlayHints.functionLikeReturnTypes.enabled" = true;
           "js/ts.inlayHints.propertyDeclarationTypes.enabled" = true;
           "js/ts.referencesCodeLens.enabled" = true;
@@ -174,6 +172,7 @@
             "https://inlang.com/schema/" = true;
             "https://raw.githubusercontent.com/catppuccin/vscode/catppuccin-vsc-v3.19.0/" = true;
           };
+          "sherlock.userId" = "ada2d0fb-52d4-48d9-b290-36d054d5e54b";
           "update.mode" = "none";
           "extensions.autoCheckUpdates" = false;
           "workbench.sideBar.location" = "right";
@@ -190,6 +189,7 @@
               "editorPane.background"
               "editorGroupHeader.tabsBackground"
               "editorOverviewRuler.background"
+              "editorInlayHint.background"
               "breadcrumb.background"
               "tab.activeBackground"
               "tab.inactiveBackground"
@@ -202,7 +202,6 @@
               "menu.background"
               "commandCenter.background"
               "commandCenter.activeBackground"
-              "commandCenter.debuggingBackground"
               "scrollbar.background"
               "scrollbarSlider.activeBackground"
               "scrollbar.shadow"
@@ -210,8 +209,9 @@
               "notifications.background"
               "activityBar.background"
             ] config.scheme.withHashtag.base00)
-            // (mapListToAttrsWith [
-            ] config.scheme.withHashtag.base03);
+            // {
+              "commandCenter.debuggingBackground" = "${config.scheme.withHashtag.base00}50";
+            };
         }
         // (mapListToAttrsWith [
           "editor.fontSize"
@@ -231,7 +231,7 @@
         // (mapListToAttrsWith [
           "editor.inlayHints.fontFamily"
           "editor.inlineSuggest.fontFamily"
-        ] "Monaspace Xenon NF,${config.myLib.fonts.mono.name},Maple Mono NF CN")
+        ] "Monaspace Xenon Frozen")
         // (mapListToAttrsWith [
           "markdown.preview.fontFamily"
           "chat.fontFamily"
