@@ -30,7 +30,7 @@ function dev
     cp "$TEMPLATE_ROOT/flake.nix" flake.nix
     cp "$TEMPLATE_ROOT/shell.nix" shell.nix
 
-    set -l GITIGNORE_CONTENT ".direnv\nresult\n.pre-commit-config.yaml"
+    set -l GITIGNORE_CONTENT ".direnv\nresult\n.pre-commit-config.yaml\ntreefmt.toml"
     if not test -f .gitignore
         echo "  Creating .gitignore file..."
         cp "$TEMPLATE_ROOT/gitignore" .gitignore

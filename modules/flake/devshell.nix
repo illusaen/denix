@@ -43,12 +43,12 @@
         '';
 
       link-treefmt-toml = pkgs.writeShellScriptBin "link-treefmt-toml" ''
-        NIX_CONF_ROOT=''${NIX_CONF/#\~/$HOME}
-          if [ ! -d "$NIX_CONF_ROOT" ] || [ -e "$NIX_CONF_ROOT/treefmt.toml" ]; then
-            exit 0
-          fi
-          ln -s ${config.treefmt.build.configFile} "$NIX_CONF_ROOT/treefmt.toml"
-          echo "treefmt.toml linked."
+        PROJECT_ROOT=$(pwd) 
+        if [ ! -d "$PROJECT_ROOT" ] || [ -e "$PROJECT_ROOT/treefmt.toml" ]; then
+          exit 0
+        fi
+        ln -s ${config.treefmt.build.configFile} "$PROJECT_ROOT/treefmt.toml"
+        echo "treefmt.toml linked."
       '';
     in
     {

@@ -1,18 +1,6 @@
-{ inputs, ... }:
-{
-  flake-file.inputs = {
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    git-hooks-nix.url = "github:cachix/git-hooks.nix";
-  };
-
-  imports = [
-    inputs.treefmt-nix.flakeModule
-    inputs.git-hooks-nix.flakeModule
-  ];
-
+_: {
   perSystem =
     {
-      config,
       pkgs,
       ...
     }:
@@ -53,16 +41,8 @@
     in
     {
       treefmt = {
-        flakeCheck = true;
         projectRoot = ../.;
         programs = {
-          nixfmt.enable = true;
-          deadnix.enable = true;
-          statix.enable = true;
-          shellcheck = {
-            enable = true;
-            excludes = [ ".envrc" ];
-          };
           prettier = {
             enable = true;
             settings = {
@@ -74,45 +54,21 @@
             };
           };
         };
-        settings.global = {
-          on-unmatched = "debug";
-          excludes = [
-            ".git"
-            "*.lock"
-            ".gitignore"
-            "npins/"
-          ];
-        };
-        settings.formatter.shellcheck.options = [
-          "-s"
-          "bash"
-        ];
       };
 
-      pre-commit.settings.hooks = {
-        treefmt.enable = true;
-        eslint = {
-          enable = true;
-          settings.extensions = "\\.(j|t)sx?$";
-        };
+      pre-commit.settings.hooks.eslint = {
+        enable = true;
+        settings.extensions = "\\.(j|t)sx?$";
       };
 
       devShells.default = pkgs.mkShell {
         shellHook = ''
-                      ${config.pre-commit.shellHook}
           source ${initPnpmScript}
         '';
-        inputsFrom = [
-          config.treefmt.build.devShell
+        packages = with pkgs; [
+          nodejs_latest
+          pnpm
         ];
-        packages =
-          config.pre-commit.settings.enabledPackages
-          ++ (with pkgs; [
-            nixd
-            npins
-            nodejs_latest
-            pnpm
-          ]);
       };
     };
 }

@@ -1,22 +1,11 @@
-{ inputs, ... }:
-{
-  flake-file.inputs = {
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+_: {
+  flake-file.inputs.rust-overlay = {
+    url = "github:oxalica/rust-overlay";
+    inputs.nixpkgs.follows = "nixpkgs";
   };
-
-  imports = [
-    inputs.treefmt-nix.flakeModule
-    inputs.git-hooks-nix.flakeModule
-  ];
 
   perSystem =
     {
-      config,
       pkgs,
       system,
       inputs,
@@ -28,53 +17,13 @@
         overlays = [ inputs.rust-overlay.overlays.default ];
       };
 
-      treefmt = {
-        flakeCheck = true;
-        projectRoot = ../.;
-        programs = {
-          nixfmt.enable = true;
-          deadnix.enable = true;
-          statix.enable = true;
-          shellcheck = {
-            enable = true;
-            excludes = [ ".envrc" ];
-          };
-          rustfmt.enable = true;
-        };
-        settings.global = {
-          on-unmatched = "debug";
-          excludes = [
-            ".git"
-            "*.lock"
-            ".gitignore"
-            "npins/"
-          ];
-        };
-        settings.formatter.shellcheck.options = [
-          "-s"
-          "bash"
-        ];
-      };
-
-      pre-commit.settings.hooks = {
-        treefmt.enable = true;
-        clippy.enable = true;
-      };
+      treefmt.programs.rustfmt.enable = true;
+      pre-commit.settings.hooks.clippy.enable = true;
 
       devShells.default = pkgs.mkShell {
-        shellHook = ''
-          ${config.pre-commit.shellHook}
-        '';
-        inputsFrom = [
-          config.treefmt.build.devShell
+        packages = with pkgs; [
+          rust-bin.stable.latest.default
         ];
-        packages =
-          config.pre-commit.settings.enabledPackages
-          ++ (with pkgs; [
-            nixd
-            npins
-            rust-bin.stable.latest.default
-          ]);
       };
     };
 }
