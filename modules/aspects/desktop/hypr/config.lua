@@ -21,10 +21,10 @@ hl.config({
       render_power = 2,
       range = 8,
       color = 0x661a1a1a,
-    }
+    },
   },
   animations = {
-    workspace_wraparound = true
+    workspace_wraparound = true,
   },
   input = {
     scroll_factor = 1.1,
@@ -37,6 +37,9 @@ hl.config({
     column_width = 0.333,
     explicit_column_widths = "0.333, 0.667",
     focus_fit_method = 0,
+  },
+  master = {
+    special_scale_factor = 0.3,
   },
   misc = {
     disable_hyprland_logo = true,

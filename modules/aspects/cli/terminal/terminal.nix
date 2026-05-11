@@ -45,9 +45,12 @@ _: {
         };
       in
       {
-        environment.systemPackages = [
+        environment.systemPackages = with pkgs; [
           kitty-wrapped
+          ghostty
         ];
+        systemd.packages = [ pkgs.ghostty ];
+        services.dbus.packages = [ pkgs.ghostty ];
       };
 
     darwin =
@@ -64,7 +67,7 @@ _: {
         ...
       }:
       {
-        xdg.config.files = lib.mkIf pkgs.stdenv.isDarwin {
+        xdg.config.files = {
           "ghostty/config.ghostty".text = ''
             font-family = ${config.myLib.fonts.mono.name}
             font-size = ${toString config.myLib.fonts.sizes.terminal}
@@ -81,6 +84,7 @@ _: {
 
             command = ${lib.getExe pkgs.fish}
             keybind = global:cmd+backquote=toggle_quick_terminal
+            quit-after-last-window-closed = false
             theme = Cosmic.ghostty
           '';
           "ghostty/themes/Cosmic.ghostty".source = config.scheme {

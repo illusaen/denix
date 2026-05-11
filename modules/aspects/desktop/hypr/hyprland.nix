@@ -35,7 +35,7 @@
                 mode="center"
             fi
             hyprctl eval "hl.config" "{ scrolling = { focus_fit_method = $val } }"
-            ${lib.getExe pkgs.libnotify} "Focus fit method: $mode"
+            dms notify "Focus fit method: $mode"
           '')
         ];
       };

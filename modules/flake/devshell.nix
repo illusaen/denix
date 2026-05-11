@@ -44,10 +44,10 @@
 
       link-treefmt-toml = pkgs.writeShellScriptBin "link-treefmt-toml" ''
         PROJECT_ROOT=$(pwd) 
-        if [ ! -d "$PROJECT_ROOT" ] || [ -e "$PROJECT_ROOT/treefmt.toml" ]; then
+        if [ ! -d "$PROJECT_ROOT" ]; then
           exit 0
         fi
-        ln -s ${config.treefmt.build.configFile} "$PROJECT_ROOT/treefmt.toml"
+        ln -sf ${config.treefmt.build.configFile} "$PROJECT_ROOT/treefmt.toml"
         echo "treefmt.toml linked."
       '';
     in
@@ -62,6 +62,16 @@
           shellcheck = {
             enable = true;
             excludes = [ ".envrc" ];
+          };
+          stylua = {
+            enable = true;
+            settings = {
+              collapse_simple_statement = "Always";
+              indent_type = "Spaces";
+              indent_width = 2;
+              quote_style = "AutoPreferDouble";
+              sort_requires.enabled = true;
+            };
           };
           fish_indent.enable = true;
         };
