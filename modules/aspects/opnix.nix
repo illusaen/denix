@@ -2,39 +2,43 @@
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
-  den.schema.host.includes = [ den.aspects.opnix._.enable ];
-  den.schema.user.includes = [ den.aspects.opnix._.opnix-user ];
-
+  den.schema.host.includes = [ den.aspects.opnix ];
   den.aspects.opnix = {
-    _.enable = {
-      nixos.imports = [ inputs.opnix.nixosModules.default ];
-      darwin.imports = [ inputs.opnix.darwinModules.default ];
+    nixos =
+      { host, ... }:
+      {
+        imports = [ inputs.opnix.nixosModules.default ];
+        users.users = builtins.mapAttrs (_: _: {
+          extraGroups = [
+            "onepassword-secrets"
+          ];
+        }) host.users;
+      };
 
-      os.services.onepassword-secrets = {
-        enable = true;
-        tokenFile = "/etc/opnix-token";
-        secrets = {
-          sshPrivateKey = {
-            reference = "op://Service/SSH-Key-Nix/private key?ssh-format=openssh";
-            path = "/etc/ssh/id_rsa";
-            mode = "0644";
-          };
-          sshPublicKey = {
-            reference = "op://Service/SSH-Key-Nix/public key";
-            path = "/etc/ssh/id_rsa.pub";
-            mode = "0644";
-          };
+    darwin =
+      { host, lib, ... }:
+      {
+        imports = [ inputs.opnix.darwinModules.default ];
+        users.groups.onepassword-secrets.members = lib.attrNames host.users;
+      };
+
+    os.services.onepassword-secrets = {
+      enable = true;
+      tokenFile = "/etc/opnix-token";
+      secrets = {
+        sshPrivateKey = {
+          reference = "op://Service/SSH-Key-Nix/private key?ssh-format=openssh";
+          path = "/etc/ssh/id_rsa";
+          mode = "0644";
+        };
+        sshPublicKey = {
+          reference = "op://Service/SSH-Key-Nix/public key";
+          path = "/etc/ssh/id_rsa.pub";
+          mode = "0644";
         };
       };
-
-      persist.files = [ "/etc/opnix-token" ];
     };
 
-    _.opnix-user =
-      { user, ... }:
-      {
-        nixos.users.users.${user.name}.extraGroups = [ "onepassword-secrets" ];
-        darwin.users.groups.onepassword-secrets.members = [ user.name ];
-      };
+    persist.files = [ "/etc/opnix-token" ];
   };
 }

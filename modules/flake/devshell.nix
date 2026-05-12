@@ -72,7 +72,8 @@
               quote_style = "AutoPreferDouble";
               sort_requires.enabled = true;
             };
-            excludes = [ "./modules/aspects/desktop/hypr/config.lua" ];
+            # This file is a replaceVars template, not valid Lua before substitution.
+            excludes = [ "modules/aspects/desktop/hypr/config.lua" ];
           };
           fish_indent.enable = true;
         };

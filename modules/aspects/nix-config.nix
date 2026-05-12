@@ -1,10 +1,10 @@
 { den, lib, ... }:
 {
   den.schema.host.includes = [
-    den.aspects.nixConfig
+    den.aspects.nix-config
   ];
 
-  den.aspects.nixConfig = {
+  den.aspects.nix-config = {
     nixos.system.nixos.versionSuffix = lib.mkForce "";
 
     os = {

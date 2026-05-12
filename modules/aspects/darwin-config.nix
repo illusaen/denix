@@ -1,8 +1,8 @@
 { den, ... }:
 {
-  den.schema.host.includes = [ den.aspects.darwinConfig ];
+  den.schema.host.includes = [ den.aspects.darwin-config ];
 
-  den.aspects.darwinConfig = {
+  den.aspects.darwin-config = {
     darwin =
       { pkgs, lib, ... }:
       {

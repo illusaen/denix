@@ -1,26 +1,10 @@
 { den, ... }:
 {
   den.schema.host.includes = [ den.aspects.networking ];
-  den.aspects.networking =
-    { host, ... }:
-    {
-      nixos = _: {
-        # networking = {
-        #   networkmanager.enable = true;
-        #   useDHCP = lib.mkDefault true;
-        #   interfaces.eno1 = {
-        #     ipv4.addresses = [
-        #       {
-        #         address = host.ip;
-        #         prefixLength = 24;
-        #       }
-        #     ];
-        #   };
-        #   defaultGateway = {
-        #     address = "192.0.1.1";
-        #     interface = "eno1";
-        #   };
-        # };
+  den.aspects.networking = {
+    nixos =
+      { host, ... }:
+      {
         networking.networkmanager.enable = true;
 
         systemd.network = {
@@ -49,9 +33,9 @@
         services.blueman.enable = true;
       };
 
-      persist.directories = [
-        "/etc/NetworkManager/system-connections"
-        "/var/lib/bluetooth"
-      ];
-    };
+    persist.directories = [
+      "/etc/NetworkManager/system-connections"
+      "/var/lib/bluetooth"
+    ];
+  };
 }
