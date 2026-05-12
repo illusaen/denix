@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.schema.host.includes = [ den.aspects.tailscale ];
-  den.aspects.tailscale = {
+  den.aspects.base.tailscale = {
     nixos =
       { config, lib, ... }:
       {

@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.schema.host.includes = [ den.aspects.networking ];
-  den.aspects.networking = {
+  den.aspects.base.networking = {
     nixos =
       { host, ... }:
       {

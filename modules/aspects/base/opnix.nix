@@ -1,9 +1,8 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
-  den.schema.host.includes = [ den.aspects.opnix ];
-  den.aspects.opnix = {
+  den.aspects.base.opnix = {
     nixos =
       { host, ... }:
       {

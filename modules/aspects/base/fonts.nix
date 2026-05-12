@@ -1,11 +1,9 @@
 {
-  den,
   helpers,
   ...
 }:
 {
-  den.schema.host.includes = [ den.aspects.fonts ];
-  den.aspects.fonts = {
+  den.aspects.base.fonts = {
     os =
       {
         pkgs,

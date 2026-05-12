@@ -25,6 +25,8 @@ in
       amd
       nvidia
       desktop
+
+      base
       nix
       wm
     ];
@@ -32,6 +34,7 @@ in
 
   # Macbook
   den.aspects.idunn.includes = with den.aspects; [
+    base
     desktop
     darwin
   ];
@@ -41,6 +44,7 @@ in
     inherit disko;
 
     includes = with den.aspects; [
+      base
       iso
       nix
     ];
