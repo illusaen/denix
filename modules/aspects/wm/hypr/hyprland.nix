@@ -1,15 +1,19 @@
-{ inputs, ... }:
 {
   flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland/af923e30d1d24f1f4a4f5cb8308065173c1d9539";
 
   den.aspects.wm.hyprland = {
     nixos =
-      { pkgs, lib, ... }:
+      {
+        inputs',
+        pkgs,
+        lib,
+        ...
+      }:
       {
         programs.hyprland = {
           enable = true;
           withUWSM = true;
-          package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+          package = inputs'.hyprland.packages.default;
         };
 
         xdg.portal = {
