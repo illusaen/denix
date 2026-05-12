@@ -90,9 +90,9 @@
             ".git"
             "*.lock"
             ".gitignore"
-            "npins/"
+            "npins/*"
             "modules/aspects/vscode/settings.json"
-            "modules/aspects/desktop/hypr/config.lua"
+            "modules/aspects/wm/hypr/config.lua"
           ];
         };
         settings.formatter.shellcheck.options = [

@@ -42,6 +42,7 @@ in
 
     includes = with den.aspects; [
       iso
+      nix
     ];
   };
 
