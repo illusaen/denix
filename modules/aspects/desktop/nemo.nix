@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  den.aspects.desktop._.nemo = {
+  den.aspects.wm.nemo = {
     nixos =
       { pkgs, ... }:
       {
@@ -30,7 +30,7 @@
         ];
       };
 
-    hj.xdg.mime-apps = {
+    provides.to-users.hjem.xdg.mime-apps = {
       default-applications = lib.mkBefore (
         let
           application = "nemo.desktop";

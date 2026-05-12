@@ -17,15 +17,15 @@
         };
       };
 
-    hj =
+    provides.to-users.hjem =
       {
         pkgs,
         lib,
-        config,
+        osConfig,
         ...
       }:
       let
-        inherit (config.myLib) fonts;
+        inherit (osConfig.myLib) fonts;
 
         qtSettingsFile = qtct: {
           "${qtct}/${qtct}.conf".source =
@@ -37,8 +37,8 @@
                 Appearance = {
                   custom_palette = true;
                   standard_dialogs = "xdgdesktopportal";
-                  inherit (config.qt) style;
-                  icon_theme = config.myLib.theming.iconTheme.name;
+                  inherit (osConfig.qt) style;
+                  icon_theme = osConfig.myLib.theming.iconTheme.name;
                 };
 
                 Fonts = {
@@ -50,11 +50,11 @@
 
         kvantumPackage =
           let
-            kvconfig = config.scheme {
+            kvconfig = osConfig.scheme {
               template = ./kvconfig.mustache;
               extension = ".kvconfig";
             };
-            svg = config.scheme {
+            svg = osConfig.scheme {
               template = ./kvantum.svg.mustache;
               extension = ".svg";
             };
@@ -73,7 +73,7 @@
               "qt5ct"
               "qt6ct"
             ])
-            (lib.mkIf (config.qt.style == "kvantum") {
+            (lib.mkIf (osConfig.qt.style == "kvantum") {
               "Kvantum/kvantum.kvconfig" = {
                 generator = lib.generators.toINI { };
                 value = {

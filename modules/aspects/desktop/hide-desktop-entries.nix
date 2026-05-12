@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop._.hideDesktopEntries = {
+  den.aspects.wm.hideDesktopEntries = {
     nixos =
       { pkgs, lib, ... }:
       let

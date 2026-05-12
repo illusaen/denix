@@ -24,9 +24,9 @@ in
     includes = with den.aspects; [
       amd
       nvidia
-      vscode
       desktop
       nix
+      wm
     ];
   };
 

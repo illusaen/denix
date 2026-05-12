@@ -12,7 +12,7 @@
     };
   };
 
-  den.aspects.desktop._.dms = {
+  den.aspects.wm.dms = {
     persistUser.directories = [
       ".config/DankMaterialShell"
       ".cache/DankMaterialShell"
@@ -30,10 +30,10 @@
       security.pam.u2f.enable = true;
     };
 
-    hj =
-      { config, ... }:
+    provides.to-users.hjem =
+      { osConfig, ... }:
       {
-        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = config.scheme {
+        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = osConfig.scheme {
           template = ./dms-theme.json.mustache;
           extension = "json";
         };

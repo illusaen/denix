@@ -1,5 +1,4 @@
 {
-  den,
   lib,
   ...
 }:
@@ -80,8 +79,6 @@
       };
     in
     {
-      includes = [ den.aspects.theming.gtk.policies.to-users ];
-
       nixos =
         { pkgs, config, ... }:
         let
@@ -116,9 +113,9 @@
           };
         };
 
-      policies.to-users =
+      provides.to-users =
         { user, ... }:
-        (den.lib.policy.include {
+        {
           hjem =
             {
               pkgs,
@@ -216,6 +213,6 @@
                 '';
               };
             };
-        });
+        };
     };
 }

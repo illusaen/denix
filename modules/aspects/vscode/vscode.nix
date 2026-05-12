@@ -1,6 +1,5 @@
-{ helpers, ... }:
 {
-  den.aspects.vscode = {
+  den.aspects.desktop.vscode = {
     os =
       { pkgs, ... }:
       {
@@ -12,16 +11,14 @@
       ".config/Code/User/globalStorage"
     ];
 
-    hj =
+    provides.to-users.hjem =
       {
         pkgs,
         lib,
-        config,
+        osConfig,
         ...
       }:
       let
-        inherit (helpers) mapListToAttrsWith;
-
         languageSnippets = {
           nix."Den Aspect" = {
             prefix = [
@@ -103,149 +100,16 @@
                 mkdir -p "$out/share/vscode/extensions/$vscodeExtUniqueId/themes"
                 cp ${./theme-extension-package.json} "$out/share/vscode/extensions/$vscodeExtUniqueId/package.json"
                 cp ${
-                  config.scheme {
+                  osConfig.scheme {
                     template = ./vscode-theme.json.mustache;
                     extension = ".json";
                   }
                 } "$out/share/vscode/extensions/$vscodeExtUniqueId/themes/custom.json"
               ''
           );
-        userSettings = {
-          "direnv.restart.automatic" = true;
-          "editor.defaultFormatter" = "ibecker.treefmt-vscode";
-          "editor.fontWeight" = 500;
-          "editor.fontLigatures" = true;
-          "editor.formatOnPaste" = true;
-          "editor.formatOnSave" = true;
-          "editor.lineHeight" = 0;
-          "editor.minimap.enabled" = false;
-          "editor.wordWrap" = "on";
-          "editor.wordWrapColumn" = 120;
-          "editor.inlayHints.padding" = true;
-          "evenBetterToml.formatter.allowedBlankLines" = 1;
-          "evenBetterToml.formatter.arrayAutoCollapse" = true;
-          "evenBetterToml.formatter.arrayTrailingComma" = true;
-          "evenBetterToml.formatter.columnWidth" = 120;
-          "explorer.confirmDelete" = false;
-          "explorer.confirmDragAndDrop" = false;
-          "explorer.decorations.badges" = false;
-          "files.associations" = {
-            "*.css" = "tailwindcss";
-          };
-          "files.autoSave" = "afterDelay";
-          "git.autofetch" = true;
-          "git.confirmSync" = false;
-          "git.enableSmartCommit" = true;
-          "nix.enableLanguageServer" = true;
-          "nix.formatterPath" = "treefmt";
-          "nix.hiddenLanguageServerErrors" = [ "Request textDocument/definition failed." ];
-          "nix.serverPath" = "nixd";
-          "rust-analyzer.restartServerOnConfigChange" = true;
-          "svelte.enable-ts-plugin" = true;
-          "svelte.plugin.svelte.format.config.singleQuote" = true;
-          "svelte.plugin.svelte.format.config.svelteStrictMode" = true;
-          "terminal.integrated.profiles.osx" = {
-            fish.path = "fish";
-          };
-          "terminal.integrated.defaultProfile.osx" = "fish";
-          "terminal.integrated.defaultProfile.linux" = "fish";
-          "terminal.integrated.sendKeybindingsToShell" = true;
-          "treefmt.command" = "treefmt";
-          "treefmt.config" = "treefmt.toml";
-          "js/ts.inlayHints.enumMemberValues.enabled" = true;
-          "js/ts.inlayHints.parameterTypes.enabled" = true;
-          "js/ts.inlayHints.variableTypes.enabled" = false;
-          "js/ts.inlayHints.functionLikeReturnTypes.enabled" = true;
-          "js/ts.inlayHints.propertyDeclarationTypes.enabled" = false;
-          "js/ts.inlayHints.parameterNames.enabled" = "literals";
-          "js/ts.referencesCodeLens.enabled" = true;
-          "js/ts.implementationsCodeLens.enabled" = true;
-          "window.zoomLevel" = 1;
-          "window.titleBarStyle" = "custom";
-          "json.schemaDownload.trustedDomains" = {
-            "https://developer.microsoft.com/json-schemas/" = true;
-            "https://json-schema.org/" = true;
-            "https://json.schemastore.org/" = true;
-            "https://raw.githubusercontent.com/devcontainers/spec/" = true;
-            "https://raw.githubusercontent.com/microsoft/vscode/" = true;
-            "https://schemastore.azurewebsites.net/" = true;
-            "https://shadcn-svelte.com" = true;
-            "https://www.schemastore.org/" = true;
-            "https://inlang.com/schema/" = true;
-            "https://raw.githubusercontent.com/catppuccin/vscode/catppuccin-vsc-v3.19.0/" = true;
-          };
-          "sherlock.userId" = "ada2d0fb-52d4-48d9-b290-36d054d5e54b";
-          "update.mode" = "none";
-          "extensions.autoCheckUpdates" = false;
-          "workbench.sideBar.location" = "right";
-          "workbench.panel.defaultLocation" = "right";
-          "workbench.startupEditor" = "none";
-          "workbench.iconTheme" = "catppuccin-macchiato";
-          "workbench.colorTheme" = "Catppuccin Macchiato";
-          "workbench.colorCustomizations" =
-            (mapListToAttrsWith [
-              "titleBar.activeBackground"
-              "titleBar.inactiveBackground"
-              "editor.background"
-              "editorGutter.background"
-              "editorPane.background"
-              "editorGroupHeader.tabsBackground"
-              "editorOverviewRuler.background"
-              "editorInlayHint.background"
-              "editorInlayHint.typeBackground"
-              "editorInlayHint.parameterBackground"
-              "breadcrumb.background"
-              "tab.activeBackground"
-              "tab.inactiveBackground"
-              "tab.selectedBackground"
-              "tab.unfocusedActiveBackground"
-              "sideBar.background"
-              "sideBarSectionHeader.background"
-              "panel.background"
-              "statusBar.background"
-              "menu.background"
-              "commandCenter.background"
-              "commandCenter.activeBackground"
-              "scrollbar.background"
-              "scrollbarSlider.activeBackground"
-              "scrollbar.shadow"
-              "terminal.background"
-              "notifications.background"
-              "activityBar.background"
-            ] config.scheme.withHashtag.base00)
-            // {
-              "commandCenter.debuggingBackground" = "${config.scheme.withHashtag.base00}50";
-            };
-        }
-        // (mapListToAttrsWith [
-          "editor.fontSize"
-          "debug.console.fontSize"
-          "markdown.preview.fontSize"
-          "terminal.integrated.fontSize"
-          "chat.editor.fontSize"
-        ] (builtins.floor (config.myLib.fonts.sizes.terminal * 1.1)))
-        // (mapListToAttrsWith [
-          "editor.fontFamily"
-          "editor.inlayHints.fontFamily"
-          "editor.inlineSuggest.fontFamily"
-          "scm.inputFontFamily"
-          "debug.console.fontFamily"
-          "chat.editor.fontFamily"
-        ] "${config.myLib.fonts.mono.name},Maple Mono NF CN")
-        // (mapListToAttrsWith [
-          "editor.inlayHints.fontFamily"
-          "editor.inlineSuggest.fontFamily"
-        ] "Monaspace Xenon Frozen")
-        // (mapListToAttrsWith [
-          "markdown.preview.fontFamily"
-          "chat.fontFamily"
-          "notebook.markup.fontFamily"
-        ] config.myLib.fonts.sans.name);
-
         jsonFormat = lib.generators.toJSON { };
 
-        userDir =
-          if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
+        userDir = if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
       in
       {
         files = lib.mkMerge (
@@ -254,19 +118,26 @@
               ".vscode/argv.json" = {
                 generator = jsonFormat;
                 value = {
-                  password-store = "gnome-libsecret";
                   enable-crash-reporter = true;
                   crash-reporter-id = "d17b2c57-3182-4ec0-a09f-c8abd1812a80";
                 }
-                // lib.optionalAttrs pkgs.stdenv.isDarwin { password-store = "gnome-libsecret"; };
+                // lib.optionalAttrs pkgs.stdenv.isLinux { password-store = "gnome-libsecret"; };
               };
             }
-            {
-              "${userDir}/settings.json" = {
-                generator = jsonFormat;
-                value = userSettings;
-              };
-            }
+            (
+              let
+                inherit (osConfig.myLib) fonts;
+              in
+              {
+                "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json {
+                  backgroundColor = osConfig.scheme.withHashtag.base00;
+                  fontSize = builtins.floor (fonts.sizes.terminal * 1.1);
+                  monoFontName = "${fonts.mono.name},Maple Mono NF CN";
+                  serifFontName = "Monaspace Xenon Frozen";
+                  sansFontName = fonts.sans.name;
+                };
+              }
+            )
 
             (lib.mkIf (languageSnippets != { }) (
               lib.mapAttrs' (

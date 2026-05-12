@@ -59,18 +59,18 @@
         environment.systemPackages = with pkgs; [ ghostty-bin ];
       };
 
-    hj =
+    provides.to-users.hjem =
       {
         pkgs,
         lib,
-        config,
+        osConfig,
         ...
       }:
       {
         xdg.config.files = {
           "ghostty/config.ghostty".text = ''
-            font-family = ${config.myLib.fonts.mono.name}
-            font-size = ${toString config.myLib.fonts.sizes.terminal}
+            font-family = ${osConfig.myLib.fonts.mono.name}
+            font-size = ${toString osConfig.myLib.fonts.sizes.terminal}
 
             background-opacity = 0.9
             background-opacity-cells = true
@@ -87,7 +87,7 @@
             quit-after-last-window-closed = false
             theme = Cosmic.ghostty
           '';
-          "ghostty/themes/Cosmic.ghostty".source = config.scheme {
+          "ghostty/themes/Cosmic.ghostty".source = osConfig.scheme {
             template = ./theme.ghostty.mustache;
             extension = "ghostty";
           };

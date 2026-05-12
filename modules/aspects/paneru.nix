@@ -7,7 +7,7 @@
       }
     ];
 
-    hj =
+    provides.to-users.hjem =
       { pkgs, ... }:
       {
         xdg.config.files."paneru/paneru.toml" = {

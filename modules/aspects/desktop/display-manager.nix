@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop._.display-manager = {
+  den.aspects.wm.display-manager = {
     nixos =
       { config, ... }:
       {

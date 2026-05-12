@@ -2,7 +2,7 @@
 {
   flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland/af923e30d1d24f1f4a4f5cb8308065173c1d9539";
 
-  den.aspects.desktop._.hyprland = {
+  den.aspects.wm.hyprland = {
     nixos =
       { pkgs, lib, ... }:
       {
@@ -40,19 +40,18 @@
         ];
       };
 
-    hj =
-      { pkgs, config, ... }:
+    provides.to-users.hjem =
+      { pkgs, osConfig, ... }:
       {
         xdg.config.files =
           let
-            cursorTheme = config.myLib.theming.cursorTheme.name;
-            cursorSize = config.myLib.theming.cursorTheme.size;
+            inherit (osConfig.myLib.theming) cursorTheme;
           in
           {
             "hypr/hyprland.lua".source = ./hyprland.lua;
             "hypr/binds.lua".source = ./binds.lua;
             "hypr/config.lua".source = pkgs.replaceVars ./config.lua {
-              inherit (config.scheme) base00;
+              inherit (osConfig.scheme) base00;
             };
             "hypr/monitors.lua".source = ./monitors.lua;
             "hypr/rules.lua".source = ./rules.lua;
@@ -68,12 +67,12 @@
               export QT_QPA_PLATFORMTHEME_QT6=qt6ct
               export GDK_BACKEND=wayland,x11,*
               export NIXOS_OZONE_WL=1
-              export XCURSOR_THEME=${cursorTheme}
-              export XCURSOR_SIZE=${toString cursorSize}
+              export XCURSOR_THEME=${cursorTheme.name}
+              export XCURSOR_SIZE=${toString cursorTheme.size}
             '';
             "uwsm/env-hyprland".text = ''
-              export HYPRCURSOR_THEME=${cursorTheme}
-              export HYPRCURSOR_SIZE=${toString cursorSize}
+              export HYPRCURSOR_THEME=${cursorTheme.name}
+              export HYPRCURSOR_SIZE=${toString cursorTheme.size}
             '';
           };
       };

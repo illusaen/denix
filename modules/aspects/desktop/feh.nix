@@ -1,13 +1,13 @@
 { lib, ... }:
 {
-  den.aspects.desktop._.feh = {
+  den.aspects.wm.feh = {
     nixos =
       { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [ feh ];
       };
 
-    hj.xdg.mime-apps = {
+    provides.to-users.hjem.xdg.mime-apps = {
       default-applications = lib.mkBefore (
         let
           application = "feh.desktop";

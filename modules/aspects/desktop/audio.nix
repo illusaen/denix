@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop._.audio = {
+  den.aspects.wm.audio = {
     nixos =
       { pkgs, lib, ... }:
       {
