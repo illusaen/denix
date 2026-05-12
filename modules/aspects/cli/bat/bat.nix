@@ -1,4 +1,4 @@
-_: {
+{
   den.aspects.cli._.bat = {
     os =
       { pkgs, config, ... }:

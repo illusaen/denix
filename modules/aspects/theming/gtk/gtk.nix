@@ -4,7 +4,7 @@
   ...
 }:
 {
-  den.aspects.theming._.gtk =
+  den.aspects.theming.gtk =
     let
       inherit (lib)
         generators
@@ -80,50 +80,45 @@
       };
     in
     {
-      includes = lib.attrValues den.aspects.theming._.gtk._;
+      includes = [ den.aspects.theming.gtk.policies.to-users ];
 
-      _.enable = {
-        nixos =
-          { pkgs, config, ... }:
-          let
-            gtk = _gtk pkgs;
-            commonSettings = _commonSettings config.myLib;
-          in
-          {
-            programs.dconf = {
-              enable = true;
-              profiles.user.databases = [
-                {
-                  settings."org/gnome/desktop/interface" =
-                    let
-                      settings = {
-                        gtkVersion = 3;
-                        inherit (gtk) theme;
-                      }
-                      // commonSettings;
-                      settingsGtk = mkGtkSettings settings;
-                    in
-                    lib.filterAttrs (_: v: v != null) {
-                      "font-name" = settingsGtk."gtk-font-name" or null;
-                      "gtk-theme" = settingsGtk."gtk-theme-name" or null;
-                      "icon-theme" = settingsGtk."gtk-icon-theme-name" or null;
-                      "cursor-theme" = settingsGtk."gtk-cursor-theme-name" or null;
-                      "cursor-size" = lib.gvariant.mkUint32 (settingsGtk."gtk-cursor-theme-size" or null);
-                      "color-scheme" =
-                        if settings ? colorScheme && settings.colorScheme != null then
-                          "prefer-${settings.colorScheme}"
-                        else
-                          null;
-                    };
-                }
-              ];
-            };
-          };
-      };
-
-      _.configure =
-        { user, ... }:
+      nixos =
+        { pkgs, config, ... }:
+        let
+          gtk = _gtk pkgs;
+          commonSettings = _commonSettings config.myLib;
+        in
         {
+          programs.dconf = {
+            enable = true;
+            profiles.user.databases = [
+              {
+                settings."org/gnome/desktop/interface" =
+                  let
+                    settings = {
+                      gtkVersion = 3;
+                      inherit (gtk) theme;
+                    }
+                    // commonSettings;
+                    settingsGtk = mkGtkSettings settings;
+                  in
+                  lib.filterAttrs (_: v: v != null) {
+                    "font-name" = settingsGtk."gtk-font-name" or null;
+                    "gtk-theme" = settingsGtk."gtk-theme-name" or null;
+                    "icon-theme" = settingsGtk."gtk-icon-theme-name" or null;
+                    "cursor-theme" = settingsGtk."gtk-cursor-theme-name" or null;
+                    "cursor-size" = lib.gvariant.mkUint32 (settingsGtk."gtk-cursor-theme-size" or null);
+                    "color-scheme" =
+                      if settings ? colorScheme && settings.colorScheme != null then "prefer-${settings.colorScheme}" else null;
+                  };
+              }
+            ];
+          };
+        };
+
+      policies.to-users =
+        { user, ... }:
+        (den.lib.policy.include {
           hjem =
             {
               pkgs,
@@ -221,6 +216,6 @@
                 '';
               };
             };
-        };
+        });
     };
 }

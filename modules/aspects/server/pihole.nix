@@ -1,5 +1,5 @@
-_: {
-  den.aspects.server._.pihole = {
+{
+  den.aspects.server.pihole = {
     services.pihole-ftl = {
       enable = true;
       settings = {

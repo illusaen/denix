@@ -1,5 +1,5 @@
-_: {
-  den.aspects.theming._.qt = {
+{
+  den.aspects.theming.qt = {
     nixos =
       { pkgs, ... }:
       {

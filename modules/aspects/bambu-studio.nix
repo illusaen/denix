@@ -28,7 +28,7 @@
     });
   };
 
-  den.aspects.bambu-studio = {
+  den.aspects.desktop.bambu-studio = {
     nixos =
       # { pkgs, ... }:
       {
@@ -37,6 +37,8 @@
         # Forced to use flatpak until login issue fixed
         services.flatpak.enable = true;
       };
+
+    darwin.homebrew.casks = [ "bambu-studio" ];
 
     persist.directories = [
       "/var/lib/flatpak"

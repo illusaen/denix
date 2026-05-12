@@ -1,5 +1,5 @@
 {
-  den.aspects.word = {
+  den.aspects.desktop.word = {
     nixos =
       { pkgs, ... }:
       {

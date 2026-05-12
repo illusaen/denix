@@ -1,6 +1,8 @@
 { den, ... }:
 {
-  den.schema.host.includes = [ den.aspects.darwin-config ];
+  den.schema.host.includes = [
+    (den.lib.policy.when ({ host, ... }: host.class == "darwin") (_: den.lib.policy.include den.aspects.darwin-config))
+  ];
 
   den.aspects.darwin-config = {
     darwin =

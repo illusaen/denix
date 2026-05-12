@@ -41,34 +41,25 @@ in
     darwin.system.stateVersion = 6;
   };
 
-  den.schema.user.classes = lib.mkDefault [ "hjem" ];
-  den.schema.host = {
-    options = {
-      ip = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default = null;
-      };
-      roles = lib.mkOption {
-        type = lib.types.listOf (
-          lib.types.enum [
-            "desktop"
-            "server"
-            "iso"
-          ]
-        );
-        default = [ ];
-      };
-    };
-    config.hjem.enable = true;
+  den.schema.user = {
+    includes = [
+      den.batteries.define-user
+      (den.batteries.user-shell "fish")
+    ];
+    classes = lib.mkDefault [ "hjem" ];
   };
 
-  den.schema.user.includes = [
-    den.batteries.define-user
-    (den.batteries.user-shell "fish")
-  ];
+  den.schema.host = {
+    options.ip = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+    };
+  };
 
   den.schema.host.includes = [
-    den.batteries.hostname
     hjemHostClass
+    den.batteries.hostname
   ];
+
+  flake.den = den;
 }

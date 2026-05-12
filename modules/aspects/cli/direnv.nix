@@ -1,4 +1,4 @@
-_: {
+{
   den.aspects.cli._.direnv = {
     # Temporary workaround: https://github.com/nixos/nixpkgs/issues/513019
     darwin = {

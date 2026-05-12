@@ -1,4 +1,4 @@
-_: {
+{
   den.aspects.desktop._.hideDesktopEntries = {
     nixos =
       { pkgs, lib, ... }:
@@ -13,8 +13,7 @@ _: {
             ];
             buildPhase = lib.pipe entries [
               (lib.mapAttrsToList (
-                name: value:
-                "echo -e \"[Desktop Entry]\nName=${value}\nType=Application\nNoDisplay=true\n\" > ${name}.desktop"
+                name: value: "echo -e \"[Desktop Entry]\nName=${value}\nType=Application\nNoDisplay=true\n\" > ${name}.desktop"
               ))
               (lib.concatStringsSep "\n")
             ];

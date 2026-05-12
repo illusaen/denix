@@ -1,5 +1,5 @@
-_: {
-  den.aspects.discord = {
+{
+  den.aspects.desktop.discord = {
     persistUser.directories = [
       ".config/discord"
     ];

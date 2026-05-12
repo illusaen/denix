@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.schema.host.includes = [ den.aspects.image-editor ];
-  den.aspects.image-editor = {
+  den.aspects.desktop.image-editor = {
     nixos =
       { pkgs, ... }:
       {

@@ -1,5 +1,5 @@
-_: {
-  den.aspects.theming._.dconf = {
+{
+  den.aspects.theming.dconf = {
     nixos =
       { pkgs, ... }:
       {

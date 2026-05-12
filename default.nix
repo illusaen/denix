@@ -11,11 +11,12 @@ let
       flake-parts,
       import-tree,
       nixpkgs,
+      self,
       ...
     }:
     let
       inputs' = inputs // {
-        self = inputs.self // {
+        self = self // {
           outPath = ./.;
         };
       };
@@ -23,7 +24,9 @@ let
     flake-parts.lib.mkFlake { inputs = inputs'; } (
       (import-tree ./modules)
       // {
-        _module.args.helpers = import ./modules/den/_helpers.nix { inherit (nixpkgs) lib; };
+        _module.args.helpers = import ./modules/den/_helpers.nix {
+          inherit (nixpkgs) lib;
+        };
       }
     );
 in

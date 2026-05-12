@@ -15,6 +15,8 @@
     "/home/*/.cache/mesa_shader_cache/",
     "/home/*/.cache/nix/",
     "/home/*/.cache/radv_builtin_shaders/",
+    "/home/*/.config/hypr/",
+    "/home/*/.config/uwsm/",
     "/home/*/.mozilla/native-messaging-hosts/com.1password.1password.json",
     "/home/*/.pki/",
     "/home/*/.pulse-cookie",

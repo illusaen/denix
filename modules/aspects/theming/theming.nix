@@ -1,33 +1,31 @@
 {
-  den,
   helpers,
   lib,
+  den,
   ...
 }:
 {
-  flake-file.inputs = {
-    base16.url = "github:SenchoPens/base16.nix";
-  };
+  flake-file.inputs.base16.url = "github:SenchoPens/base16.nix";
+
+  den.aspects.desktop =
+    { host }:
+    {
+      includes = lib.optionals (host.class == "nixos") [ den.aspects.theming ];
+    };
 
   den.aspects.theming = {
-    includes = lib.attrValues den.aspects.theming._;
-
     os =
       let
-        inherit (lib) mkOption types;
-        inherit (helpers) mkThemeType;
+        inherit (lib) mkOption;
+        inherit (helpers) mkThemeType mkSubmoduleOption;
       in
       {
-        options.myLib.theming = lib.mkOption {
-          type = types.submodule {
-            options = {
-              iconTheme = mkOption {
-                type = mkThemeType { };
-              };
-              cursorTheme = mkOption {
-                type = mkThemeType { hasSize = true; };
-              };
-            };
+        options.myLib.theming = mkSubmoduleOption {
+          iconTheme = mkOption {
+            type = mkThemeType { };
+          };
+          cursorTheme = mkOption {
+            type = mkThemeType { hasSize = true; };
           };
         };
       };
@@ -49,7 +47,6 @@
         environment.systemPackages = with pkgs; [
           adw-gtk3
           adwaita-qt6
-          dracula-icon-theme
           nordic
         ];
       };

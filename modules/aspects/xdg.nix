@@ -1,10 +1,5 @@
 {
-  den,
-  ...
-}:
-{
-  den.schema.host.includes = [ den.aspects.xdg ];
-  den.aspects.xdg = {
+  den.aspects.nix.xdg = {
     nixos.xdg.autostart.enable = true;
 
     hj = {

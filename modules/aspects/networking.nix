@@ -33,6 +33,12 @@
         services.blueman.enable = true;
       };
 
+    darwin =
+      { config, ... }:
+      {
+        networking.computerName = config.networking.hostName;
+      };
+
     persist.directories = [
       "/etc/NetworkManager/system-connections"
       "/var/lib/bluetooth"

@@ -1,5 +1,5 @@
-_: {
-  den.aspects.steam = {
+{
+  den.aspects.desktop.steam = {
     persistUser.directories = [ ".local/share/Steam" ];
 
     darwin =

@@ -1,4 +1,8 @@
-{ inputs, den, ... }:
+{
+  inputs,
+  den,
+  ...
+}:
 {
   flake-file.inputs = {
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -56,12 +60,17 @@
         flakeCheck = true;
         projectRoot = ../../.;
         programs = {
-          nixfmt.enable = true;
+          nixfmt = {
+            enable = true;
+            width = 120;
+          };
           deadnix.enable = true;
           statix.enable = true;
           shellcheck = {
             enable = true;
-            excludes = [ ".envrc" ];
+            excludes = [
+              ".envrc"
+            ];
           };
           stylua = {
             enable = true;
@@ -73,7 +82,9 @@
               sort_requires.enabled = true;
             };
             # This file is a replaceVars template, not valid Lua before substitution.
-            excludes = [ "modules/aspects/desktop/hypr/config.lua" ];
+            excludes = [
+              "modules/aspects/desktop/hypr/config.lua"
+            ];
           };
           fish_indent.enable = true;
         };

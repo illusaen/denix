@@ -1,4 +1,4 @@
-_: {
+{
   den.aspects.cli._.eza = {
     shell.shellAliases = {
       l = "eza -alg";
