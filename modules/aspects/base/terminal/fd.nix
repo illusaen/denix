@@ -1,5 +1,5 @@
 {
-  den.aspects.base.cli.fd = {
+  den.aspects.base.fd = {
     os =
       { pkgs, ... }:
       let

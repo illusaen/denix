@@ -2,11 +2,7 @@
   den.aspects.desktop.steam = {
     persistUser.directories = [ ".local/share/Steam" ];
 
-    darwin =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ steam ];
-      };
+    darwin.homebrew.casks = [ "steam" ];
 
     nixos =
       {

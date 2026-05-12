@@ -31,6 +31,7 @@
 
   den.schema.host.includes = [
     den.batteries.hostname
+    den.aspects.base
   ];
 
   flake.den = den;

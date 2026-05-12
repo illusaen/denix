@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, lib, ... }:
 let
   disko = import ../aspects/boot/_disko.nix {
     inherit (den.aspects.preservation.meta.vars) disk persistMount rollbackSnapshot;
@@ -26,7 +26,6 @@ in
       nvidia
       desktop
 
-      base
       nix
       wm
     ];
@@ -34,9 +33,8 @@ in
 
   # Macbook
   den.aspects.idunn.includes = with den.aspects; [
-    base
     desktop
-    darwin
+    mac
   ];
 
   # Seedbox server and Bootable ISO
@@ -44,15 +42,18 @@ in
     inherit disko;
 
     includes = with den.aspects; [
-      base
       iso
       nix
     ];
   };
 
   # Common user
-  den.aspects.wendy = {
-    includes = [ den.batteries.primary-user ];
-    user.password = "arst";
-  };
+  den.aspects.wendy =
+    { host, ... }:
+    {
+      includes = [ den.batteries.primary-user ];
+    }
+    // lib.optionalAttrs (host.class == "nixos") {
+      user.password = "arst";
+    };
 }

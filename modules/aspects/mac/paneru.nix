@@ -1,17 +1,13 @@
 {
-  den.aspects.darwin.paneru = {
-    darwin.homebrew.brews = [
-      {
-        name = "paneru";
-        restart_service = true;
-      }
-    ];
+  den.aspects.mac.paneru = {
+    darwin = {
+      homebrew.brews = [ "paneru" ];
+    };
 
     provides.to-users.hjem =
-      { pkgs, ... }:
+      { pkgs, user, ... }:
       {
-        xdg.config.files."paneru/paneru.toml" = {
-          generator = pkgs.formats.toml { };
+        xdg.config.files."paneru/paneru.toml".source = (pkgs.formats.toml { }).generate "paneru-toml-${user.userName}" {
           value = {
             options = {
               mouse_follows_focus = true;

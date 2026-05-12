@@ -103,6 +103,19 @@
       "url": "https://api.github.com/repos/AvengeMedia/DankMaterialShell/tarball/refs/tags/v1.4.6",
       "hash": "sha256-g6r/Gx8PTDzO3jCNzzySA+Ff1lmLF9nDlMCNyyoQjoE="
     },
+    "files": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mightyiam",
+        "repo": "files"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "30398488637d905ce32c39d2931a98799bd78ecf",
+      "url": "https://github.com/mightyiam/files/archive/30398488637d905ce32c39d2931a98799bd78ecf.tar.gz",
+      "hash": "sha256-P1PaPjWrHrg0o7qqp78EenQZoXWYw8D+94sllU8a+xQ="
+    },
     "flake-compat": {
       "type": "GitRelease",
       "repository": {
