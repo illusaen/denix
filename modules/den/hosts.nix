@@ -8,12 +8,20 @@ in
   den.hosts.x86_64-linux.odin = {
     users.wendy = { };
     ip = "192.168.1.163";
+    roles = [ "desktop" ];
   };
   den.hosts.x86_64-linux.thor = {
     users.wendy = { };
     ip = "192.168.1.164";
+    roles = [
+      "server"
+      "iso"
+    ];
   };
-  den.hosts.aarch64-darwin.idunn.users.wendy = { };
+  den.hosts.aarch64-darwin.idunn = {
+    users.wendy = { };
+    roles = [ "desktop" ];
+  };
 
   # Main PC
   den.aspects.odin = {
@@ -59,11 +67,8 @@ in
   };
 
   # Common user
-  den.aspects.wendy =
-    { user, ... }:
-    {
-      includes = [ den.provides.primary-user ];
-
-      nixos.users.users.${user.name}.password = "arst";
-    };
+  den.aspects.wendy = {
+    includes = [ den.batteries.primary-user ];
+    user.password = "arst";
+  };
 }
