@@ -16,7 +16,7 @@
 
   den.aspects.base.fish = {
     env.EDITOR = "vim";
-    persistUser.directories = [ ".local/share/fish" ];
+    provides.to-users.persistUser.directories = [ ".local/share/fish" ];
 
     shell = {
       enable = true;

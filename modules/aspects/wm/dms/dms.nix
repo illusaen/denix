@@ -13,7 +13,7 @@
   };
 
   den.aspects.wm.dms = {
-    persistUser.directories = [
+    provides.to-users.persistUser.directories = [
       ".config/DankMaterialShell"
       ".cache/DankMaterialShell"
       ".local/state/DankMaterialShell"

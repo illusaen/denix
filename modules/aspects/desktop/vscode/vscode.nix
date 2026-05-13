@@ -6,7 +6,7 @@
         environment.systemPackages = with pkgs; [ vscode ];
       };
 
-    persistUser.directories = [
+    provides.to-users.persistUser.directories = [
       ".codex"
       ".config/Code/User/globalStorage"
     ];

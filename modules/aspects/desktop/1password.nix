@@ -24,6 +24,6 @@
         };
       };
 
-    persistUser.directories = [ ".config/1Password" ];
+    provides.to-users.persistUser.directories = [ ".config/1Password" ];
   };
 }

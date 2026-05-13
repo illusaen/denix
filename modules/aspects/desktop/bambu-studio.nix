@@ -11,7 +11,7 @@
       "/var/lib/flatpak"
     ];
 
-    persistUser.directories = [
+    provides.to-users.persistUser.directories = [
       ".local/share/flatpak"
       ".var/app/com.bambulab.BambuStudio"
     ];

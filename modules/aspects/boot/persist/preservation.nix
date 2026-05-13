@@ -2,42 +2,56 @@
   den,
   lib,
   inputs,
-  helpers,
   ...
 }:
 let
   persistMount = "/persisted";
   disk = "nvme1n1";
   rollbackSnapshot = "zroot/local/root@blank";
-
-  mergeFn =
-    class: _:
-    let
-      inherit (den.lib.policy) pipe;
-    in
-    [
-      (pipe.from class [
-        (pipe.fold helpers.mergeModule { })
-      ])
-    ];
 in
 {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
 
-  den.quirks = {
+  den.classes = {
     persist.description = "System persisted directories and files.";
     persistUser.description = "User persisted directories and files.";
   };
 
-  den.policies.merge-persist = mergeFn "persist";
-  den.policies.merge-persist-user = mergeFn "persistUser";
+  den.policies.persist-to-preservation =
+    { host, ... }:
+    (den.lib.policy.route {
+      fromClass = "persist";
+      intoClass = host.class;
+      path = [
+        "preservation"
+        "preserveAt"
+        persistMount
+      ];
+      guard = { options, ... }: options ? preservation;
+    });
+
+  den.policies.persist-user-to-preservation =
+    { host, user, ... }:
+    (den.lib.policy.route {
+      fromClass = "persistUserzd";
+      intoClass = host.class;
+      path = [
+        "preservation"
+        "preserveAt"
+        persistMount
+        "users"
+        user.userName
+      ];
+      guard = { options, ... }: options ? preservation;
+    });
 
   den.schema.host.includes = [
     den.aspects.preservation
     den.aspects.find-ephemeral
-    den.policies.merge-persist
-    den.policies.merge-persist-user
+    den.policies.persist-to-preservation
   ];
+
+  den.schema.user.includes = [ den.policies.persist-user-to-preservation ];
 
   den.aspects.preservation = {
     meta.vars = {
@@ -69,7 +83,7 @@ in
       ];
     };
 
-    persistUser = {
+    provides.to-users.persistUser = {
       commonMountOptions = [
         "x-gvfs-hide"
         "x-gvfs-trash"
@@ -87,19 +101,13 @@ in
 
     nixos =
       {
-        host,
         pkgs,
-        persist,
-        persistUser,
         ...
       }:
       {
         imports = [ inputs.preservation.nixosModules.preservation ];
 
         preservation.enable = true;
-        preservation.preserveAt.${persistMount} = (lib.head persist) // {
-          users = lib.mapAttrs (_: _: lib.head persistUser) host.users;
-        };
 
         boot.initrd.systemd.services.zfs-rollback = {
           description = "Rollback ZFS root dataset to blank snapshot";

@@ -1,6 +1,6 @@
 {
   den.aspects.desktop.element = {
-    persistUser.directories = [
+    provides.to-users.persistUser.directories = [
       ".config/Element"
     ];
 

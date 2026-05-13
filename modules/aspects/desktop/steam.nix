@@ -1,6 +1,6 @@
 {
   den.aspects.desktop.steam = {
-    persistUser.directories = [ ".local/share/Steam" ];
+    provides.to-users.persistUser.directories = [ ".local/share/Steam" ];
 
     darwin.homebrew.casks = [ "steam" ];
 

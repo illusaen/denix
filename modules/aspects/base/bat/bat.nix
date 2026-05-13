@@ -23,6 +23,6 @@
         environment.systemPackages = [ bat-wrapped ];
       };
 
-    persistUser.directories = [ ".cache/bat" ];
+    provides.to-users.persistUser.directories = [ ".cache/bat" ];
   };
 }

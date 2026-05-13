@@ -6,7 +6,7 @@
       '';
     };
 
-    persistUser.directories = [
+    provides.to-users.persistUser.directories = [
       ".local/share/zoxide"
     ];
 

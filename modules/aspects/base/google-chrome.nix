@@ -1,6 +1,6 @@
 {
   den.aspects.base.google-chrome = {
-    persistUser.directories = [ ".config/google-chrome" ];
+    provides.to-users.persistUser.directories = [ ".config/google-chrome" ];
 
     darwin.homebrew.casks = [ "google-chrome@beta" ];
 
