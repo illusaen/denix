@@ -74,19 +74,6 @@
       "url": "https://api.github.com/repos/nix-community/disko/tarball/refs/tags/v1.13.0",
       "hash": "sha256-CNzzBsRhq7gg4BMBuTDObiWDH/rFYHEuDRVOwCcwXw4="
     },
-    "disko-zfs": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "numtide",
-        "repo": "disko-zfs"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "adaef72fba88b4f313fcb3f7cf02e24b2a09b648",
-      "url": "https://github.com/numtide/disko-zfs/archive/adaef72fba88b4f313fcb3f7cf02e24b2a09b648.tar.gz",
-      "hash": "sha256-nfl7tj3TN8MZI5JpidUjlqax+2ly2BHay3tpM/cc9ik="
-    },
     "dms": {
       "type": "GitRelease",
       "repository": {
@@ -102,19 +89,6 @@
       "revision": "bb2259df48c50ad758411bf0efbd9f133b7b61dc",
       "url": "https://api.github.com/repos/AvengeMedia/DankMaterialShell/tarball/refs/tags/v1.4.6",
       "hash": "sha256-g6r/Gx8PTDzO3jCNzzySA+Ff1lmLF9nDlMCNyyoQjoE="
-    },
-    "files": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "mightyiam",
-        "repo": "files"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "30398488637d905ce32c39d2931a98799bd78ecf",
-      "url": "https://github.com/mightyiam/files/archive/30398488637d905ce32c39d2931a98799bd78ecf.tar.gz",
-      "hash": "sha256-P1PaPjWrHrg0o7qqp78EenQZoXWYw8D+94sllU8a+xQ="
     },
     "flake-compat": {
       "type": "GitRelease",
@@ -483,19 +457,6 @@
       "url": "https://api.github.com/repos/brizzbuzz/opnix/tarball/refs/tags/v0.9.0",
       "hash": "sha256-cqID7TDVAQotuAxrrOHeguhnrIgdJ/CwET1SrkXvxpY="
     },
-    "paneru": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "karinushka",
-        "repo": "paneru"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "9269ce3fa2852b1bc97148b6a2ca97c3b46c253d",
-      "url": "https://github.com/karinushka/paneru/archive/9269ce3fa2852b1bc97148b6a2ca97c3b46c253d.tar.gz",
-      "hash": "sha256-an5ZEx+Ol/bf/yFu7IBMaNfB8zlL8m+WdluFXR3dnLE="
-    },
     "pre-commit-hooks": {
       "type": "Git",
       "repository": {
@@ -547,19 +508,6 @@
       "revision": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
       "url": "https://github.com/nix-systems/default/archive/da67096a3b9bf56a91d16901293e51ba5b49a27e.tar.gz",
       "hash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768="
-    },
-    "tinted-zed": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tinted-theming",
-        "repo": "tinted-zed"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "9cd816033ff969415b190722cddf134e78a5665f",
-      "url": "https://github.com/tinted-theming/tinted-zed/archive/9cd816033ff969415b190722cddf134e78a5665f.tar.gz",
-      "hash": "sha256-OXPXRIQgGwV77HjYRryOHguh4ALX96jkg+tseLkGgHA="
     },
     "treefmt-nix": {
       "type": "Git",

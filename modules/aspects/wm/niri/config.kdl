@@ -96,6 +96,20 @@ workspace "chat" { open-on-output "@mainMonitor@"; }
 workspace "code" { open-on-output "@mainMonitor@"; }
 workspace "gaming" { open-on-output "@mainMonitor@"; }
 
+layer-rule {
+    match namespace="kitty-quick-access"
+    background-effect {
+        xray false
+    }
+}
+
+layer-rule {
+    match namespace="^dms:desktop-widget:.*$"
+    background-effect {
+        blur true
+    }
+}
+
 window-rule {
     geometry-corner-radius 8.000000 8.000000 8.000000 8.000000
     clip-to-geometry true
