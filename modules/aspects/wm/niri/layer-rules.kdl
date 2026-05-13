@@ -1,0 +1,18 @@
+layer-rule {
+    match namespace="kitty-quick-access"
+    background-effect {
+        xray false
+    }
+}
+
+layer-rule {
+    match namespace="^dms:desktop-widget:.*$"
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}

@@ -129,7 +129,7 @@
                 inherit (osConfig.my) fonts;
               in
               {
-                "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json {
+                "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json.template {
                   backgroundColor = osConfig.scheme.withHashtag.base00;
                   fontSize = builtins.floor (fonts.sizes.terminal * 1.1);
                   monoFontName = "${fonts.mono.name},Maple Mono NF CN";

@@ -40,10 +40,16 @@
         inherit (osConfig.my.theming) cursorTheme;
       in
       {
-        xdg.config.files."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
-          cursorTheme = cursorTheme.name;
-          cursorSize = cursorTheme.size;
-          inherit mainMonitor secondaryMonitor;
+        xdg.config.files = {
+          "niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
+            cursorTheme = cursorTheme.name;
+            cursorSize = cursorTheme.size;
+            inherit mainMonitor secondaryMonitor;
+          };
+          "niri/animations.kdl".source = ./animations.kdl;
+          "niri/binds.kdl".source = ./binds.kdl;
+          "niri/layer-rules.kdl".source = ./layer-rules.kdl;
+          "niri/window-rules.kdl".source = ./window-rules.kdl;
         };
       };
   };

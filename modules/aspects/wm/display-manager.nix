@@ -7,18 +7,32 @@
           enable = true;
           dms-greeter = {
             enable = true;
-            compositor.name = "hyprland";
+            compositor.name = "niri";
             quickshell.package = config.programs.dank-material-shell.quickshell.package;
           };
         };
 
-        environment.etc."greetd/config.toml".text = ''
-          [default_session]
-          user = "wendy"
+        environment.etc = {
+          "greetd/config.toml".text = ''
+            [default_session]
+            command = "dms-greeter --command niri -C /etc/greetd/niri.kdl"
+          '';
+          "greetd/niri.kdl".text = ''
+            hotkey-overlay {
+                skip-at-startup
+            }
 
-          [initial_session]
-          user = "wendy"
-        '';
+            environment {
+                DMS_RUN_GREETER "1"
+            }
+
+            gestures {
+              hot-corners {
+                off
+              }
+            }
+          '';
+        };
       };
   };
 }
