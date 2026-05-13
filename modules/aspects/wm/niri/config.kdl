@@ -3,6 +3,10 @@ output "@mainMonitor@" {
     focus-at-startup
     transform "normal"
     position x=0 y=0
+    // have to set refresh rate lower to remove screen flickering, see
+    // https://github.com/niri-wm/niri/issues/2597
+    // https://github.com/NVIDIA/open-gpu-kernel-modules/issues/801
+    mode "5120x2160@100.035"
 }
 output "@secondaryMonitor@" {
     scale 1.250000
