@@ -1,11 +1,16 @@
-{ den, lib, ... }:
 {
-  den.aspects.find-ephemeral = {
+  den.aspects.nix.find-ephemeral = {
     nixos =
-      { config, pkgs, ... }:
+      {
+        host,
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
       lib.mkIf (config ? preservation.preserveAt) (
         let
-          inherit (den.aspects.preservation.meta.vars) persistMount;
+          inherit (host.preservation) persistMount;
           cfg = config.preservation.preserveAt.${persistMount};
 
           combined =

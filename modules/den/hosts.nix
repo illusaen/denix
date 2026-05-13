@@ -1,8 +1,10 @@
 { den, lib, ... }:
 let
-  disko = import ../aspects/boot/_disko.nix {
-    inherit (den.aspects.preservation.meta.vars) disk persistMount rollbackSnapshot;
-  };
+  _disko =
+    host:
+    (import ../aspects/nix/boot/_disko.nix {
+      inherit (host.preservation) disk persistMount rollbackSnapshot;
+    });
 in
 {
   den.hosts.x86_64-linux.odin = {
@@ -18,18 +20,19 @@ in
   };
 
   # Main PC
-  den.aspects.odin = {
-    inherit disko;
+  den.aspects.odin =
+    { host }:
+    {
+      disko = _disko host;
 
-    includes = with den.aspects; [
-      amd
-      nvidia
-      desktop
-
-      nix
-      wm
-    ];
-  };
+      includes = with den.aspects; [
+        amd
+        nvidia
+        desktop
+        nix
+        wm
+      ];
+    };
 
   # Macbook
   den.aspects.idunn.includes = with den.aspects; [
@@ -38,14 +41,16 @@ in
   ];
 
   # Seedbox server and Bootable ISO
-  den.aspects.thor = {
-    inherit disko;
+  den.aspects.thor =
+    { host }:
+    {
+      disko = _disko host;
 
-    includes = with den.aspects; [
-      iso
-      nix
-    ];
-  };
+      includes = with den.aspects; [
+        iso
+        nix
+      ];
+    };
 
   # Common user
   den.aspects.wendy =

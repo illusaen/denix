@@ -1,8 +1,12 @@
 {
   lib,
   den,
+  helpers,
   ...
 }:
+let
+  inherit (helpers) mkSubmoduleOption mkStrOption;
+in
 {
   den.default = {
     includes = [
@@ -23,9 +27,16 @@
   };
 
   den.schema.host = {
-    options.ip = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
+    options = {
+      ip = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+      };
+      preservation = mkSubmoduleOption {
+        persistMount = mkStrOption "/persisted";
+        disk = mkStrOption "nvme1n1";
+        rollbackSnapshot = mkStrOption "zroot/local/root@blank";
+      };
     };
   };
 
@@ -33,6 +44,4 @@
     den.batteries.hostname
     den.aspects.base
   ];
-
-  flake.den = den;
 }

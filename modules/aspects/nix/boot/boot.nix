@@ -1,7 +1,5 @@
-{ den, ... }:
 {
-  den.schema.host.includes = [ den.aspects.boot ];
-  den.aspects.boot = {
+  den.aspects.nix.boot = {
     nixos = {
       boot = {
         loader.systemd-boot.enable = true;

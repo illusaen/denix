@@ -3,10 +3,13 @@
   helpers,
   ...
 }:
+let
+  inherit (helpers) mkSubmoduleOption;
+in
 {
   den.aspects.myLib = {
     os = {
-      options.myLib = helpers.mkSubmoduleOption { };
+      options.myLib = mkSubmoduleOption { };
     };
   };
 

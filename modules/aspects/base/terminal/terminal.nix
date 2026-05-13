@@ -15,7 +15,8 @@
           shell_integration no-rc
 
           active_border_color none
-          background_opacity 0.5
+          background_opacity 0.6
+          background_blur 20
           confirm_os_window_close 0
           linux_display_server wayland
           macos_titlebar_color system

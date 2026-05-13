@@ -4,11 +4,6 @@
   inputs,
   ...
 }:
-let
-  persistMount = "/persisted";
-  disk = "nvme1n1";
-  rollbackSnapshot = "zroot/local/root@blank";
-in
 {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
 
@@ -25,20 +20,24 @@ in
       path = [
         "preservation"
         "preserveAt"
-        persistMount
+        host.preservation.persistMount
       ];
       guard = { options, ... }: options ? preservation;
     });
 
   den.policies.persist-user-to-preservation =
-    { host, user, ... }:
+    {
+      host,
+      user,
+      ...
+    }:
     (den.lib.policy.route {
-      fromClass = "persistUserzd";
+      fromClass = "persistUser";
       intoClass = host.class;
       path = [
         "preservation"
         "preserveAt"
-        persistMount
+        host.preservation.persistMount
         "users"
         user.userName
       ];
@@ -46,18 +45,12 @@ in
     });
 
   den.schema.host.includes = [
-    den.aspects.preservation
-    den.aspects.find-ephemeral
     den.policies.persist-to-preservation
   ];
 
   den.schema.user.includes = [ den.policies.persist-user-to-preservation ];
 
-  den.aspects.preservation = {
-    meta.vars = {
-      inherit disk persistMount rollbackSnapshot;
-    };
-
+  den.aspects.nix.preservation = {
     persist = {
       directories = [
         "/var/log"
@@ -102,8 +95,12 @@ in
     nixos =
       {
         pkgs,
+        host,
         ...
       }:
+      let
+        inherit (host.preservation) persistMount rollbackSnapshot;
+      in
       {
         imports = [ inputs.preservation.nixosModules.preservation ];
 
