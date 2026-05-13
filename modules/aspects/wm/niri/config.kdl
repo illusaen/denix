@@ -67,10 +67,15 @@ workspace "chat" { open-on-output "@mainMonitor@"; }
 workspace "code" { open-on-output "@mainMonitor@"; }
 workspace "gaming" { open-on-output "@mainMonitor@"; }
 
+debug {
+    wait-for-frame-completion-before-queueing
+}
+
 include "window-rules.kdl"
 include "layer-rules.kdl"
 include "animations.kdl"
 include "binds.kdl"
+
 include optional=true "dms/alttab.kdl"
 include optional=true "dms/colors.kdl"
 include optional=true "dms/layout.kdl"

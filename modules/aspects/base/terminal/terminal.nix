@@ -1,57 +1,105 @@
 {
   den.aspects.base.terminal = {
-    nixos =
-      { pkgs, config, ... }:
+    wrapperPackages.kitty =
+      { wlib, config, ... }:
       let
         kitty-theme = config.scheme {
           template = ./kitty-theme.conf.mustache;
           extension = "conf";
         };
-        kitty-settings = pkgs.writeText "kitty.conf" ''
-          font_family ${config.my.fonts.mono.name}
-          font_size ${toString config.my.fonts.sizes.terminal}
-
+      in
+      {
+        imports = [ wlib.wrapperModules.kitty ];
+        font = {
+          inherit (config.my.fonts.mono) name;
+          size = config.my.fonts.sizes.terminal;
+        };
+        settings = {
+          active_border_color = "none";
+          background_opacity = 0.6;
+          background_blur = 20;
+          confirm_os_window_close = 0;
+          linux_display_server = "wayland";
+          macos_titlebar_color = "system";
+          placement_strategy = "bottom-left";
+          tab_activity_symbol = "↺";
+          tab_bar_margin_height = "0.0 8.0";
+          tab_bar_margin_width = "0.0";
+          tab_bar_style = "powerline";
+          tab_powerline_style = "slanted";
+          window_padding_width = 20;
+        };
+        extraConfig = ''
           # Shell integration is sourced and configured manually
           shell_integration no-rc
 
-          active_border_color none
-          background_opacity 0.6
-          background_blur 20
-          confirm_os_window_close 0
-          linux_display_server wayland
-          macos_titlebar_color system
-          placement_strategy bottom-left
-          tab_activity_symbol ↺
-          tab_bar_margin_height 0.0 8.0
-          tab_bar_margin_width 0.0
-          tab_bar_style powerline
-          tab_powerline_style slanted
-          window_padding_width 20
-
           include themes/colors.conf
         '';
-
-        kitty-wrapped = pkgs.symlinkJoin {
-          name = "kitty";
-          paths = [ pkgs.kitty ];
-          nativeBuildInputs = [ pkgs.makeWrapper ];
-          postBuild = ''
-            mkdir -p $out/themes
-            install -Dm644 ${kitty-settings} $out/kitty.conf
-            install -Dm644 ${./quick-access-terminal.conf} $out/quick-access-terminal.conf
-            install -Dm644 ${kitty-theme} $out/themes/colors.conf
-            wrapProgram $out/bin/kitty --add-flag --config --add-flag $out/kitty.conf --add-flag --themes-dir --add-flag $out/themes --set KITTY_CONFIG_DIRECTORY $out
-            wrapProgram $out/bin/kitten --set KITTY_CONFIG_DIRECTORY $out
-          '';
+        constructFiles = {
+          "kitty-quick-settings" = {
+            builder = "install -Dm644 ${./quick-access-terminal.conf} $out/quick-access-terminal.conf";
+            relPath = "";
+          };
+          "kitty-theme" = {
+            builder = "install -Dm644 ${kitty-theme} $out/themes/colors.conf";
+            relPath = "";
+          };
         };
-      in
+      };
+
+    nixos =
+      { pkgs, self', ... }:
+      # let
+      #   kitty-theme = config.scheme {
+      #     template = ./kitty-theme.conf.mustache;
+      #     extension = "conf";
+      #   };
+      #   kitty-settings = pkgs.writeText "kitty.conf" ''
+      #     font_family ${config.my.fonts.mono.name}
+      #     font_size ${toString config.my.fonts.sizes.terminal}
+
+      #     # Shell integration is sourced and configured manually
+      #     shell_integration no-rc
+
+      #     active_border_color none
+      #     background_opacity 0.6
+      #     background_blur 20
+      #     confirm_os_window_close 0
+      #     linux_display_server wayland
+      #     macos_titlebar_color system
+      #     placement_strategy bottom-left
+      #     tab_activity_symbol ↺
+      #     tab_bar_margin_height 0.0 8.0
+      #     tab_bar_margin_width 0.0
+      #     tab_bar_style powerline
+      #     tab_powerline_style slanted
+      #     window_padding_width 20
+
+      #     include themes/colors.conf
+      #   '';
+
+      #   kitty-wrapped = pkgs.symlinkJoin {
+      #     name = "kitty";
+      #     paths = [ pkgs.kitty ];
+      #     nativeBuildInputs = [ pkgs.makeWrapper ];
+      #     postBuild = ''
+      #       mkdir -p $out/themes
+      #       install -Dm644 ${kitty-settings} $out/kitty.conf
+      #       install -Dm644 ${./quick-access-terminal.conf} $out/quick-access-terminal.conf
+      #       install -Dm644 ${kitty-theme} $out/themes/colors.conf
+      #       wrapProgram $out/bin/kitty --add-flag --config --add-flag $out/kitty.conf --add-flag --themes-dir --add-flag $out/themes --set KITTY_CONFIG_DIRECTORY $out
+      #       wrapProgram $out/bin/kitten --set KITTY_CONFIG_DIRECTORY $out
+      #     '';
+      #   };
+      # in
       {
         environment.systemPackages = with pkgs; [
-          kitty-wrapped
+          self'.packages.kitty
           ghostty
         ];
         systemd.packages = [ pkgs.ghostty ];
         services.dbus.packages = [ pkgs.ghostty ];
+
       };
 
     darwin =
