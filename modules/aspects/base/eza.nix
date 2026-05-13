@@ -1,5 +1,5 @@
 {
-  den.aspects.cli._.eza = {
+  den.aspects.base.eza = {
     shell.shellAliases = {
       l = "eza -alg";
       ll = "eza --tree --git-ignore --all";

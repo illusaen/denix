@@ -1,9 +1,20 @@
+{ den, ... }:
 {
-  den.quirks.shell = {
-    description = "Shell config";
-  };
+  den.policies.shell-to-fish =
+    { host, ... }:
+    (den.lib.policy.route {
+      fromClass = "shell";
+      intoClass = host.class;
+      path = [
+        "programs"
+        "fish"
+      ];
+    });
 
-  den.aspects.cli._.fish = {
+  den.schema.host.includes = [ den.policies.shell-to-fish ];
+  den.classes.shell.description = "Shell configuration class";
+
+  den.aspects.base.fish = {
     env.EDITOR = "vim";
     persistUser.directories = [ ".local/share/fish" ];
 
@@ -25,8 +36,6 @@
     os =
       {
         pkgs,
-        shell,
-        lib,
         ...
       }:
       let
@@ -57,27 +66,8 @@
             runHook postInstall
           '';
         };
-
-        merge =
-          acc: item:
-          builtins.zipAttrsWith
-            (
-              name: values:
-              if name == "interactiveShellInit" then
-                lib.concatStringsSep "\n" values
-              else if lib.all lib.isAttrs values then
-                lib.foldl' lib.recursiveUpdate { } values
-              else
-                lib.last values
-            )
-            [
-              acc
-              item
-            ];
       in
       {
-        programs.fish = lib.foldl' merge { } shell;
-
         environment.systemPackages = with pkgs.fishPlugins; [
           puffer
           colored-man-pages

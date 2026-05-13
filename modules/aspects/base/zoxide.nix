@@ -1,5 +1,5 @@
 {
-  den.aspects.cli._.zoxide = {
+  den.aspects.base.zoxide = {
     shell = {
       interactiveShellInit = ''
         eval (zoxide init fish --cmd n | source)

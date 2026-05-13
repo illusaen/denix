@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  den.aspects.cli._.git = {
+  den.aspects.base.git = {
     shell = {
       interactiveShellInit = ''
         abbr -a gcm --set-cursor 'git commit -m "%"'

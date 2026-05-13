@@ -1,5 +1,5 @@
 {
-  den.aspects.cli._.bat = {
+  den.aspects.base.bat = {
     os =
       { pkgs, config, ... }:
       let

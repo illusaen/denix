@@ -90,7 +90,7 @@ let
     };
 in
 {
-  den.aspects.cli._.starship = {
+  den.aspects.base.starship = {
     shell = {
       interactiveShellInit = ''
         starship init fish | source

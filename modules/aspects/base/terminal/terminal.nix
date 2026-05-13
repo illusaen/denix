@@ -1,5 +1,5 @@
 {
-  den.aspects.cli._.terminal = {
+  den.aspects.base.terminal = {
     nixos =
       { pkgs, config, ... }:
       let
