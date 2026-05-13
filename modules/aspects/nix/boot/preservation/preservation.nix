@@ -16,13 +16,13 @@
     { host, ... }:
     (den.lib.policy.route {
       fromClass = "persist";
-      intoClass = host.class;
+      intoClass = "nixos";
       path = [
         "preservation"
         "preserveAt"
         host.preservation.persistMount
       ];
-      guard = { options, ... }: options ? preservation;
+      guard = { options, ... }: options ? preservation.preserveAt;
     });
 
   den.policies.persist-user-to-preservation =
@@ -33,7 +33,7 @@
     }:
     (den.lib.policy.route {
       fromClass = "persistUser";
-      intoClass = host.class;
+      intoClass = "nixos";
       path = [
         "preservation"
         "preserveAt"
@@ -41,7 +41,7 @@
         "users"
         user.userName
       ];
-      guard = { options, ... }: options ? preservation;
+      guard = { options, ... }: options ? preservation.preserveAt;
     });
 
   den.schema.host.includes = [
