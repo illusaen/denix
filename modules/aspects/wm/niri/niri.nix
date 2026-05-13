@@ -37,7 +37,7 @@
       let
         mainMonitor = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
         secondaryMonitor = "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
-        inherit (osConfig.myLib.theming) cursorTheme;
+        inherit (osConfig.my.theming) cursorTheme;
       in
       {
         xdg.config.files."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {

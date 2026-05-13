@@ -126,7 +126,7 @@
             }
             (
               let
-                inherit (osConfig.myLib) fonts;
+                inherit (osConfig.my) fonts;
               in
               {
                 "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json {

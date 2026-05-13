@@ -20,7 +20,7 @@
         inherit (helpers) mkThemeType mkSubmoduleOption;
       in
       {
-        options.myLib.theming = mkSubmoduleOption {
+        options.my.theming = mkSubmoduleOption {
           iconTheme = mkOption {
             type = mkThemeType { };
           };
@@ -33,7 +33,7 @@
     nixos =
       { pkgs, ... }:
       {
-        myLib.theming = {
+        my.theming = {
           iconTheme = {
             name = "Nordic-darker";
             package = pkgs.nordic;

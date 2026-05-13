@@ -69,13 +69,13 @@
         };
       };
 
-      _commonSettings = myLib: {
-        font = myLib.fonts.sans // {
-          size = myLib.fonts.sizes.applications;
+      _commonSettings = my: {
+        font = my.fonts.sans // {
+          size = my.fonts.sizes.applications;
         };
-        inherit (myLib.theming) iconTheme;
-        inherit (myLib.theming) cursorTheme;
-        inherit (myLib.base16) colorScheme;
+        inherit (my.theming) iconTheme;
+        inherit (my.theming) cursorTheme;
+        inherit (my.base16) colorScheme;
       };
     in
     {
@@ -83,7 +83,7 @@
         { pkgs, config, ... }:
         let
           gtk = _gtk pkgs;
-          commonSettings = _commonSettings config.myLib;
+          commonSettings = _commonSettings config.my;
         in
         {
           programs.dconf = {
@@ -141,7 +141,7 @@
 
           gtk = _gtk pkgs;
 
-          commonSettings = _commonSettings osConfig.myLib;
+          commonSettings = _commonSettings osConfig.my;
 
           bookmarks = [
             "file:///home/${user.name}/Projects"

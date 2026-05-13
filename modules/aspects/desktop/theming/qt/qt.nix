@@ -25,7 +25,7 @@
         ...
       }:
       let
-        inherit (osConfig.myLib) fonts;
+        inherit (osConfig.my) fonts;
 
         qtSettingsFile = qtct: {
           "${qtct}/${qtct}.conf".source =
@@ -38,7 +38,7 @@
                   custom_palette = true;
                   standard_dialogs = "xdgdesktopportal";
                   inherit (osConfig.qt) style;
-                  icon_theme = osConfig.myLib.theming.iconTheme.name;
+                  icon_theme = osConfig.my.theming.iconTheme.name;
                 };
 
                 Fonts = {

@@ -7,11 +7,11 @@ let
   inherit (helpers) mkSubmoduleOption;
 in
 {
-  den.aspects.myLib = {
+  den.aspects.my = {
     os = {
-      options.myLib = mkSubmoduleOption { };
+      options.my = mkSubmoduleOption { };
     };
   };
 
-  den.default.includes = [ den.aspects.myLib ];
+  den.default.includes = [ den.aspects.my ];
 }

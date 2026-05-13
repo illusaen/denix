@@ -25,7 +25,7 @@
         };
       in
       {
-        options.myLib.fonts = mkSubmoduleOption (
+        options.my.fonts = mkSubmoduleOption (
           mapListToAttrsWith [ "sans" "mono" "emoji" "icon" ] fontOption
           // {
             sizes = mkSubmoduleOption (mapListToAttrsWith [ "terminal" "applications" "desktop" ] sizeOption);
@@ -38,12 +38,12 @@
               font-awesome
               maple-mono.NF-CN-unhinted
             ])
-            ++ (lib.pipe config.myLib.fonts [
+            ++ (lib.pipe config.my.fonts [
               (lib.filterAttrs (_: v: builtins.isAttrs v && builtins.hasAttr "package" v))
               (lib.mapAttrsToList (_: value: value.package))
             ]);
 
-          myLib.fonts = {
+          my.fonts = {
             sans = {
               name = "Inter";
               package = pkgs.inter;
@@ -72,9 +72,9 @@
       { config, ... }:
       {
         fonts.fontconfig.defaultFonts = rec {
-          monospace = [ config.myLib.fonts.mono.name ];
+          monospace = [ config.my.fonts.mono.name ];
           serif = sansSerif;
-          sansSerif = [ config.myLib.fonts.sans.name ];
+          sansSerif = [ config.my.fonts.sans.name ];
         };
       };
   };

@@ -8,8 +8,8 @@
           extension = "conf";
         };
         kitty-settings = pkgs.writeText "kitty.conf" ''
-          font_family ${config.myLib.fonts.mono.name}
-          font_size ${toString config.myLib.fonts.sizes.terminal}
+          font_family ${config.my.fonts.mono.name}
+          font_size ${toString config.my.fonts.sizes.terminal}
 
           # Shell integration is sourced and configured manually
           shell_integration no-rc
@@ -70,8 +70,8 @@
       {
         xdg.config.files = {
           "ghostty/config.ghostty".text = ''
-            font-family = ${osConfig.myLib.fonts.mono.name}
-            font-size = ${toString osConfig.myLib.fonts.sizes.terminal}
+            font-family = ${osConfig.my.fonts.mono.name}
+            font-size = ${toString osConfig.my.fonts.sizes.terminal}
 
             background-opacity = 0.9
             background-opacity-cells = true

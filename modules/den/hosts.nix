@@ -28,7 +28,6 @@ in
       disko = _disko host;
 
       includes = with den.aspects; [
-        amd
         nvidia
         desktop
         nix

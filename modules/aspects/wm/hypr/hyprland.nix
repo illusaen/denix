@@ -49,7 +49,7 @@
       {
         xdg.config.files =
           let
-            inherit (osConfig.myLib.theming) cursorTheme;
+            inherit (osConfig.my.theming) cursorTheme;
           in
           {
             "hypr/hyprland.lua".source = ./hyprland.lua;

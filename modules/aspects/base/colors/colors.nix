@@ -31,7 +31,7 @@ in
         };
       in
       {
-        options.myLib.base16 = lib.mkOption {
+        options.my.base16 = lib.mkOption {
           type = mkThemingOptionType;
         };
 
@@ -39,7 +39,7 @@ in
 
         config = {
           scheme = base16Scheme;
-          myLib.base16.colorScheme = "dark";
+          my.base16.colorScheme = "dark";
         };
       };
   };

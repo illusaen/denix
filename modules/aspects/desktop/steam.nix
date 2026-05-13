@@ -15,7 +15,7 @@
         programs.steam = {
           enable = true;
           package = pkgs.steam.override {
-            extraPkgs = _pkgs': [ config.myLib.theming.cursorTheme.package ];
+            extraPkgs = _pkgs': [ config.my.theming.cursorTheme.package ];
           };
         };
 
