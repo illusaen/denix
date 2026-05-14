@@ -38,9 +38,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f575522ff8886259a10274ea8e555301e6e9c21b",
-      "url": "https://github.com/vic/den/archive/f575522ff8886259a10274ea8e555301e6e9c21b.tar.gz",
-      "hash": "sha256-b2rDxLTtYb6EF0x+1cSIa3s7kk07ujfA0S9uGHOMseA="
+      "revision": "9ee83546728a7164ec21703472f8df0bf11ae479",
+      "url": "https://github.com/vic/den/archive/9ee83546728a7164ec21703472f8df0bf11ae479.tar.gz",
+      "hash": "sha256-yrlExupCUubNHLwCwrgoLJul+/9/6YdJhixi4Brnyv0="
     },
     "disko": {
       "type": "GitRelease",
