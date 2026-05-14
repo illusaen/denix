@@ -44,11 +44,10 @@
       guard = { options, ... }: options ? preservation.preserveAt;
     });
 
-  den.schema.host.includes = [
-    den.policies.persist-to-preservation
-  ];
-
+  den.schema.host.includes = [ den.policies.persist-to-preservation ];
   den.schema.user.includes = [ den.policies.persist-user-to-preservation ];
+
+  den.aspects.nix.includes = with den.aspects.nix; [ preservation ];
 
   den.aspects.nix.preservation = {
     persist = {

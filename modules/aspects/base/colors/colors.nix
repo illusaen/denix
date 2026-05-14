@@ -1,7 +1,4 @@
-{
-  inputs,
-  ...
-}:
+{ den, inputs, ... }:
 let
   base16Scheme = ./cosmic.yaml;
 in
@@ -9,6 +6,8 @@ in
   flake-file.inputs = {
     base16.url = "github:SenchoPens/base16.nix";
   };
+
+  den.aspects.base.includes = with den.aspects.base; [ colors ];
 
   den.aspects.base.colors = {
     os =

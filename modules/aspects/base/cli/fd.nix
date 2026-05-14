@@ -1,5 +1,8 @@
+{ den, ... }:
 {
-  den.aspects.base.fd = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ fd ];
+
+  den.aspects.base.cli.fd = {
     os =
       { pkgs, ... }:
       let

@@ -23,6 +23,7 @@
         "flake"
         "wrappers"
       ];
+      adaptArgs = args: args // { osConfig = args.config; };
     });
   den.schema.host.includes = [ den.policies.wrappers-to-flake ];
 }

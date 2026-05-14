@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.wm.includes = with den.aspects.wm; [ niri ];
+
   den.aspects.wm.niri = {
     nixos =
       { pkgs, ... }:

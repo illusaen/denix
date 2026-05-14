@@ -14,7 +14,9 @@
   den.schema.host.includes = [ den.policies.shell-to-fish ];
   den.classes.shell.description = "Shell configuration class";
 
-  den.aspects.base.fish = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ fish ];
+
+  den.aspects.base.cli.fish = {
     env.EDITOR = "vim";
     provides.to-users.persistUser.directories = [ ".local/share/fish" ];
 

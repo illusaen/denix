@@ -24,6 +24,8 @@
   den.schema.host.includes = [ den.policies.env-to-os ];
   den.classes.env.description = "Environment variables class";
 
+  den.aspects.base.includes = with den.aspects.base; [ cli ];
+
   den.aspects.base.cli = {
     env.NIX_CONF = "~/Projects/denix";
 

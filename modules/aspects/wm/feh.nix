@@ -1,5 +1,7 @@
-{ lib, ... }:
+{ den, lib, ... }:
 {
+  den.aspects.wm.includes = with den.aspects.wm; [ feh ];
+
   den.aspects.wm.feh = {
     nixos =
       { pkgs, ... }:

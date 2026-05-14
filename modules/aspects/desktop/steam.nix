@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.desktop.includes = with den.aspects.desktop; [ steam ];
+
   den.aspects.desktop.steam = {
     provides.to-users.persistUser.directories = [ ".local/share/Steam" ];
 

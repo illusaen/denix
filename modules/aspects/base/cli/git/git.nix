@@ -1,6 +1,8 @@
-{ lib, ... }:
+{ den, lib, ... }:
 {
-  den.aspects.base.git = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ git ];
+
+  den.aspects.base.cli.git = {
     shell = {
       interactiveShellInit = ''
         abbr -a gcm --set-cursor 'git commit -m "%"'

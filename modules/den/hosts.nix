@@ -22,18 +22,20 @@ in
   };
 
   # Main PC
-  den.aspects.odin =
-    { host }:
-    {
-      disko = _disko host;
+  den.aspects.odin = {
+    nixos =
+      { host, ... }:
+      {
+        disko = _disko host;
+      };
 
-      includes = with den.aspects; [
-        nvidia
-        desktop
-        nix
-        wm
-      ];
-    };
+    includes = with den.aspects; [
+      nvidia
+      desktop
+      nix
+      wm
+    ];
+  };
 
   # Macbook
   den.aspects.idunn.includes = with den.aspects; [
@@ -42,16 +44,18 @@ in
   ];
 
   # Seedbox server and Bootable ISO
-  den.aspects.thor =
-    { host }:
-    {
-      disko = _disko host;
+  den.aspects.thor = {
+    nixos =
+      { host, ... }:
+      {
+        disko = _disko host;
+      };
 
-      includes = with den.aspects; [
-        iso
-        nix
-      ];
-    };
+    includes = with den.aspects; [
+      iso
+      nix
+    ];
+  };
 
   # Common user
   den.aspects.wendy =

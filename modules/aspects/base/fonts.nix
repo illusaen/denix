@@ -1,8 +1,7 @@
+{ den, helpers, ... }:
 {
-  helpers,
-  ...
-}:
-{
+  den.aspects.base.includes = with den.aspects.base; [ fonts ];
+
   den.aspects.base.fonts = {
     os =
       {

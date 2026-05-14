@@ -1,5 +1,8 @@
+{ den, ... }:
 {
-  den.aspects.base.bat = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ bat ];
+
+  den.aspects.base.cli.bat = {
     os =
       { pkgs, config, ... }:
       let

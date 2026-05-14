@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ den, lib, ... }:
 let
   starship-wrapped =
     pkgs:
@@ -90,7 +87,9 @@ let
     };
 in
 {
-  den.aspects.base.starship = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ starship ];
+
+  den.aspects.base.cli.starship = {
     shell = {
       interactiveShellInit = ''
         starship init fish | source

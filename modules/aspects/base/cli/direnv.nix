@@ -1,5 +1,8 @@
+{ den, ... }:
 {
-  den.aspects.base.direnv = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ direnv ];
+
+  den.aspects.base.cli.direnv = {
     os = {
       programs.direnv = {
         enable = true;

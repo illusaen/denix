@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.desktop.includes = with den.aspects.desktop; [ vscode ];
+
   den.aspects.desktop.vscode = {
     os =
       { pkgs, ... }:

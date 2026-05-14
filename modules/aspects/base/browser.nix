@@ -1,8 +1,14 @@
+{ den, ... }:
 {
-  den.aspects.base.google-chrome = {
+  den.aspects.base.includes = with den.aspects.base; [ browser ];
+
+  den.aspects.base.browser = {
     provides.to-users.persistUser.directories = [ ".config/google-chrome" ];
 
-    darwin.homebrew.casks = [ "google-chrome@beta" ];
+    darwin.homebrew.casks = [
+      "firefox"
+      "google-chrome@beta"
+    ];
 
     nixos =
       { pkgs, ... }:
@@ -49,6 +55,22 @@
         };
       in
       {
+        programs.firefox = {
+          enable = true;
+          languagePacks = [
+            "en-US"
+            "zh-CN"
+          ];
+          policies = {
+            DisableTelemetry = true;
+            DisplayMenuBar = "never";
+            OfferToSaveLogins = false;
+          };
+          preferences = {
+            "browser.startup.homepage" = "https://google.com";
+          };
+        };
+
         environment.systemPackages = with pkgs; [
           google-chrome
           (lib.hiPrio google-chrome-desktop)

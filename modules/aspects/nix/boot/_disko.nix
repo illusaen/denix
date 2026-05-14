@@ -4,7 +4,7 @@
   rollbackSnapshot,
 }:
 {
-  disko.devices = {
+  devices = {
     disk = {
       main = {
         type = "disk";

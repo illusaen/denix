@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.wm.includes = with den.aspects.wm; [ hideDesktopEntries ];
+
   den.aspects.wm.hideDesktopEntries = {
     nixos =
       { pkgs, lib, ... }:

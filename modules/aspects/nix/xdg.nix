@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.nix.includes = with den.aspects.nix; [ xdg ];
+
   den.aspects.nix.xdg = {
     nixos.xdg.autostart.enable = true;
 

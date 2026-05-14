@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ den, inputs, ... }:
 {
   flake-file.inputs = {
     dms = {
@@ -11,6 +11,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
+  den.aspects.wm.includes = with den.aspects.wm; [ dms ];
 
   den.aspects.wm.dms = {
     provides.to-users.persistUser.directories = [
