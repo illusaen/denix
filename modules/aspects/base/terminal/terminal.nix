@@ -2,6 +2,7 @@
   den,
   lib,
   inputs,
+  self,
   ...
 }:
 {
@@ -9,12 +10,11 @@
 
   den.aspects.base.terminal = {
     wrapper-packages =
-      ctx@{ config, ... }:
+      { system, host, ... }:
       let
-        osConfig = builtins.trace (lib.attrNames config) config;
-        # osConfig = (if host.class == "darwin" then self.darwinConfigurations else self.nixosConfigurations).${host.name}.config;
+        osConfig = (if host.class == "darwin" then self.darwinConfigurations else self.nixosConfigurations).${host.name}.config;
       in
-      builtins.trace (lib.attrNames ctx) {
+      {
         kitty =
           let
             kitty-theme = osConfig.scheme {
@@ -44,10 +44,10 @@
               tab_powerline_style = "slanted";
               window_padding_width = 20;
             };
-            themeFile = "cosmic";
             extraConfig = ''
               # Shell integration is sourced and configured manually
               shell_integration no-rc
+              include themes/cosmic.conf
             '';
             constructFiles = {
               "quick-access-terminal.conf" = {
@@ -60,12 +60,18 @@
                 '';
               };
               "cosmic.conf" = {
-                relPath = "kitty-themes/colors.conf";
+                relPath = "themes/cosmic.conf";
                 builder = ''
                   mkdir -p "$(dirname "$2")"
                   ln -s ${lib.escapeShellArg kitty-theme} "$2"
                 '';
               };
+            };
+            drv = {
+              nativeBuildInputs = [ inputs.nixpkgs.legacyPackages.${system}.makeWrapper ];
+              postBuild = ''
+                wrapProgram $out/bin/kitten --set KITTY_CONFIG_DIRECTORY $out
+              '';
             };
           };
       };

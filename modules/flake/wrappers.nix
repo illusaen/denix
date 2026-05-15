@@ -16,13 +16,12 @@
 
   den.classes.flake-config.description = "Flake-level configuration";
   den.policies.flake-config-to-flake =
-    { system, ... }@ctx:
-    builtins.trace ctx lib.optional (system == builtins.currentSystem) (
+    { system, ... }:
+    lib.optional (system == builtins.currentSystem) (
       den.lib.policy.route {
         fromClass = "flake-config";
         intoClass = "flake";
         path = [ "flake" ];
-        # guard = { host, ... }: host.class == class;
         instantiate =
           { modules, ... }:
           removeAttrs
