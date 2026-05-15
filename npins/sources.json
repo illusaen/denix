@@ -38,9 +38,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "9ee83546728a7164ec21703472f8df0bf11ae479",
-      "url": "https://github.com/vic/den/archive/9ee83546728a7164ec21703472f8df0bf11ae479.tar.gz",
-      "hash": "sha256-yrlExupCUubNHLwCwrgoLJul+/9/6YdJhixi4Brnyv0="
+      "revision": "8ab23d3d57c65c5609aec394b3fec902a871ded7",
+      "url": "https://github.com/vic/den/archive/8ab23d3d57c65c5609aec394b3fec902a871ded7.tar.gz",
+      "hash": "sha256-AyX7umobqocvMlZTCcU57BDhfIOPuBS9aaKVXpifA60="
     },
     "disko": {
       "type": "GitRelease",
@@ -198,10 +198,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.1.0",
-      "revision": "a037ed2a58fc0ebed9e93b9ef79b0646e648f719",
-      "url": "https://api.github.com/repos/vic/import-tree/tarball/refs/tags/v0.1.0",
-      "hash": "sha256-TEbh9zISiQcU82VwVoEbmXHnSGlUxTwvjJA9g9ErSDA="
+      "version": "v0.2.0",
+      "revision": "d321337efd0f23a9eb14a42adb7b2c29313ab274",
+      "url": "https://api.github.com/repos/vic/import-tree/tarball/refs/tags/v0.2.0",
+      "hash": "sha256-Jjuz5CmSkur8KvLDoGa+vylEp+RkQtv4mt/qcMznpH0="
     },
     "nix-darwin": {
       "type": "Git",
