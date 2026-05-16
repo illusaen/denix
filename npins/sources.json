@@ -16,6 +16,12 @@
       "url": "https://api.github.com/repos/SenchoPens/base16.nix/tarball/refs/tags/v2.2.1",
       "hash": "sha256-KXcORItjYJTdEO/BlBd0Uym1Xa3eBu43uvpFiWjJOdY="
     },
+    "clan-core": {
+      "type": "Tarball",
+      "url": "https://git.clan.lol/clan/clan-core/archive/main.tar.gz",
+      "locked_url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/0f9701e183d5347b47649f3f35d5956165da1168.tar.gz?rev=0f9701e183d5347b47649f3f35d5956165da1168",
+      "hash": "sha256-Jpxi1/WVlzOEihep5jOtT/Jpfn1g12DfIDRtnCeaC/M="
+    },
     "darwin": {
       "type": "Git",
       "repository": {
@@ -38,9 +44,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "8ab23d3d57c65c5609aec394b3fec902a871ded7",
-      "url": "https://github.com/vic/den/archive/8ab23d3d57c65c5609aec394b3fec902a871ded7.tar.gz",
-      "hash": "sha256-AyX7umobqocvMlZTCcU57BDhfIOPuBS9aaKVXpifA60="
+      "revision": "aee486b275ec40c3fe6b65c3602947da841504a9",
+      "url": "https://github.com/vic/den/archive/aee486b275ec40c3fe6b65c3602947da841504a9.tar.gz",
+      "hash": "sha256-HOeJINj3IZ0yqANc2tchIsghdYGFrA17dxL9zs8Srt8="
     },
     "disko": {
       "type": "GitRelease",
@@ -348,9 +354,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "46e7c1e3f0e149b28f539eb8601152db8a67ad0c",
-      "url": "https://github.com/Birdeehub/nix-wrapper-modules/archive/46e7c1e3f0e149b28f539eb8601152db8a67ad0c.tar.gz",
-      "hash": "sha256-e6XKnrzKr48r1UdCr+5bekibSqe2L1/Sgi46IODHtGQ="
+      "revision": "950d02a943df44ebc250c724de89dee95761789a",
+      "url": "https://github.com/Birdeehub/nix-wrapper-modules/archive/950d02a943df44ebc250c724de89dee95761789a.tar.gz",
+      "hash": "sha256-RpOTonvtj16N4Os15zengbtzHmQZ3kMAQMi2iMJrO3w="
     }
   },
   "version": 7

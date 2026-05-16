@@ -76,53 +76,12 @@
           };
       };
 
-    nixos =
+    os =
       { self', ... }:
       {
         environment.systemPackages = [
           self'.packages.kitty
         ];
-      };
-
-    darwin =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ ghostty-bin ];
-      };
-
-    provides.to-users.hjem =
-      {
-        pkgs,
-        lib,
-        osConfig,
-        ...
-      }:
-      {
-        xdg.config.files = {
-          "ghostty/config.ghostty".text = ''
-            font-family = ${osConfig.my.fonts.mono.name}
-            font-size = ${toString osConfig.my.fonts.sizes.terminal}
-
-            background-opacity = 0.9
-            background-opacity-cells = true
-            background-blur = macos-glass-regular
-
-            window-padding-x = 16
-            window-padding-y = 16
-            window-padding-balance = true
-
-            macos-hidden = always
-
-            command = ${lib.getExe pkgs.fish}
-            keybind = global:cmd+backquote=toggle_quick_terminal
-            quit-after-last-window-closed = false
-            theme = Cosmic.ghostty
-          '';
-          "ghostty/themes/Cosmic.ghostty".source = osConfig.scheme {
-            template = ./theme.ghostty.mustache;
-            extension = "ghostty";
-          };
-        };
       };
   };
 }
