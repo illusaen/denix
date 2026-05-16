@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.mac.includes = with den.aspects.mac; [ paneru ];
+
   den.aspects.mac.paneru = {
     darwin = {
       homebrew.brews = [ "paneru" ];

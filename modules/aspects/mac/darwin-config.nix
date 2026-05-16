@@ -1,5 +1,8 @@
+{ den, ... }:
 {
-  den.aspects.mac.config = {
+  den.aspects.mac.includes = with den.aspects.mac; [ darwin-config ];
+
+  den.aspects.mac.darwin-config = {
     darwin =
       { pkgs, lib, ... }:
       {

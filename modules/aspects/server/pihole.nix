@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.server.includes = with den.aspects.server; [ pihole ];
+
   den.aspects.server.pihole = {
     services.pihole-ftl = {
       enable = true;

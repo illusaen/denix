@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.base.includes = with den.aspects.base; [ networking ];
+
   den.aspects.base.networking = {
     nixos =
       { host, ... }:

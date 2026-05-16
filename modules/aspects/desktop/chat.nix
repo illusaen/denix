@@ -1,7 +1,11 @@
+{ den, ... }:
 {
-  den.aspects.desktop.discord = {
+  den.aspects.desktop.includes = with den.aspects.desktop; [ chat ];
+
+  den.aspects.desktop.chat = {
     provides.to-users.persistUser.directories = [
       ".config/discord"
+      ".config/Element"
     ];
 
     os =
@@ -10,9 +14,18 @@
         nixpkgs.overlays = [
           (_: prev: {
             discord = prev.discord.override { withOpenASAR = true; };
+            element-desktop = prev.element-desktop.overrideAttrs (old: {
+              postFixup = (old.postFixup or "") + ''
+                sed -i 's|^Exec=\([^ ]*\) .*|Exec=\1 --password-store="gnome-libsecret"|' \
+                  $out/share/applications/element-desktop.desktop
+              '';
+            });
           })
         ];
-        environment.systemPackages = with pkgs; [ discord ];
+        environment.systemPackages = with pkgs; [
+          discord
+          element-desktop
+        ];
       };
 
     nixos =

@@ -1,5 +1,8 @@
+{ den, ... }:
 {
-  den.aspects.base.zoxide = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ zoxide ];
+
+  den.aspects.base.cli.zoxide = {
     shell = {
       interactiveShellInit = ''
         eval (zoxide init fish --cmd n | source)

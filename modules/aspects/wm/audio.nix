@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.wm.includes = with den.aspects.wm; [ audio ];
+
   den.aspects.wm.audio = {
     nixos =
       { pkgs, lib, ... }:

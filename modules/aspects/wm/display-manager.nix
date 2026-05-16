@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.wm.includes = with den.aspects.wm; [ display-manager ];
+
   den.aspects.wm.display-manager = {
     nixos =
       { config, ... }:

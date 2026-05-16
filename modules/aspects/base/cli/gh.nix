@@ -1,5 +1,8 @@
+{ den, ... }:
 {
-  den.aspects.base.gh = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ gh ];
+
+  den.aspects.base.cli.gh = {
     provides.to-users.persistUser.files = [
       ".config/gh/config.yml"
       ".config/gh/hosts.yml"

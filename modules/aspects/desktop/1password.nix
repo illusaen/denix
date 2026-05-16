@@ -1,5 +1,7 @@
-{ lib, ... }:
+{ den, lib, ... }:
 {
+  den.aspects.desktop.includes = with den.aspects.desktop; [ onepassword ];
+
   den.aspects.desktop.onepassword = {
     os = {
       programs._1password.enable = true;

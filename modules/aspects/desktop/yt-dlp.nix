@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.desktop.includes = with den.aspects.desktop; [ yt-dlp ];
+
   den.aspects.desktop.yt-dlp = {
     shell =
       { config, ... }:

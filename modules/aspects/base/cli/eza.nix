@@ -1,5 +1,8 @@
+{ den, ... }:
 {
-  den.aspects.base.eza = {
+  den.aspects.base.cli.includes = with den.aspects.base.cli; [ eza ];
+
+  den.aspects.base.cli.eza = {
     shell.shellAliases = {
       l = "eza -alg";
       ll = "eza --tree --git-ignore --all";

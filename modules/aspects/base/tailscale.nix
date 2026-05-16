@@ -1,4 +1,7 @@
+{ den, ... }:
 {
+  den.aspects.base.includes = with den.aspects.base; [ tailscale ];
+
   den.aspects.base.tailscale = {
     nixos =
       { config, lib, ... }:

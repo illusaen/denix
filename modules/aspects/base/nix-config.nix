@@ -1,5 +1,7 @@
-{ lib, ... }:
+{ den, lib, ... }:
 {
+  den.aspects.base.includes = with den.aspects.base; [ nix-config ];
+
   den.aspects.base.nix-config = {
     nixos = {
       system.nixos.versionSuffix = lib.mkForce "";
