@@ -1,11 +1,11 @@
 {
   lib,
   den,
-  helpers,
   ...
 }:
 let
-  inherit (helpers) mkSubmoduleOption mkStrOption;
+  myLib = import ./_helpers.nix { inherit lib; };
+  inherit (myLib) mkSubmoduleOption mkStrOption;
 in
 {
   den.default = {

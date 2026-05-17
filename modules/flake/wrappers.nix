@@ -5,6 +5,9 @@
   lib,
   ...
 }:
+let
+  myLib = import ../den/_helpers.nix { inherit lib; };
+in
 {
   flake-file.inputs.wrappers = {
     url = "github:BirdeeHub/nix-wrapper-modules";
@@ -25,8 +28,13 @@
         { modules, ... }:
         removeAttrs
           (lib.evalModules {
+            specialArgs = {
+              inherit myLib;
+            };
             modules = [
-              { config._module.freeformType = lib.types.lazyAttrsOf lib.types.raw; }
+              {
+                config._module.freeformType = lib.types.lazyAttrsOf lib.types.raw;
+              }
             ]
             ++ modules;
           }).config

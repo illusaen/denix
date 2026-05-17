@@ -1,6 +1,5 @@
 {
   den,
-  helpers,
   inputs,
   self,
   ...
@@ -11,6 +10,7 @@
   den.aspects.base.fonts = {
     flake-config =
       {
+        myLib,
         system,
         lib,
         ...
@@ -21,7 +21,7 @@
           mkOption
           types
           ;
-        inherit (helpers) mapListToAttrsWith mkSubmoduleOption mkThemeType;
+        inherit (myLib) mapListToAttrsWith mkSubmoduleOption mkThemeType;
         fontOption = mkOption {
           type = mkThemeType { };
         };

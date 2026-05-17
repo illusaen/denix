@@ -1,16 +1,14 @@
 {
   den,
-  helpers,
   ...
 }:
-let
-  inherit (helpers) mkSubmoduleOption;
-in
 {
   den.aspects.my = {
-    flake-config = {
-      options.my = mkSubmoduleOption { };
-    };
+    flake-config =
+      { myLib, ... }:
+      {
+        options.my = myLib.mkSubmoduleOption { };
+      };
   };
 
   den.default.includes = [ den.aspects.my ];

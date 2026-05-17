@@ -10,7 +10,6 @@ let
     inputs@{
       flake-parts,
       import-tree,
-      nixpkgs,
       self,
       ...
     }:
@@ -21,13 +20,6 @@ let
         };
       };
     in
-    flake-parts.lib.mkFlake { inputs = inputs'; } (
-      (import-tree ./modules)
-      // {
-        _module.args.helpers = import ./modules/den/_helpers.nix {
-          inherit (nixpkgs) lib;
-        };
-      }
-    );
+    flake-parts.lib.mkFlake { inputs = inputs'; } (import-tree ./modules);
 in
 with-inputs outputs

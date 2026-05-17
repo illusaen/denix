@@ -1,5 +1,4 @@
 {
-  helpers,
   lib,
   den,
   inputs,
@@ -16,11 +15,15 @@
 
   den.aspects.theming = {
     flake-config =
-      { system, ... }:
+      {
+        myLib,
+        system,
+        ...
+      }:
       let
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         inherit (lib) mkOption;
-        inherit (helpers) mkThemeType mkSubmoduleOption;
+        inherit (myLib) mkThemeType mkSubmoduleOption;
       in
       {
         options.my.theming = mkSubmoduleOption {
