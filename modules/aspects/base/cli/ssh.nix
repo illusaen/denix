@@ -9,20 +9,8 @@
       github-dsa = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=";
     in
     {
-      os.services.openssh.enable = true;
-      nixos =
-        { pkgs, ... }:
-        {
-          programs.ssh.knownHostsFiles = [
-            (pkgs.writeText "github.keys" ''
-              github.com ${github-ed}
-              github.com ${github-rsa}
-              github.com ${github-dsa}
-            '')
-          ];
-        };
-
-      darwin = {
+      os = {
+        services.openssh.enable = true;
         programs.ssh.knownHosts = {
           "github.com/ed25519" = {
             publicKey = github-ed;

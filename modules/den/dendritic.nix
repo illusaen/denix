@@ -12,10 +12,10 @@
   ];
 
   flake-file.inputs = {
-    den.url = "github:vic/den";
-    flake-file.url = "github:vic/flake-file";
-    import-tree.url = "github:vic/import-tree";
-    with-inputs.url = "github:vic/with-inputs";
+    den.url = "github:denful/den/main";
+    flake-file.url = "github:denful/flake-file";
+    import-tree.url = "github:denful/import-tree";
+    with-inputs.url = "github:denful/with-inputs";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

@@ -16,24 +16,22 @@
 
   den.classes.flake-config.description = "Flake-level configuration";
   den.policies.flake-config-to-flake =
-    { system, ... }:
-    lib.optional (system == builtins.currentSystem) (
-      den.lib.policy.route {
-        fromClass = "flake-config";
-        intoClass = "flake";
-        path = [ "flake" ];
-        instantiate =
-          { modules, ... }:
-          removeAttrs
-            (lib.evalModules {
-              modules = [
-                { config._module.freeformType = lib.types.lazyAttrsOf lib.types.raw; }
-              ]
-              ++ modules;
-            }).config
-            [ "_module" ];
-      }
-    );
+    _:
+    den.lib.policy.route {
+      fromClass = "flake-config";
+      intoClass = "flake";
+      path = [ "flake" ];
+      instantiate =
+        { modules, ... }:
+        removeAttrs
+          (lib.evalModules {
+            modules = [
+              { config._module.freeformType = lib.types.lazyAttrsOf lib.types.raw; }
+            ]
+            ++ modules;
+          }).config
+          [ "_module" ];
+    };
   den.schema.flake-system.includes = [ den.policies.flake-config-to-flake ];
 
   den.quirks.wrapper-packages.description = "Wrapper class for nix-wrapper-modules";

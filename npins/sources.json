@@ -16,12 +16,6 @@
       "url": "https://api.github.com/repos/SenchoPens/base16.nix/tarball/refs/tags/v2.2.1",
       "hash": "sha256-KXcORItjYJTdEO/BlBd0Uym1Xa3eBu43uvpFiWjJOdY="
     },
-    "clan-core": {
-      "type": "Tarball",
-      "url": "https://git.clan.lol/clan/clan-core/archive/main.tar.gz",
-      "locked_url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/0f9701e183d5347b47649f3f35d5956165da1168.tar.gz?rev=0f9701e183d5347b47649f3f35d5956165da1168",
-      "hash": "sha256-Jpxi1/WVlzOEihep5jOtT/Jpfn1g12DfIDRtnCeaC/M="
-    },
     "darwin": {
       "type": "Git",
       "repository": {
@@ -39,14 +33,40 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "vic",
+        "owner": "denful",
         "repo": "den"
       },
       "branch": "main",
       "submodules": false,
       "revision": "aee486b275ec40c3fe6b65c3602947da841504a9",
-      "url": "https://github.com/vic/den/archive/aee486b275ec40c3fe6b65c3602947da841504a9.tar.gz",
+      "url": "https://github.com/denful/den/archive/aee486b275ec40c3fe6b65c3602947da841504a9.tar.gz",
       "hash": "sha256-HOeJINj3IZ0yqANc2tchIsghdYGFrA17dxL9zs8Srt8="
+    },
+    "determinate": {
+      "type": "Tarball",
+      "url": "https://flakehub.com/f/DeterminateSystems/determinate/*",
+      "hash": "sha256-W6zorvjBYbzMNvqKIqCdpDF4rq3gj50Xximl56YM9/I="
+    },
+    "determinate-nix-src": {
+      "type": "Tarball",
+      "url": "https://flakehub.com/f/DeterminateSystems/nix-src/*",
+      "locked_url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nix-src/3.20.0/019e03bc-3f83-7833-aba3-b691ef4956c7/source.tar.gz",
+      "hash": "sha256-oyHvP5HDRe59opmjTrq2ED9lh+R9FrHyaCGPPNfBqWM="
+    },
+    "determinate-nixd-aarch64-darwin": {
+      "type": "PyPi",
+      "url": "https://install.determinate.systems/determinate-nixd/tag/v3.20.0/macOS",
+      "hash": "sha256-z4mCqKI3Qd6weuHrlfzGccJG0giym/VJhKv20ijRSs0="
+    },
+    "determinate-nixd-aarch64-linux": {
+      "type": "PyPi",
+      "url": "https://install.determinate.systems/determinate-nixd/tag/v3.20.0/aarch64-linux",
+      "hash": "sha256-yW+VNepSRytzfanSssPMJPvwioCcmlZYaBX8++UFkAk="
+    },
+    "determinate-nixd-x86_64-linux": {
+      "type": "PyPi",
+      "url": "https://install.determinate.systems/determinate-nixd/tag/v3.20.0/x86_64-linux",
+      "hash": "sha256:1k75m9y0dj1aca0rplnwggzp2fbfcpc7fpxf9855k8z1xmlaxxpm"
     },
     "disko": {
       "type": "GitRelease",
@@ -100,7 +120,7 @@
       "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "vic",
+        "owner": "denful",
         "repo": "flake-file"
       },
       "pre_releases": false,
@@ -109,7 +129,7 @@
       "submodules": false,
       "version": "v0.6.0",
       "revision": "7d16dfaeb912d5efdff0d0eda2aabc0c934168dd",
-      "url": "https://api.github.com/repos/vic/flake-file/tarball/refs/tags/v0.6.0",
+      "url": "https://api.github.com/repos/denful/flake-file/tarball/refs/tags/v0.6.0",
       "hash": "sha256-RZVtJefKKy3Z2UvKWSbtRF3cUxt/2fHga2adN6MZQ1U="
     },
     "flake-parts": {
@@ -197,7 +217,7 @@
       "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "vic",
+        "owner": "denful",
         "repo": "import-tree"
       },
       "pre_releases": false,
@@ -206,7 +226,7 @@
       "submodules": false,
       "version": "v0.2.0",
       "revision": "d321337efd0f23a9eb14a42adb7b2c29313ab274",
-      "url": "https://api.github.com/repos/vic/import-tree/tarball/refs/tags/v0.2.0",
+      "url": "https://api.github.com/repos/denful/import-tree/tarball/refs/tags/v0.2.0",
       "hash": "sha256-Jjuz5CmSkur8KvLDoGa+vylEp+RkQtv4mt/qcMznpH0="
     },
     "nix-darwin": {
@@ -244,9 +264,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "da5ad661ba4e5ef59ba743f0d112cbc30e474f32",
-      "url": "https://github.com/NixOS/nixpkgs/archive/da5ad661ba4e5ef59ba743f0d112cbc30e474f32.tar.gz",
-      "hash": "sha256-zi7/fsqM/kFdNuED//4WOCUtezGtKKqRNORjMvfwjnA="
+      "revision": "d233902339c02a9c334e7e593de68855ad26c4cb",
+      "url": "https://github.com/NixOS/nixpkgs/archive/d233902339c02a9c334e7e593de68855ad26c4cb.tar.gz",
+      "hash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE="
     },
     "nixpkgs-lib": {
       "type": "Git",
@@ -333,7 +353,7 @@
       "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "vic",
+        "owner": "denful",
         "repo": "with-inputs"
       },
       "pre_releases": false,
@@ -342,7 +362,7 @@
       "submodules": false,
       "version": "0.4.0",
       "revision": "e22ea328948d861a7403d9a85ca3b1ad80919914",
-      "url": "https://api.github.com/repos/vic/with-inputs/tarball/refs/tags/0.4.0",
+      "url": "https://api.github.com/repos/denful/with-inputs/tarball/refs/tags/0.4.0",
       "hash": "sha256-+5PhPac62BQglTB8yGBC9LLxBV1jCkpSLMH//Cx+W3I="
     },
     "wrappers": {

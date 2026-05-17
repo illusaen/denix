@@ -1,7 +1,6 @@
 {
   den,
   lib,
-  inputs,
   self,
   ...
 }:
@@ -10,12 +9,13 @@
 
   den.aspects.base.terminal = {
     wrapper-packages =
-      { system, host, ... }:
+      { host, ... }:
       let
         osConfig = (if host.class == "darwin" then self.darwinConfigurations else self.nixosConfigurations).${host.name}.config;
       in
       {
         kitty =
+          { pkgs, wlib, ... }:
           let
             kitty-theme = osConfig.scheme {
               template = ./kitty-theme.conf.mustache;
@@ -24,7 +24,7 @@
             inherit (osConfig.my) fonts;
           in
           {
-            imports = [ inputs.wrappers.lib.wrapperModules.kitty ];
+            imports = [ wlib.wrapperModules.kitty ];
             font = {
               inherit (fonts.mono) name;
               size = fonts.sizes.terminal;
@@ -44,6 +44,7 @@
               tab_powerline_style = "slanted";
               window_padding_width = 20;
             };
+            filesToPatch = [ ];
             extraConfig = ''
               # Shell integration is sourced and configured manually
               shell_integration no-rc
@@ -68,7 +69,7 @@
               };
             };
             drv = {
-              nativeBuildInputs = [ inputs.nixpkgs.legacyPackages.${system}.makeWrapper ];
+              nativeBuildInputs = [ pkgs.makeWrapper ];
               postBuild = ''
                 wrapProgram $out/bin/kitten --set KITTY_CONFIG_DIRECTORY $out
               '';
