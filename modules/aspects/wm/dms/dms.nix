@@ -1,4 +1,9 @@
-{ den, inputs, ... }:
+{
+  den,
+  inputs,
+  self,
+  ...
+}:
 {
   flake-file.inputs = {
     dms = {
@@ -32,13 +37,11 @@
       security.pam.u2f.enable = true;
     };
 
-    provides.to-users.hjem =
-      { osConfig, ... }:
-      {
-        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = osConfig.scheme {
-          template = ./dms-theme.json.mustache;
-          extension = "json";
-        };
+    provides.to-users.hjem = {
+      xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = self.my.scheme {
+        template = ./dms-theme.json.mustache;
+        extension = "json";
       };
+    };
   };
 }

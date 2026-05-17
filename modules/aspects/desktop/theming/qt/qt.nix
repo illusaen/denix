@@ -53,11 +53,11 @@
 
         kvantumPackage =
           let
-            kvconfig = osConfig.scheme {
+            kvconfig = self.my.scheme {
               template = ./kvconfig.mustache;
               extension = ".kvconfig";
             };
-            svg = osConfig.scheme {
+            svg = self.my.scheme {
               template = ./kvantum.svg.mustache;
               extension = ".svg";
             };

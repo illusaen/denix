@@ -18,7 +18,6 @@
       {
         pkgs,
         lib,
-        osConfig,
         ...
       }:
       let
@@ -42,7 +41,7 @@
         };
         extensions = import ./_extensions.nix {
           inherit pkgs;
-          inherit (osConfig) scheme;
+          scheme = self.my.scheme;
         };
         jsonFormat = lib.generators.toJSON { };
         userDir = if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
@@ -62,7 +61,7 @@
             }
             {
               "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json.template {
-                backgroundColor = osConfig.scheme.withHashtag.base00;
+                backgroundColor = self.my.scheme.withHashtag.base00;
                 fontSize = builtins.floor (self.my.fonts.sizes.terminal * 1.1);
                 monoFontName = "${self.my.fonts.mono.name},Maple Mono NF CN";
                 serifFontName = "Monaspace Xenon Frozen";

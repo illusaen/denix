@@ -134,7 +134,7 @@
           '';
           gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
             cat ${
-              osConfig.scheme {
+              self.my.scheme {
                 template = ./gtk.css.mustache;
                 extension = ".css";
               }

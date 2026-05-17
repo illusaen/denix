@@ -1,12 +1,12 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   den.aspects.base.cli.includes = with den.aspects.base.cli; [ bat ];
 
   den.aspects.base.cli.bat = {
     os =
-      { pkgs, config, ... }:
+      { pkgs, ... }:
       let
-        bat-theme = config.scheme {
+        bat-theme = self.my.scheme {
           template = ./bat.tmTheme.mustache;
           extension = "tmTheme";
         };
