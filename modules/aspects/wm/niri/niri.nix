@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   den.aspects.wm.includes = with den.aspects.wm; [ niri ];
 
@@ -36,11 +36,11 @@
       };
 
     provides.to-users.hjem =
-      { pkgs, osConfig, ... }:
+      { pkgs, ... }:
       let
         mainMonitor = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
         secondaryMonitor = "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
-        inherit (osConfig.my.theming) cursorTheme;
+        inherit (self.my.theming) cursorTheme;
       in
       {
         xdg.config.files = {

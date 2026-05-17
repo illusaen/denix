@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   den.aspects.desktop.includes = with den.aspects.desktop; [ steam ];
 
@@ -18,7 +18,7 @@
         programs.steam = {
           enable = true;
           package = pkgs.steam.override {
-            extraPkgs = _pkgs': [ config.my.theming.cursorTheme.package ];
+            extraPkgs = _pkgs': [ self.my.theming.cursorTheme.package ];
           };
         };
 

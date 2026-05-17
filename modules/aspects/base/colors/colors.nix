@@ -1,4 +1,8 @@
-{ den, inputs, ... }:
+{
+  den,
+  inputs,
+  ...
+}:
 let
   base16Scheme = ./cosmic.yaml;
 in
@@ -10,11 +14,8 @@ in
   den.aspects.base.includes = with den.aspects.base; [ colors ];
 
   den.aspects.base.colors = {
-    os =
-      {
-        lib,
-        ...
-      }:
+    flake-config =
+      { lib, ... }:
       let
         inherit (lib) mkOption types;
 
@@ -33,13 +34,15 @@ in
         options.my.base16 = lib.mkOption {
           type = mkThemingOptionType;
         };
-
-        imports = [ inputs.base16.nixosModule ];
-
-        config = {
-          scheme = base16Scheme;
-          my.base16.colorScheme = "dark";
-        };
+        config.my.base16.colorScheme = "dark";
       };
+
+    os = {
+      imports = [ inputs.base16.nixosModule ];
+
+      config = {
+        scheme = base16Scheme;
+      };
+    };
   };
 }

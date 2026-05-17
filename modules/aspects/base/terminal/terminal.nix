@@ -21,7 +21,7 @@
               template = ./kitty-theme.conf.mustache;
               extension = "conf";
             };
-            inherit (osConfig.my) fonts;
+            inherit (self.my) fonts;
           in
           {
             imports = [ wlib.wrapperModules.kitty ];

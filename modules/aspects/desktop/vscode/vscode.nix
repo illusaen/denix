@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   den.aspects.desktop.includes = with den.aspects.desktop; [ vscode ];
 
@@ -60,20 +60,15 @@
                 // lib.optionalAttrs pkgs.stdenv.isLinux { password-store = "gnome-libsecret"; };
               };
             }
-            (
-              let
-                inherit (osConfig.my) fonts;
-              in
-              {
-                "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json.template {
-                  backgroundColor = osConfig.scheme.withHashtag.base00;
-                  fontSize = builtins.floor (fonts.sizes.terminal * 1.1);
-                  monoFontName = "${fonts.mono.name},Maple Mono NF CN";
-                  serifFontName = "Monaspace Xenon Frozen";
-                  sansFontName = fonts.sans.name;
-                };
-              }
-            )
+            {
+              "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json.template {
+                backgroundColor = osConfig.scheme.withHashtag.base00;
+                fontSize = builtins.floor (self.my.fonts.sizes.terminal * 1.1);
+                monoFontName = "${self.my.fonts.mono.name},Maple Mono NF CN";
+                serifFontName = "Monaspace Xenon Frozen";
+                sansFontName = self.my.fonts.sans.name;
+              };
+            }
 
             (lib.mkIf (languageSnippets != { }) (
               lib.mapAttrs' (

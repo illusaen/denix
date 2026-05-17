@@ -1,4 +1,9 @@
-{ den, lib, ... }:
+{
+  den,
+  lib,
+  self,
+  ...
+}:
 {
   den.aspects.theming.includes = with den.aspects.theming; [ gtk ];
 
@@ -79,10 +84,10 @@
     in
     {
       nixos =
-        { pkgs, config, ... }:
+        { pkgs, ... }:
         let
           gtk = _gtk pkgs;
-          commonSettings = _commonSettings config.my;
+          commonSettings = _commonSettings self.my;
         in
         {
           programs.dconf = {
@@ -140,7 +145,7 @@
 
           gtk = _gtk pkgs;
 
-          commonSettings = _commonSettings osConfig.my;
+          commonSettings = _commonSettings self.my;
 
           bookmarks = [
             "file:///home/${user.name}/Projects"

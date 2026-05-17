@@ -8,7 +8,7 @@ let
 in
 {
   den.aspects.my = {
-    os = {
+    flake-config = {
       options.my = mkSubmoduleOption { };
     };
   };

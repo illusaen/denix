@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   den.aspects.theming.includes = with den.aspects.theming; [ qt ];
 
@@ -28,7 +28,7 @@
         ...
       }:
       let
-        inherit (osConfig.my) fonts;
+        inherit (self.my) fonts;
 
         qtSettingsFile = qtct: {
           "${qtct}/${qtct}.conf".source =
@@ -41,7 +41,7 @@
                   custom_palette = true;
                   standard_dialogs = "xdgdesktopportal";
                   inherit (osConfig.qt) style;
-                  icon_theme = osConfig.my.theming.iconTheme.name;
+                  icon_theme = self.my.theming.iconTheme.name;
                 };
 
                 Fonts = {

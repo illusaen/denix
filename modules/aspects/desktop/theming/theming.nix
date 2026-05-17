@@ -2,6 +2,7 @@
   helpers,
   lib,
   den,
+  inputs,
   ...
 }:
 {
@@ -14,8 +15,10 @@
     };
 
   den.aspects.theming = {
-    os =
+    flake-config =
+      { system, ... }:
       let
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
         inherit (lib) mkOption;
         inherit (helpers) mkThemeType mkSubmoduleOption;
       in
@@ -28,12 +31,7 @@
             type = mkThemeType { hasSize = true; };
           };
         };
-      };
-
-    nixos =
-      { pkgs, ... }:
-      {
-        my.theming = {
+        config.my.theming = {
           iconTheme = {
             name = "Nordic-darker";
             package = pkgs.nordic;
@@ -44,6 +42,11 @@
             size = 28;
           };
         };
+      };
+
+    nixos =
+      { pkgs, ... }:
+      {
         environment.systemPackages = with pkgs; [
           adw-gtk3
           adwaita-qt6
