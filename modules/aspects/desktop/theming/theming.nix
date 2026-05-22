@@ -1,7 +1,6 @@
 {
   lib,
   den,
-  inputs,
   ...
 }:
 {
@@ -17,31 +16,34 @@
     flake-config =
       {
         myLib,
-        system,
         ...
       }:
       let
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
-        inherit (lib) mkOption;
-        inherit (myLib) mkThemeType mkSubmoduleOption;
+        inherit (lib) mkOption types;
+        inherit (myLib) mkSubmoduleOption;
       in
       {
         options.my.theming = mkSubmoduleOption {
           iconTheme = mkOption {
-            type = mkThemeType { };
+            type = types.submodule {
+              options.name = mkOption { type = types.str; };
+            };
           };
-          cursorTheme = mkOption {
-            type = mkThemeType { hasSize = true; };
+          cursorTheme = types.submodule {
+            options = {
+              name = mkOption { type = types.str; };
+              packageName = mkOption { type = types.str; };
+              size = mkOption { type = types.int; };
+            };
           };
         };
         config.my.theming = {
           iconTheme = {
             name = "Nordic-darker";
-            package = pkgs.nordic;
           };
           cursorTheme = {
             name = "Nordic-cursors";
-            package = pkgs.nordic;
+            packageName = "nordic";
             size = 28;
           };
         };

@@ -1,6 +1,5 @@
 {
   den,
-  inputs,
   self,
   ...
 }:
@@ -11,19 +10,21 @@
     flake-config =
       {
         myLib,
-        system,
         lib,
         ...
       }:
       let
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
         inherit (lib)
           mkOption
           types
           ;
-        inherit (myLib) mapListToAttrsWith mkSubmoduleOption mkThemeType;
+        inherit (myLib) mapListToAttrsWith mkSubmoduleOption;
         fontOption = mkOption {
-          type = mkThemeType { };
+          type = types.submodule {
+            options = {
+              name = mkOption { type = types.str; };
+            };
+          };
         };
         sizeOption = mkOption {
           type = types.int;
@@ -40,19 +41,15 @@
         config.my.fonts = {
           sans = {
             name = "Inter";
-            package = pkgs.inter;
           };
           mono = {
             name = "Monaspace Neon NF";
-            package = pkgs.monaspace;
           };
           emoji = {
             name = "Noto Color Emoji";
-            package = pkgs.noto-fonts-color-emoji;
           };
           icon = {
             name = "Material Symbols Outlined";
-            package = pkgs.material-symbols;
           };
           sizes = {
             applications = 12;
@@ -63,24 +60,21 @@
       };
 
     os =
-      { pkgs, lib, ... }:
+      { pkgs, ... }:
       {
-        fonts.packages =
-          (with pkgs; [
-            font-awesome
-            maple-mono.NF-CN-unhinted
-          ])
-          ++ (lib.pipe self.my.fonts [
-            (lib.filterAttrs (_: v: builtins.isAttrs v && builtins.hasAttr "package" v))
-            (lib.mapAttrsToList (_: value: value.package))
-          ]);
+        fonts.packages = with pkgs; [
+          font-awesome
+          maple-mono.NF-CN-unhinted
+          inter
+          monaspace
+          noto-fonts-color-emoji
+          material-symbols
+        ];
       };
-    nixos = _: {
-      fonts.fontconfig.defaultFonts = rec {
-        monospace = [ self.my.fonts.mono.name ];
-        serif = sansSerif;
-        sansSerif = [ self.my.fonts.sans.name ];
-      };
+    nixos.fonts.fontconfig.defaultFonts = rec {
+      monospace = [ self.my.fonts.mono.name ];
+      serif = sansSerif;
+      sansSerif = [ self.my.fonts.sans.name ];
     };
   };
 }
