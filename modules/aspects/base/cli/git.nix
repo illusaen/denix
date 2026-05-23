@@ -1,4 +1,4 @@
-{ den, lib, ... }:
+{ den, ... }:
 {
   den.aspects.base.cli.includes = with den.aspects.base.cli; [ git ];
 
@@ -23,8 +23,29 @@
       };
     };
 
+    wrapper-packages.git =
+      { wlib, ... }:
+      {
+        imports = [ wlib.wrapperModules.git ];
+        settings = {
+          core.sshCommand = "ssh -i /etc/ssh/id_rsa";
+          diff.external = "difft --color auto --background dark --display side-by-side";
+          init.defaultBranch = "main";
+          pull.rebase = true;
+          push.autoSetupRemote = true;
+          user = {
+            email = "jaewchen@gmail.com";
+            name = "Wendy Chen";
+          };
+          credential = {
+            helper = "gh auth git-credential";
+            username = "illusaen";
+          };
+        };
+      };
+
     os =
-      { pkgs, ... }:
+      { pkgs, self', ... }:
       let
         fishGitCloneRepo = pkgs.symlinkJoin {
           name = "fishGitCloneRepo";
@@ -49,11 +70,10 @@
       in
       {
         environment.systemPackages = with pkgs; [
-          git
           difftastic
           fishGitCloneRepo
+          self'.packages.git
         ];
-        environment.etc."gitconfig".source = lib.mkForce ./gitconfig;
       };
   };
 }
