@@ -62,6 +62,7 @@ in
     { host, ... }:
     {
       includes = [ den.batteries.primary-user ];
+      flake-config.my.vars.userName = "wendy";
     }
     // lib.optionalAttrs (host.class == "nixos") {
       user.password = "arst";

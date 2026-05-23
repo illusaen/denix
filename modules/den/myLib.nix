@@ -9,7 +9,8 @@
       {
         options.my = myLib.mkSubmoduleOption {
           vars = myLib.mkSubmoduleOption {
-            username = myLib.mkStrOption "illusaen";
+            userName = myLib.mkStrOption "wendy";
+            accountName = myLib.mkStrOption "illusaen";
             displayName = myLib.mkStrOption "Wendy Chen";
             email = myLib.mkStrOption "jaewchen@gmail.com";
           };

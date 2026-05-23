@@ -8,7 +8,7 @@
 {
   imports = [ wlib.modules.default ];
 
-  options.username = lib.mkOption { type = lib.types.str; };
+  options.accountName = lib.mkOption { type = lib.types.str; };
 
   config = {
     env.GH_CONFIG_DIR = dirOf config.constructFiles.generatedConfig.path;
@@ -25,8 +25,8 @@
           github.com:
             git_protocol: ssh
             users:
-              ${config.username}:
-            user: ${config.username}
+              ${config.accountName}:
+            user: ${config.accountName}
         '';
         relPath = "hosts.yml";
       };

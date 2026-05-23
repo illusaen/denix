@@ -25,7 +25,7 @@
     wrapper-packages.git =
       { wlib, ... }:
       let
-        inherit (self.my.vars) username email displayName;
+        inherit (self.my.vars) accountName email displayName;
       in
       {
         imports = [ wlib.wrapperModules.git ];
@@ -41,7 +41,7 @@
           };
           credential = {
             helper = "gh auth git-credential";
-            inherit username;
+            inherit accountName;
           };
         };
       };

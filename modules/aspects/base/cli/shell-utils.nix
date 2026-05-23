@@ -45,7 +45,7 @@
       fd = ../../../../wrappers/fd.nix;
       gh = {
         imports = [ ../../../../wrappers/gh.nix ];
-        inherit (self.my.vars) username;
+        inherit (self.my.vars) accountName;
       };
     };
 
