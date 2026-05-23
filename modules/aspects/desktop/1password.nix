@@ -3,10 +3,15 @@
   den.aspects.desktop.includes = with den.aspects.desktop; [ onepassword ];
 
   den.aspects.desktop.onepassword = {
-    os = {
-      programs._1password.enable = true;
-      programs._1password-gui.enable = true;
-    };
+    os =
+      { pkgs, ... }:
+      {
+        programs._1password.enable = true;
+        programs._1password-gui = {
+          enable = true;
+          package = pkgs._1password-gui-beta;
+        };
+      };
 
     nixos =
       { host, config, ... }:
