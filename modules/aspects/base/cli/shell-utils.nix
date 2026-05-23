@@ -1,4 +1,4 @@
-{ den, inputs, ... }:
+{ den, self, ... }:
 {
   den.policies.env-to-os =
     { host, ... }:
@@ -40,63 +40,28 @@
       ".local/share/zoxide"
     ];
 
+    wrapper-packages = {
+      eza = ../../../../wrappers/eza.nix;
+      fd = ../../../../wrappers/fd.nix;
+      gh = {
+        imports = [ ../../../../wrappers/gh.nix ];
+        inherit (self.my.vars) username;
+      };
+    };
+
     os =
       {
         pkgs,
         config,
         lib,
+        self',
         ...
       }:
-      let
-        eza-wrapped = inputs.wrappers.lib.wrapPackage (_: {
-          inherit pkgs; # you can only grab the final package if you supply pkgs!
-          package = pkgs.eza;
-          flags = {
-            "--icons" = "auto";
-            "--git" = true;
-          };
-        });
-        fd-wrapped = inputs.wrappers.lib.wrapPackage (_: {
-          inherit pkgs; # you can only grab the final package if you supply pkgs!
-          package = pkgs.fd;
-          flags = {
-            "--hidden" = true;
-            "--follow" = true;
-            "--exclude" = ".git";
-          };
-        });
-        gh-wrapped = inputs.wrappers.lib.wrapPackage (
-          { config, ... }:
-          {
-            inherit pkgs; # you can only grab the final package if you supply pkgs!
-            package = pkgs.gh;
-            env.GH_CONFIG_DIR = dirOf config.constructFiles.generatedConfig.path;
-            constructFiles = {
-              generatedConfig = {
-                content = ''
-                  version: "1"
-                '';
-                relPath = "config.yml";
-              };
-              generatedHosts = {
-                content = ''
-                  github.com:
-                    git_protocol: ssh
-                    users:
-                      illusaen:
-                    user: illusaen
-                '';
-                relPath = "hosts.yml";
-              };
-            };
-          }
-        );
-      in
       {
         environment.systemPackages = with pkgs; [
-          eza-wrapped
-          fd-wrapped
-          gh-wrapped
+          self'.packages.eza
+          self'.packages.fd
+          self'.packages.gh
           zoxide
           coreutils
           vim

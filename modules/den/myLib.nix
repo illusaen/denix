@@ -7,7 +7,13 @@
     flake-config =
       { myLib, ... }:
       {
-        options.my = myLib.mkSubmoduleOption { };
+        options.my = myLib.mkSubmoduleOption {
+          vars = myLib.mkSubmoduleOption {
+            username = myLib.mkStrOption "illusaen";
+            displayName = myLib.mkStrOption "Wendy Chen";
+            email = myLib.mkStrOption "jaewchen@gmail.com";
+          };
+        };
       };
   };
 

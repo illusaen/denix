@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   den.aspects.base.cli.includes = with den.aspects.base.cli; [ git ];
 
@@ -24,6 +24,9 @@
 
     wrapper-packages.git =
       { wlib, ... }:
+      let
+        inherit (self.my.vars) username email displayName;
+      in
       {
         imports = [ wlib.wrapperModules.git ];
         settings = {
@@ -33,12 +36,12 @@
           pull.rebase = true;
           push.autoSetupRemote = true;
           user = {
-            email = "jaewchen@gmail.com";
-            name = "Wendy Chen";
+            inherit email;
+            name = displayName;
           };
           credential = {
             helper = "gh auth git-credential";
-            username = "illusaen";
+            inherit username;
           };
         };
       };
