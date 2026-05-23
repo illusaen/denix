@@ -18,7 +18,6 @@
         gb = "git branch";
         glg = "git log";
         gp = "git push";
-        gpu = "git push -u origin (git rev-parse --abbrev-ref HEAD)";
         gpf = "git push --force-with-lease";
       };
     };
