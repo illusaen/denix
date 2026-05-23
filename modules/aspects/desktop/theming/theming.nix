@@ -29,11 +29,13 @@
               options.name = mkOption { type = types.str; };
             };
           };
-          cursorTheme = types.submodule {
-            options = {
-              name = mkOption { type = types.str; };
-              packageName = mkOption { type = types.str; };
-              size = mkOption { type = types.int; };
+          cursorTheme = mkOption {
+            type = types.submodule {
+              options = {
+                name = mkOption { type = types.str; };
+                packageName = mkOption { type = types.str; };
+                size = mkOption { type = types.int; };
+              };
             };
           };
         };
