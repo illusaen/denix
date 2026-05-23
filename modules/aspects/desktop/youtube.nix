@@ -1,8 +1,8 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [ yt-dlp ];
+  den.aspects.desktop.includes = with den.aspects.desktop; [ youtube ];
 
-  den.aspects.desktop.yt-dlp = {
+  den.aspects.desktop.youtube = {
     wrapper-packages.yt-dlp =
       { wlib, ... }:
       {
@@ -14,9 +14,12 @@
       };
 
     os =
-      { self', ... }:
+      { self', pkgs, ... }:
       {
-        environment.systemPackages = [ self'.packages.yt-dlp ];
+        environment.systemPackages = with pkgs; [
+          self'.packages.yt-dlp
+          ytmdesktop
+        ];
       };
   };
 }
