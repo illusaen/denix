@@ -3,7 +3,6 @@ let
   inherit (lib)
     mkOption
     nameValuePair
-    optionalAttrs
     pipe
     types
     ;
@@ -22,24 +21,6 @@ in
     mkOption {
       type = types.str;
       inherit default;
-    };
-
-  mkThemeType =
-    {
-      hasSize ? false,
-    }:
-    types.submodule {
-      options = {
-        name = mkOption {
-          type = types.str;
-        };
-        package = mkOption {
-          type = types.package;
-        };
-      }
-      // optionalAttrs hasSize {
-        size = mkOption { type = types.int; };
-      };
     };
 
   mapListToAttrsWith =

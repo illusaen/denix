@@ -14,48 +14,22 @@
         ...
       }:
       let
-        inherit (lib)
-          mkOption
-          types
-          ;
-        inherit (myLib) mapListToAttrsWith mkSubmoduleOption;
-        fontOption = mkOption {
-          type = types.submodule {
-            options = {
-              name = mkOption { type = types.str; };
-            };
+        inherit (lib) mkOption types;
+        inherit (myLib) mapListToAttrsWith mkSubmoduleOption mkStrOption;
+        sizeOption =
+          default:
+          mkOption {
+            type = types.int;
+            inherit default;
           };
-        };
-        sizeOption = mkOption {
-          type = types.int;
-        };
       in
       {
-        options.my.fonts = mkSubmoduleOption (
-          mapListToAttrsWith [ "sans" "mono" "emoji" "icon" ] fontOption
-          // {
-            sizes = mkSubmoduleOption (mapListToAttrsWith [ "terminal" "applications" "desktop" ] sizeOption);
-          }
-        );
-
-        config.my.fonts = {
-          sans = {
-            name = "Inter";
-          };
-          mono = {
-            name = "Monaspace Neon NF";
-          };
-          emoji = {
-            name = "Noto Color Emoji";
-          };
-          icon = {
-            name = "Material Symbols Outlined";
-          };
-          sizes = {
-            applications = 12;
-            desktop = 12;
-            terminal = 12;
-          };
+        options.my.fonts = mkSubmoduleOption {
+          sans = mkStrOption "Inter";
+          mono = mkStrOption "Monaspace Neon NF";
+          emoji = mkStrOption "Noto Color Emoji";
+          icon = mkStrOption "Material Symbols Outlined";
+          sizes = mkSubmoduleOption (mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12));
         };
       };
 
@@ -72,9 +46,9 @@
         ];
       };
     nixos.fonts.fontconfig.defaultFonts = rec {
-      monospace = [ self.my.fonts.mono.name ];
+      monospace = [ self.my.fonts.mono ];
       serif = sansSerif;
-      sansSerif = [ self.my.fonts.sans.name ];
+      sansSerif = [ self.my.fonts.sans ];
     };
   };
 }

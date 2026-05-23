@@ -3,6 +3,10 @@
   den.aspects.base.includes = with den.aspects.base; [ networking ];
 
   den.aspects.base.networking = {
+    provides.to-users = {
+      user.extraGroups = [ "systemd-network" ];
+    };
+
     nixos =
       { host, ... }:
       {
@@ -10,14 +14,14 @@
 
         systemd.network = {
           enable = true;
-          networks."10-lan" = {
-            matchConfig = {
-              Name = "eno1";
+          wait-online.enable = false;
+          networks = {
+            "10-lan" = {
+              matchConfig.Name = "eno1";
+              address = [ "${host.ip}/24" ];
+              routes = [ { Gateway = "192.0.1.1"; } ];
+              linkConfig.RequiredForOnline = "routable";
             };
-            networkConfig.DHCP = "ipv4";
-            address = [ "${host.ip}/24" ];
-            routes = [ { Gateway = "192.0.1.1"; } ];
-            linkConfig.RequiredForOnline = "routable";
           };
         };
 

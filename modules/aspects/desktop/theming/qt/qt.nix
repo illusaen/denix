@@ -45,8 +45,8 @@
                 };
 
                 Fonts = {
-                  fixed = ''"${fonts.mono.name},${toString fonts.sizes.applications}"'';
-                  general = ''"${fonts.sans.name},${toString fonts.sizes.applications}"'';
+                  fixed = ''"${fonts.mono},${toString fonts.sizes.applications}"'';
+                  general = ''"${fonts.sans},${toString fonts.sizes.applications}"'';
                 };
               };
         };

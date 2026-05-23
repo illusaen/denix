@@ -75,7 +75,7 @@
 
       _commonSettings = my: {
         font = {
-          inherit (my.fonts.sans) name;
+          name = my.fonts.sans;
           size = my.fonts.sizes.applications;
         };
         inherit (my.theming) iconTheme;

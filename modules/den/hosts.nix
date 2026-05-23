@@ -9,7 +9,7 @@ in
 {
   den.hosts.x86_64-linux.odin = {
     users.wendy = { };
-    ip = "192.168.1.163";
+    ip = "192.168.1.162";
     preservation.disk = "nvme1n1";
   };
   den.hosts.x86_64-linux.thor = {

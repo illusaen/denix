@@ -20,7 +20,7 @@
       {
         imports = [ wlib.wrapperModules.kitty ];
         font = {
-          inherit (fonts.mono) name;
+          name = fonts.mono;
           size = fonts.sizes.terminal;
         };
         settings = {
