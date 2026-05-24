@@ -35,7 +35,6 @@ layout {
         proportion 0.667
     }
     center-focused-column "on-overflow"
-    always-center-single-column
 }
 
 cursor {
@@ -71,11 +70,29 @@ debug {
     wait-for-frame-completion-before-queueing
 }
 
+recent-windows {
+    previews {
+        max-height 1080
+        max-scale 0.75
+    }
+
+    highlight {
+        active-color "@base0E@ff"
+        padding 30
+        corner-radius 12
+    }
+
+    binds {
+        Alt+Tab         { next-window; }
+        Alt+Shift+Tab   { previous-window; }
+        Alt+grave       { next-window     filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
+    }
+}
+
+
+
 include "window-rules.kdl"
 include "layer-rules.kdl"
 include "animations.kdl"
 include "binds.kdl"
-
-include optional=true "dms/alttab.kdl"
-include optional=true "dms/colors.kdl"
-include optional=true "dms/layout.kdl"

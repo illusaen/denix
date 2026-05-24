@@ -41,13 +41,14 @@
         mainMonitor = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
         secondaryMonitor = "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
         inherit (self.my.theming) cursorTheme;
+        inherit (self.my.scheme.withHashtag) base0E;
       in
       {
         xdg.config.files = {
           "niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
             cursorTheme = cursorTheme.name;
             cursorSize = cursorTheme.size;
-            inherit mainMonitor secondaryMonitor;
+            inherit mainMonitor secondaryMonitor base0E;
           };
           "niri/animations.kdl".source = ./animations.kdl;
           "niri/binds.kdl".source = ./binds.kdl;

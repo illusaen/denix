@@ -1,6 +1,7 @@
 window-rule {
-    geometry-corner-radius 8.000000 8.000000 8.000000 8.000000
+    geometry-corner-radius 12
     clip-to-geometry true
+    tiled-state true
     popups {
         opacity 0.85
         background-effect {
