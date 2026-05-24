@@ -13,6 +13,9 @@
         package = llama-cpp;
         # Takes care of downloading if model not present
         modelsPreset = {
+          "*" = {
+            context-shift = true;
+          };
           "Qwen3.5-9B" = {
             hf-repo = "unsloth/Qwen3.5-9B-GGUF";
             hf-file = "Qwen3.5-9B-UD-Q6_K_XL.gguf";
