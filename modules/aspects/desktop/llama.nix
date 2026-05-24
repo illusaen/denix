@@ -20,9 +20,6 @@
             temp = "1.0";
             top-p = "0.95";
             top-k = "20";
-            min_p = "0.0";
-            presence_penalty = "1.5";
-            repetition_penalty = "1.0";
           };
         };
       };
