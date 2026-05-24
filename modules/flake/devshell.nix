@@ -1,6 +1,5 @@
 {
   inputs,
-  den,
   ...
 }:
 {
@@ -105,11 +104,11 @@
 
       devShells.default =
         let
-          denApps = den.lib.nh.denApps {
-            outPrefix = [ ];
-            fromFlake = false;
-          } pkgs;
-
+          buildScript = pkgs.writeShellApplication {
+            name = "nb";
+            runtimeInputs = [ pkgs.nix-output-monitor ];
+            text = builtins.readFile ./build.sh;
+          };
         in
         pkgs.mkShell {
           shellHook = ''
@@ -120,19 +119,18 @@
           inputsFrom = [
             config.treefmt.build.devShell
           ];
-          packages =
-            denApps
-            ++ [
-              opnix
-              link-treefmt-toml
-            ]
-            ++ config.pre-commit.settings.enabledPackages
-            ++ (with pkgs; [
-              nixd
-              npins
-              nh
-              nix-output-monitor
-            ]);
+          packages = [
+            opnix
+            link-treefmt-toml
+            buildScript
+          ]
+          ++ config.pre-commit.settings.enabledPackages
+          ++ (with pkgs; [
+            nixd
+            npins
+            nh
+            nix-output-monitor
+          ]);
         };
     };
 }

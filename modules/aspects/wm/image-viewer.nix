@@ -1,18 +1,20 @@
 { den, lib, ... }:
 {
-  den.aspects.wm.includes = with den.aspects.wm; [ feh ];
+  den.aspects.wm.includes = with den.aspects.wm; [ image-viewer ];
 
-  den.aspects.wm.feh = {
+  den.aspects.wm.image-viewer = {
     nixos =
       { pkgs, ... }:
       {
-        environment.systemPackages = with pkgs; [ feh ];
+        environment.systemPackages = with pkgs; [
+          image-roll
+        ];
       };
 
     provides.to-users.hjem.xdg.mime-apps = {
       default-applications = lib.mkBefore (
         let
-          application = "feh.desktop";
+          application = "com.github.weclaw1.ImageRoll.desktop";
           mimeTypes = [
             "image/bmp"
             "image/gif"

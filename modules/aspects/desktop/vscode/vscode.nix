@@ -140,7 +140,9 @@ in
           (lib.mapAttrs' (
             n: v:
             lib.nameValuePair "${userDir}/profiles/${n}/extensions.json" {
-              source = "${extensionJsonFile n (pkgs.vscode-utils.toExtensionJson v.extensions)}/share/vscode/extensions/extensions.json";
+              source = "${
+                extensionJsonFile n (pkgs.vscode-utils.toExtensionJson (v.extensions ++ profiles.default.extensions))
+              }/share/vscode/extensions/extensions.json";
             }
           ) allProfilesExceptDefault)
 

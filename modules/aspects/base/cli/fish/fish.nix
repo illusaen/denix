@@ -64,7 +64,6 @@
             install -Dm644 ${./mkd.fish} $out/share/fish/vendor_functions.d/mkd.fish
             install -Dm644 ${./e.fish} $out/share/fish/vendor_functions.d/e.fish
             install -Dm644 ${./dev.fish} $out/share/fish/vendor_functions.d/dev.fish
-            install -Dm644 ${./bb.fish} $out/share/fish/vendor_functions.d/bb.fish
 
             runHook postInstall
           '';
