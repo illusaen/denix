@@ -1,4 +1,81 @@
-{ den, self, ... }:
+{
+  den,
+  self,
+  lib,
+  ...
+}:
+let
+  mkProfiles =
+    pkgs:
+    let
+      extensions = import ./_extensions.nix { inherit pkgs; };
+    in
+    lib.pipe extensions [
+      (lib.mapAttrs (
+        n: v: {
+          location = n;
+          icon = "globe";
+          useDefaultFlags = {
+            settings = true;
+            keybindings = true;
+            tasks = true;
+            snippets = true;
+            mcp = true;
+          };
+          extensions = v;
+        }
+      ))
+    ];
+
+  mkUserDir = pkgs: if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
+
+  mkSyncProfilesScript =
+    pkgs:
+    let
+      profiles = removeAttrs (mkProfiles pkgs) [ "default" ];
+      desiredProfilesJson = builtins.toJSON (
+        lib.mapAttrsToList (n: v: {
+          name = n;
+          inherit (v) location useDefaultFlags icon;
+        }) profiles
+      );
+    in
+    pkgs.writeShellScriptBin "sync-vscode-profiles" ''
+      PATH=${lib.makeBinPath [ pkgs.jq ]}''${PATH:+:}$PATH
+      file="$HOME/${mkUserDir pkgs}/globalStorage/storage.json"
+      desired_profiles=${lib.escapeShellArg desiredProfilesJson}
+
+      if [ ! -f "$file" ]; then
+        mkdir -p "$(dirname "$file")"
+        echo "{}" > "$file"
+      fi
+
+      jq --argjson desired_profiles "$desired_profiles" '
+        .userDataProfiles = (
+          (.userDataProfiles // []) as $current
+          | reduce $desired_profiles[] as $profile ($current;
+              if any(.[]; .name == $profile.name) then
+                map(
+                  if .name == $profile.name then
+                    . + {
+                      location: $profile.location,
+                      useDefaultFlags: $profile.useDefaultFlags,
+                      icon: $profile.icon
+                    }
+                  else
+                    .
+                  end
+                )
+              else
+                . + [$profile]
+              end
+            )
+        )
+      ' "$file" > "$file.tmp"
+
+      mv "$file.tmp" "$file"
+    '';
+in
 {
   den.aspects.desktop.includes = with den.aspects.desktop; [ vscode ];
 
@@ -6,7 +83,10 @@
     os =
       { pkgs, ... }:
       {
-        environment.systemPackages = with pkgs; [ vscode ];
+        environment.systemPackages = [
+          pkgs.vscode
+          (mkSyncProfilesScript pkgs)
+        ];
       };
 
     provides.to-users.persistUser.directories = [
@@ -21,7 +101,6 @@
         ...
       }:
       let
-        extensions = import ./_extensions.nix { inherit pkgs; };
         extensionJsonFile =
           name: text:
           pkgs.writeTextFile {
@@ -30,8 +109,11 @@
             destination = "/share/vscode/extensions/extensions.json";
           };
 
-        profiles = { inherit (extensions) web rust; };
-        userDir = if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
+        userDir = mkUserDir pkgs;
+        syncProfilesScript = mkSyncProfilesScript pkgs;
+
+        profiles = mkProfiles pkgs;
+        allProfilesExceptDefault = removeAttrs profiles [ "default" ];
 
         generatedFiles = lib.flatten [
           {
@@ -58,9 +140,9 @@
           (lib.mapAttrs' (
             n: v:
             lib.nameValuePair "${userDir}/profiles/${n}/extensions.json" {
-              source = "${extensionJsonFile n (pkgs.vscode-utils.toExtensionJson v)}/share/vscode/extensions/extensions.json";
+              source = "${extensionJsonFile n (pkgs.vscode-utils.toExtensionJson v.extensions)}/share/vscode/extensions/extensions.json";
             }
-          ) profiles)
+          ) allProfilesExceptDefault)
 
           {
             ".vscode/extensions" = {
@@ -69,12 +151,12 @@
                   combinedExtensionsDrv = pkgs.buildEnv {
                     name = "vscode-extensions";
                     paths =
-                      (lib.pipe extensions [
+                      (lib.pipe profiles [
                         (lib.collect builtins.isList)
                         lib.flatten
                       ])
                       ++ [
-                        (extensionJsonFile "default" (pkgs.vscode-utils.toExtensionJson extensions.default))
+                        (extensionJsonFile "default" (pkgs.vscode-utils.toExtensionJson profiles.default.extensions))
                       ];
                   };
                 in
@@ -85,6 +167,18 @@
       in
       {
         files = lib.mkMerge generatedFiles;
+        systemd.services.sync-vscode-profiles = {
+          description = "Sync VS Code profile registry";
+          after = [ "local-fs.target" ];
+          wantedBy = [
+            "sysinit-reactivation.target"
+            "multi-user.target"
+          ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = lib.getExe syncProfilesScript;
+          };
+        };
       };
   };
 }

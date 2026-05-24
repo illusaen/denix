@@ -51,6 +51,8 @@ window-rule {
 
 window-rule {
     match app-id="mpv"
+    match app-id="youtube-music-desktop-app"
+    default-column-width { proportion 0.75; }
     open-on-workspace "music"
 }
 
