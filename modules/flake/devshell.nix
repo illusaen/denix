@@ -131,6 +131,7 @@
               nixd
               npins
               nh
+              nix-output-monitor
             ]);
         };
     };
