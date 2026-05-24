@@ -18,11 +18,13 @@
           };
           "Qwen3.5-9B" = {
             hf-repo = "unsloth/Qwen3.5-9B-GGUF";
-            hf-file = "Qwen3.5-9B-UD-Q6_K_XL.gguf";
+            hf-file = "Qwen3.5-9B-UD-Q4_K_XL.gguf";
             alias = "unsloth/Qwen3.5-9B";
             temp = "1.0";
             top-p = "0.95";
             top-k = "20";
+            presence-penalty = "1.5";
+            repeat-penalty = "1.0";
           };
         };
       };
