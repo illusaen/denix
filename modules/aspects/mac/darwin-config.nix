@@ -15,6 +15,11 @@
             CustomUserPreferences = {
               "com.apple.desktopservices".DSDontWriteNetworkStores = true;
               "com.apple.desktopservices".DSDontWriteUSBStores = true;
+              "com.apple.symbolichotkeys" = {
+                AppleSymbolicHotKeys = {
+
+                };
+              };
             };
 
             NSGlobalDomain = {

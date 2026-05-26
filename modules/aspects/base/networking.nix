@@ -3,10 +3,6 @@
   den.aspects.base.includes = with den.aspects.base; [ networking ];
 
   den.aspects.base.networking = {
-    provides.to-users = {
-      user.extraGroups = [ "systemd-network" ];
-    };
-
     nixos =
       { host, ... }:
       {

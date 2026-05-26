@@ -169,6 +169,8 @@ in
       in
       {
         files = lib.mkMerge generatedFiles;
+      }
+      // lib.optionalAttrs pkgs.stdenv.isLinux {
         systemd.services.sync-vscode-profiles = {
           description = "Sync VS Code profile registry";
           after = [ "local-fs.target" ];

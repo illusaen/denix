@@ -9,7 +9,7 @@
   den.aspects.base.cli.bat = {
     wrapper-packages.bat = {
       imports = [ ../../../../wrappers/bat/bat.nix ];
-      inherit (self.my) scheme;
+      renderScheme = self.my.scheme.render;
     };
 
     os =
