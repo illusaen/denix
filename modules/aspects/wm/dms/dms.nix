@@ -37,11 +37,14 @@
       security.pam.u2f.enable = true;
     };
 
-    provides.to-users.hjem = {
-      xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = self.my.scheme {
-        template = ./dms-theme.json.mustache;
-        extension = "json";
+    provides.to-users.hjem =
+      { pkgs, lib, ... }:
+      {
+        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = self.my.scheme.render {
+          inherit pkgs lib;
+          template = ./dms-theme.json.mustache;
+          extension = "json";
+        };
       };
-    };
   };
 }

@@ -11,7 +11,8 @@
     wrapper-packages.kitty =
       { pkgs, wlib, ... }:
       let
-        kitty-theme = self.my.scheme {
+        kitty-theme = self.my.scheme.render {
+          inherit pkgs lib;
           template = ./kitty-theme.conf.mustache;
           extension = "conf";
         };

@@ -135,7 +135,8 @@
           '';
           gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
             cat ${
-              self.my.scheme {
+              self.my.scheme.render {
+                inherit pkgs lib;
                 template = ./gtk.css.mustache;
                 extension = ".css";
               }
