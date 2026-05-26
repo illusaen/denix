@@ -85,6 +85,7 @@
           };
           casks = [
             "raindropio"
+            "colemak-dh"
           ];
         };
       };

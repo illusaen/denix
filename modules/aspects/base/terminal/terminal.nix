@@ -17,6 +17,7 @@
           extension = "conf";
         };
         inherit (self.my) fonts;
+        inherit (pkgs.stdenv) isDarwin;
       in
       {
         imports = [ wlib.wrapperModules.kitty ];
@@ -44,18 +45,23 @@
           # Shell integration is sourced and configured manually
           shell_integration no-rc
           include themes/cosmic.conf
+        ''
+        + lib.optionalString isDarwin ''
+          font_family family="${fonts.mono}" postscript_name=MonaspaceNeonNF-Regular
         '';
         constructFiles = {
-          "quick-access-terminal.conf" = {
+          generatedQuickAccessTerminalConfig = {
             relPath = "quick-access-terminal.conf";
             content = ''
               hide_on_focus_loss yes
-              lines 48
+              lines 30
+            ''
+            + lib.optionalString (!isDarwin) ''
               margin_left 1600
               margin_right 1600
             '';
           };
-          "cosmic.conf" = {
+          generatedTheme = {
             relPath = "themes/cosmic.conf";
             builder = ''
               mkdir -p "$(dirname "$2")"
@@ -71,12 +77,29 @@
         };
       };
 
-    os =
+    nixos =
       { self', ... }:
       {
         environment.systemPackages = [
           self'.packages.kitty
         ];
+      };
+
+    darwin.homebrew.casks = [ "kitty" ];
+    provides.to-users.hjem =
+      {
+        lib,
+        pkgs,
+        self',
+        ...
+      }:
+      lib.optionalAttrs pkgs.stdenv.isDarwin {
+        xdg.config.files = {
+          "kitty/kitty.conf".source = "${self'.packages.kitty.configuration.constructFiles.kittyConfig}";
+          "kitty/quick-access-terminal.conf".source =
+            "${self'.packages.kitty.configuration.constructFiles.generatedQuickAccessTerminalConfig}";
+          "kitty/themes/cosmic.conf".source = "${self'.packages.kitty.configuration.constructFiles.generatedTheme}";
+        };
       };
   };
 }
