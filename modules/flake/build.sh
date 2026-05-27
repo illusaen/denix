@@ -31,13 +31,15 @@ fi
 HOSTS=()
 HOST_SYSTEMS=()
 for h in "${HOST_NAMES[@]}"; do
-    HOST_SYSTEM=$(nix eval --raw ".#hosts.$h.system" 2>/dev/null || echo "x86_64-linux")
-    HOST_SYSTEMS+=("$HOST_SYSTEM")
-    if [[ "$HOST_SYSTEM" == *darwin* ]]; then
+    if HOST_SYSTEM=$(nix eval --raw ".#nixosConfigurations.$h.pkgs.stdenv.hostPlatform.system" 2>/dev/null); then
+    HOSTS+=(".#nixosConfigurations.$h.config.system.build.toplevel")
+    elif HOST_SYSTEM=$(nix eval --raw ".#darwinConfigurations.$h.pkgs.stdenv.hostPlatform.system" 2>/dev/null); then
     HOSTS+=(".#darwinConfigurations.$h.config.system.build.toplevel")
     else
-    HOSTS+=(".#nixosConfigurations.$h.config.system.build.toplevel")
+    echo "error: host '$h' was not found in nixosConfigurations or darwinConfigurations" >&2
+    exit 1
     fi
+    HOST_SYSTEMS+=("$HOST_SYSTEM")
 done
 
 nom build --keep-going --no-link --print-out-paths --show-trace "${OPTIONS[@]}" "${HOSTS[@]}"

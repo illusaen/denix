@@ -64,7 +64,12 @@ workspace "music" {
 }
 workspace "chat" { open-on-output "@mainMonitor@"; }
 workspace "code" { open-on-output "@mainMonitor@"; }
-workspace "gaming" { open-on-output "@mainMonitor@"; }
+workspace "gaming" { 
+    layout {
+        always-center-single-column
+    }
+    open-on-output "@mainMonitor@"
+}
 
 debug {
     wait-for-frame-completion-before-queueing
@@ -89,8 +94,6 @@ recent-windows {
         Alt+Shift+grave { previous-window filter="app-id"; }
     }
 }
-
-
 
 include "window-rules.kdl"
 include "layer-rules.kdl"

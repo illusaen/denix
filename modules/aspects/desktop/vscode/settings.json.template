@@ -117,6 +117,5 @@
   "workbench.colorTheme": "Catppuccin Macchiato",
   "workbench.iconTheme": "catppuccin-macchiato",
   "workbench.panel.defaultLocation": "right",
-  "workbench.sideBar.location": "right",
   "workbench.startupEditor": "none"
 }
