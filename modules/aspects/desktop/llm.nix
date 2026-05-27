@@ -1,13 +1,16 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.desktop.llama ];
-  den.aspects.desktop.llama.nixos =
+  den.aspects.desktop.includes = [ den.aspects.desktop.llm ];
+  den.aspects.desktop.llm.nixos =
     { pkgs, ... }:
     let
       llama-cpp = pkgs.llama-cpp.override { cudaSupport = true; };
     in
     {
-      environment.systemPackages = [ llama-cpp ];
+      environment.systemPackages = with pkgs; [
+        llama-cpp
+        codex
+      ];
       services.llama-cpp = {
         enable = true;
         package = llama-cpp;
