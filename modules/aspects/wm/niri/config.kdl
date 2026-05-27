@@ -9,9 +9,9 @@ output "@mainMonitor@" {
     mode "5120x2160@100.035"
 }
 output "@secondaryMonitor@" {
-    scale 1.250000
-    transform "normal"
-    position x=922 y=-1728
+    scale 1
+    transform "90"
+    position x=-1080 y=120
 }
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"

@@ -39,7 +39,7 @@
       { pkgs, ... }:
       let
         mainMonitor = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
-        secondaryMonitor = "Philips Consumer Electronics Company PHL 288E2 UK52215001852";
+        secondaryMonitor = "BOE Display 000000001";
         inherit (self.my.theming) cursorTheme;
         inherit (self.my.scheme.withHashtag) base0E;
       in

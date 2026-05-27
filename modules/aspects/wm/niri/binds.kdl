@@ -6,11 +6,15 @@ binds {
     Mod+Ctrl+Space hotkey-overlay-title="Power Menu" { spawn-sh "dms ipc call powermenu toggle"; }
     Ctrl+Alt+Space hotkey-overlay-title="Clipboard" { spawn-sh "dms ipc call clipboard toggle"; }
     Mod+C { expand-column-to-available-width; }
+    Mod+Ctrl+Shift+Q hotkey-overlay-title="Kill Wine" { spawn-sh "pkill -9 winedevice.exe"; }
     Mod+Ctrl+Down { focus-monitor-down; }
     Mod+Ctrl+Shift+Down { move-window-to-monitor-down; }
-    Mod+Ctrl+Shift+Q hotkey-overlay-title="Kill Wine" { spawn-sh "pkill -9 winedevice.exe"; }
     Mod+Ctrl+Shift+Up { move-window-to-monitor-up; }
     Mod+Ctrl+Up { focus-monitor-up; }
+    Mod+Ctrl+Shift+Left { move-window-to-monitor-left; }
+    Mod+Ctrl+Left { focus-monitor-left; }
+    Mod+Ctrl+Shift+Right { move-window-to-monitor-right; }
+    Mod+Ctrl+Right { focus-monitor-right; }
     Mod+Down { focus-workspace-down; }
     Mod+Escape hotkey-overlay-title="Keybinds" { spawn-sh "dms ipc call keybinds open niri"; }
     Mod+F { maximize-column; }
