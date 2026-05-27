@@ -1,5 +1,5 @@
 function e
-    for editor in zeditor antigravity code vim
+    for editor in code nvim vim
         if type -q $editor
             $editor $argv
             return

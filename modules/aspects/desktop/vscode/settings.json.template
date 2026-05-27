@@ -2,6 +2,7 @@
   "chat.editor.fontFamily": "@monoFontName@",
   "chat.editor.fontSize": @fontSize@,
   "chat.fontFamily": "@sansFontName@",
+  "chat.mcp.gallery.enabled": true,
   "debug.console.fontFamily": "@monoFontName@",
   "debug.console.fontSize": @fontSize@,
   "direnv.restart.automatic": true,
