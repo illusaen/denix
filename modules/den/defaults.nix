@@ -1,6 +1,7 @@
 {
   lib,
   den,
+  inputs,
   ...
 }:
 let
@@ -8,6 +9,8 @@ let
   inherit (myLib) mkSubmoduleOption mkStrOption;
 in
 {
+  imports = [ inputs.den.flakeModule ];
+
   den.default = {
     includes = [
       den.batteries.inputs'

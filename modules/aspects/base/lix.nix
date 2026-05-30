@@ -1,0 +1,22 @@
+{ den, ... }:
+{
+  den.aspects.base.includes = [ den.aspects.base.lix ];
+  den.aspects.base.lix = {
+    os =
+      { pkgs, ... }:
+      {
+        nixpkgs.overlays = [
+          (final: prev: {
+            inherit (prev.lixPackageSets.latest)
+              nixpkgs-review
+              nix-eval-jobs
+              nix-fast-build
+              colmena
+              ;
+          })
+        ];
+
+        nix.package = pkgs.lixPackageSets.latest.lix;
+      };
+  };
+}
