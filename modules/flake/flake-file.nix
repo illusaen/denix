@@ -30,6 +30,8 @@
         "nix-command"
       ];
 
+      extra-deprecated-features = [ "or-as-identifier" ];
+
       lazy-trees = true;
       use-xdg-base-directories = true;
     };
@@ -40,14 +42,15 @@
       import-tree.url = "github:denful/import-tree";
       flake-parts.url = "github:hercules-ci/flake-parts";
 
-      nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+      nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
       darwin = {
         url = "github:nix-darwin/nix-darwin/master";
-        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
       hjem = {
         url = "github:feel-co/hjem";
-        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
     };
 

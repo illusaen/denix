@@ -16,7 +16,7 @@
           inherit (self.my) fonts;
         in
         {
-          imports = [ ../../../wrappers/kitty/kitty.nix ];
+          imports = [ ../../../../wrappers/kitty/kitty.nix ];
           font = {
             name = fonts.mono;
             size = fonts.sizes.terminal;

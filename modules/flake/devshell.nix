@@ -5,7 +5,7 @@
 {
   flake-file.inputs.devshell = {
     url = "github:numtide/devshell";
-    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   imports = [

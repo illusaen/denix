@@ -25,9 +25,5 @@
         environment.systemPackages = [ switcher ];
         hardware.i2c.enable = true;
       };
-
-    provides.to-users = {
-      user.extraGroups = [ "i2c" ];
-    };
   };
 }

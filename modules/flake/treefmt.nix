@@ -15,6 +15,7 @@
     {
       treefmt = {
         projectRootFile = ".git/config";
+        flakeCheck = false;
         programs = {
           fish_indent.enable = true;
           nixfmt.enable = true;

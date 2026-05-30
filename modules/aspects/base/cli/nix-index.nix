@@ -2,7 +2,7 @@
 {
   flake-file.inputs = {
     nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   den.aspects.base.cli.includes = with den.aspects.base.cli; [ nix-index ];

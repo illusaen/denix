@@ -2,23 +2,37 @@
 let
   _disko =
     host:
-    (import ../aspects/nix/boot/_disko.nix {
+    (import ../../aspects/nix/boot/_disko.nix {
       inherit (host.preservation) disk persistMount rollbackSnapshot;
     });
 in
 {
   den.hosts.x86_64-linux.odin = {
-    users.wendy = { };
-    ip = "192.168.1.162";
     preservation.disk = "nvme1n1";
+
+    channel = "nixpkgs-unstable";
+    environment = "dev";
+    system-owner = "wendy";
+    system-access-groups = [
+      "workstation-access"
+      "system-access"
+    ];
   };
+
   den.hosts.x86_64-linux.thor = {
-    users.wendy = { };
-    ip = "192.168.1.164";
     preservation.disk = "nvme1n1";
+
+    channel = "nixpkgs-unstable";
+    environment = "dev";
+    system-owner = "wendy";
+    system-access-groups = [ "workstation-access" ];
   };
+
   den.hosts.aarch64-darwin.idunn = {
-    users.wendy = { };
+    channel = "nixpkgs-unstable";
+    environment = "dev";
+    system-owner = "wendy";
+    system-access-groups = [ "workstation-access" ];
   };
 
   # Main PC
@@ -61,7 +75,7 @@ in
   den.aspects.wendy =
     { host, ... }:
     {
-      includes = [ den.batteries.primary-user ];
+      includes = [ ];
       flake-config.my.vars.userName = "wendy";
     }
     // lib.optionalAttrs (host.class == "nixos") {
