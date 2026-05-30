@@ -1,6 +1,7 @@
+{ self, ... }:
 {
   den.aspects.base.terminal.kitty =
-    { self, ... }:
+
     {
       nixos =
         { self', ... }:

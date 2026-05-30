@@ -3,3 +3,4 @@ result*
 .pre-commit-config.yaml
 .env
 treefmt.toml
+.ruff_cache

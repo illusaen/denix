@@ -73,7 +73,7 @@
             disabled = false;
             format = "[󰎙 $version  ](fg:bright-green)";
           };
-          python.format = "[ $version (\($virtualenv\))  ](fg:foreground)";
+          python.format = "[ $version (($virtualenv))  ](fg:foreground)";
           time = {
             disabled = false;
             format = "[$time](fg:foreground)";
