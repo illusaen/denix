@@ -111,7 +111,10 @@
                     "cursor-theme" = settingsGtk."gtk-cursor-theme-name" or null;
                     "cursor-size" = lib.gvariant.mkUint32 (settingsGtk."gtk-cursor-theme-size" or null);
                     "color-scheme" =
-                      if settings ? colorScheme && settings.colorScheme != null then "prefer-${settings.colorScheme}" else null;
+                      if settings ? colorScheme && settings.colorScheme != null then
+                        "prefer-${settings.colorScheme}"
+                      else
+                        null;
                   };
               }
             ];

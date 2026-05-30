@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from subprocess import run
 from argparse import ArgumentParser
-from json import dumps
 
 """
 dconf-to-nixos
@@ -51,11 +50,10 @@ DCONF_SETTINGS
   ];
 }"""
 
+
 def _run(command):
-    return run(command,
-        encoding="UTF-8",
-        capture_output=True,
-        shell=True).stdout
+    return run(command, encoding="UTF-8", capture_output=True, shell=True).stdout
+
 
 def dconf_read_recursive(dconf_dir, output_entries={}):
     """
@@ -66,9 +64,8 @@ def dconf_read_recursive(dconf_dir, output_entries={}):
       }
     }
     """
-    dir_entries = _run("dconf list " + dconf_dir)\
-        .split("\n")
-    
+    dir_entries = _run("dconf list " + dconf_dir).split("\n")
+
     for key in dir_entries:
         if key == "":
             continue
@@ -80,6 +77,7 @@ def dconf_read_recursive(dconf_dir, output_entries={}):
                 output_entries[dconf_dir] = dict()
             output_entries[dconf_dir][key] = value
     return output_entries
+
 
 def dconf_read_output_to_nix(dconf_settings):
     settings = ""
@@ -97,17 +95,18 @@ def dconf_read_output_to_nix(dconf_settings):
             if value not in ["true", "false"]:
                 value = value.replace("'", '"')
 
-            settings += f'          {key} = {value};\n'
+            settings += f"          {key} = {value};\n"
 
         settings += "        };"
     settings = template.replace("DCONF_SETTINGS", settings)
     return settings
 
+
 if __name__ == "__main__":
     parser = ArgumentParser(
         prog="dconf-to-nixos",
         description="Turn a dconf directory into declarative NixOS settings",
-        usage="./dconf-to-nixos /org/nemo/preferences/"
+        usage="./dconf-to-nixos /org/nemo/preferences/",
     )
     parser.add_argument("DCONF_DIR", help="Example: /org/nemo/preferences/")
     args = parser.parse_args()

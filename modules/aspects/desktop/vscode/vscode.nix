@@ -27,7 +27,8 @@ let
       ))
     ];
 
-  mkUserDir = pkgs: if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
+  mkUserDir =
+    pkgs: if pkgs.stdenv.isDarwin then "Library/Application Support/Code/User" else ".config/Code/User";
 
   mkSyncProfilesScript =
     pkgs:
@@ -141,7 +142,9 @@ in
             n: v:
             lib.nameValuePair "${userDir}/profiles/${n}/extensions.json" {
               source = "${
-                extensionJsonFile n (pkgs.vscode-utils.toExtensionJson (v.extensions ++ profiles.default.extensions))
+                extensionJsonFile n (
+                  pkgs.vscode-utils.toExtensionJson (v.extensions ++ profiles.default.extensions)
+                )
               }/share/vscode/extensions/extensions.json";
             }
           ) allProfilesExceptDefault)

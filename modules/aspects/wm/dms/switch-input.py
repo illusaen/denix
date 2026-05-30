@@ -24,8 +24,8 @@ import sys
 INPUTS = {
     "hdmi1": 0x90,
     "hdmi2": 0x91,
-    "dp":    0xD0,
-    "usbc":  0xD1,
+    "dp": 0xD0,
+    "usbc": 0xD1,
 }
 
 
@@ -44,8 +44,13 @@ def find_lg_bus():
 def send(bus, lo):
     reg, p0, p1, vcp, hi = 0x50, 0x84, 0x03, 0xF4, 0x00
     chk = 0x6E ^ reg ^ p0 ^ p1 ^ vcp ^ hi ^ lo
-    cmd = ["i2ctransfer", "-y", str(bus), "w7@0x37",
-           *[f"0x{b:02X}" for b in [reg, p0, p1, vcp, hi, lo, chk]]]
+    cmd = [
+        "i2ctransfer",
+        "-y",
+        str(bus),
+        "w7@0x37",
+        *[f"0x{b:02X}" for b in [reg, p0, p1, vcp, hi, lo, chk]],
+    ]
     subprocess.run(cmd, check=True)
 
 

@@ -29,7 +29,9 @@
           mono = mkStrOption "Monaspace Neon NF";
           emoji = mkStrOption "Noto Color Emoji";
           icon = mkStrOption "Material Symbols Outlined";
-          sizes = mkSubmoduleOption (mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12));
+          sizes = mkSubmoduleOption (
+            mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12)
+          );
         };
       };
 

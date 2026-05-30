@@ -107,7 +107,10 @@
               name: value:
               lib.nameValuePair "${configDir}/vesktop/themes/${name}.css" {
                 source =
-                  if builtins.isPath value || lib.isStorePath value then value else pkgs.writeText "vesktop-themes-${name}" value;
+                  if builtins.isPath value || lib.isStorePath value then
+                    value
+                  else
+                    pkgs.writeText "vesktop-themes-${name}" value;
               }
             ) settings.themes)
           ]

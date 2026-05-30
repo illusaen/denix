@@ -16,7 +16,9 @@
     nixos =
       { host, config, ... }:
       {
-        programs._1password-gui.polkitPolicyOwners = lib.mapAttrsToList (_: value: value.userName) host.users;
+        programs._1password-gui.polkitPolicyOwners = lib.mapAttrsToList (
+          _: value: value.userName
+        ) host.users;
 
         systemd.user.services.onepassword = {
           wantedBy = [ "graphical-session.target" ];

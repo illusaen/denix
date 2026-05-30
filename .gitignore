@@ -1,5 +1,5 @@
 .direnv
-result
+result*
 .pre-commit-config.yaml
 .env
 treefmt.toml

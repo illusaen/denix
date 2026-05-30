@@ -30,6 +30,10 @@
             help = "Explain why two Nix derivations differ";
           }
           {
+            package = pkgs.nix-fast-build;
+            help = "Build all attributes in .#checks.$currentSystem";
+          }
+          {
             package = config.packages.nix-build;
             name = "nix-build";
             help = "Build a host configuration with nb";
