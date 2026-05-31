@@ -1,7 +1,5 @@
-{ den, lib, ... }:
+{ lib, ... }:
 {
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ starship ];
-
   den.aspects.base.cli.starship = {
     wrapper-packages.starship =
       { wlib, ... }:

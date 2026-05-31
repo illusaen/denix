@@ -20,21 +20,8 @@
   den.schema.host.includes = [ den.policies.env-to-os ];
   den.classes.env.description = "Environment variables class";
 
-  den.aspects.base.includes = [ den.aspects.base.cli ];
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ shell-utils ];
-
   den.aspects.base.cli.shell-utils = {
     env.NIX_CONF = "~/Projects/denix";
-
-    shell = {
-      shellAliases = {
-        l = "eza -alg";
-        ll = "eza --tree --git-ignore --all";
-      };
-      interactiveShellInit = ''
-        eval (zoxide init fish --cmd n | source)
-      '';
-    };
 
     provides.to-users.persistUser.directories = [
       ".local/share/zoxide"
@@ -42,11 +29,14 @@
 
     wrapper-packages =
       { host, ... }:
+      let
+        wrapperDirectory = rootPath + "/wrappers";
+      in
       {
-        eza = rootPath + /wrappers/eza.nix;
-        fd = rootPath + /wrappers/fd.nix;
+        eza = wrapperDirectory + /eza.nix;
+        fd = wrapperDirectory + /fd.nix;
         gh = {
-          imports = [ (rootPath + /wrappers/gh.nix) ];
+          imports = [ (wrapperDirectory + /gh.nix) ];
           inherit (den.users.registry.${host.system-owner}.identity) accountName;
         };
       };
@@ -69,6 +59,14 @@
           vim
           fzf
         ];
+
+        environment.shellAliases = {
+          l = "eza -alg";
+          ll = "eza --tree --git-ignore --all";
+        };
+        environment.shellInit = ''
+          eval (zoxide init fish --cmd n | source)
+        '';
 
         environment.etc."dependencies.txt".text = lib.pipe config.environment.systemPackages (
           with builtins;

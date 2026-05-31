@@ -1,17 +1,10 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
-
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ opnix ];
 
   den.aspects.base.cli.opnix = {
     nixos = {
       imports = [ inputs.opnix.nixosModules.default ];
-      # users.users = builtins.mapAttrs (_: _: {
-      #   extraGroups = [
-      #     "onepassword-secrets"
-      #   ];
-      # }) host.users;
     };
 
     darwin = {

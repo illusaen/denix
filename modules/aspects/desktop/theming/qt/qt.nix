@@ -1,7 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.theming.includes = with den.aspects.theming; [ qt ];
-
   den.aspects.theming.qt = {
     nixos =
       { pkgs, ... }:

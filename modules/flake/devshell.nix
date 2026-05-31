@@ -34,6 +34,10 @@
             help = "Build all attributes in .#checks.$currentSystem";
           }
           {
+            package = pkgs.nix-output-monitor;
+            help = "nom builder";
+          }
+          {
             package = config.packages.nix-build;
             name = "nix-build";
             help = "Build a host configuration with nb";

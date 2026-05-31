@@ -1,30 +1,7 @@
-{ den, ... }:
 {
-  den.policies.shell-to-fish =
-    { host, ... }:
-    (den.lib.policy.route {
-      fromClass = "shell";
-      intoClass = host.class;
-      path = [
-        "programs"
-        "fish"
-      ];
-    });
-
-  den.schema.host.includes = [ den.policies.shell-to-fish ];
-  den.classes.shell.description = "Shell configuration class";
-
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ fish ];
-
   den.aspects.base.cli.fish = {
     env.EDITOR = "vim";
     provides.to-users.persistUser.directories = [ ".local/share/fish" ];
-
-    shell = {
-      interactiveShellInit = ''
-        set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
-      '';
-    };
 
     os =
       {
@@ -44,6 +21,7 @@
           enable = true;
           interactiveShellInit = ''
             set -g fish_greeting ""
+            set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
           '';
         };
 

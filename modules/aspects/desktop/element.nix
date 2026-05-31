@@ -1,7 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [ element ];
-
   den.aspects.desktop.element = {
     provides.to-users.persistUser.directories = [
       ".config/Element"

@@ -1,7 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [ youtube ];
-
   den.aspects.desktop.youtube = {
     provides.to-users.persistUser.directories = [ ".config/YouTube Music Desktop App" ];
 

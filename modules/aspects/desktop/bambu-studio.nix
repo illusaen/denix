@@ -1,7 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [ bambu-studio ];
-
   den.aspects.desktop.bambu-studio = {
     nixos = {
       # Forced to use flatpak until login issue fixed

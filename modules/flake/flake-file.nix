@@ -41,6 +41,7 @@
       flake-file.url = "github:denful/flake-file";
       import-tree.url = "github:denful/import-tree";
       flake-parts.url = "github:hercules-ci/flake-parts";
+      files.url = "github:mightyiam/files";
 
       nixpkgs-master.url = "github:NixOS/nixpkgs/master";
       nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

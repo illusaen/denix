@@ -1,6 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [ word ];
   den.aspects.desktop.word = {
     nixos =
       { pkgs, ... }:

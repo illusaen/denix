@@ -23,8 +23,7 @@ let
   # Channel → nixpkgs input mapping.  Duplicates the table in host.nix but
   # avoids touching self.nixosConfigurations (which forces full host eval).
   channelNixpkgs = {
-    inherit (inputs) nixpkgs-unstable;
-    inherit (inputs) nixpkgs-master;
+    inherit (inputs) nixpkgs-unstable nixpkgs-master;
   };
 
   hiveConfig =
@@ -70,7 +69,7 @@ let
         # nixpkgsModule double-applying overlays/config.
         nodeNixpkgs = lib.mapAttrs (
           _: host:
-          import channelNixpkgs.${host.channel or "nixos-unstable"} {
+          import channelNixpkgs.${host.channel or "nixpkgs-unstable"} {
             inherit (host) system;
           }
         ) allHosts;
@@ -109,11 +108,9 @@ in
   # Emit colmena CLI into devshell via class routing
   den.aspects.devshell.colmena = {
     devshell =
-      { inputs', pkgs, ... }:
+      { inputs', ... }:
       let
-        colmena = inputs'.colmena.packages.colmena.override {
-          nix-eval-jobs = pkgs.lixPackageSets.latest.nix-eval-jobs;
-        };
+        colmena = inputs'.colmena.packages.colmena;
       in
       {
         packages = [ colmena ];

@@ -1,11 +1,9 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs = {
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
-
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ nix-index ];
 
   den.aspects.base.cli.nix-index = {
     os.programs.nix-index-database.comma.enable = true;

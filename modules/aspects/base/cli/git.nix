@@ -3,16 +3,7 @@ let
   identity = owner: den.users.registry.${owner}.identity;
 in
 {
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ git ];
-
   den.aspects.base.cli.git = {
-    shell = {
-      interactiveShellInit = ''
-        abbr -a gcm --set-cursor 'git commit -m "%"'
-        abbr -a git_clone_own_repo --set-cursor --regex "^g(gc|r)l\$" --function _git_clone_repo
-      '';
-    };
-
     wrapper-packages =
       { host, ... }:
       {
@@ -83,6 +74,10 @@ in
           gp = "git push";
           gpf = "git push --force-with-lease";
         };
+        programs.fish.interactiveShellInit = ''
+          abbr -a gcm --set-cursor 'git commit -m "%"'
+          abbr -a git_clone_own_repo --set-cursor --regex "^g(gc|r)l\$" --function _git_clone_repo
+        '';
         environment.systemPackages = with pkgs; [
           difftastic
           fishGitCloneRepo

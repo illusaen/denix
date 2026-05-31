@@ -69,16 +69,16 @@ in
 
     includes = with den.aspects; [
       nvidia
-      desktop
       nix
       wm
+      roles.desktop
     ];
   };
 
   # Macbook
   den.aspects.idunn.includes = with den.aspects; [
-    desktop
     mac
+    roles.desktop
   ];
 
   # Seedbox server and Bootable ISO
@@ -92,7 +92,7 @@ in
     includes = with den.aspects; [
       iso
       nix
-      server
+      roles.server
     ];
   };
 
@@ -106,7 +106,7 @@ in
 
     includes = with den.aspects; [
       nix
-      server
+      roles.server
     ];
   };
 }

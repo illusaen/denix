@@ -1,4 +1,4 @@
-{ den, lib, ... }:
+{ lib, ... }:
 let
   inherit (lib)
     mkOption
@@ -24,7 +24,9 @@ let
       type = types.str;
       inherit default;
     };
-  fontsOption = mkOption {
+in
+{
+  options.fleet.my.fonts = mkOption {
     type = types.submodule {
       options = {
         sans = mkStrOption "Inter";
@@ -39,32 +41,21 @@ let
       };
     };
   };
-  fontsConfig = {
-    sans = "Inter";
-    mono = "Monaspace Neon NF";
-    emoji = "Noto Color Emoji";
-    icon = "Material Symbols Outlined";
-    sizes = {
-      terminal = 12;
-      applications = 12;
-      desktop = 12;
-    };
-  };
-in
-{
-  options.fleet.my.fonts = fontsOption;
 
   config = {
-    fleet.my.fonts = fontsConfig;
-
-    den.aspects.base.includes = with den.aspects.base; [ fonts ];
+    fleet.my.fonts = {
+      sans = "Inter";
+      mono = "Monaspace Neon NF";
+      emoji = "Noto Color Emoji";
+      icon = "Material Symbols Outlined";
+      sizes = {
+        terminal = 12;
+        applications = 12;
+        desktop = 12;
+      };
+    };
 
     den.aspects.base.fonts = {
-      fleet = {
-        options.my.fonts = fontsOption;
-        config.my.fonts = fontsConfig;
-      };
-
       os =
         { pkgs, ... }:
         {

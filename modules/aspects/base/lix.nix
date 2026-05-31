@@ -1,6 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.base.includes = [ den.aspects.base.lix ];
   den.aspects.base.lix = {
     os =
       { pkgs, ... }:

@@ -1,6 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = [ den.aspects.desktop.llm ];
   den.aspects.desktop.llm = {
     nixos =
       { pkgs, ... }:

@@ -80,7 +80,6 @@
   },
   "terminal.integrated.sendKeybindingsToShell": true,
   "treefmt.command": "treefmt",
-  "treefmt.config": "treefmt.toml",
   "update.mode": "none",
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 1,

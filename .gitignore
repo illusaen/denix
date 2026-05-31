@@ -4,3 +4,4 @@ result*
 .env
 treefmt.toml
 .ruff_cache
+diagrams/

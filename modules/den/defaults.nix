@@ -20,8 +20,6 @@
     darwin.system.stateVersion = 6;
   };
 
-  den.schema.host.includes = [ den.aspects.base ];
-
   den.schema.user.includes = [
     (den.batteries.user-shell "fish")
     (den.lib.policy.mkPolicy "user-aspect-auto-include" (

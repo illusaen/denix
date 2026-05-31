@@ -1,7 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [ image-editor ];
-
   den.aspects.desktop.image-editor = {
     nixos =
       { pkgs, ... }:

@@ -1,8 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.base.includes = with den.aspects.base; [ browser ];
-
-  den.aspects.base.browser = {
+  den.aspects.desktop.browser = {
     provides.to-users.persistUser.directories = [ ".config/google-chrome" ];
 
     darwin.homebrew.casks = [

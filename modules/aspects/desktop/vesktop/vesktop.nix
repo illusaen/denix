@@ -1,7 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [ vesktop ];
-
   den.aspects.desktop.vesktop = {
     provides.to-users.persistUser.directories = [
       ".config/vesktop"

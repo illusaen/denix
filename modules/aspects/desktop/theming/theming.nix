@@ -1,11 +1,12 @@
 {
   lib,
-  den,
   ...
 }:
 let
   inherit (lib) mkOption types;
-  themingOption = mkOption {
+in
+{
+  options.fleet.my.theming = mkOption {
     type = types.submodule {
       options = {
         iconTheme = mkOption {
@@ -25,45 +26,28 @@ let
       };
     };
   };
-  themingConfig = {
-    iconTheme = {
-      name = "Nordic-darker";
-    };
-    cursorTheme = {
-      name = "Nordic-cursors";
-      packageName = "nordic";
-      size = 28;
-    };
-  };
-in
-{
-  options.fleet.my.theming = themingOption;
 
   config = {
-    fleet.my.theming = themingConfig;
-
-    den.aspects.desktop =
-      { host }:
-      {
-        includes = lib.optionals (host.class == "nixos") [ den.aspects.theming ];
+    fleet.my.theming = {
+      iconTheme = {
+        name = "Nordic-darker";
       };
-
-    den.aspects.theming = {
-      fleet = {
-        options.my.theming = themingOption;
-        config.my.theming = themingConfig;
+      cursorTheme = {
+        name = "Nordic-cursors";
+        packageName = "nordic";
+        size = 28;
       };
-
-      nixos =
-        { pkgs, self', ... }:
-        {
-          environment.systemPackages = with pkgs; [
-            adw-gtk3
-            adwaita-qt6
-            nordic
-            self'.packages.dconf-to-nix
-          ];
-        };
     };
+
+    den.aspects.theming.nixos =
+      { pkgs, self', ... }:
+      {
+        environment.systemPackages = with pkgs; [
+          adw-gtk3
+          adwaita-qt6
+          nordic
+          self'.packages.dconf-to-nix
+        ];
+      };
   };
 }

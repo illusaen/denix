@@ -1,11 +1,8 @@
 {
-  den,
   rootPath,
   ...
 }:
 {
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ bat ];
-
   den.aspects.base.cli.bat = {
     wrapper-packages =
       { fleet, ... }:
