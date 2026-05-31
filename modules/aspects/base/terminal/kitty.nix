@@ -1,3 +1,4 @@
+{ rootPath, ... }:
 {
   den.aspects.base.terminal.kitty =
 
@@ -18,7 +19,7 @@
               inherit (fleet.my) fonts scheme;
             in
             {
-              imports = [ ../../../../wrappers/kitty/kitty.nix ];
+              imports = [ (rootPath + /wrappers/kitty/kitty.nix) ];
               renderScheme = scheme.render;
               font = {
                 name = fonts.mono;

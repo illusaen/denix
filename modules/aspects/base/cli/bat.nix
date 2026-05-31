@@ -1,5 +1,6 @@
 {
   den,
+  rootPath,
   ...
 }:
 {
@@ -10,7 +11,7 @@
       { fleet, ... }:
       {
         bat = {
-          imports = [ ../../../../wrappers/bat/bat.nix ];
+          imports = [ (rootPath + /wrappers/bat/bat.nix) ];
           renderScheme = fleet.my.scheme.render;
         };
       };
@@ -19,6 +20,9 @@
       { self', ... }:
       {
         environment.systemPackages = [ self'.packages.bat ];
+        environment.shellAliases = {
+          cat = "bat";
+        };
       };
 
     provides.to-users.persistUser.directories = [ ".cache/bat" ];

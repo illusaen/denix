@@ -1,4 +1,4 @@
-{ den, ... }:
+{ den, rootPath, ... }:
 {
   den.policies.env-to-os =
     { host, ... }:
@@ -43,10 +43,10 @@
     wrapper-packages =
       { host, ... }:
       {
-        eza = ../../../../wrappers/eza.nix;
-        fd = ../../../../wrappers/fd.nix;
+        eza = rootPath + /wrappers/eza.nix;
+        fd = rootPath + /wrappers/fd.nix;
         gh = {
-          imports = [ ../../../../wrappers/gh.nix ];
+          imports = [ (rootPath + /wrappers/gh.nix) ];
           inherit (den.users.registry.${host.system-owner}.identity) accountName;
         };
       };

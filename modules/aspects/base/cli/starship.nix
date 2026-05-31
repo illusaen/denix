@@ -3,12 +3,6 @@
   den.aspects.base.cli.includes = with den.aspects.base.cli; [ starship ];
 
   den.aspects.base.cli.starship = {
-    shell = {
-      interactiveShellInit = ''
-        starship init fish | source
-      '';
-    };
-
     wrapper-packages.starship =
       { wlib, ... }:
       {
@@ -85,6 +79,9 @@
     os =
       { self', ... }:
       {
+        environment.shellInit = ''
+          starship init fish | source
+        '';
         environment.systemPackages = [ self'.packages.starship ];
       };
   };

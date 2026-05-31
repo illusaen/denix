@@ -5,24 +5,11 @@
   den.aspects.wm.switch-input = {
     nixos =
       {
-        pkgs,
+        self',
         ...
       }:
-      let
-        switcher = pkgs.writeShellApplication {
-          name = "switcher";
-          runtimeInputs = with pkgs; [
-            ddcutil
-            i2c-tools
-            python3
-          ];
-          text = ''
-            python3 ${./switch-input.py} "$@"
-          '';
-        };
-      in
       {
-        environment.systemPackages = [ switcher ];
+        environment.systemPackages = [ self'.packages.switch-input ];
         hardware.i2c.enable = true;
       };
   };

@@ -55,12 +55,13 @@ in
       };
 
       nixos =
-        { pkgs, ... }:
+        { pkgs, self', ... }:
         {
           environment.systemPackages = with pkgs; [
             adw-gtk3
             adwaita-qt6
             nordic
+            self'.packages.dconf-to-nix
           ];
         };
     };
