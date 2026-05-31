@@ -26,6 +26,20 @@ let
       builtins.any (g: lib.elem g grantedGroups) userGroups
     ) (builtins.attrNames registry);
 
+  collectUserProviders =
+    user: aspect:
+    let
+      provides = aspect.provides or { };
+      forwarded = lib.genAttrs (aspect.__providesForwarded or [ ]) (_: true);
+      includes = aspect.includes or [ ];
+    in
+    lib.optional (provides ? to-users) provides.to-users
+    ++ lib.optional (provides ? ${user.name}) provides.${user.name}
+    ++ lib.optional (
+      builtins.isAttrs aspect && aspect ? ${user.name} && !(forwarded ? ${user.name})
+    ) aspect.${user.name}
+    ++ lib.concatMap (collectUserProviders user) includes;
+
   # Submodule for group-based access grants.
   accessGrantType = types.submodule {
     options.groups = mkOption {
@@ -106,13 +120,20 @@ in
     # effective access groups (merged env + host, propagated via scope context).
     den.policies.env-users =
       {
+        host,
         accessGroups ? [ ],
         ...
       }:
       let
         matched = matchRegistryUsers accessGroups;
       in
-      map (name: resolve.to "user" { user = registry.${name}; }) matched;
+      lib.concatMap (
+        name:
+        let
+          user = registry.${name};
+        in
+        [ (resolve.shared.withIncludes (collectUserProviders user host.aspect) { inherit user; }) ]
+      ) matched;
 
     # host-users policy removed — by-host grants are now merged into
     # accessGroups in the fleet policy's env-to-hosts resolver.

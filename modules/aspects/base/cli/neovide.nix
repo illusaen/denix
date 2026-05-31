@@ -5,7 +5,10 @@
     nixos =
       { pkgs, ... }:
       {
-        environment.systemPackages = with pkgs; [ neovide ];
+        environment.systemPackages = with pkgs; [
+          neovide
+          neovim
+        ];
       };
   };
 }

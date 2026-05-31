@@ -79,7 +79,7 @@
     os =
       { self', ... }:
       {
-        environment.shellInit = ''
+        programs.fish.interactiveShellInit = ''
           starship init fish | source
         '';
         environment.systemPackages = [ self'.packages.starship ];
