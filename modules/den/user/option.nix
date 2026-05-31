@@ -14,6 +14,48 @@ let
   inherit (lib) mkOption types;
 
   registry = config.den.users.registry;
+  groups = config.den.groups;
+  groupNames = builtins.attrNames groups;
+
+  # If group B has `members = [ "A" ]`, members of A also inherit B.
+  inheritedGroupsFor =
+    groupName:
+    builtins.filter (
+      candidate:
+      let
+        candidateMembers = groups.${candidate}.members or [ ];
+      in
+      lib.elem groupName candidateMembers
+    ) groupNames;
+
+  resolveUserGroups =
+    seedGroups:
+    let
+      go =
+        seen:
+        let
+          next = lib.unique (seen ++ lib.concatMap inheritedGroupsFor seen);
+        in
+        if builtins.length next == builtins.length seen then seen else go next;
+    in
+    go (lib.unique seedGroups);
+
+  resolvedRegistryGroups = name: resolveUserGroups (registry.${name}.groups or [ ]);
+  resolvedPosixGroups =
+    name:
+    builtins.filter (groupName: lib.elem "posix" (groups.${groupName}.labels or [ ])) (
+      resolvedRegistryGroups name
+    );
+  generatedExtraGroups =
+    name:
+    builtins.filter (
+      groupName:
+      !(builtins.elem groupName [
+        # Removing these because den.batteries.primary-user already includes them
+        "wheel"
+        "networkmanager"
+      ])
+    ) (lib.unique (resolvedPosixGroups name));
 
   # Filter registry users whose groups intersect the granted set.
   matchRegistryUsers =
@@ -21,7 +63,7 @@ let
     lib.filter (
       name:
       let
-        userGroups = registry.${name}.groups or [ ];
+        userGroups = resolvedRegistryGroups name;
       in
       builtins.any (g: lib.elem g grantedGroups) userGroups
     ) (builtins.attrNames registry);
@@ -76,7 +118,21 @@ let
         };
         aspect = mkOption {
           type = types.raw;
-          default = den.aspects.${name} or { };
+          default =
+            let
+              baseAspect = den.aspects.${name} or { };
+            in
+            baseAspect
+            // {
+              includes = (baseAspect.includes or [ ]) ++ [
+                (
+                  { user, ... }:
+                  {
+                    nixos.users.users.${user.userName}.extraGroups = generatedExtraGroups name;
+                  }
+                )
+              ];
+            };
           defaultText = "den.aspects.<name>";
           description = "Aspect that configures this user";
         };
@@ -134,8 +190,5 @@ in
         in
         [ (resolve.shared.withIncludes (collectUserProviders user host.aspect) { inherit user; }) ]
       ) matched;
-
-    # host-users policy removed — by-host grants are now merged into
-    # accessGroups in the fleet policy's env-to-hosts resolver.
   };
 }
