@@ -182,13 +182,21 @@ in
       }:
       let
         matched = matchRegistryUsers accessGroups;
+        hostProviderRoots = [
+          host.aspect
+        ]
+        ++ builtins.filter builtins.isAttrs (config.den.schema.host.includes or [ ]);
       in
       lib.concatMap (
         name:
         let
           user = registry.${name};
         in
-        [ (resolve.shared.withIncludes (collectUserProviders user host.aspect) { inherit user; }) ]
+        [
+          (resolve.shared.withIncludes (lib.concatMap (collectUserProviders user) hostProviderRoots) {
+            inherit user;
+          })
+        ]
       ) matched;
   };
 }
