@@ -1,4 +1,4 @@
-{ den, self, ... }:
+{ den, ... }:
 {
   den.aspects.base.cli.includes = with den.aspects.base.cli; [ git ];
 
@@ -22,28 +22,32 @@
       };
     };
 
-    wrapper-packages.git =
-      { wlib, ... }:
-      let
-        inherit (self.my.vars) accountName email displayName;
-      in
+    wrapper-packages =
+      { host, ... }:
       {
-        imports = [ wlib.wrapperModules.git ];
-        settings = {
-          core.sshCommand = "ssh -i /etc/ssh/id_rsa";
-          diff.external = "difft --color auto --background dark --display side-by-side";
-          init.defaultBranch = "main";
-          pull.rebase = true;
-          push.autoSetupRemote = true;
-          user = {
-            inherit email;
-            name = displayName;
+        git =
+          { wlib, ... }:
+          let
+            inherit (den.users.registry.${host.system-owner}.identity) accountName email displayName;
+          in
+          {
+            imports = [ wlib.wrapperModules.git ];
+            settings = {
+              core.sshCommand = "ssh -i /etc/ssh/id_rsa";
+              diff.external = "difft --color auto --background dark --display side-by-side";
+              init.defaultBranch = "main";
+              pull.rebase = true;
+              push.autoSetupRemote = true;
+              user = {
+                inherit email;
+                name = displayName;
+              };
+              credential = {
+                helper = "gh auth git-credential";
+                inherit accountName;
+              };
+            };
           };
-          credential = {
-            helper = "gh auth git-credential";
-            inherit accountName;
-          };
-        };
       };
 
     os =

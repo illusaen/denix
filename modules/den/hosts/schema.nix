@@ -85,15 +85,15 @@ let
     };
   };
 
-  # Channel definitions — maps channel name to nixpkgs/HM/darwin inputs
+  # Channel definitions — maps channel name to nixpkgs/darwin inputs
   channels = {
     nixpkgs-unstable = {
       nixosSystem = inputs.nixpkgs-unstable.lib.nixosSystem;
-      darwinSystem = inputs.nix-darwin-unstable.lib.darwinSystem;
+      darwinSystem = inputs.darwin.lib.darwinSystem;
     };
     nixpkgs-master = {
       nixosSystem = inputs.nixpkgs-master.lib.nixosSystem;
-      darwinSystem = inputs.nix-darwin-unstable.lib.darwinSystem;
+      darwinSystem = inputs.darwin.lib.darwinSystem;
     };
   };
 
@@ -181,8 +181,8 @@ in
         options = {
           channel = mkOption {
             type = types.enum channelNames;
-            default = "nixos-unstable";
-            description = "Nixpkgs channel — determines nixpkgs, home-manager, and nix-darwin versions";
+            default = "nixpkgs-unstable";
+            description = "Nixpkgs channel — determines nixpkgs and nix-darwin versions";
           };
 
           environment = mkOption {
@@ -321,9 +321,33 @@ in
             // {
               identity = false;
             };
+
+          preservation = mkOption {
+            type = types.submodule {
+              options = {
+                enable = mkOption {
+                  type = types.bool;
+                  default = false;
+                  description = "Whether this host uses persistent state via preservation.";
+                };
+                disk = mkOption {
+                  type = types.str;
+                  default = "nvme1n1";
+                };
+                rollbackSnapshot = mkOption {
+                  type = types.str;
+                  default = "zroot/local/root@blank";
+                };
+                persistMount = mkOption {
+                  type = types.str;
+                  default = "/persisted";
+                };
+              };
+            };
+          };
         };
 
-        # Computed config — channel determines instantiate + HM module
+        # Computed config — channel determines the host instantiator.
         config = {
           secretPath = lib.mkDefault (self + "/.secrets/hosts/${config.name}");
           facts = lib.mkDefault (self + "/hosts/${config.name}/facter.json");
@@ -333,13 +357,6 @@ in
 
           instantiate = lib.mkDefault (
             if config.class == "darwin" then resolvedChannel.darwinSystem else resolvedChannel.nixosSystem
-          );
-
-          home-manager.module = lib.mkDefault (
-            if config.class == "darwin" then
-              resolvedChannel.home-manager-module.darwin
-            else
-              resolvedChannel.home-manager-module.nixos
           );
         };
       }

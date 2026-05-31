@@ -1,4 +1,4 @@
-{ den, self, ... }:
+{ den, ... }:
 {
   den.aspects.desktop.includes = with den.aspects.desktop; [ vesktop ];
 
@@ -36,9 +36,11 @@
       {
         lib,
         pkgs,
+        fleet,
         ...
       }:
       let
+        inherit (fleet.my) fonts scheme;
         settings = {
           vesktop = { };
           vencord = {
@@ -56,12 +58,12 @@
           themes.cosmic = ./vesktop.css;
           extraQuickCss =
             let
-              colors = self.my.scheme.withHashtag;
+              colors = scheme.withHashtag;
             in
             ''
               :root {
-                  --font: "${self.my.fonts.sans}";
-                  --font-code: "${self.my.fonts.mono}";
+                  --font: "${fonts.sans}";
+                  --font-code: "${fonts.mono}";
 
                   --base00: ${colors.base00};
                   --base01: ${colors.base01};

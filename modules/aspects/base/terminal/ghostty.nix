@@ -1,4 +1,3 @@
-{ self, ... }:
 {
   den.aspects.base.terminal.ghostty = {
     # TODO: fix issues with config file not loading
@@ -21,10 +20,11 @@
       {
         pkgs,
         lib,
+        fleet,
         ...
       }:
       let
-        inherit (self.my) fonts;
+        inherit (fleet.my) fonts scheme;
         themeFile = "Cosmic.ghostty";
       in
       {
@@ -48,7 +48,7 @@
             quit-after-last-window-closed = false
             theme = ${themeFile}
           '';
-          "ghostty/themes/${themeFile}".source = self.my.scheme.render {
+          "ghostty/themes/${themeFile}".source = scheme.render {
             inherit pkgs lib;
             template = ../../../../wrappers/ghostty/ghostty.theme.mustache;
             extension = "ghostty";

@@ -74,7 +74,7 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     wrappers = {
       url = "github:BirdeeHub/nix-wrapper-modules";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

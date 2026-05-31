@@ -1,4 +1,4 @@
-{ den, self, ... }:
+{ den, ... }:
 {
   den.aspects.theming.includes = with den.aspects.theming; [ qt ];
 
@@ -25,10 +25,11 @@
         pkgs,
         lib,
         osConfig,
+        fleet,
         ...
       }:
       let
-        inherit (self.my) fonts;
+        inherit (fleet.my) fonts theming scheme;
 
         qtSettingsFile = qtct: {
           "${qtct}/${qtct}.conf".source =
@@ -41,7 +42,7 @@
                   custom_palette = true;
                   standard_dialogs = "xdgdesktopportal";
                   inherit (osConfig.qt) style;
-                  icon_theme = self.my.theming.iconTheme.name;
+                  icon_theme = theming.iconTheme.name;
                 };
 
                 Fonts = {
@@ -53,12 +54,12 @@
 
         kvantumPackage =
           let
-            kvconfig = self.my.scheme.render {
+            kvconfig = scheme.render {
               inherit pkgs lib;
               template = ./kvconfig.mustache;
               extension = ".kvconfig";
             };
-            svg = self.my.scheme.render {
+            svg = scheme.render {
               inherit pkgs lib;
               template = ./kvantum.svg.mustache;
               extension = ".svg";

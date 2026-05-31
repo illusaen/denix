@@ -1,4 +1,3 @@
-{ self, ... }:
 {
   den.aspects.base.terminal.kitty =
 
@@ -11,16 +10,21 @@
           ];
         };
 
-      wrapper-packages.kitty =
-        let
-          inherit (self.my) fonts;
-        in
+      wrapper-packages =
+        { fleet, ... }:
         {
-          imports = [ ../../../../wrappers/kitty/kitty.nix ];
-          font = {
-            name = fonts.mono;
-            size = fonts.sizes.terminal;
-          };
+          kitty =
+            let
+              inherit (fleet.my) fonts scheme;
+            in
+            {
+              imports = [ ../../../../wrappers/kitty/kitty.nix ];
+              renderScheme = scheme.render;
+              font = {
+                name = fonts.mono;
+                size = fonts.sizes.terminal;
+              };
+            };
         };
     };
 }

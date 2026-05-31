@@ -4,10 +4,6 @@
   inputs,
   ...
 }:
-let
-  myLib = import ./_helpers.nix { inherit lib; };
-  inherit (myLib) mkSubmoduleOption mkStrOption;
-in
 {
   imports = [ inputs.den.flakeModule ];
 
@@ -22,20 +18,6 @@ in
 
     nixos.system.stateVersion = "26.05";
     darwin.system.stateVersion = 6;
-  };
-
-  den.schema.host = {
-    options = {
-      ip = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default = null;
-      };
-      preservation = mkSubmoduleOption {
-        persistMount = mkStrOption "/persisted";
-        disk = mkStrOption "nvme1n1";
-        rollbackSnapshot = mkStrOption "zroot/local/root@blank";
-      };
-    };
   };
 
   den.schema.host.includes = [ den.aspects.base ];

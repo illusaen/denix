@@ -1,10 +1,11 @@
 { den, ... }:
 {
-  den.aspects.sini = {
+  den.aspects.wendy = {
     includes = [ den.batteries.host-aspects ];
+    user.password = "arst";
   };
 
-  den.users.registry.sini = {
+  den.users.registry.wendy = {
     system.uid = 1000;
     groups = [
       "admins"
@@ -17,10 +18,9 @@
     ];
     identity = {
       displayName = "Wendy Chen";
+      accountName = "illusaen";
       email = "jaewchen@gmail.com";
-      sshKeys = [
-
-      ];
+      sshKeys = [ ];
     };
   };
 }

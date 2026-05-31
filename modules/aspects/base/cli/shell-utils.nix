@@ -1,4 +1,4 @@
-{ den, self, ... }:
+{ den, ... }:
 {
   den.policies.env-to-os =
     { host, ... }:
@@ -40,14 +40,16 @@
       ".local/share/zoxide"
     ];
 
-    wrapper-packages = {
-      eza = ../../../../wrappers/eza.nix;
-      fd = ../../../../wrappers/fd.nix;
-      gh = {
-        imports = [ ../../../../wrappers/gh.nix ];
-        inherit (self.my.vars) accountName;
+    wrapper-packages =
+      { host, ... }:
+      {
+        eza = ../../../../wrappers/eza.nix;
+        fd = ../../../../wrappers/fd.nix;
+        gh = {
+          imports = [ ../../../../wrappers/gh.nix ];
+          inherit (den.users.registry.${host.system-owner}.identity) accountName;
+        };
       };
-    };
 
     os =
       {

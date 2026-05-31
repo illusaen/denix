@@ -6,33 +6,25 @@
   ...
 }:
 {
-  imports = [ wlib.modules.kitty ];
-  options.renderScheme = lib.mkOption {
-    type = lib.types.raw;
-    description = "base16 scheme renderer";
+  imports = [ wlib.modules.default ];
+  options = {
+    renderScheme = lib.mkOption {
+      type = lib.types.raw;
+      description = "base16 scheme renderer";
+    };
+    font = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          name = lib.mkOption { type = lib.types.str; };
+          size = lib.mkOption { type = lib.types.int; };
+        };
+      };
+    };
   };
 
   config = {
-    settings = {
-      active_border_color = "none";
-      background_opacity = 0.6;
-      background_blur = 20;
-      confirm_os_window_close = 0;
-      linux_display_server = "wayland";
-      macos_titlebar_color = "system";
-      placement_strategy = "bottom-left";
-      tab_activity_symbol = "↺";
-      tab_bar_margin_height = "0.0 8.0";
-      tab_bar_margin_width = "0.0";
-      tab_bar_style = "powerline";
-      tab_powerline_style = "slanted";
-      window_padding_width = 20;
-    };
-    extraConfig = ''
-      # Shell integration is sourced and configured manually
-      shell_integration no-rc
-      include themes/cosmic.conf
-    '';
+    package = pkgs.kitty;
+    env.KITTY_CONFIG_DIRECTORY = dirOf config.constructFiles.generatedConfig.path;
     drv = {
       nativeBuildInputs = [ pkgs.makeWrapper ];
       postBuild = ''
@@ -42,6 +34,31 @@
   };
 
   config.constructFiles = {
+    generatedConfig = {
+      relPath = "kitty.conf";
+      content = ''
+        font_family ${config.font.name}
+        font_size ${toString config.font.size}
+
+        active_border_color none
+        background_opacity 0.6
+        background_blur 20
+        confirm_os_window_close 0
+        linux_display_server wayland
+        macos_titlebar_color system
+        placement_strategy bottom-left
+        tab_activity_symbol ↺
+        tab_bar_margin_height 0.0 8.0
+        tab_bar_margin_width 0.0
+        tab_bar_style powerline
+        tab_powerline_style slanted
+        window_padding_width 20
+
+        # Shell integration is sourced and configured manually
+        shell_integration no-rc
+        include themes/cosmic.conf
+      '';
+    };
     generatedQuickAccessTerminalConfig = {
       relPath = "quick-access-terminal.conf";
       content = ''

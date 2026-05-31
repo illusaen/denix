@@ -67,7 +67,7 @@ in
       scheme = base16Scheme;
     };
 
-    flake-config =
+    fleet =
       {
         lib,
         ...
@@ -110,7 +110,7 @@ in
         };
       in
       {
-        options.my.base16 = lib.mkOption {
+        options.my.base16 = mkOption {
           type = mkThemingOptionType;
         };
         options.my.scheme = mkOption {

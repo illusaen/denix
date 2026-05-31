@@ -1,4 +1,4 @@
-{ den, lib, ... }:
+{ den, ... }:
 let
   _disko =
     host:
@@ -8,6 +8,7 @@ let
 in
 {
   den.hosts.x86_64-linux.odin = {
+    preservation.enable = true;
     preservation.disk = "nvme1n1";
 
     channel = "nixpkgs-unstable";
@@ -17,15 +18,38 @@ in
       "workstation-access"
       "system-access"
     ];
+
+    networking.interfaces.eno1.ipv4 = [ "192.168.1.162/24" ];
   };
 
-  den.hosts.x86_64-linux.thor = {
+  den.hosts.x86_64-linux.huginn = {
+    preservation.enable = true;
     preservation.disk = "nvme1n1";
 
     channel = "nixpkgs-unstable";
     environment = "dev";
     system-owner = "wendy";
-    system-access-groups = [ "workstation-access" ];
+    system-access-groups = [
+      "workstation-access"
+      "server-access"
+    ];
+
+    networking.interfaces.eno1.ipv4 = [ "192.168.1.163/24" ];
+  };
+
+  den.hosts.x86_64-linux.muninn = {
+    preservation.enable = true;
+    preservation.disk = "nvme1n1";
+
+    channel = "nixpkgs-unstable";
+    environment = "dev";
+    system-owner = "wendy";
+    system-access-groups = [
+      "workstation-access"
+      "server-access"
+    ];
+
+    networking.interfaces.eno1.ipv4 = [ "192.168.1.164/24" ];
   };
 
   den.hosts.aarch64-darwin.idunn = {
@@ -58,7 +82,7 @@ in
   ];
 
   # Seedbox server and Bootable ISO
-  den.aspects.thor = {
+  den.aspects.huginn = {
     nixos =
       { host, ... }:
       {
@@ -68,17 +92,21 @@ in
     includes = with den.aspects; [
       iso
       nix
+      server
     ];
   };
 
-  # Common user
-  den.aspects.wendy =
-    { host, ... }:
-    {
-      includes = [ ];
-      flake-config.my.vars.userName = "wendy";
-    }
-    // lib.optionalAttrs (host.class == "nixos") {
-      user.password = "arst";
-    };
+  # Raspberry Pi - backup services
+  den.aspects.muninn = {
+    nixos =
+      { host, ... }:
+      {
+        disko = _disko host;
+      };
+
+    includes = with den.aspects; [
+      nix
+      server
+    ];
+  };
 }

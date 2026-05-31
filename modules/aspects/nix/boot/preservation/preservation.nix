@@ -14,16 +14,18 @@
 
   den.policies.persist-to-preservation =
     { host, ... }:
-    (den.lib.policy.route {
-      fromClass = "persist";
-      intoClass = "nixos";
-      path = [
-        "preservation"
-        "preserveAt"
-        host.preservation.persistMount
-      ];
-      guard = { options, ... }: options ? preservation.preserveAt;
-    });
+    lib.optional host.preservation.enable (
+      den.lib.policy.route {
+        fromClass = "persist";
+        intoClass = "nixos";
+        path = [
+          "preservation"
+          "preserveAt"
+          host.preservation.persistMount
+        ];
+        guard = { options, ... }: options ? preservation.preserveAt;
+      }
+    );
 
   den.policies.persist-user-to-preservation =
     {
@@ -31,18 +33,20 @@
       user,
       ...
     }:
-    (den.lib.policy.route {
-      fromClass = "persistUser";
-      intoClass = "nixos";
-      path = [
-        "preservation"
-        "preserveAt"
-        host.preservation.persistMount
-        "users"
-        user.userName
-      ];
-      guard = { options, ... }: options ? preservation.preserveAt;
-    });
+    lib.optional host.preservation.enable (
+      den.lib.policy.route {
+        fromClass = "persistUser";
+        intoClass = "nixos";
+        path = [
+          "preservation"
+          "preserveAt"
+          host.preservation.persistMount
+          "users"
+          user.userName
+        ];
+        guard = { options, ... }: options ? preservation.preserveAt;
+      }
+    );
 
   den.schema.host.includes = [ den.policies.persist-to-preservation ];
   den.schema.user.includes = [ den.policies.persist-user-to-preservation ];

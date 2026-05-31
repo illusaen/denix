@@ -1,37 +1,51 @@
-{
-  den,
-  self,
-  ...
-}:
+{ den, ... }:
 {
   den.aspects.base.includes = with den.aspects.base; [ fonts ];
 
   den.aspects.base.fonts = {
-    flake-config =
-      {
-        myLib,
-        lib,
-        ...
-      }:
+    fleet =
+      { lib, ... }:
       let
-        inherit (lib) mkOption types;
-        inherit (myLib) mapListToAttrsWith mkSubmoduleOption mkStrOption;
+        inherit (lib)
+          mkOption
+          types
+          pipe
+          nameValuePair
+          ;
         sizeOption =
           default:
           mkOption {
             type = types.int;
             inherit default;
           };
+        mapListToAttrsWith =
+          attrs: value:
+          pipe attrs [
+            (map (v: nameValuePair v value))
+            builtins.listToAttrs
+          ];
+        mkStrOption =
+          default:
+          mkOption {
+            type = types.str;
+            inherit default;
+          };
       in
       {
-        options.my.fonts = mkSubmoduleOption {
-          sans = mkStrOption "Inter";
-          mono = mkStrOption "Monaspace Neon NF";
-          emoji = mkStrOption "Noto Color Emoji";
-          icon = mkStrOption "Material Symbols Outlined";
-          sizes = mkSubmoduleOption (
-            mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12)
-          );
+        options.my.fonts = lib.mkOption {
+          type = types.submodule {
+            options = {
+              sans = mkStrOption "Inter";
+              mono = mkStrOption "Monaspace Neon NF";
+              emoji = mkStrOption "Noto Color Emoji";
+              icon = mkStrOption "Material Symbols Outlined";
+              sizes = mkOption {
+                type = types.submodule {
+                  options = mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12);
+                };
+              };
+            };
+          };
         };
       };
 
@@ -47,10 +61,14 @@
           material-symbols
         ];
       };
-    nixos.fonts.fontconfig.defaultFonts = rec {
-      monospace = [ self.my.fonts.mono ];
-      serif = sansSerif;
-      sansSerif = [ self.my.fonts.sans ];
-    };
+    nixos =
+      { fleet, ... }:
+      {
+        fonts.fontconfig.defaultFonts = rec {
+          monospace = [ fleet.my.fonts.mono ];
+          serif = sansSerif;
+          sansSerif = [ fleet.my.fonts.sans ];
+        };
+      };
   };
 }

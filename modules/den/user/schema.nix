@@ -28,6 +28,11 @@ in
                 default = "";
                 description = "Display name for the user";
               };
+              accountName = mkOption {
+                type = types.str;
+                default = "";
+                description = "Common account name for the user";
+              };
               email = mkOption {
                 type = types.nullOr types.str;
                 default = null;

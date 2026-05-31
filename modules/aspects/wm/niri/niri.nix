@@ -1,4 +1,4 @@
-{ den, self, ... }:
+{ den, ... }:
 {
   den.aspects.wm.includes = with den.aspects.wm; [ niri ];
 
@@ -36,12 +36,13 @@
       };
 
     provides.to-users.hjem =
-      { pkgs, ... }:
+      { pkgs, fleet, ... }:
       let
+        inherit (fleet.my) theming scheme;
         mainMonitor = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
         secondaryMonitor = "BOE Display 000000001";
-        inherit (self.my.theming) cursorTheme;
-        inherit (self.my.scheme.withHashtag) base0E;
+        inherit (theming) cursorTheme;
+        inherit (scheme.withHashtag) base0E;
       in
       {
         xdg.config.files = {

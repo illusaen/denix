@@ -1,7 +1,6 @@
 {
   den,
   inputs,
-  self,
   ...
 }:
 {
@@ -33,9 +32,14 @@
     };
 
     provides.to-users.hjem =
-      { pkgs, lib, ... }:
       {
-        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = self.my.scheme.render {
+        pkgs,
+        lib,
+        fleet,
+        ...
+      }:
+      {
+        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = fleet.my.scheme.render {
           inherit pkgs lib;
           template = ./dms-theme.json.mustache;
           extension = "json";

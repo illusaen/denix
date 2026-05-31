@@ -14,11 +14,11 @@
       };
 
     nixos =
-      { host, config, ... }:
+      { config, ... }:
       {
         programs._1password-gui.polkitPolicyOwners = lib.mapAttrsToList (
           _: value: value.userName
-        ) host.users;
+        ) den.users.registry;
 
         systemd.user.services.onepassword = {
           wantedBy = [ "graphical-session.target" ];

@@ -1,7 +1,6 @@
 {
   den,
   lib,
-  self,
   ...
 }:
 {
@@ -85,10 +84,10 @@
     in
     {
       nixos =
-        { pkgs, ... }:
+        { pkgs, fleet, ... }:
         let
           gtk = _gtk pkgs;
-          commonSettings = _commonSettings self.my;
+          commonSettings = _commonSettings fleet.my;
         in
         {
           programs.dconf = {
@@ -127,6 +126,7 @@
           pkgs,
           lib,
           osConfig,
+          fleet,
           ...
         }:
         let
@@ -138,7 +138,7 @@
           '';
           gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
             cat ${
-              self.my.scheme.render {
+              fleet.my.scheme.render {
                 inherit pkgs lib;
                 template = ./gtk.css.mustache;
                 extension = ".css";
@@ -150,7 +150,7 @@
 
           gtk = _gtk pkgs;
 
-          commonSettings = _commonSettings self.my;
+          commonSettings = _commonSettings fleet.my;
 
           bookmarks = [
             "file:///home/${user.name}/Projects"

@@ -13,28 +13,28 @@
     };
 
   den.aspects.theming = {
-    flake-config =
-      {
-        myLib,
-        ...
-      }:
+    fleet =
+      _:
       let
         inherit (lib) mkOption types;
-        inherit (myLib) mkSubmoduleOption;
       in
       {
-        options.my.theming = mkSubmoduleOption {
-          iconTheme = mkOption {
-            type = types.submodule {
-              options.name = mkOption { type = types.str; };
-            };
-          };
-          cursorTheme = mkOption {
-            type = types.submodule {
-              options = {
-                name = mkOption { type = types.str; };
-                packageName = mkOption { type = types.str; };
-                size = mkOption { type = types.int; };
+        options.my.theming = mkOption {
+          type = types.submodule {
+            options = {
+              iconTheme = mkOption {
+                type = types.submodule {
+                  options.name = mkOption { type = types.str; };
+                };
+              };
+              cursorTheme = mkOption {
+                type = types.submodule {
+                  options = {
+                    name = mkOption { type = types.str; };
+                    packageName = mkOption { type = types.str; };
+                    size = mkOption { type = types.int; };
+                  };
+                };
               };
             };
           };

@@ -1,4 +1,3 @@
-{ self, ... }:
 {
   den.aspects.iso = {
     nixos =
@@ -6,19 +5,17 @@
         modulesPath,
         config,
         lib,
+        host,
         ...
       }:
-      let
-        inherit (self.my.vars) userName;
-      in
       {
         imports = [
           "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"
         ];
 
         ## IMPORTANT! using `wendy` as main user
-        lib.isoFileSystems."/home/${userName}" = {
-          device = "/dev/disk/by-label/${userName}";
+        lib.isoFileSystems."/home/${host.system-owner}" = {
+          device = "/dev/disk/by-label/${host.system-owner}";
           fsType = "ext4";
         };
 

@@ -18,8 +18,10 @@ in
   # secretsConfig propagates through scope inheritance to all descendants.
   den.policies.to-fleet = _: [
     (resolve.to "fleet" {
-      fleet.name = "fleet";
-      # inherit (config.den) secretsConfig;
+      fleet = config.fleet // {
+        name = "fleet";
+        # inherit (config.den) secretsConfig;
+      };
     })
   ];
 

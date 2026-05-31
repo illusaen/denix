@@ -58,4 +58,6 @@
     # import-tree-based module loading instead of collapsing to ./modules.
     outputs = builtins.readFile ../../outputs.nix;
   };
+
+  flake.den = den;
 }

@@ -1,4 +1,4 @@
-{ den, self, ... }:
+{ den, ... }:
 {
   den.aspects.desktop.includes = with den.aspects.desktop; [ steam ];
 
@@ -12,13 +12,14 @@
         pkgs,
         config,
         lib,
+        fleet,
         ...
       }:
       {
         programs.steam = {
           enable = true;
           package = pkgs.steam.override {
-            extraPkgs = _pkgs': [ _pkgs'.${self.my.theming.cursorTheme.packageName} ];
+            extraPkgs = _pkgs': [ _pkgs'.${fleet.my.theming.cursorTheme.packageName} ];
           };
         };
 
