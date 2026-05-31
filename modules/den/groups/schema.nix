@@ -21,7 +21,7 @@ in
         members = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          description = "Other groups whose members inherit membership in this group";
+          description = "Source groups whose members should also inherit this group";
         };
 
         gid = mkOption {

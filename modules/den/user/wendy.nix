@@ -7,15 +7,7 @@
 
   den.users.registry.wendy = {
     system.uid = 1000;
-    groups = [
-      "admins"
-      "i2c"
-      "onepassword-secrets"
-      "system-access"
-      "server-access"
-      "libvirtd"
-      "kvm"
-    ];
+    groups = [ "system-access" ];
     identity = {
       displayName = "Wendy Chen";
       accountName = "illusaen";

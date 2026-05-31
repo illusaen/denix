@@ -1,23 +1,6 @@
 # Group definitions — user roles, system gates, service access, and POSIX groups.
 _: {
   den.groups = {
-    # User role groups (identity & login gates)
-    admins = {
-      labels = [
-        "user-role"
-        "oauth-grant"
-      ];
-      description = "Full administrative access";
-    };
-    users = {
-      labels = [
-        "user-role"
-        "oauth-grant"
-      ];
-      description = "Standard user access";
-      members = [ "admins" ];
-    };
-
     # System login gates
     system-access = {
       labels = [
@@ -34,6 +17,7 @@ _: {
       ];
       gid = 950;
       description = "Login access to workstation hosts";
+      # Members of system-access also inherit workstation-access.
       members = [ "system-access" ];
     };
     server-access = {
@@ -43,10 +27,12 @@ _: {
       ];
       gid = 949;
       description = "Login access to server hosts";
+      # Members of system-access also inherit server-access.
       members = [ "system-access" ];
     };
 
     # POSIX groups (Unix permissions with gidNumber)
+    # Members of workstation-access also inherit most of these groups.
     wheel = {
       labels = [ "posix" ];
       gid = 1;
@@ -114,13 +100,13 @@ _: {
     i2c = {
       labels = [ "posix" ];
       gid = 984;
-      description = "TTY access";
+      description = "I2C device access for ddcutil";
       members = [ "workstation-access" ];
     };
     onepassword-secrets = {
       labels = [ "posix" ];
       gid = 985;
-      description = "TTY access";
+      description = "1Password secrets access";
       members = [ "workstation-access" ];
     };
   };
