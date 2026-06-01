@@ -1,5 +1,12 @@
+{ den, ... }:
 {
   den.aspects.base.tailscale = {
+    includes = [
+      (den.lib.policy.when (
+        { host, ... }: host.hasAspect den.aspects.roles.desktop
+      ) den.aspects.base.tailscale-systray)
+    ];
+
     nixos =
       { config, ... }:
       {
@@ -25,7 +32,7 @@
     persist.directories = [ "/var/lib/tailscale" ];
   };
 
-  den.aspects.desktop.tailscale-systray.nixos =
+  den.aspects.base.tailscale-systray.nixos =
     { lib, config, ... }:
     {
       systemd.user.services.tailscale-systray = {

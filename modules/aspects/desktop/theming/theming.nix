@@ -1,4 +1,5 @@
 {
+  den,
   lib,
   ...
 }:
@@ -38,6 +39,11 @@ in
         size = 28;
       };
     };
+
+    den.aspects.theming.includes = with den.aspects.theming; [
+      gtk
+      qt
+    ];
 
     den.aspects.theming.nixos =
       { pkgs, self', ... }:

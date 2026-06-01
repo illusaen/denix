@@ -10,6 +10,7 @@
   ...
 }:
 let
+  inherit (den.lib.policy) resolve;
   inherit (lib) mkOption types;
 
   registry = config.den.users.registry;
@@ -56,6 +57,31 @@ let
       ])
     ) (lib.unique (resolvedPosixGroups name));
 
+  # Filter registry users whose groups intersect the granted set.
+  matchRegistryUsers =
+    grantedGroups:
+    lib.filter (
+      name:
+      let
+        userGroups = resolvedRegistryGroups name;
+      in
+      builtins.any (g: lib.elem g grantedGroups) userGroups
+    ) (builtins.attrNames registry);
+
+  collectUserProviders =
+    user: aspect:
+    let
+      provides = aspect.provides or { };
+      forwarded = lib.genAttrs (aspect.__providesForwarded or [ ]) (_: true);
+      includes = aspect.includes or [ ];
+    in
+    lib.optional (provides ? to-users) provides.to-users
+    ++ lib.optional (provides ? ${user.name}) provides.${user.name}
+    ++ lib.optional (
+      builtins.isAttrs aspect && aspect ? ${user.name} && !(forwarded ? ${user.name})
+    ) aspect.${user.name}
+    ++ lib.concatMap (collectUserProviders user) includes;
+
   # Submodule for group-based access grants.
   accessGrantType = types.submodule {
     options.groups = mkOption {
@@ -87,12 +113,8 @@ let
         };
         classes = mkOption {
           type = types.listOf types.str;
-          default = [
-            "user"
-            "hjem"
-            "persistUser"
-          ];
-          description = "User classes that can receive host-projected config";
+          default = [ "user" ];
+          description = "Home management nix classes";
         };
         aspect = mkOption {
           type = types.raw;
@@ -149,5 +171,32 @@ in
     # Promote users to real entities.
     den.schema.user.isEntity = true;
     den.schema.user.classes = lib.mkDefault [ "hjem" ];
+
+    # Host -> users: resolve registry users whose groups intersect the
+    # effective access groups (merged env + host, propagated via scope context).
+    den.policies.env-users =
+      {
+        host,
+        accessGroups ? [ ],
+        ...
+      }:
+      let
+        matched = matchRegistryUsers accessGroups;
+        hostProviderRoots = [
+          host.aspect
+        ]
+        ++ builtins.filter builtins.isAttrs (config.den.schema.host.includes or [ ]);
+      in
+      lib.concatMap (
+        name:
+        let
+          user = registry.${name};
+        in
+        [
+          (resolve.shared.withIncludes (lib.concatMap (collectUserProviders user) hostProviderRoots) {
+            inherit user;
+          })
+        ]
+      ) matched;
   };
 }

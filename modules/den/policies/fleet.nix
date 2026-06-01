@@ -12,41 +12,6 @@
 let
   inherit (den.lib.policy) resolve;
   inherit (config.den) environments;
-  registry = config.den.users.registry;
-  groups = config.den.groups;
-  groupNames = builtins.attrNames groups;
-
-  inheritedGroupsFor =
-    groupName:
-    builtins.filter (
-      candidate:
-      let
-        candidateMembers = groups.${candidate}.members or [ ];
-      in
-      lib.elem groupName candidateMembers
-    ) groupNames;
-
-  resolveUserGroups =
-    seedGroups:
-    let
-      go =
-        seen:
-        let
-          next = lib.unique (seen ++ lib.concatMap inheritedGroupsFor seen);
-        in
-        if builtins.length next == builtins.length seen then seen else go next;
-    in
-    go (lib.unique seedGroups);
-
-  matchRegistryUsers =
-    grantedGroups:
-    lib.filter (
-      name:
-      let
-        userGroups = resolveUserGroups (registry.${name}.groups or [ ]);
-      in
-      builtins.any (g: lib.elem g grantedGroups) userGroups
-    ) (builtins.attrNames registry);
 in
 {
   # flake -> fleet: single fleet entity (fires at flake scope).
@@ -96,19 +61,10 @@ in
               allGrants
             else
               builtins.filter (g: builtins.elem g effectiveGate) allGrants;
-          matchedUsers = matchRegistryUsers accessGroups;
-          resolvedUsers = builtins.listToAttrs (
-            map (name: {
-              inherit name;
-              value = registry.${name};
-            }) matchedUsers
-          );
         in
         lib.optionals ((hostCfg.environment or "prod") == environment.name && hostCfg.intoAttr != [ ]) [
           (resolve.to "host" {
-            host = hostCfg // {
-              users = (hostCfg.users or { }) // resolvedUsers;
-            };
+            host = hostCfg;
             inherit accessGroups;
           })
           (den.lib.policy.instantiate hostCfg)
@@ -126,4 +82,7 @@ in
     den.policies.system-to-os-outputs
     den.policies.system-to-hm-outputs
   ];
+
+  # Exclude den's built-in host-to-users (fleet user policies replace it).
+  den.schema.host.excludes = [ den.policies.host-to-users ];
 }

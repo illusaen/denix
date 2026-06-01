@@ -64,7 +64,7 @@
           l = "eza -alg";
           ll = "eza --tree --git-ignore --all";
         };
-        environment.shellInit = ''
+        programs.fish.interactiveShellInit = ''
           eval (zoxide init fish --cmd n | source)
         '';
 

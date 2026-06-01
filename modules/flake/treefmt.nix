@@ -19,6 +19,7 @@
         programs = {
           fish_indent.enable = true;
           nixfmt.enable = true;
+          deadnix.enable = true;
           statix.enable = true;
           nixf-diagnose.enable = true;
           shellcheck = {
