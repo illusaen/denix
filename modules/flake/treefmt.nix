@@ -22,9 +22,7 @@
           deadnix.enable = true;
           statix.enable = true;
           nixf-diagnose.enable = true;
-          shellcheck = {
-            enable = true;
-          };
+          shellcheck.enable = true;
           toml-sort.enable = true;
           ruff = {
             check = true;
