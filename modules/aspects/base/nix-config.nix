@@ -15,6 +15,7 @@
           "nix-command"
           "flakes"
         ];
+        accept-flake-config = true;
         warn-dirty = false;
         trusted-users = [ "@wheel" ];
         substituters = [

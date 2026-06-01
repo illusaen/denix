@@ -2,6 +2,7 @@
 {
   den.aspects.base.includes = with den.aspects.base; [
     cli
+    darwin-config
     firewall-collector
     fonts
     lix
