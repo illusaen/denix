@@ -29,5 +29,11 @@
     };
 
     persist.files = [ "/etc/opnix-token" ];
+
+    provides.to-users.darwin =
+      { user, ... }:
+      {
+        users.groups.onepassword-secrets.members = [ user.name ];
+      };
   };
 }

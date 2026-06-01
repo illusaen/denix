@@ -16,7 +16,7 @@
         environment.systemPackages = with pkgs; [ ghostty-bin ];
       };
 
-    provides.to-users.hjem =
+    provides.to-users.hjemDarwin =
       {
         pkgs,
         lib,

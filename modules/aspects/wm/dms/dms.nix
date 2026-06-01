@@ -31,7 +31,7 @@
       security.pam.u2f.enable = true;
     };
 
-    provides.to-users.hjem =
+    provides.to-users.hjemLinux =
       {
         pkgs,
         lib,

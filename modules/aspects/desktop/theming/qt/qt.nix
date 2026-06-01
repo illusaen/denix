@@ -17,7 +17,7 @@
         };
       };
 
-    provides.to-users.hjem =
+    provides.to-users.hjemLinux =
       {
         pkgs,
         lib,

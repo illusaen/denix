@@ -1,9 +1,11 @@
 { den, ... }:
 {
-  den.aspects.wendy = {
-    includes = [ den.batteries.host-aspects ];
-    user.password = "arst";
-  };
+  den.aspects.wendy =
+    { host, lib, ... }:
+    {
+      includes = [ den.batteries.host-aspects ];
+    }
+    // lib.optionalAttrs (host.class == "nixos") { user.password = "arst"; };
 
   den.users.registry.wendy = {
     system.uid = 1000;

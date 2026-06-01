@@ -35,7 +35,7 @@
         xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
       };
 
-    provides.to-users.hjem =
+    provides.to-users.hjemLinux =
       { pkgs, fleet, ... }:
       let
         inherit (fleet.my) theming scheme;
