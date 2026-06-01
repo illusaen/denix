@@ -7,7 +7,7 @@
       homebrew.brews = [ "paneru" ];
     };
 
-    provides.to-users.hjem =
+    provides.to-users.hjemDarwin =
       { pkgs, user, ... }:
       {
         xdg.config.files."paneru/paneru.toml".source =
