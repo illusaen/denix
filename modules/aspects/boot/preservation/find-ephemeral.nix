@@ -1,8 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.nix.preservation.includes = with den.aspects.nix.preservation; [ find-ephemeral ];
-
-  den.aspects.nix.preservation.find-ephemeral = {
+  den.aspects.boot.preservation.find-ephemeral = {
     nixos =
       {
         host,

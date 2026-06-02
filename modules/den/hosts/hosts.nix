@@ -68,8 +68,8 @@ in
       };
 
     includes = with den.aspects; [
-      nvidia
-      nix
+      boot
+      boot.nvidia
       wm
       roles.desktop
     ];
@@ -91,7 +91,7 @@ in
 
     includes = with den.aspects; [
       iso
-      nix
+      boot
       roles.server
     ];
   };
@@ -105,7 +105,7 @@ in
       };
 
     includes = with den.aspects; [
-      nix
+      boot
       roles.server
     ];
   };

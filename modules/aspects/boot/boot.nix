@@ -1,8 +1,11 @@
 { den, ... }:
 {
-  den.aspects.nix.includes = with den.aspects.nix; [ boot ];
-
-  den.aspects.nix.boot = {
+  den.aspects.boot = {
+    includes = with den.aspects.boot; [
+      preservation
+      disko
+      facter
+    ];
     nixos = {
       hardware.facter.reportPath = ./facter.json;
 

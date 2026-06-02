@@ -1,5 +1,5 @@
 {
-  den.aspects.nvidia = {
+  den.aspects.boot.nvidia = {
     nixos =
       { config, ... }:
       {
