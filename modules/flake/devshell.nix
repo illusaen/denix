@@ -22,6 +22,10 @@
             help = "Format all files";
           }
           {
+            package = pkgs.nh;
+            help = "nh builder";
+          }
+          {
             package = pkgs.nix-tree;
             help = "Interactively browse dependency graphs of Nix derivations";
           }

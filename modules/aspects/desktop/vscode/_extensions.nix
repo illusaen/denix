@@ -13,10 +13,10 @@
       sha256 = "sha256-6/NHZkg37b6RyZIP89FMltSii+7sC5UTfHYFgyYyl4A=";
     })
     (pkgs.vscode-utils.extensionFromVscodeMarketplace {
-      name = "treefmt-vscode";
-      publisher = "ibecker";
-      version = "2.4.1";
-      sha256 = "sha256-ZTRrZDXqK9L7E5fr5NLEa/0ZyTnFdItfytbVuh/qr94=";
+      name = "vscode-treefmt-nix";
+      publisher = "VanCoding";
+      version = "1.0.2";
+      sha256 = "sha256-6srW1fCbXLZwQunNuUYh2pS9D2XBunt1IrCIMB7MaYA=";
     })
     (pkgs.vscode-utils.extensionFromVscodeMarketplace {
       name = "chatgpt";
