@@ -1,6 +1,7 @@
 { den, ... }:
 {
   den.aspects.base.includes = with den.aspects.base; [
+    audio
     cli
     darwin-config
     firewall-collector
@@ -10,5 +11,6 @@
     nix-config
     tailscale
     terminal
+    xdg
   ];
 }

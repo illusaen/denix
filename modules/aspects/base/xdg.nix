@@ -1,8 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.nix.includes = with den.aspects.nix; [ xdg ];
-
-  den.aspects.nix.xdg = {
+  den.aspects.base.xdg = {
     nixos.xdg.autostart.enable = true;
 
     provides.to-users.hjemLinux.xdg.config.files = {
