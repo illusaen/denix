@@ -1,8 +1,6 @@
-{ den, lib, ... }:
+{ lib, ... }:
 {
-  den.aspects.wm.includes = with den.aspects.wm; [ image-viewer ];
-
-  den.aspects.wm.image-viewer = {
+  den.aspects.programs.image-viewer = {
     nixos =
       { pkgs, ... }:
       {
@@ -11,7 +9,7 @@
         ];
       };
 
-    provides.to-users.hjem.xdg.mime-apps = {
+    provides.to-users.hjemLinux.xdg.mime-apps = {
       default-applications = lib.mkBefore (
         let
           application = "com.github.weclaw1.ImageRoll.desktop";

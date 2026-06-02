@@ -1,8 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.wm.includes = with den.aspects.wm; [ switch-input ];
-
-  den.aspects.wm.switch-input = {
+  den.aspects.programs.switch-input = {
     nixos =
       {
         self',
