@@ -4,7 +4,7 @@
     colmena = [ "desktop" ];
     includes = [
       den.aspects.base
-      den.aspects.desktop
+      den.aspects.programs
       den.aspects.theming
     ];
   };

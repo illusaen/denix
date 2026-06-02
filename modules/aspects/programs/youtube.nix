@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop.youtube = {
+  den.aspects.programs.youtube = {
     provides.to-users.persistUser.directories = [ ".config/YouTube Music Desktop App" ];
 
     wrapper-packages.yt-dlp =

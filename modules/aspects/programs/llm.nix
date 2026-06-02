@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop.llm = {
+  den.aspects.programs.llm = {
     nixos =
       { pkgs, ... }:
       let

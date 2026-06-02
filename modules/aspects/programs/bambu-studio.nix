@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop.bambu-studio = {
+  den.aspects.programs.bambu-studio = {
     nixos = {
       # Forced to use flatpak until login issue fixed
       services.flatpak.enable = true;

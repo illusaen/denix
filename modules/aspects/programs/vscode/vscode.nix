@@ -76,7 +76,7 @@ let
     '';
 in
 {
-  den.aspects.desktop.vscode = {
+  den.aspects.programs.vscode = {
     os =
       { pkgs, ... }:
       {

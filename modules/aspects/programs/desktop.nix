@@ -1,14 +1,13 @@
 { den, ... }:
 {
-  den.aspects.desktop.includes = with den.aspects.desktop; [
+  den.aspects.programs.includes = with den.aspects.programs; [
     onepassword
     bambu-studio
     browser
-    element
+    chat
     image-editor
     llm
     steam
-    vesktop
     vscode
     word
     youtube

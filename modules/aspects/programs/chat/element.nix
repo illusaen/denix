@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop.element = {
+  den.aspects.programs.chat.element = {
     provides.to-users.persistUser.directories = [
       ".config/Element"
     ];

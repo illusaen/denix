@@ -1,6 +1,6 @@
 { den, lib, ... }:
 {
-  den.aspects.desktop.onepassword = {
+  den.aspects.programs.onepassword = {
     os =
       { pkgs, ... }:
       {

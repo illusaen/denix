@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop.image-editor = {
+  den.aspects.programs.image-editor = {
     nixos =
       { pkgs, ... }:
       {
