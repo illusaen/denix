@@ -11,6 +11,7 @@
 }:
 let
   inherit (den.lib.policy) resolve;
+  inherit (den.lib.aspects.fx) identity;
   inherit (lib) mkOption types;
 
   registry = config.den.users.registry;
@@ -68,19 +69,77 @@ let
       builtins.any (g: lib.elem g grantedGroups) userGroups
     ) (builtins.attrNames registry);
 
-  collectUserProviders =
-    user: aspect:
+  collectUserProviders = user: aspect: (collectUserProvidersWithSeen user { } aspect).providers;
+
+  collectUserProviderList =
+    user: seen: aspects:
+    builtins.foldl'
+      (
+        acc: aspect:
+        let
+          collected = collectUserProvidersWithSeen user acc.seen aspect;
+        in
+        {
+          inherit (collected) seen;
+          providers = acc.providers ++ collected.providers;
+        }
+      )
+      {
+        inherit seen;
+        providers = [ ];
+      }
+      aspects;
+
+  aspectIdentityKey =
+    aspect:
+    if builtins.isAttrs aspect && aspect ? __provider && !(aspect ? name) then
+      let
+        provider = aspect.__provider;
+      in
+      identity.key {
+        name = if provider != [ ] then lib.last provider else "<anon>";
+        meta.provider = if provider != [ ] then lib.init provider else [ ];
+      }
+    else
+      identity.key aspect;
+
+  collectUserProvidersWithSeen =
+    user: seen: aspect:
     let
+      aspectKey = if builtins.isAttrs aspect then aspectIdentityKey aspect else null;
+      alreadySeen = aspectKey != null && seen ? ${aspectKey};
+      seen' = if aspectKey == null then seen else seen // { ${aspectKey} = true; };
       provides = aspect.provides or { };
       forwarded = lib.genAttrs (aspect.__providesForwarded or [ ]) (_: true);
       includes = aspect.includes or [ ];
+      includeKeys = lib.genAttrs (builtins.filter (key: key != null) (
+        map (include: if builtins.isAttrs include then aspectIdentityKey include else null) includes
+      )) (_: true);
+      subaspectIncludes =
+        if builtins.isAttrs aspect && aspect ? _ && builtins.isAttrs aspect._ && aspect._ ? __functor then
+          builtins.filter (
+            include: !(builtins.isAttrs include && includeKeys ? ${aspectIdentityKey include})
+          ) ((aspect._ { }).includes or [ ])
+        else
+          [ ];
+      childProviders = collectUserProviderList user seen' (includes ++ subaspectIncludes);
     in
-    lib.optional (provides ? to-users) provides.to-users
-    ++ lib.optional (provides ? ${user.name}) provides.${user.name}
-    ++ lib.optional (
-      builtins.isAttrs aspect && aspect ? ${user.name} && !(forwarded ? ${user.name})
-    ) aspect.${user.name}
-    ++ lib.concatMap (collectUserProviders user) includes;
+    if alreadySeen then
+      {
+        inherit seen;
+        providers = [ ];
+      }
+    else
+      {
+        inherit (childProviders) seen;
+        providers =
+          lib.optional (provides ? to-users) provides.to-users
+          ++ lib.optional (provides ? ${user.name}) provides.${user.name}
+          ++ lib.optional (
+            builtins.isAttrs aspect && aspect ? ${user.name} && !(forwarded ? ${user.name})
+          ) aspect.${user.name}
+          ++ childProviders.providers;
+      };
 
   # Submodule for group-based access grants.
   accessGrantType = types.submodule {

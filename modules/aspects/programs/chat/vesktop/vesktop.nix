@@ -1,5 +1,5 @@
 {
-  den.aspects.programs.vesktop = {
+  den.aspects.programs.chat.vesktop = {
     provides.to-users.persistUser.directories = [
       ".config/vesktop"
     ];
