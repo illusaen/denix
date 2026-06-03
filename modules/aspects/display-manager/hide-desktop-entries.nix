@@ -1,8 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.wm.includes = with den.aspects.wm; [ hideDesktopEntries ];
-
-  den.aspects.wm.hideDesktopEntries = {
+  den.aspects.display-manager.hide-desktop-entries = {
     nixos =
       { pkgs, lib, ... }:
       let

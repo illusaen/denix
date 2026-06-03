@@ -1,11 +1,6 @@
-{ den, ... }:
 {
-  den.aspects.mac.includes = with den.aspects.mac; [ paneru ];
-
-  den.aspects.mac.paneru = {
-    darwin = {
-      homebrew.brews = [ "paneru" ];
-    };
+  den.aspects.display-manager.paneru = {
+    darwin.homebrew.brews = [ "paneru" ];
 
     provides.to-users.hjemDarwin =
       { pkgs, user, ... }:

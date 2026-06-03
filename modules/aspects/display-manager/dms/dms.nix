@@ -1,19 +1,11 @@
+{ inputs, ... }:
 {
-  den,
-  inputs,
-  ...
-}:
-{
-  flake-file.inputs = {
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+  flake-file.inputs.dms = {
+    url = "github:AvengeMedia/DankMaterialShell";
+    inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  den.aspects.wm.includes = with den.aspects.wm; [ dms ];
-
-  den.aspects.wm.dms = {
+  den.aspects.display-manager.dms = {
     provides.to-users.persistUser.directories = [
       ".config/DankMaterialShell"
       ".cache/DankMaterialShell"

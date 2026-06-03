@@ -56,21 +56,19 @@
   den.aspects.odin.includes = with den.aspects; [
     boot
     boot.nvidia
-    wm
     roles.desktop
   ];
 
   # Macbook
   den.aspects.idunn.includes = with den.aspects; [
-    mac
     roles.desktop
   ];
 
   # Seedbox server and Bootable ISO
   den.aspects.huginn.includes = with den.aspects; [
-    iso
     boot
     roles.server
+    iso
   ];
 
   # Raspberry Pi - backup services

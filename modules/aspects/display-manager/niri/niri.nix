@@ -1,8 +1,5 @@
-{ den, ... }:
 {
-  den.aspects.wm.includes = with den.aspects.wm; [ niri ];
-
-  den.aspects.wm.niri = {
+  den.aspects.display-manager.niri = {
     nixos =
       { pkgs, ... }:
       {

@@ -1,8 +1,13 @@
 { den, ... }:
 {
-  den.aspects.wm.includes = with den.aspects.wm; [ display-manager ];
+  den.aspects.display-manager = {
+    includes = with den.aspects.display-manager; [
+      dms
+      niri
+      hide-desktop-entries
+      paneru
+    ];
 
-  den.aspects.wm.display-manager = {
     nixos =
       { config, ... }:
       {
