@@ -11,7 +11,7 @@
       {
         imports = [
           inputs.disko.nixosModules.disko
-          (import ("${rootPath}/hosts/${host.name}" + /disko.nix) {
+          (import "${rootPath}/hosts/${host.name}/disko.nix" {
             inherit (host.preservation) disk persistMount rollbackSnapshot;
           })
         ];

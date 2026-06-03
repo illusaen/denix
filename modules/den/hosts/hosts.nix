@@ -1,11 +1,4 @@
 { den, ... }:
-let
-  _disko =
-    host:
-    (import ../../aspects/nix/boot/_disko.nix {
-      inherit (host.preservation) disk persistMount rollbackSnapshot;
-    });
-in
 {
   den.hosts.x86_64-linux.odin = {
     preservation.enable = true;
@@ -60,20 +53,12 @@ in
   };
 
   # Main PC
-  den.aspects.odin = {
-    nixos =
-      { host, ... }:
-      {
-        disko = _disko host;
-      };
-
-    includes = with den.aspects; [
-      boot
-      boot.nvidia
-      wm
-      roles.desktop
-    ];
-  };
+  den.aspects.odin.includes = with den.aspects; [
+    boot
+    boot.nvidia
+    wm
+    roles.desktop
+  ];
 
   # Macbook
   den.aspects.idunn.includes = with den.aspects; [
@@ -82,31 +67,15 @@ in
   ];
 
   # Seedbox server and Bootable ISO
-  den.aspects.huginn = {
-    nixos =
-      { host, ... }:
-      {
-        disko = _disko host;
-      };
-
-    includes = with den.aspects; [
-      iso
-      boot
-      roles.server
-    ];
-  };
+  den.aspects.huginn.includes = with den.aspects; [
+    iso
+    boot
+    roles.server
+  ];
 
   # Raspberry Pi - backup services
-  den.aspects.muninn = {
-    nixos =
-      { host, ... }:
-      {
-        disko = _disko host;
-      };
-
-    includes = with den.aspects; [
-      boot
-      roles.server
-    ];
-  };
+  den.aspects.muninn.includes = with den.aspects; [
+    boot
+    roles.server
+  ];
 }

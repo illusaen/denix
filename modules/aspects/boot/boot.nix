@@ -6,15 +6,11 @@
       disko
       facter
     ];
-    nixos = {
-      hardware.facter.reportPath = ./facter.json;
-
-      boot = {
-        loader.systemd-boot.enable = true;
-        loader.efi.canTouchEfiVariables = true;
-        initrd.systemd.enable = true;
-        zfs.forceImportRoot = false;
-      };
+    nixos.boot = {
+      loader.systemd-boot.enable = true;
+      loader.efi.canTouchEfiVariables = true;
+      initrd.systemd.enable = true;
+      zfs.forceImportRoot = false;
     };
   };
 }

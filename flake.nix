@@ -12,7 +12,6 @@
     extra-deprecated-features = [ "or-as-identifier" ];
     extra-experimental-features = [
       "pipe-operator"
-      "pipe-operators"
       "flakes"
       "nix-command"
     ];
