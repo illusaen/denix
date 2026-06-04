@@ -135,7 +135,7 @@
           '';
           gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
             cat ${
-              fleet.my.scheme.render {
+              fleet.my.base16.scheme.render {
                 inherit pkgs lib;
                 template = ./gtk.css.mustache;
                 extension = ".css";

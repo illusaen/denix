@@ -24,7 +24,7 @@
         ...
       }:
       let
-        inherit (fleet.my) fonts scheme;
+        inherit (fleet.my) fonts base16;
         themeFile = "Cosmic.ghostty";
       in
       {
@@ -48,7 +48,7 @@
             quit-after-last-window-closed = false
             theme = ${themeFile}
           '';
-          "ghostty/themes/${themeFile}".source = scheme.render {
+          "ghostty/themes/${themeFile}".source = base16.scheme.render {
             inherit pkgs lib;
             template = ../../../../wrappers/ghostty/ghostty.theme.mustache;
             extension = "ghostty";

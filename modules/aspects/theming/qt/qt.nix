@@ -26,7 +26,7 @@
         ...
       }:
       let
-        inherit (fleet.my) fonts theming scheme;
+        inherit (fleet.my) fonts theming base16;
 
         qtSettingsFile = qtct: {
           "${qtct}/${qtct}.conf".source =
@@ -51,12 +51,12 @@
 
         kvantumPackage =
           let
-            kvconfig = scheme.render {
+            kvconfig = base16.scheme.render {
               inherit pkgs lib;
               template = ./kvconfig.mustache;
               extension = ".kvconfig";
             };
-            svg = scheme.render {
+            svg = base16.scheme.render {
               inherit pkgs lib;
               template = ./kvantum.svg.mustache;
               extension = ".svg";

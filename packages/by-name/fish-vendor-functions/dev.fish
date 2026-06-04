@@ -12,23 +12,18 @@ function dev
     set -l NAME $argv[1]
     set -l NIX_CONF_ROOT (string replace -r '^~' "$HOME" -- "$NIX_CONF")
     set -l TEMPLATE_ROOT "$NIX_CONF_ROOT/templates"
-    set -l DEVSHELL_FILE "$TEMPLATE_ROOT/nix/$NAME-devshell.nix"
+    set -l LANGUAGE_FILE "$TEMPLATE_ROOT/nix/$NAME.nix"
 
-    if not test -f "$DEVSHELL_FILE"
-        echo "$NAME template at $DEVSHELL_FILE doesn't exist yet."
+    if not test -f "$LANGUAGE_FILE"
+        echo "$NAME template at $LANGUAGE_FILE doesn't exist yet."
         return 1
     end
 
     echo "Initializing devshell for $NAME."
 
     mkdir -p nix
-    cp -f "$DEVSHELL_FILE" nix/devshell.nix
-    cp -f "$TEMPLATE_ROOT/nix/default.nix" nix/default.nix
-
-    cp -r "$TEMPLATE_ROOT/npins" .
-    cp "$TEMPLATE_ROOT/default.nix" default.nix
-    cp "$TEMPLATE_ROOT/flake.nix" flake.nix
-    cp "$TEMPLATE_ROOT/shell.nix" shell.nix
+    cp -f "$LANGUAGE_FILE" "nix/$NAME.nix"
+    cp -f "$TEMPLATE_ROOT/nix/{devshell,flake-file,pre-commit,treefmt}.nix" nix/
 
     set -l GITIGNORE_CONTENT ".direnv\nresult\n.pre-commit-config.yaml\ntreefmt.toml"
     if not test -f .gitignore

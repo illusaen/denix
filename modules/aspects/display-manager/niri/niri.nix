@@ -35,11 +35,11 @@
     provides.to-users.hjemLinux =
       { pkgs, fleet, ... }:
       let
-        inherit (fleet.my) theming scheme;
+        inherit (fleet.my) theming base16;
         mainMonitor = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
         secondaryMonitor = "BOE Display 000000001";
         inherit (theming) cursorTheme;
-        inherit (scheme.withHashtag) base0E;
+        inherit (base16.scheme.withHashtag) base0E;
       in
       {
         xdg.config.files = {

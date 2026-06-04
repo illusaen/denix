@@ -5,7 +5,12 @@
     mkhl.direnv
     naumovs.color-highlight
     usernamehw.errorlens
-    catppuccin.catppuccin-vsc-icons
+    (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+      name = "beardedtheme";
+      publisher = "beardedbear";
+      version = "10.1.0";
+      sha256 = "sha256-7MkvLEadzgB7af01lYibEOqHn9bvzlpgMTEiiQBlEzA=";
+    })
     (pkgs.vscode-utils.extensionFromVscodeMarketplace {
       name = "catppuccin-vsc";
       publisher = "Catppuccin";

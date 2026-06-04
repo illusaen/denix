@@ -31,11 +31,13 @@
         ...
       }:
       {
-        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source = fleet.my.scheme.render {
-          inherit pkgs lib;
-          template = ./dms-theme.json.mustache;
-          extension = "json";
-        };
+        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source =
+          fleet.my.base16.scheme.render
+            {
+              inherit pkgs lib;
+              template = ./dms-theme.json.mustache;
+              extension = "json";
+            };
       };
   };
 }

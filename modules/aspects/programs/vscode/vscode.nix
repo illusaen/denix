@@ -99,7 +99,7 @@ in
         ...
       }:
       let
-        inherit (fleet.my) fonts scheme;
+        inherit (fleet.my) fonts;
         extensionJsonFile =
           name: text:
           pkgs.writeTextFile {
@@ -128,7 +128,6 @@ in
 
           {
             "${userDir}/settings.json".source = pkgs.replaceVars ./settings.json.template {
-              backgroundColor = scheme.withHashtag.base00;
               fontSize = builtins.floor (fonts.sizes.terminal * 1.1);
               monoFontName = "${fonts.mono},Maple Mono NF CN";
               serifFontName = "Monaspace Xenon Frozen";

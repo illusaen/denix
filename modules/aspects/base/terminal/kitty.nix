@@ -14,11 +14,11 @@
       {
         kitty =
           let
-            inherit (fleet.my) fonts scheme;
+            inherit (fleet.my) fonts base16;
           in
           {
             imports = [ (rootPath + /wrappers/kitty/kitty.nix) ];
-            renderScheme = scheme.render;
+            renderScheme = base16.scheme.render;
             font = {
               name = fonts.mono;
               size = fonts.sizes.terminal;

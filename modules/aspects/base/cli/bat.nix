@@ -9,7 +9,7 @@
       {
         bat = {
           imports = [ (rootPath + /wrappers/bat/bat.nix) ];
-          renderScheme = fleet.my.scheme.render;
+          renderScheme = fleet.my.base16.scheme.render;
         };
       };
 

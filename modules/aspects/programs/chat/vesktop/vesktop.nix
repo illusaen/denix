@@ -37,7 +37,7 @@
         ...
       }:
       let
-        inherit (fleet.my) fonts scheme;
+        inherit (fleet.my) fonts base16;
         settings = {
           vesktop = { };
           vencord = {
@@ -55,7 +55,7 @@
           themes.cosmic = ./vesktop.css;
           extraQuickCss =
             let
-              colors = scheme.withHashtag;
+              colors = base16.scheme.withHashtag;
             in
             ''
               :root {
