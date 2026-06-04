@@ -7,9 +7,7 @@
 
   den.aspects.base.cli.nix-index = {
     os.programs.nix-index-database.comma.enable = true;
-
     nixos.imports = [ inputs.nix-index-database.nixosModules.default ];
-
     darwin.imports = [ inputs.nix-index-database.darwinModules.nix-index ];
   };
 }

@@ -21,7 +21,8 @@
           cat = "bat";
         };
 
-        system.activationScripts.rebuildCache = ''
+        system.activationScripts.rebuildBatCache = ''
+          echo "Rebuilding bat cache."
           ${lib.getExe self'.packages.bat} cache --build
         '';
       };

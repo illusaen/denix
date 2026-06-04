@@ -13,20 +13,18 @@ let
   schemeAttrs = base16.mkSchemeAttrs base16Scheme;
 in
 {
-  options.fleet.my = {
-    base16 = lib.mkOption {
-      type = lib.types.submodule {
-        options = {
-          colorScheme = lib.mkOption {
-            type = lib.types.enum [
-              "dark"
-              "light"
-            ];
-          };
-          scheme = lib.mkOption {
-            type = lib.types.raw;
-            readOnly = true;
-          };
+  options.fleet.my.base16 = lib.mkOption {
+    type = lib.types.submodule {
+      options = {
+        colorScheme = lib.mkOption {
+          type = lib.types.enum [
+            "dark"
+            "light"
+          ];
+        };
+        scheme = lib.mkOption {
+          type = lib.types.raw;
+          readOnly = true;
         };
       };
     };

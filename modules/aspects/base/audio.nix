@@ -1,7 +1,7 @@
 {
   den.aspects.base.audio = {
     nixos =
-      { pkgs, lib, ... }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [
           pavucontrol
@@ -26,16 +26,6 @@
           };
         };
         security.rtkit.enable = true;
-
-        environment.etc = lib.mkIf pkgs.stdenv.isLinux {
-          "xdg/autostart/mpv.desktop".text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=MPV
-            Exec=${pkgs.mpv}/bin/mpv
-            X-GNOME-Autostart-enabled=true
-          '';
-        };
       };
   };
 }
