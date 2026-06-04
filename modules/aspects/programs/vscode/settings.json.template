@@ -83,7 +83,7 @@
   "update.mode": "none",
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 1,
-  "workbench.colorTheme": "Bearded Theme Monokai Terra",
+  "workbench.colorTheme": "Dracula Theme",
   "workbench.iconTheme": "vs-seti",
   "workbench.panel.defaultLocation": "right",
   "workbench.startupEditor": "none"

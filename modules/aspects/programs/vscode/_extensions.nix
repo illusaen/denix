@@ -5,18 +5,7 @@
     mkhl.direnv
     naumovs.color-highlight
     usernamehw.errorlens
-    (pkgs.vscode-utils.extensionFromVscodeMarketplace {
-      name = "beardedtheme";
-      publisher = "beardedbear";
-      version = "10.1.0";
-      sha256 = "sha256-7MkvLEadzgB7af01lYibEOqHn9bvzlpgMTEiiQBlEzA=";
-    })
-    (pkgs.vscode-utils.extensionFromVscodeMarketplace {
-      name = "catppuccin-vsc";
-      publisher = "Catppuccin";
-      version = "3.19.0";
-      sha256 = "sha256-6/NHZkg37b6RyZIP89FMltSii+7sC5UTfHYFgyYyl4A=";
-    })
+    dracula-theme.theme-dracula
     (pkgs.vscode-utils.extensionFromVscodeMarketplace {
       name = "vscode-treefmt-nix";
       publisher = "VanCoding";

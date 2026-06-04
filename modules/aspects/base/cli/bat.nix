@@ -14,12 +14,16 @@
       };
 
     os =
-      { self', ... }:
+      { self', lib, ... }:
       {
         environment.systemPackages = [ self'.packages.bat ];
         environment.shellAliases = {
           cat = "bat";
         };
+
+        system.activationScripts.rebuildCache = ''
+          ${lib.getExe self'.packages.bat} cache --build
+        '';
       };
 
     provides.to-users.persistUser.directories = [ ".cache/bat" ];
