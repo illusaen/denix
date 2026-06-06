@@ -70,6 +70,7 @@
   "svelte.enable-ts-plugin": true,
   "svelte.plugin.svelte.format.config.singleQuote": true,
   "svelte.plugin.svelte.format.config.svelteStrictMode": true,
+  "tailwindCSS.classFunctions": ["tv", "cn"],
   "terminal.integrated.defaultProfile.linux": "fish",
   "terminal.integrated.defaultProfile.osx": "fish",
   "terminal.integrated.fontSize": @fontSize@,

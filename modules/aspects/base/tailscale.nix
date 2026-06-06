@@ -3,7 +3,11 @@
   den.aspects.base.tailscale = {
     includes = [
       (den.lib.policy.when (
-        { host, ... }: host.hasAspect den.aspects.roles.desktop
+        {
+          host ? null,
+          ...
+        }:
+        host != null && host.hasAspect den.aspects.roles.desktop
       ) den.aspects.base.tailscale-systray)
     ];
 
