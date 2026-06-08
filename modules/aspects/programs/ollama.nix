@@ -1,14 +1,13 @@
 {
-  den.aspects.programs.llm = {
+  den.aspects.programs.ollama = {
     nixos =
       { pkgs, ... }:
       let
         llama-cpp = pkgs.llama-cpp.override { cudaSupport = true; };
       in
       {
-        environment.systemPackages = with pkgs; [
+        environment.systemPackages = [
           llama-cpp
-          codex
         ];
         services.llama-cpp = {
           enable = true;
@@ -31,7 +30,5 @@
           };
         };
       };
-
-    darwin.homebrew.casks = [ "codex-app" ];
   };
 }

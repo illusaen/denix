@@ -5,9 +5,10 @@
     bambu-studio
     browser
     chat
+    codex
     image-editor
     image-viewer
-    llm
+    ollama
     nemo
     steam
     switch-input

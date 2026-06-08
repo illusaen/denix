@@ -29,6 +29,10 @@
 
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
+    codex-desktop-linux = {
+      url = "github:ilysenko/codex-desktop-linux";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     colmena.url = "github:zhaofengli/colmena";
     darwin = {
       url = "github:nix-darwin/nix-darwin/master";
