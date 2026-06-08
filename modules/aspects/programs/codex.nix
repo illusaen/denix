@@ -5,6 +5,7 @@
   };
 
   den.aspects.programs.codex = {
+    env = { pkgs, lib, ... }: { CODEX_CLI_PATH = lib.getExe pkgs.codex; };
     nixos =
       { pkgs, ... }:
       {
