@@ -48,8 +48,8 @@
 
     darwin = {
       documentation.man.enable = false;
-      environment.shellInit = ''
-        eval (/opt/homebrew/bin/brew shellenv)
+      programs.fish.interactiveShellInit = ''
+        /opt/homebrew/bin/brew shellenv | source
       '';
     };
   };

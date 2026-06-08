@@ -6,6 +6,7 @@
     naumovs.color-highlight
     usernamehw.errorlens
     dracula-theme.theme-dracula
+    ms-vscode-remote.remote-ssh
     (pkgs.vscode-utils.extensionFromVscodeMarketplace {
       name = "vscode-treefmt-nix";
       publisher = "VanCoding";

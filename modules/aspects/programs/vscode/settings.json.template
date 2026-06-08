@@ -83,7 +83,7 @@
   "treefmt.command": "treefmt",
   "update.mode": "none",
   "window.titleBarStyle": "custom",
-  "window.zoomLevel": 1,
+  "window.zoomLevel": @zoomLevel@,
   "workbench.colorTheme": "Dracula Theme",
   "workbench.iconTheme": "vs-seti",
   "workbench.panel.defaultLocation": "right",
