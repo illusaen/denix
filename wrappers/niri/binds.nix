@@ -9,27 +9,27 @@
   };
   "Ctrl+Space" = _: {
     props.hotkey-overlay-title = "Launcher";
-    content.spawn-sh = "dms ipc call spotlight toggle";
+    content.spawn-sh = "cosmic-launcher";
   };
   "Ctrl+Shift+Space" = _: {
-    props.hotkey-overlay-title = "Notepad";
-    content.spawn-sh = "dms ipc call notepad toggle";
+    props.hotkey-overlay-title = "Notifications";
+    content.spawn-sh = "cosmic-notifications";
   };
   "Mod+Ctrl+Space" = _: {
     props.hotkey-overlay-title = "Power Menu";
-    content.spawn-sh = "dms ipc call powermenu toggle";
+    content.spawn-sh = "cosmic-power-menu";
   };
   "Ctrl+Alt+Space" = _: {
-    props.hotkey-overlay-title = "Clipboard";
-    content.spawn-sh = "dms ipc call clipboard toggle";
+    props.hotkey-overlay-title = "Calculator";
+    content.spawn-sh = "cosmic-calculator";
   };
   "Mod+Ctrl+Shift+Q" = _: {
     props.hotkey-overlay-title = "Kill Wine";
     content.spawn-sh = "pkill -9 winedevice.exe";
   };
   "Mod+Escape" = _: {
-    props.hotkey-overlay-title = "Keybinds";
-    content.spawn-sh = "dms ipc call keybinds open niri";
+    props.hotkey-overlay-title = "Notification Center";
+    content.spawn-sh = "swaync-client -t -sw";
   };
   "Mod+G" = _: {
     props.hotkey-overlay-title = "Google Chrome";
@@ -41,14 +41,14 @@
       { hotkey-overlay-title = "Vol Down"; }
       { allow-when-locked = true; }
     ];
-    content.spawn-sh = "dms ipc call audio decrement 5";
+    content.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
   };
   "XF86AudioMute" = _: {
     props = [
       { hotkey-overlay-title = "Mute"; }
       { allow-when-locked = true; }
     ];
-    content.spawn-sh = "dms ipc call audio mute";
+    content.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
   };
   "XF86AudioNext" = _: {
     props = [
@@ -76,7 +76,7 @@
       { hotkey-overlay-title = "Vol Up"; }
       { allow-when-locked = true; }
     ];
-    content.spawn-sh = "dms ipc call audio increment 5";
+    content.spawn-sh = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+";
   };
 
   "Mod+C" = _: {

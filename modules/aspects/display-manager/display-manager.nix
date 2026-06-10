@@ -2,8 +2,10 @@
 {
   den.aspects.display-manager = {
     includes = with den.aspects.display-manager; [
+      desktop-shell
       dms
       niri
+      waybar
       hide-desktop-entries
       paneru
     ];

@@ -53,16 +53,28 @@ in
       layer-rules
       ;
     layout = {
-      gaps = 16;
+      gaps = 14;
       struts = {
         left = 0;
         right = 0;
-        top = 0;
+        top = 8;
         bottom = 0;
       };
       background-color = "transparent";
       focus-ring.off = _: { };
       border.off = _: { };
+      shadow = {
+        on = _: { };
+        softness = 28;
+        spread = 4;
+        offset = _: {
+          props = {
+            x = 0;
+            y = 8;
+          };
+        };
+        color = "#00000066";
+      };
       center-focused-column = "on-overflow";
       default-column-width.proportion = 0.333;
       preset-column-widths = [

@@ -6,38 +6,16 @@
   };
 
   den.aspects.display-manager.dms = {
-    provides.to-users.persistUser.directories = [
-      ".config/DankMaterialShell"
-      ".cache/DankMaterialShell"
-      ".local/state/DankMaterialShell"
-    ];
-
     nixos = {
       imports = [ inputs.dms.nixosModules.dank-material-shell ];
       programs.dank-material-shell = {
-        enable = true;
+        enable = false;
         enableVPN = false;
-        systemd.enable = true;
+        systemd.enable = false;
       };
 
       security.pam.u2f.enable = true;
     };
 
-    provides.to-users.hjemLinux =
-      {
-        pkgs,
-        lib,
-        fleet,
-        ...
-      }:
-      {
-        xdg.config.files."DankMaterialShell/themes/custom/theme.json".source =
-          fleet.my.base16.scheme.render
-            {
-              inherit pkgs lib;
-              template = ./dms-theme.json.mustache;
-              extension = "json";
-            };
-      };
   };
 }

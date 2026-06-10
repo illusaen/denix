@@ -1,0 +1,31 @@
+* {
+    border: none;
+    min-height: 0;
+    font-family: "@sans@", sans-serif, "@icon@";
+    font-size: calc(@fontSize@px * 1.25);
+    font-weight: 500;
+}
+window#waybar { background: transparent; color: @base05@; }
+.modules-left, .modules-center, .modules-right {
+    padding: 3px 7px;
+    border: 1px solid alpha(@base03@, 0.5);
+    border-radius: 14px;
+    background: alpha(@base00@, 0.85);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35);
+}
+#custom-launcher, #workspaces, #window, #clock, #tray, #network,
+#pulseaudio, #battery, #custom-notification, #custom-power {
+    padding: 8px 0;
+}
+#custom-launcher, #custom-power { color: @base09@; font-size: 15px; }
+#clock {
+    color: @base06@;
+    font-feature-settings: "'tnum' 1";
+    font-weight: 600;
+}
+#calendar { color: @base06@; font-family: "@mono@"; }
+#window { color: @base04@; font-weight: 500; }
+#workspaces button { padding: 4px 0; color: @base03@; }
+#workspaces button.active { color: @base09@; }
+#workspaces button:hover { color: @base07@; background: transparent; }
+#custom-notification { color: @base05@; }

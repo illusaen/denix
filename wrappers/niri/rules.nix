@@ -16,11 +16,11 @@
 
   window-rules = [
     {
-      geometry-corner-radius = 12;
+      geometry-corner-radius = 16;
       clip-to-geometry = true;
       tiled-state = true;
       popups = {
-        opacity = 0.85;
+        opacity = 0.92;
         background-effect.blur = true;
       };
     }
@@ -30,12 +30,12 @@
         draw-behind-window = true;
         color = "#000000B3";
       };
-      opacity = 0.95;
+      opacity = 0.96;
       background-effect.blur = true;
     }
     {
       matches = [ { is-active = false; } ];
-      opacity = 0.9;
+      opacity = 0.94;
       background-effect.blur = true;
     }
     {

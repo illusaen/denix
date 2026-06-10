@@ -12,6 +12,7 @@
     nemo
     steam
     switch-input
+    wallpaper
     vscode
     word
     youtube

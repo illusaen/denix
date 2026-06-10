@@ -5,7 +5,7 @@
   ...
 }:
 let
-  base16Scheme = ./dracula.yaml;
+  base16Scheme = ./cosmic.yaml;
   base16 = inputs.base16.lib {
     inherit lib;
     pkgs = null;
