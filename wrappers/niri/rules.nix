@@ -50,6 +50,7 @@
         { app-id = "xdg-desktop-portal-gtk"; }
         { app-id = "xdg-desktop-portal-gnome"; }
         { app-id = "nemo"; }
+        { app-id = "org.gnome.Nautilus"; }
       ];
       open-floating = true;
       max-width = 1800;

@@ -9,7 +9,7 @@
     image-editor
     image-viewer
     ollama
-    nemo
+    nautilus
     steam
     wallpaper
     vscode

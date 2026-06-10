@@ -31,7 +31,7 @@ in
   config = {
     fleet.my.theming = {
       iconTheme = {
-        name = "Nordic-darker";
+        name = "WhiteSur";
       };
       cursorTheme = {
         name = "Nordic-cursors";
@@ -52,6 +52,7 @@ in
           adw-gtk3
           adwaita-qt6
           nordic
+          whitesur-icon-theme
           self'.packages.dconf-to-nix
         ];
       };

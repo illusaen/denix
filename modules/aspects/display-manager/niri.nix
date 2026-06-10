@@ -34,13 +34,12 @@
         programs.niri = {
           enable = true;
           package = self'.packages.niri;
+          useNautilus = true;
         };
 
         environment.systemPackages = with pkgs; [
           xwayland-satellite
         ];
-
-        xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
       };
   };
 }
