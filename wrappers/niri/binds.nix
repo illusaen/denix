@@ -36,6 +36,15 @@
     content.spawn-sh = "google-chrome";
   };
 
+  "Mod+Ctrl+B" = _: {
+    props.hotkey-overlay-title = "Brightness +";
+    content.spawn-sh = "monitor-brightness up";
+  };
+  "Mod+Ctrl+Shift+B" = _: {
+    props.hotkey-overlay-title = "Brightness -";
+    content.spawn-sh = "monitor-brightness down";
+  };
+
   "XF86AudioLowerVolume" = _: {
     props = [
       { hotkey-overlay-title = "Vol Down"; }

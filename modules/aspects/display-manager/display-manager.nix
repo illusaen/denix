@@ -7,6 +7,7 @@
       niri
       waybar
       hide-desktop-entries
+      monitor
       paneru
     ];
 

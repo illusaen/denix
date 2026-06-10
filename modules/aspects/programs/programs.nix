@@ -11,7 +11,6 @@
     ollama
     nemo
     steam
-    switch-input
     wallpaper
     vscode
     word
