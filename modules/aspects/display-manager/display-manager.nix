@@ -9,6 +9,8 @@
       hide-desktop-entries
       monitor
       paneru
+      rofi
+      swayidle
     ];
 
     nixos =

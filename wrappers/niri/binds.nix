@@ -9,19 +9,19 @@
   };
   "Ctrl+Space" = _: {
     props.hotkey-overlay-title = "Launcher";
-    content.spawn-sh = "cosmic-launcher";
+    content.spawn-sh = "rofi-launcher";
   };
   "Ctrl+Shift+Space" = _: {
     props.hotkey-overlay-title = "Notifications";
-    content.spawn-sh = "cosmic-notifications";
+    content.spawn-sh = "rofi-notifications";
   };
   "Mod+Ctrl+Space" = _: {
     props.hotkey-overlay-title = "Power Menu";
-    content.spawn-sh = "cosmic-power-menu";
+    content.spawn-sh = "rofi-power-menu";
   };
   "Ctrl+Alt+Space" = _: {
     props.hotkey-overlay-title = "Calculator";
-    content.spawn-sh = "cosmic-calculator";
+    content.spawn-sh = "rofi-calculator";
   };
   "Mod+Ctrl+Shift+Q" = _: {
     props.hotkey-overlay-title = "Kill Wine";

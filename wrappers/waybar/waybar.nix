@@ -72,7 +72,7 @@
         dnd-inhibited-none = "󰪑";
       };
       on-click = "swaync-client -t -sw";
-      on-click-right = "cosmic-notifications";
+      on-click-right = "rofi-notifications";
     };
   };
   config."style.css".path = pkgs.replaceVars ./style.css {

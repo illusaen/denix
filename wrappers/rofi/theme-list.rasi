@@ -1,0 +1,30 @@
+* {
+    bg: @base00@e6;
+    surface: @base01@f2;
+    selected: @base02@;
+    text: @base05@;
+    muted: @base04@;
+    accent: @base09@;
+}
+window {
+    width: 620px;
+    border: 1px;
+    border-color: @base03@;
+    border-radius: 20px;
+    background-color: @bg;
+    padding: 18px;
+}
+mainbox { spacing: 14px; background-color: transparent; }
+inputbar {
+    padding: 13px 16px;
+    border-radius: 13px;
+    background-color: @surface;
+    children: [ prompt, entry ];
+}
+prompt { text-color: @accent; margin: 0 12px 0 0; }
+entry { text-color: @text; placeholder: "Search"; placeholder-color: @muted; }
+listview { lines: 7; columns: 1; spacing: 6px; background-color: transparent; }
+element { padding: 11px 13px; border-radius: 11px; background-color: transparent; }
+element selected { background-color: @selected; }
+element-icon { size: 25px; margin: 0 12px 0 0; }
+element-text { text-color: @text; vertical-align: 0.5; }

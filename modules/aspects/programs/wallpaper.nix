@@ -6,7 +6,7 @@
     in
     {
       nixos = { pkgs, lib, ... }: {
-        systemd.user.services.cosmic-wallpaper = {
+        systemd.user.services.swaybg = {
           description = "Cosmic tree desktop background";
           wantedBy = [ "graphical-session.target" ];
           partOf = [ "graphical-session.target" ];
