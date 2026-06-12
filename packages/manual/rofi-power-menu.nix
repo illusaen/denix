@@ -17,11 +17,11 @@ writeShellApplication {
   text = ''
     choice="$(
       printf '%s\0icon\x1f%s\n' \
-        "Lock" "system-lock-screen" \
-        "Suspend" "system-suspend" \
-        "Log Out" "system-log-out" \
-        "Restart" "system-reboot" \
-        "Shut Down" "system-shutdown" |
+        "Lock" "system-lock-screen-symbolic" \
+        "Suspend" "system-suspend-symbolic" \
+        "Log Out" "system-log-out-symbolic" \
+        "Restart" "system-reboot-symbolic" \
+        "Shut Down" "system-shutdown-symbolic" |
         rofi -dmenu -p 'Power' -i -show-icons
     )"
 

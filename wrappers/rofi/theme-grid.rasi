@@ -10,46 +10,47 @@
     background-color: transparent;
 }
 window {
-  fullscreen: true;
-  padding: 1em;
+  width: 900px;
+  padding: 24px;
+  border: 1px;
+  border-color: @selected;
+  border-radius: 20px;
   background-color: @bg;
 }
+
 mainbox {
-  padding:  8px;
+  spacing: 24px;
 }
+
 inputbar {
   background-color: @surface;
-
-  margin:   0px calc( 50% - 120px );
-  padding:  2px 4px;
-  spacing:  4px;
-
-  border:         1px;
-  border-radius:  2px;
-  border-color:   @surface;
-
-  children: [icon-search,entry];
+  margin: 0 280px;
+  padding: 10px 14px;
+  spacing: 8px;
+  border-radius: 12px;
+  children: [ icon-search, entry ];
 }
 
 prompt {
-  enabled:  false;
+  enabled: false;
 }
 
 icon-search {
-  expand:   false;
+  expand: false;
   filename: "search";
   vertical-align: 0.5;
 }
 
 entry {
-  placeholder:        "Search";
-  placeholder-color:  @muted;
+  placeholder: "Search";
+  placeholder-color: @muted;
 }
 
 listview {
-  margin:   48px calc( 50% - 560px );
-  spacing:  48px;
-  columns:  6;
+  lines: 4;
+  columns: 6;
+  spacing: 16px;
+  fixed-height: true;
   fixed-columns: true;
 }
 
@@ -58,11 +59,10 @@ element, element-text, element-icon {
 }
 
 element {
-  padding:      8px;
-  spacing:      4px;
-
-  orientation:    vertical;
-  border-radius:  16px;
+  padding: 12px;
+  spacing: 6px;
+  orientation: vertical;
+  border-radius: 16px;
 }
 
 element selected {

@@ -48,10 +48,10 @@
           rofi = config.packages.rofi-grid;
         };
         rofi-notifications = pkgs.callPackage (rootPath + /packages/manual/rofi-notifications.nix) {
-          rofi = config.packages.rofi-grid;
+          rofi = config.packages.rofi-actions;
         };
         rofi-power-menu = pkgs.callPackage (rootPath + /packages/manual/rofi-power-menu.nix) {
-          rofi = config.packages.rofi-grid;
+          rofi = config.packages.rofi-actions;
           inherit rootPath;
         };
       };

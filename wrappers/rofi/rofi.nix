@@ -12,7 +12,11 @@
     icon = lib.mkOption { type = lib.types.str; };
     colors = lib.mkOption { type = lib.types.raw; };
     layout = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.enum [
+        "actions"
+        "grid"
+        "list"
+      ];
       default = "list";
     };
   };
@@ -29,18 +33,21 @@
   config.flags."-theme" = config.constructFiles.themeConfig.path;
   config.constructFiles.themeConfig =
     let
-      theme =
-        pkgs.replaceVars (if config.layout == "list" then ./theme-list.rasi else ./theme-grid.rasi)
-          {
-            inherit (config.colors)
-              base00
-              base01
-              base03
-              base04
-              base05
-              base09
-              ;
-          };
+      themeFile = {
+        actions = ./theme-actions.rasi;
+        grid = ./theme-grid.rasi;
+        list = ./theme-list.rasi;
+      };
+      theme = pkgs.replaceVars themeFile.${config.layout} {
+        inherit (config.colors)
+          base00
+          base01
+          base03
+          base04
+          base05
+          base09
+          ;
+      };
     in
     {
       relPath = "rofi-theme.rasi";

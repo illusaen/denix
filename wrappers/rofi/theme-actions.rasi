@@ -1,0 +1,54 @@
+* {
+    bg: @base00@e6;
+    surface: @base01@f2;
+    selected: @base03@;
+    text: @base05@;
+    muted: @base04@;
+    accent: @base09@;
+
+    background-color: transparent;
+    text-color: @text;
+}
+
+window {
+    location: east;
+    anchor: east;
+    width: 180px;
+    padding: 16px;
+    border: 1px;
+    border-color: @selected;
+    border-radius: 20px 0 0 20px;
+    background-color: @bg;
+}
+
+mainbox {
+    children: [ listview ];
+}
+
+listview {
+    columns: 1;
+    spacing: 10px;
+    fixed-height: false;
+    background-color: transparent;
+}
+
+element {
+    orientation: vertical;
+    padding: 12px;
+    spacing: 6px;
+    border-radius: 14px;
+}
+
+element selected {
+    background-color: @selected;
+}
+
+element-icon {
+    size: 3em;
+    horizontal-align: 0.5;
+    text-color: @text;
+}
+
+element-text {
+    horizontal-align: 0.5;
+}

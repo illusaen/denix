@@ -12,9 +12,9 @@ writeShellApplication {
   text = ''
     choice="$(
       printf '%s\0icon\x1f%s\n' \
-        "Open" "preferences-system-notifications" \
-        "DND" "notifications-disabled" \
-        "Clear" "edit-clear-all" |
+        "Open" "notification-symbolic" \
+        "DND" "notification-disabled-symbolic" \
+        "Clear" "edit-clear-all-symbolic" |
         rofi -dmenu -p 'Notifications' -i -show-icons
     )"
 
