@@ -8,7 +8,6 @@
       {
         pkgs,
         lib,
-        self',
         ...
       }:
       {
@@ -17,8 +16,7 @@
           [
             swaynotificationcenter
           ]
-          ++ (with self'.packages; [
-            rofi
+          ++ (with pkgs.local; [
             rofi-launcher
             rofi-calculator
             rofi-power-menu

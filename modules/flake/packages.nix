@@ -1,7 +1,27 @@
-{ inputs, rootPath, ... }:
+{
+  inputs,
+  rootPath,
+  withSystem,
+  self,
+  ...
+}:
 {
   flake-file.inputs.pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
   imports = [ inputs.pkgs-by-name-for-flake-parts.flakeModule ];
+
+  flake.overlays.default =
+    _final: prev:
+    withSystem prev.stdenv.hostPlatform.system (
+      { config, ... }:
+      {
+        local = config.packages;
+      }
+    );
+
+  den.default = {
+    nixos.nixpkgs.overlays = [ self.overlays.default ];
+    darwin.nixpkgs.overlays = [ self.overlays.default ];
+  };
 
   perSystem =
     { system, config, ... }:
@@ -32,6 +52,7 @@
         };
         rofi-power-menu = pkgs.callPackage (rootPath + /packages/manual/rofi-power-menu.nix) {
           rofi = config.packages.rofi;
+          inherit rootPath;
         };
       };
     };

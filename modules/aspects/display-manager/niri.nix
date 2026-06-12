@@ -22,7 +22,7 @@
       };
 
     nixos =
-      { pkgs, self', ... }:
+      { pkgs, ... }:
       {
         nix.settings = {
           substituters = [ "https://niri.cachix.org" ];
@@ -33,7 +33,7 @@
 
         programs.niri = {
           enable = true;
-          package = self'.packages.niri;
+          package = pkgs.local.niri;
           useNautilus = true;
         };
 

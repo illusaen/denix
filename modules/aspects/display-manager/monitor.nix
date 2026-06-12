@@ -1,10 +1,10 @@
 {
   den.aspects.display-manager.monitor = {
-    nixos = { pkgs, self', ... }: {
+    nixos = { pkgs, ... }: {
       environment.systemPackages = with pkgs; [
         ddcutil
-        self'.packages.switch-input
-        self'.packages.monitor-brightness
+        local.switch-input
+        local.monitor-brightness
       ];
       hardware.i2c.enable = true;
     };

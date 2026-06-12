@@ -46,14 +46,14 @@ in
     ];
 
     den.aspects.theming.nixos =
-      { pkgs, self', ... }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [
           adw-gtk3
           adwaita-qt6
           nordic
           whitesur-icon-theme
-          self'.packages.dconf-to-nix
+          local.dconf-to-nix
         ];
       };
   };

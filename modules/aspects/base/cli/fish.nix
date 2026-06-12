@@ -6,7 +6,6 @@
     os =
       {
         pkgs,
-        self',
         ...
       }:
       {
@@ -33,7 +32,7 @@
         environment.systemPackages = with pkgs.fishPlugins; [
           puffer
           colored-man-pages
-          self'.packages.fish-vendor-functions
+          pkgs.local.fish-vendor-functions
         ];
       };
 

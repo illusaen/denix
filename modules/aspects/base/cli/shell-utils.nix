@@ -46,14 +46,13 @@
         pkgs,
         config,
         lib,
-        self',
         ...
       }:
       {
         environment.systemPackages = with pkgs; [
-          self'.packages.eza
-          self'.packages.fd
-          self'.packages.gh
+          local.eza
+          local.fd
+          local.gh
           zoxide
           coreutils
           vim

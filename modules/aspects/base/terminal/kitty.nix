@@ -2,10 +2,10 @@
 {
   den.aspects.base.terminal.kitty = {
     nixos =
-      { self', ... }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [
-          self'.packages.kitty
+          pkgs.local.kitty
         ];
       };
 

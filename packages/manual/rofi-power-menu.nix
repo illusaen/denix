@@ -4,6 +4,7 @@
   niri,
   swaylock,
   systemd,
+  rootPath ? null,
 }:
 writeShellApplication {
   name = "rofi-power-menu";
@@ -18,7 +19,7 @@ writeShellApplication {
     case "$choice" in
       Lock)
         swaylock --daemonize \
-          --image ${../../resources/cosmic-tree.png} \
+          --image ${rootPath + /resources/cosmic-tree.png} \
           --scaling fill \
           --indicator-radius 90 \
           --indicator-thickness 8 \

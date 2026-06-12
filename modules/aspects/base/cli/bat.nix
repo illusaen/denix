@@ -14,16 +14,16 @@
       };
 
     os =
-      { self', lib, ... }:
+      { pkgs, lib, ... }:
       {
-        environment.systemPackages = [ self'.packages.bat ];
+        environment.systemPackages = [ pkgs.local.bat ];
         environment.shellAliases = {
           cat = "bat";
         };
 
         system.activationScripts.rebuildBatCache = ''
           echo "Rebuilding bat cache."
-          ${lib.getExe self'.packages.bat} cache --build
+          ${lib.getExe pkgs.local.bat} cache --build
         '';
       };
 

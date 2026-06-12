@@ -13,10 +13,10 @@
       };
 
     os =
-      { self', pkgs, ... }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [
-          self'.packages.yt-dlp
+          local.yt-dlp
           ytmdesktop
         ];
       };

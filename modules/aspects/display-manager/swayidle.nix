@@ -6,8 +6,8 @@
       };
     };
 
-    nixos = { self', lib, ... }: {
-      environment.systemPackages = [ self'.packages.swayidle ];
+    nixos = { pkgs, lib, ... }: {
+      environment.systemPackages = [ pkgs.local.swayidle ];
 
       systemd.user.services.swayidle = {
         wantedBy = [ "graphical-session.target" ];
@@ -18,7 +18,7 @@
           "graphical-session-pre.target"
         ];
         description = "swayidle for monitor power on and off";
-        script = lib.getExe self'.packages.swayidle;
+        script = lib.getExe pkgs.local.swayidle;
       };
     };
   };

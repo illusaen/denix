@@ -12,8 +12,8 @@
       };
     };
 
-    nixos = { self', lib, ... }: {
-      environment.systemPackages = [ self'.packages.waybar ];
+    nixos = { pkgs, lib, ... }: {
+      environment.systemPackages = [ pkgs.local.waybar ];
       systemd.user.services.waybar = {
         description = "Desktop menu bar";
         wantedBy = [ "graphical-session.target" ];
@@ -23,7 +23,7 @@
           "swaync.service"
         ];
         serviceConfig = {
-          ExecStart = lib.getExe self'.packages.waybar;
+          ExecStart = lib.getExe pkgs.local.waybar;
           Restart = "on-failure";
           RestartSec = 2;
         };

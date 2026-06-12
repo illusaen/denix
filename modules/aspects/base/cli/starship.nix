@@ -75,12 +75,12 @@
       };
 
     os =
-      { self', ... }:
+      { pkgs, ... }:
       {
         programs.fish.interactiveShellInit = ''
           starship init fish | source
         '';
-        environment.systemPackages = [ self'.packages.starship ];
+        environment.systemPackages = [ pkgs.local.starship ];
       };
   };
 }

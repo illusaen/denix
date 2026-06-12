@@ -35,7 +35,6 @@ in
     os =
       {
         pkgs,
-        self',
         host,
         ...
       }:
@@ -81,7 +80,7 @@ in
         environment.systemPackages = with pkgs; [
           difftastic
           fishGitCloneRepo
-          self'.packages.git
+          local.git
         ];
       };
   };

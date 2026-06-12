@@ -13,8 +13,8 @@
         };
     };
 
-    nixos = { self', ... }: {
-      environment.systemPackages = [ self'.packages.rofi ];
+    nixos = { pkgs, ... }: {
+      environment.systemPackages = [ pkgs.local.rofi ];
     };
   };
 }

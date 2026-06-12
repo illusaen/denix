@@ -5,7 +5,7 @@
         host,
         config,
         lib,
-        self',
+        pkgs,
         ...
       }:
       let
@@ -36,8 +36,8 @@
       in
       {
         environment.systemPackages = [
-          (self'.packages.find-ephemeral-persist.override { inherit persisted; })
-          (self'.packages.find-orphaned-persist.override {
+          (pkgs.local.find-ephemeral-persist.override { inherit persisted; })
+          (pkgs.local.find-orphaned-persist.override {
             inherit persistMount persisted;
           })
         ];
