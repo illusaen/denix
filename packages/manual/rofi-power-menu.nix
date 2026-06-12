@@ -15,7 +15,16 @@ writeShellApplication {
     systemd
   ];
   text = ''
-    choice="$(printf 'Lock\nSuspend\nLog Out\nRestart\nShut Down' | rofi -dmenu -p 'Power' -i)"
+    choice="$(
+      printf '%s\0icon\x1f%s\n' \
+        "Lock" "system-lock-screen" \
+        "Suspend" "system-suspend" \
+        "Log Out" "system-log-out" \
+        "Restart" "system-reboot" \
+        "Shut Down" "system-shutdown" |
+        rofi -dmenu -p 'Power' -i -show-icons
+    )"
+
     case "$choice" in
       Lock)
         swaylock --daemonize \

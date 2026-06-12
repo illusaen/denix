@@ -32,10 +32,7 @@
           fish = "fish";
           vim = "vim";
           gvim = "gvim";
-          khal = "khal";
-          kitty = "kitty";
           kitty-open = "kitty-open";
-          "org.pulseaudio.pavucontrol" = "pavucontrol";
         };
       in
       {

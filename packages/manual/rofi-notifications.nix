@@ -10,11 +10,18 @@ writeShellApplication {
     swaynotificationcenter
   ];
   text = ''
-    choice="$(printf 'Open Notification Center\nToggle Do Not Disturb\nClear Notifications' | rofi -dmenu -p 'Notifications' -i)"
+    choice="$(
+      printf '%s\0icon\x1f%s\n' \
+        "Open" "preferences-system-notifications" \
+        "DND" "notifications-disabled" \
+        "Clear" "edit-clear-all" |
+        rofi -dmenu -p 'Notifications' -i -show-icons
+    )"
+
     case "$choice" in
-      "Open Notification Center") swaync-client -t -sw ;;
-      "Toggle Do Not Disturb") swaync-client -d -sw ;;
-      "Clear Notifications") swaync-client -C ;;
+      "Open") swaync-client -t -sw ;;
+      "DND") swaync-client -d -sw ;;
+      "Clear") swaync-client -C ;;
     esac
   '';
 }

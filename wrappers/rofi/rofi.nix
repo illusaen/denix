@@ -11,6 +11,10 @@
     font = lib.mkOption { type = lib.types.str; };
     icon = lib.mkOption { type = lib.types.str; };
     colors = lib.mkOption { type = lib.types.raw; };
+    layout = lib.mkOption {
+      type = lib.types.str;
+      default = "list";
+    };
   };
 
   config.plugins = with pkgs; [ rofi-calc ];
@@ -25,17 +29,18 @@
   config.flags."-theme" = config.constructFiles.themeConfig.path;
   config.constructFiles.themeConfig =
     let
-      theme = pkgs.replaceVars ./theme-list.rasi {
-        inherit (config.colors)
-          base00
-          base01
-          base02
-          base03
-          base04
-          base05
-          base09
-          ;
-      };
+      theme =
+        pkgs.replaceVars (if config.layout == "list" then ./theme-list.rasi else ./theme-grid.rasi)
+          {
+            inherit (config.colors)
+              base00
+              base01
+              base03
+              base04
+              base05
+              base09
+              ;
+          };
     in
     {
       relPath = "rofi-theme.rasi";

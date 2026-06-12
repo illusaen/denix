@@ -64,8 +64,8 @@
 
       _gtk = pkgs: {
         theme = {
-          package = pkgs.adw-gtk3;
-          name = "adw-gtk3";
+          package = pkgs.whitesur-gtk-theme;
+          name = "WhiteSur";
         };
       };
 
@@ -210,17 +210,17 @@
             '';
           };
 
-          files = lib.optionalAttrs flatpak.enable {
-            ".themes/${gtk.theme.name}".source = pkgs.stdenvNoCC.mkDerivation {
-              name = "flattenedGtkTheme";
-              src = "${gtk.theme.package}/share/themes/${gtk.theme.name}";
+          # files = lib.optionalAttrs flatpak.enable {
+          #   ".themes/${gtk.theme.name}".source = pkgs.stdenvNoCC.mkDerivation {
+          #     name = "flattenedGtkTheme";
+          #     src = "${gtk.theme.package}/share/themes/${gtk.theme.name}";
 
-              installPhase = ''
-                cp --recursive . $out
-                cat ${gtkFinalCss} | tee --append $out/gtk-{3,4}.0/gtk.css
-              '';
-            };
-          };
+          #     installPhase = ''
+          #       cp --recursive . $out
+          #       cat ${gtkFinalCss} | tee --append $out/gtk-{3,4}.0/gtk.css
+          #     '';
+          #   };
+          # };
         };
     };
 }

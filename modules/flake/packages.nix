@@ -42,16 +42,16 @@
       # manually called packages because they depend on wrapper packages
       packages = {
         rofi-calculator = pkgs.callPackage (rootPath + /packages/manual/rofi-calculator.nix) {
-          rofi = config.packages.rofi;
+          rofi = config.packages.rofi-list;
         };
         rofi-launcher = pkgs.callPackage (rootPath + /packages/manual/rofi-launcher.nix) {
-          rofi = config.packages.rofi;
+          rofi = config.packages.rofi-grid;
         };
         rofi-notifications = pkgs.callPackage (rootPath + /packages/manual/rofi-notifications.nix) {
-          rofi = config.packages.rofi;
+          rofi = config.packages.rofi-grid;
         };
         rofi-power-menu = pkgs.callPackage (rootPath + /packages/manual/rofi-power-menu.nix) {
-          rofi = config.packages.rofi;
+          rofi = config.packages.rofi-grid;
           inherit rootPath;
         };
       };

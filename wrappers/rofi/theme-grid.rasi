@@ -1,0 +1,79 @@
+* {
+    bg: @base00@e6;
+    surface: @base01@f2;
+    selected: @base03@;
+    text: @base05@;
+    muted: @base04@;
+    accent: @base09@;
+    
+    text-color: @text;
+    background-color: transparent;
+}
+window {
+  fullscreen: true;
+  padding: 1em;
+  background-color: @bg;
+}
+mainbox {
+  padding:  8px;
+}
+inputbar {
+  background-color: @surface;
+
+  margin:   0px calc( 50% - 120px );
+  padding:  2px 4px;
+  spacing:  4px;
+
+  border:         1px;
+  border-radius:  2px;
+  border-color:   @surface;
+
+  children: [icon-search,entry];
+}
+
+prompt {
+  enabled:  false;
+}
+
+icon-search {
+  expand:   false;
+  filename: "search";
+  vertical-align: 0.5;
+}
+
+entry {
+  placeholder:        "Search";
+  placeholder-color:  @muted;
+}
+
+listview {
+  margin:   48px calc( 50% - 560px );
+  spacing:  48px;
+  columns:  6;
+  fixed-columns: true;
+}
+
+element, element-text, element-icon {
+  cursor: pointer;
+}
+
+element {
+  padding:      8px;
+  spacing:      4px;
+
+  orientation:    vertical;
+  border-radius:  16px;
+}
+
+element selected {
+  background-color: @selected;
+}
+
+element-icon {
+  size: 4em;
+  horizontal-align: 0.5;
+}
+
+element-text {
+  horizontal-align: 0.5;
+}
