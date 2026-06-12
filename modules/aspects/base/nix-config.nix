@@ -17,7 +17,10 @@
         ];
         accept-flake-config = true;
         warn-dirty = false;
-        trusted-users = [ "@wheel" ];
+        trusted-users = [
+          "root"
+          "@wheel"
+        ];
         substituters = [
           "https://cache.nixos.org/"
           "https://nix-community.cachix.org"

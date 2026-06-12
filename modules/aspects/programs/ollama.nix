@@ -4,6 +4,7 @@
       { pkgs, ... }:
       let
         llama-cpp = pkgs.llama-cpp.override { cudaSupport = true; };
+        iniFormat = pkgs.formats.ini { };
       in
       {
         environment.systemPackages = [
@@ -13,7 +14,7 @@
           enable = true;
           package = llama-cpp;
           # Takes care of downloading if model not present
-          modelsPreset = {
+          settings.models-preset = iniFormat.generate "ollama-models.ini" {
             "*" = {
               context-shift = true;
             };

@@ -12,7 +12,7 @@
         imports = [ inputs.codex-desktop-linux.nixosModules.default ];
         environment.systemPackages = with pkgs; [ codex ];
         programs.codexDesktopLinux = {
-          enable = true;
+          enable = false;
           computerUseUi.enable = true;
           remoteMobileControl.enable = true;
           remoteControl.enable = true;
