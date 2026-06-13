@@ -56,7 +56,7 @@
         };
         rofi-power-menu = pkgs.callPackage (rootPath + /packages/manual/rofi-power-menu.nix) {
           rofi = config.packages.rofi;
-          inherit rootPath;
+          swaylock = config.packages.swaylock;
         };
       };
     };

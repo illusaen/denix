@@ -3,16 +3,7 @@
     nixos =
       { pkgs, ... }:
       {
-        environment.systemPackages = with pkgs; [
-          pavucontrol
-          (mpv.override {
-            scripts = [
-              mpvScripts.uosc
-              mpvScripts.sponsorblock
-              mpvScripts.mpris
-            ];
-          })
-        ];
+        environment.systemPackages = with pkgs; [ pavucontrol ];
         services = {
           pulseaudio.enable = false;
           playerctld.enable = true;

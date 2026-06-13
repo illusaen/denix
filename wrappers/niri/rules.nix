@@ -5,11 +5,7 @@
       background-effect.xray = false;
     }
     {
-      matches = [ { namespace = "^dms:desktop-widget:.*$"; } ];
-      background-effect.blur = true;
-    }
-    {
-      matches = [ { namespace = "^quickshell$"; } ];
+      matches = [ { namespace = "^wallpaper$"; } ];
       place-within-backdrop = true;
     }
   ];

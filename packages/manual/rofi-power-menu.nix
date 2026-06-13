@@ -4,7 +4,6 @@
   niri,
   swaylock,
   systemd,
-  rootPath ? null,
 }:
 writeShellApplication {
   name = "rofi-power-menu";
@@ -25,18 +24,7 @@ writeShellApplication {
     )"
 
     case "$choice" in
-      Lock)
-        swaylock --daemonize \
-          --image ${rootPath + /resources/cosmic-tree.png} \
-          --scaling fill \
-          --indicator-radius 90 \
-          --indicator-thickness 8 \
-          --inside-color 141c25dd \
-          --ring-color ecaf8d \
-          --key-hl-color a8b986 \
-          --line-color 00000000 \
-          --separator-color 00000000
-        ;;
+      Lock) swaylock ;;
       "Log Out") niri msg action quit ;;
       Restart) systemctl reboot ;;
       "Shut Down") systemctl poweroff ;;

@@ -11,6 +11,7 @@
       paneru
       rofi
       swayidle
+      swaylock
     ];
   };
 }

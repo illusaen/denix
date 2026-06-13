@@ -37,31 +37,91 @@
     positionX = "right";
     positionY = "top";
     layer = "overlay";
-    control-center-margin-top = 56;
-    control-center-margin-right = 12;
-    control-center-width = 420;
-    notification-window-width = 420;
+    layer-shell = true;
+    cssPriority = "application";
+    control-center-width = 520;
+    control-center-margin-top = 0;
+    control-center-margin-bottom = 0;
+    control-center-margin-right = 0;
+    control-center-margin-left = 0;
+    notification-2fa-action = true;
+    notification-inline-replies = false;
+    notification-window-width = 380;
     notification-icon-size = 48;
-    notification-body-image-height = 100;
-    notification-body-image-width = 180;
-    timeout = 6;
-    timeout-low = 3;
+    notification-body-image-height = 240;
+    notification-body-image-width = 240;
+    timeout = 8;
+    timeout-low = 4;
     timeout-critical = 0;
-    fit-to-screen = false;
-    control-center-exclusive-zone = false;
+    fit-to-screen = true;
+    keyboard-shortcuts = true;
+    image-visibility = "when-available";
+    transition-time = 150;
+    hide-on-clear = true;
+    hide-on-action = true;
+    script-fail-notify = true;
     widgets = [
       "mpris"
-      "title"
       "volume"
-      "backlight"
-      "dnd"
+      "title"
       "notifications"
+      "buttons-grid"
     ];
+    widget-config = {
+      title = {
+        text = "Notifications";
+        clear-all-button = true;
+        button-text = "Clear";
+      };
+      mpris = {
+        image-size = 80;
+        image-radius = 10;
+      };
+      volume = {
+        label = "";
+        step = 5;
+      };
+      backlight = {
+        label = "󰃞";
+        step = 5;
+      };
+      buttons-grid.actions = [
+        {
+          label = "󰂛";
+          command = "${placeholder "out"}/bin/swaync-client -d";
+          tooltip = "DND";
+        }
+        {
+          label = "";
+          command = "${lib.getExe pkgs.pavucontrol}";
+          tooltip = "Audio";
+        }
+        {
+          label = "";
+          command = "${pkgs.blueman}/bin/blueman-manager";
+          tooltip = "Bluetooth";
+        }
+        {
+          label = "";
+          command = "${lib.getExe pkgs.local.swaylock}";
+          tooltip = "Lock";
+        }
+        {
+          label = "󰜉";
+          command = "reboot";
+          tooltip = "Reboot";
+        }
+        {
+          label = "⏻";
+          command = "shutdown now";
+          tooltip = "Power off";
+        }
+      ];
+    };
   };
   config."style.css".path = pkgs.replaceVars ./style.css {
     inherit (config.colors)
       base00
-      base02
       base03
       base04
       base05

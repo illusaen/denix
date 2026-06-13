@@ -1,7 +1,7 @@
 window {
     location: east;
     anchor: east;
-    width: 180px;
+    width: 140px;
     padding: 16px;
     border-radius: 20px 0 0 20px;
 }
