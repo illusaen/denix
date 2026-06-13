@@ -21,7 +21,7 @@ writeShellApplication {
         "Log Out" "" \
         "Restart" "" \
         "Shut Down" "" |
-        ROFI_LAYOUT_ACTIONS=true rofi -dmenu -p 'Power' -i -show-icons
+        ROFI_LAYOUT_ACTIONS=true ROFI_SHIFT_ICON=true rofi -dmenu -p 'Power' -i -show-icons
     )"
 
     case "$choice" in

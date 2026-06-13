@@ -29,6 +29,70 @@ in
       show-icons: true;
     }
 
+    * {
+      bg: ${config.colors.base00}e6;
+      surface: ${config.colors.base01}f2;
+      selected: ${config.colors.base03};
+      text: ${config.colors.base05};
+      muted: ${config.colors.base04};
+      accent: ${config.colors.base09};
+      
+      text-color: @text;
+      background-color: transparent;
+    }
+
+    window {
+      border: 1px;
+      border-color: @selected;
+      border-radius: 20px;
+      background-color: @bg;
+    }
+
+    inputbar {
+      border-radius: 12px;
+      background-color: @surface;
+    }
+
+    listview { scrollbar: false; }
+
+    entry { text-color: ${config.colors.base05}; placeholder: "Search"; placeholder-color: ${config.colors.base04}; }
+
+    textbox { text-color: @text; }
+
+    element {
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    element, element-text, element-icon {
+      cursor: pointer;
+    }
+
+    element normal.normal,
+    element normal.active,
+    element normal.urgent,
+    element alternate.normal,
+    element alternate.active,
+    element alternate.urgent {
+      background-color: @surface;
+      text-color: @text;
+    }
+
+    element selected.normal,
+    element selected.active,
+    element selected.urgent {
+        background-color: @selected;
+        text-color: @text;
+    }
+
+    element-icon { size: 4em; }
+
+    element-text { text-color: ${config.colors.base05}; }
+
+    @media ( enabled: env(ROFI_SHIFT_ICON, false)) {
+      element-icon { margin: 0 8px 0 0; }
+    }
+
     @import "${config.constructFiles.actionsTheme.path}"
     @import "${config.constructFiles.gridTheme.path}"
     @import "${config.constructFiles.listTheme.path}"
@@ -43,30 +107,13 @@ in
     in
     lib.mapAttrs' (
       layout: file:
-      lib.nameValuePair "${layout}Theme" (
-        let
-          theme = pkgs.replaceVars file {
-            inherit (config.colors)
-              base00
-              base01
-              base03
-              base04
-              base05
-              base09
-              ;
-          };
-        in
-        {
-          relPath = "rofi-theme-${layout}.rasi";
-          builder = ''
-            mkdir -p "$(dirname "$2")"
-            {
-              echo '@media ( enabled: env(ROFI_LAYOUT_${lib.toUpper layout}, false)) {'
-              cat ${lib.escapeShellArg theme}
-              echo '}'
-            } > "$2"
-          '';
-        }
-      )
+      lib.nameValuePair "${layout}Theme" {
+        relPath = "rofi-theme-${layout}.rasi";
+        content = ''
+          @media ( enabled: env(ROFI_LAYOUT_${lib.toUpper layout}, false)) {
+          ${builtins.readFile file}
+          }
+        '';
+      }
     ) themeFile;
 }

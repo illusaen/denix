@@ -20,6 +20,22 @@
           };
         };
 
+        environment.systemPackages = [
+          (
+            let
+              id = "2819520";
+            in
+            pkgs.makeDesktopItem {
+              name = "viking-rise";
+              desktopName = "Viking Rise";
+              comment = "Play Viking Rise through Steam";
+              exec = "${lib.getExe config.programs.steam.package} steam://rungameid/${id}";
+              icon = "steam";
+              categories = [ "Game" ];
+            }
+          )
+        ];
+
         systemd.user.services.steam-start = {
           description = "Start Steam on login";
           after = [
