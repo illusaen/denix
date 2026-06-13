@@ -1,7 +1,7 @@
 @define-color theme_fg @base07@; /* Primary Text */
 @define-color muted @base04@; /* Secondary Text */
 @define-color theme_bg alpha(@base00@, 0.25); /* Panel/Background */
-@define-color module_bg alpha(@base00@, 0.4); /* Default Module Background */
+@define-color module_bg alpha(@base00@, 0.6); /* Default Module Background */
 @define-color module_hover_bg alpha(@base05@, 0.4); /* Module Hover */
 @define-color button_bg alpha(@base03@, 0.3); /* Button Default */
 @define-color button_hover_bg alpha(@base04@, 0.4); /* Button Hover */
@@ -15,11 +15,11 @@
 /* ── Base Reset ───────────────────────────────────────────────────── */
 * {
   font-family: "@font@", sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   color: @theme_fg;
   border: none;
-  border-radius: 18px 0 0 18px;
   background: none;
+  border-radius: 16px;
   padding: 0;
   margin: 0;
   box-shadow: none;
@@ -33,8 +33,8 @@
   border: 1px solid @border_medium;
   border-top-color: @border_light;
   border-bottom-color: @border_dark;
-  border-radius: 0px;
-  padding: 28px;
+  border-radius: 16px 0 0 16px;
+  padding: 24px;
   min-width: 380px;
 }
 
@@ -45,40 +45,29 @@
 .widget-buttons-grid,
 .control-center-list > box > *:not(.widget-title) {
   background-color: @module_bg;
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
   border: 1px solid @border_medium;
 }
-.widget-volume, .widget-backlight { padding: 14px 18px; }
-.widget-buttons-grid { padding: 12px; }
+.widget-volume, .widget-backlight { padding: 16px 24px; }
+.widget-buttons-grid { padding: 16px; }
 .control-center > box > *:last-child { margin-bottom: 0; }
-.widget-dnd > switch:checked { background: @accent; }
-.widget-dnd > switch { background: @module_bg; }
 
 /* Widget Titles */
 .widget-title {
   background: transparent;
   border: none;
-  padding: 4px 6px 12px 6px;
-  margin-bottom: 8px;
+  padding: 16px 0;
+  margin: 0 8px;
 }
 .widget-title label {
-  font-family: 'Inter';
-  font-size: 17px;
   font-weight: 500;
   color: @muted;
-  margin-left: 4px;
-  background: none;
 }
 .widget-title button {
-  font-family: inherit;
-  font-size: 16px;
   color: @theme_fg;
   background-color: @button_bg;
-  border: none;
-  border-radius: 10px;
-  padding: 7px 16px;
+  padding: 8px 16px;
   transition: background-color 0.15s ease;
 }
 .widget-title button:hover,
@@ -87,26 +76,9 @@
 }
 
 /* ── 4. MPRIS Widget ────────────────────────────────────────────── */
-.widget-mpris {
-  padding: 0;
-  border: none;
-
-  border-radius: 18px;
-  background: transparent;
-}
-.widget-mpris .widget-mpris-player {
-  background-color: @shadow;
-  border-radius: 12px;
-  border: 1px solid @border_medium;
-  padding: 0;
-  margin: 0;
-}
-.widget-mpris .widget-mpris-album-art {
-  background: none;
-  min-width: 60px;
-  min-height: 60px;
-  border-radius: 16px;
-  margin-right: 12px;
+.widget-mpris-album-art {
+    /* Hides the album art image */
+    display: none;
 }
 .widget-mpris .widget-mpris-title {
   font-size: 20px;
@@ -123,12 +95,12 @@
 .widget-mpris .widget-mpris-player button {
   all: unset;
   background: transparent;
-  border-radius: 50%;
-  padding: 7px;
+  padding: 8px;
+  margin-bottom: 4px;
   color: @muted;
-  font-size: 16px;
-  min-width: 34px;
-  min-height: 34px;
+  font-size: 18px;
+  min-width: 36px;
+  min-height: 36px;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 .widget-mpris .widget-mpris-player button:hover {
@@ -144,20 +116,20 @@
   font-size: 24px;
   color: @theme_fg;
   min-width: 24px;
-  margin-right: 14px;
+  margin-right: 16px;
 }
 scale trough {
-  min-height: 12px;
-  border-radius: 6px;
+  min-height: 8px;
+  border-radius: 2px;
 }
 scale trough progress {
-  min-height: 12px;
-  border-radius: 6px;
+  min-height: 8px;
+  border-radius: 2px;
   background-color: @accent;
   transition: background-color 0.15s ease;
 }
-scale:hover trough progress {
-  background-color: @accent;
+scale:hover trough {
+  background-color: alpha(@accent, 0.75);
 }
 trough highlight {
   padding: 5px;
@@ -183,24 +155,20 @@ scale slider {
   background: none;
 }
 .widget-buttons-grid > flowbox > flowboxchild > button {
-  background-color: alpha(@base00@, 0.7);
-  border-radius: 66px;
-  padding: 14px;
-  min-width: 24px;
-  min-height: 24px;
-  color: @icon_secondary;
+  padding: 16px;
+  min-width: 36px;
+  min-height: 36px;
+  color: @theme_fg;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
-.widget-buttons-grid > flowbox > flowboxchild > button:hover {
-  background-color: @accent;
-  color: @theme_fg;
+.widget-buttons-grid > flowbox > flowboxchild > button:hover,
+.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked:hover {
+  background-color: @accent_hover;
+  color: @theme_bg;
 }
 .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
   background-color: @accent;
-  color: @theme_fg;
-}
-.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked:hover {
-  background-color: @accent_hover;
+  color: @theme_bg;
 }
 
 

@@ -74,15 +74,12 @@
         button-text = "Clear";
       };
       mpris = {
-        image-size = 80;
-        image-radius = 10;
+        show-album-art = false;
+        autohide = true;
+        loop-carousel = true;
       };
       volume = {
         label = "";
-        step = 5;
-      };
-      backlight = {
-        label = "󰃞";
         step = 5;
       };
       buttons-grid.actions = [
@@ -130,7 +127,20 @@
       ;
     inherit (config) font;
   };
-  config.package = pkgs.swaynotificationcenter;
+  config.package = pkgs.swaynotificationcenter.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace src/controlCenter/widgets/mpris/mpris.vala \
+        --replace-fail \
+          'set_orientation (Gtk.Orientation.VERTICAL);' \
+          'set_orientation (Gtk.Orientation.VERTICAL); set_hexpand (true);' \
+        --replace-fail \
+          'carousel_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {' \
+          'carousel_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) { hexpand = true,' \
+        --replace-fail \
+          'carousel = new Adw.Carousel () {' \
+          'carousel = new Adw.Carousel () { hexpand = true,'
+    '';
+  });
   config.flags = {
     "--config" = config.configFile.path;
     "--style" = config."style.css".path;
