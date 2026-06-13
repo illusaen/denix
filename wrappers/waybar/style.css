@@ -9,7 +9,7 @@ window#waybar { background: transparent; color: @base05@; }
 tooltip { background: transparent; }
 tooltip label {
     margin-right: 72px;
-    padding: 8px;
+    padding: 16px;
     border: 1px solid alpha(@base03@, 0.5);
     border-radius: 8px;
     background: @base00@;
