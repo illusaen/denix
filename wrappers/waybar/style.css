@@ -6,26 +6,33 @@
     font-weight: 500;
 }
 window#waybar { background: transparent; color: @base05@; }
-.modules-left, .modules-center, .modules-right {
-    padding: 3px 7px;
+tooltip { margin-right: 72px; }
+#workspaces, #date-time, #tray, #custom-notification {
+    padding: 16px 0;
     border: 1px solid alpha(@base03@, 0.5);
     border-radius: 14px;
     background: alpha(@base00@, 0.85);
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 5px 18px @base02@;
 }
-#custom-launcher, #workspaces, #window, #clock, #tray, #network,
-#pulseaudio, #battery, #custom-notification, #custom-power {
-    padding: 8px 0;
-}
-#custom-launcher, #custom-power { color: @base09@; font-size: 15px; }
 #clock {
     color: @base06@;
     font-feature-settings: "'tnum' 1";
     font-weight: 600;
 }
-#calendar { color: @base06@; font-family: "@mono@"; }
+#clock.hour, #clock.minute, #clock.weekday, #clock.month {
+    margin-bottom: 0;
+}
+#clock.period { margin-bottom: 16px; }
+#clock.minute, #clock.period, #clock.month, #clock.day {
+    margin-top: 0;
+}
+#clock.hour, #clock.minute, #clock.weekday, #clock.day { color: @base09@; }
 #window { color: @base04@; font-weight: 500; }
 #workspaces button { padding: 4px 0; color: @base03@; }
 #workspaces button.active { color: @base09@; }
 #workspaces button:hover { color: @base07@; background: transparent; }
-#custom-notification { color: @base05@; }
+#custom-notification {
+    color: @base05@;
+    font-family: "@icon@";
+    font-size: 22px;
+}

@@ -36,7 +36,7 @@
     modules-left = [
       "niri/workspaces"
     ];
-    modules-center = [ "clock" ];
+    modules-center = [ "group/date-time" ];
     modules-right = [
       "tray"
       "custom/notification"
@@ -48,36 +48,74 @@
         default = "○";
       };
     };
-    clock = {
+    "group/date-time" = {
+      orientation = "inherit";
+      modules = [
+        "clock#hour"
+        "clock#minute"
+        "clock#period"
+        "clock#weekday"
+        "clock#month"
+        "clock#day"
+      ];
+    };
+    "clock#hour" = {
       interval = 60;
-      format = "{0:%I\n%M\n%p\n\n%a\n%b\n%d}";
-      tooltip-format = "<big>{calendar}</big>";
+      format = "<span font_family='${config.font.mono}' size='15pt'>{0:%I}</span>";
+      tooltip = false;
+    };
+    "clock#minute" = {
+      interval = 60;
+      format = "<span font_family='${config.font.mono}' size='15pt'>{0:%M}</span>";
+      tooltip = false;
+    };
+    "clock#period" = {
+      interval = 60;
+      format = "<span font_family='${config.font.mono}' size='12pt'>{0:%p}</span>";
+      tooltip = false;
+    };
+    "clock#weekday" = {
+      interval = 60;
+      format = "<span font_family='${config.font.sans}' size='12pt'>{0:%a}</span>";
+      tooltip = false;
+    };
+    "clock#month" = {
+      interval = 60;
+      format = "<span font_family='${config.font.sans}' size='12pt'>{0:%b}</span>";
+      tooltip = false;
+    };
+    "clock#day" = {
+      interval = 60;
+      format = "<span font_family='${config.font.mono}' size='15pt'>{0:%d}</span>";
+      tooltip-format = "<span font_family='${config.font.mono}' size='large'>{calendar}</span>";
     };
     tray = {
-      icon-size = 18;
+      icon-size = 20;
       spacing = 8;
     };
     "custom/notification" = {
-      exec = "swaync-client -swb";
+      exec = "${lib.getExe' pkgs.swaynotificationcenter "swaync-client"} -swb";
+      restart-interval = 5;
       return-type = "json";
       format = "{icon}";
       format-icons = {
-        notification = "󰂚";
-        none = "󰂜";
-        dnd-notification = "󰂛";
-        dnd-none = "󰪑";
-        inhibited-notification = "󰂛";
-        inhibited-none = "󰪑";
-        dnd-inhibited-notification = "󰂛";
-        dnd-inhibited-none = "󰪑";
+        notification = "notifications";
+        none = "notifications_none";
+        dnd-notification = "notifications_off";
+        dnd-none = "notifications_off";
+        inhibited-notification = "notifications_off";
+        inhibited-none = "notifications_off";
+        dnd-inhibited-notification = "notifications_off";
+        dnd-inhibited-none = "notifications_off";
       };
-      on-click = "swaync-client -t -sw";
+      on-click = "${lib.getExe' pkgs.swaynotificationcenter "swaync-client"} -t -sw";
       on-click-right = "rofi-notifications";
     };
   };
   config."style.css".path = pkgs.replaceVars ./style.css {
     inherit (config.scheme)
       base00
+      base02
       base03
       base04
       base05
@@ -85,7 +123,7 @@
       base07
       base09
       ;
-    inherit (config.font) mono icon sans;
+    inherit (config.font) icon sans;
     fontSize = config.font.size;
   };
 }
