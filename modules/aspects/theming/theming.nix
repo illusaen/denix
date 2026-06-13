@@ -46,7 +46,7 @@ in
         packageName = "whitesur-icon-theme";
       };
       gtkTheme = {
-        name = "WhiteSur-Dark";
+        name = "WhiteSur-Dark-pink";
         packageName = "whitesur-gtk-theme";
       };
       cursorTheme = {

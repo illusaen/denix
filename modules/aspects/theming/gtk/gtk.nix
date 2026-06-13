@@ -1,192 +1,121 @@
 {
-  lib,
-  ...
-}:
-{
-  den.aspects.theming.gtk =
-    let
-      inherit (lib)
-        generators
-        isBool
-        boolToString
-        escape
-        optionalAttrs
-        ;
+  den.aspects.theming.gtk = {
+    nixos =
+      {
+        pkgs,
+        fleet,
+        lib,
+        host,
+        ...
+      }:
+      let
+        inherit (lib)
+          generators
+          isBool
+          boolToString
+          escape
+          optionalAttrs
+          ;
 
-      toIni = generators.toINI {
-        mkKeyValue =
-          key: value:
-          let
-            value' = if isBool value then boolToString value else toString value;
-          in
-          "${escape [ "=" ] key}=${value'}";
-      };
-
-      mkGtkSettings =
-        {
-          gtkVersion,
-          font,
-          theme ? null,
-          iconTheme,
-          cursorTheme,
-          colorScheme,
-        }:
-        optionalAttrs (font != null) {
-          gtk-font-name =
+        toIni = generators.toINI {
+          mkKeyValue =
+            key: value:
             let
-              fontSize = if font.size != null then font.size else 11;
+              value' = if isBool value then boolToString value else toString value;
             in
-            "${font.name} ${toString fontSize}";
-        }
-        // optionalAttrs (theme != null) { "gtk-theme-name" = theme.name; }
-        // optionalAttrs (iconTheme != null) { "gtk-icon-theme-name" = iconTheme.name; }
-        // optionalAttrs (cursorTheme != null) { "gtk-cursor-theme-name" = cursorTheme.name; }
-        // optionalAttrs (cursorTheme != null && cursorTheme.size != null) {
-          "gtk-cursor-theme-size" = cursorTheme.size;
-        }
-        // optionalAttrs (colorScheme == "dark") { "gtk-application-prefer-dark-theme" = true; }
-        // optionalAttrs (gtkVersion == 4 && colorScheme == "dark") { "gtk-interface-color-scheme" = 2; }
-        // optionalAttrs (gtkVersion == 4 && colorScheme == "light") { "gtk-interface-color-scheme" = 3; };
-
-      _commonSettings = my: {
-        font = {
-          name = my.fonts.sans;
-          size = my.fonts.sizes.applications;
+            "${escape [ "=" ] key}=${value'}";
         };
-        inherit (my.theming) iconTheme;
-        inherit (my.theming) cursorTheme;
-        inherit (my.base16) colorScheme;
-      };
-    in
-    {
-      nixos =
-        {
-          pkgs,
-          fleet,
-          lib,
-          ...
-        }:
-        let
-          commonSettings = _commonSettings fleet.my;
-        in
-        {
-          config.environment.systemPackages = [
-            pkgs.local.${fleet.my.theming.gtkTheme.packageName}
-          ];
-          config.programs.dconf = {
-            enable = true;
-            profiles.user.databases = [
+        mkGtkSettings =
+          {
+            gtkVersion,
+            font,
+            theme ? null,
+            iconTheme,
+            cursorTheme,
+            colorScheme,
+          }:
+          optionalAttrs (font != null) {
+            gtk-font-name =
+              let
+                fontSize = if font.size != null then font.size else 11;
+              in
+              "${font.name} ${toString fontSize}";
+          }
+          // optionalAttrs (theme != null) { "gtk-theme-name" = theme.name; }
+          // optionalAttrs (iconTheme != null) { "gtk-icon-theme-name" = iconTheme.name; }
+          // optionalAttrs (cursorTheme != null) { "gtk-cursor-theme-name" = cursorTheme.name; }
+          // optionalAttrs (cursorTheme != null && cursorTheme.size != null) {
+            "gtk-cursor-theme-size" = cursorTheme.size;
+          }
+          // optionalAttrs (colorScheme == "dark") { "gtk-application-prefer-dark-theme" = true; }
+          // optionalAttrs (gtkVersion == 4 && colorScheme == "dark") { "gtk-interface-color-scheme" = 2; }
+          // optionalAttrs (gtkVersion == 4 && colorScheme == "light") { "gtk-interface-color-scheme" = 3; };
+
+        inherit (fleet.my) theming fonts base16;
+
+        commonSettings = {
+          font = {
+            name = fonts.sans;
+            size = fonts.sizes.applications;
+          };
+          inherit (theming) iconTheme cursorTheme;
+          inherit (base16) colorScheme;
+        };
+        gtkSettings = gtkVersion: {
+          text = toIni {
+            Settings = mkGtkSettings (
               {
-                settings."org/gnome/desktop/interface" =
-                  let
-                    settings = {
-                      gtkVersion = 3;
-                      theme = fleet.my.theming.gtkTheme;
-                    }
-                    // commonSettings;
-                    settingsGtk = mkGtkSettings settings;
-                  in
-                  lib.filterAttrs (_: v: v != null) {
-                    "font-name" = settingsGtk."gtk-font-name" or null;
-                    "gtk-theme" = settingsGtk."gtk-theme-name" or null;
-                    "icon-theme" = settingsGtk."gtk-icon-theme-name" or null;
-                    "cursor-theme" = settingsGtk."gtk-cursor-theme-name" or null;
-                    "cursor-size" = lib.gvariant.mkUint32 (settingsGtk."gtk-cursor-theme-size" or null);
-                    "color-scheme" =
-                      if settings ? colorScheme && settings.colorScheme != null then
-                        "prefer-${settings.colorScheme}"
-                      else
-                        null;
-                  };
+                inherit gtkVersion;
+                theme = theming.gtkTheme;
               }
-            ];
+              // commonSettings
+            );
           };
         };
-
-      provides.to-users.hjemLinux =
-        {
-          user,
-          lib,
-          fleet,
-          ...
-        }:
-        let
-          inherit (lib) mkMerge flatten;
-
-          commonSettings = _commonSettings fleet.my;
-
-          bookmarks = [
-            "file:///home/${user.name}/Projects"
-            "file:///home/${user.name}/Downloads"
+      in
+      {
+        environment.sessionVariables = {
+          GTK_THEME = theming.gtkTheme.name;
+        };
+        environment.systemPackages = [
+          pkgs.local.${theming.gtkTheme.packageName}
+        ];
+        environment.etc = {
+          "xdg/gtk-3.0/settings.ini" = gtkSettings 3;
+          "xdg/gtk-4.0/settings.ini" = gtkSettings 4;
+          "xdg/gtk-3.0/bookmarks".text = lib.concatMapStrings (l: l + "\n") [
+            "file:///home/${host.system-owner}/Projects"
+            "file:///home/${host.system-owner}/Downloads"
           ];
-        in
-        {
-          xdg.config.files = mkMerge (flatten [
-            # (map gtkCssFile [
-            #   "3.0"
-            #   "4.0"
-            # ])
-            # {
-            #   "gtk-2.0/gtkrc".text =
-            #     let
-            #       settings = mkGtkSettings (
-            #         commonSettings
-            #         // {
-            #           gtkVersion = 2;
-            #           inherit (gtk) theme;
-            #           colorScheme = null;
-            #         }
-            #       );
-            #     in
-            #     lib.concatMapStrings (n: "${formatGtk2Option n settings.${n}}\n") (lib.attrNames settings);
-            # }
+        };
+        programs.dconf = {
+          enable = true;
+          profiles.user.databases = [
             {
-              "gtk-3.0/settings.ini".text = toIni {
-                Settings = mkGtkSettings (
-                  {
+              settings."org/gnome/desktop/interface" =
+                let
+                  settings = {
                     gtkVersion = 3;
                     theme = fleet.my.theming.gtkTheme;
                   }
-                  // commonSettings
-                );
-              };
+                  // commonSettings;
+                  settingsGtk = mkGtkSettings settings;
+                in
+                lib.filterAttrs (_: v: v != null) {
+                  "font-name" = settingsGtk."gtk-font-name" or null;
+                  "gtk-theme" = settingsGtk."gtk-theme-name" or null;
+                  "icon-theme" = settingsGtk."gtk-icon-theme-name" or null;
+                  "cursor-theme" = settingsGtk."gtk-cursor-theme-name" or null;
+                  "cursor-size" = lib.gvariant.mkUint32 (settingsGtk."gtk-cursor-theme-size" or null);
+                  "color-scheme" =
+                    if settings ? colorScheme && settings.colorScheme != null then
+                      "prefer-${settings.colorScheme}"
+                    else
+                      null;
+                };
             }
-            {
-              "gtk-3.0/bookmarks".text = lib.concatMapStrings (l: l + "\n") bookmarks;
-            }
-            {
-              "gtk-4.0/settings.ini".text = toIni {
-                Settings = mkGtkSettings (
-                  {
-                    gtkVersion = 4;
-                  }
-                  // commonSettings
-                );
-              };
-            }
-          ]);
-
-          # xdg.data.files = lib.optionalAttrs flatpak.enable {
-          #   "flatpak/overrides/global".text = ''
-          #     [Context]
-          #     filesystems=${osConfig.users.users.${user.name}.home}/.themes/${gtk.theme.name}:ro
-
-          #     [Environment]
-          #     GTK_THEME=${gtk.theme.name}
-          #   '';
-          # };
-
-          # files = lib.optionalAttrs flatpak.enable {
-          #   ".themes/${gtk.theme.name}".source = pkgs.stdenvNoCC.mkDerivation {
-          #     name = "flattenedGtkTheme";
-          #     src = "${gtk.theme.package}/share/themes/${gtk.theme.name}";
-
-          #     installPhase = ''
-          #       cp --recursive . $out
-          #       cat ${gtkFinalCss} | tee --append $out/gtk-{3,4}.0/gtk.css
-          #     '';
-          #   };
-          # };
+          ];
         };
-    };
+      };
+  };
 }
