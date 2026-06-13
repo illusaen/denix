@@ -5,5 +5,5 @@
 writeShellApplication {
   name = "rofi-launcher";
   runtimeInputs = [ rofi ];
-  text = ''rofi -show drun -display-drun "Applications"'';
+  text = ''ROFI_LAYOUT_GRID=true rofi -show drun -display-drun "Applications"'';
 }

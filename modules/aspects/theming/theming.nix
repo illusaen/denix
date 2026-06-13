@@ -12,7 +12,18 @@ in
       options = {
         iconTheme = mkOption {
           type = types.submodule {
-            options.name = mkOption { type = types.str; };
+            options = {
+              name = mkOption { type = types.str; };
+              packageName = mkOption { type = types.str; };
+            };
+          };
+        };
+        gtkTheme = mkOption {
+          type = types.submodule {
+            options = {
+              name = mkOption { type = types.str; };
+              packageName = mkOption { type = types.str; };
+            };
           };
         };
         cursorTheme = mkOption {
@@ -32,6 +43,11 @@ in
     fleet.my.theming = {
       iconTheme = {
         name = "WhiteSur";
+        packageName = "whitesur-icon-theme";
+      };
+      gtkTheme = {
+        name = "WhiteSur-Dark";
+        packageName = "whitesur-gtk-theme";
       };
       cursorTheme = {
         name = "Nordic-cursors";
@@ -53,7 +69,6 @@ in
           adwaita-qt6
           nordic
           whitesur-icon-theme
-          whitesur-gtk-theme
           local.dconf-to-nix
         ];
       };

@@ -11,7 +11,6 @@
         boolToString
         escape
         optionalAttrs
-        isString
         ;
 
       toIni = generators.toINI {
@@ -22,19 +21,6 @@
           in
           "${escape [ "=" ] key}=${value'}";
       };
-
-      formatGtk2Option =
-        n: v:
-        let
-          v' =
-            if isBool v then
-              boolToString v
-            else if isString v then
-              ''"${v}"''
-            else
-              toString v;
-        in
-        "${escape [ "=" ] n} = ${v'}";
 
       mkGtkSettings =
         {
@@ -62,13 +48,6 @@
         // optionalAttrs (gtkVersion == 4 && colorScheme == "dark") { "gtk-interface-color-scheme" = 2; }
         // optionalAttrs (gtkVersion == 4 && colorScheme == "light") { "gtk-interface-color-scheme" = 3; };
 
-      _gtk = pkgs: {
-        theme = {
-          package = pkgs.whitesur-gtk-theme;
-          name = "WhiteSur";
-        };
-      };
-
       _commonSettings = my: {
         font = {
           name = my.fonts.sans;
@@ -81,13 +60,20 @@
     in
     {
       nixos =
-        { pkgs, fleet, ... }:
+        {
+          pkgs,
+          fleet,
+          lib,
+          ...
+        }:
         let
-          gtk = _gtk pkgs;
           commonSettings = _commonSettings fleet.my;
         in
         {
-          programs.dconf = {
+          config.environment.systemPackages = [
+            pkgs.local.${fleet.my.theming.gtkTheme.packageName}
+          ];
+          config.programs.dconf = {
             enable = true;
             profiles.user.databases = [
               {
@@ -95,7 +81,7 @@
                   let
                     settings = {
                       gtkVersion = 3;
-                      inherit (gtk) theme;
+                      theme = fleet.my.theming.gtkTheme;
                     }
                     // commonSettings;
                     settingsGtk = mkGtkSettings settings;
@@ -120,32 +106,12 @@
       provides.to-users.hjemLinux =
         {
           user,
-          pkgs,
           lib,
-          osConfig,
           fleet,
           ...
         }:
         let
           inherit (lib) mkMerge flatten;
-          inherit (osConfig.services) flatpak;
-
-          gtkExtraCss = ''
-            window { opacity: 0.9; }
-          '';
-          gtkFinalCss = pkgs.runCommandLocal "gtk.css" { } ''
-            cat ${
-              fleet.my.base16.scheme.render {
-                inherit pkgs lib;
-                template = ./gtk.css.mustache;
-                extension = ".css";
-              }
-            } >>$out
-            echo ${lib.escapeShellArg gtkExtraCss} >>$out
-          '';
-          gtkCssFile = version: { "gtk-${version}/gtk.css".source = gtkFinalCss; };
-
-          gtk = _gtk pkgs;
 
           commonSettings = _commonSettings fleet.my;
 
@@ -156,30 +122,30 @@
         in
         {
           xdg.config.files = mkMerge (flatten [
-            (map gtkCssFile [
-              "3.0"
-              "4.0"
-            ])
-            {
-              "gtk-2.0/gtkrc".text =
-                let
-                  settings = mkGtkSettings (
-                    commonSettings
-                    // {
-                      gtkVersion = 2;
-                      inherit (gtk) theme;
-                      colorScheme = null;
-                    }
-                  );
-                in
-                lib.concatMapStrings (n: "${formatGtk2Option n settings.${n}}\n") (lib.attrNames settings);
-            }
+            # (map gtkCssFile [
+            #   "3.0"
+            #   "4.0"
+            # ])
+            # {
+            #   "gtk-2.0/gtkrc".text =
+            #     let
+            #       settings = mkGtkSettings (
+            #         commonSettings
+            #         // {
+            #           gtkVersion = 2;
+            #           inherit (gtk) theme;
+            #           colorScheme = null;
+            #         }
+            #       );
+            #     in
+            #     lib.concatMapStrings (n: "${formatGtk2Option n settings.${n}}\n") (lib.attrNames settings);
+            # }
             {
               "gtk-3.0/settings.ini".text = toIni {
                 Settings = mkGtkSettings (
                   {
                     gtkVersion = 3;
-                    inherit (gtk) theme;
+                    theme = fleet.my.theming.gtkTheme;
                   }
                   // commonSettings
                 );
@@ -200,15 +166,15 @@
             }
           ]);
 
-          xdg.data.files = lib.optionalAttrs flatpak.enable {
-            "flatpak/overrides/global".text = ''
-              [Context]
-              filesystems=${osConfig.users.users.${user.name}.home}/.themes/${gtk.theme.name}:ro
+          # xdg.data.files = lib.optionalAttrs flatpak.enable {
+          #   "flatpak/overrides/global".text = ''
+          #     [Context]
+          #     filesystems=${osConfig.users.users.${user.name}.home}/.themes/${gtk.theme.name}:ro
 
-              [Environment]
-              GTK_THEME=${gtk.theme.name}
-            '';
-          };
+          #     [Environment]
+          #     GTK_THEME=${gtk.theme.name}
+          #   '';
+          # };
 
           # files = lib.optionalAttrs flatpak.enable {
           #   ".themes/${gtk.theme.name}".source = pkgs.stdenvNoCC.mkDerivation {

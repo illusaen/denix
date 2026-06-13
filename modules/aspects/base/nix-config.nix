@@ -9,7 +9,7 @@
       programs.nix-ld.enable = true;
     };
 
-    os = {
+    os = { environment, ... }: {
       nix.settings = {
         experimental-features = [
           "nix-command"
@@ -35,7 +35,7 @@
 
       nixpkgs.config.allowUnfree = true;
 
-      time.timeZone = "America/Chicago";
+      time.timeZone = environment.timezone;
 
       security.sudo.extraConfig = ''
         Defaults lecture = never

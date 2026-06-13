@@ -9,28 +9,14 @@
         wrapper = rootPath + /wrappers/rofi/rofi.nix;
       in
       {
-        rofi-actions = {
+        rofi = {
           imports = [ wrapper ];
           inherit font icon colors;
-          layout = "actions";
-        };
-        rofi-list = {
-          imports = [ wrapper ];
-          inherit font icon colors;
-        };
-        rofi-grid = {
-          imports = [ wrapper ];
-          inherit font icon colors;
-          layout = "grid";
         };
       };
 
     nixos = { pkgs, ... }: {
-      environment.systemPackages = with pkgs.local; [
-        rofi-actions
-        rofi-list
-        rofi-grid
-      ];
+      environment.systemPackages = with pkgs.local; [ rofi ];
     };
   };
 }

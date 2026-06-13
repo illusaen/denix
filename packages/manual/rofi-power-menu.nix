@@ -16,13 +16,12 @@ writeShellApplication {
   ];
   text = ''
     choice="$(
-      printf '%s\0icon\x1f%s\n' \
-        "Lock" "system-lock-screen-symbolic" \
-        "Suspend" "system-suspend-symbolic" \
-        "Log Out" "system-log-out-symbolic" \
-        "Restart" "system-reboot-symbolic" \
-        "Shut Down" "system-shutdown-symbolic" |
-        rofi -dmenu -p 'Power' -i -show-icons
+      printf '%s\0icon\x1f<span color="white">%s</span>\n' \
+        "Lock" "" \
+        "Log Out" "" \
+        "Restart" "" \
+        "Shut Down" "" |
+        ROFI_LAYOUT_ACTIONS=true rofi -dmenu -p 'Power' -i -show-icons
     )"
 
     case "$choice" in
@@ -38,7 +37,6 @@ writeShellApplication {
           --line-color 00000000 \
           --separator-color 00000000
         ;;
-      Suspend) systemctl suspend ;;
       "Log Out") niri msg action quit ;;
       Restart) systemctl reboot ;;
       "Shut Down") systemctl poweroff ;;
