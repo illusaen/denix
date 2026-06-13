@@ -6,7 +6,15 @@
     font-weight: 500;
 }
 window#waybar { background: transparent; color: @base05@; }
-tooltip { margin-right: 72px; }
+tooltip { background: transparent; }
+tooltip label {
+    margin-right: 72px;
+    padding: 8px;
+    border: 1px solid alpha(@base03@, 0.5);
+    border-radius: 8px;
+    background: @base00@;
+    color: @base05@;
+}
 #workspaces, #date-time, #tray, #custom-notification {
     padding: 16px 0;
     border: 1px solid alpha(@base03@, 0.5);

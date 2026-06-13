@@ -88,29 +88,35 @@
       interval = 60;
       format = "<span font_family='${config.font.mono}' size='15pt'>{0:%d}</span>";
       tooltip-format = "<span font_family='${config.font.mono}' size='large'>{calendar}</span>";
+      calendar.format.today = "<span color='${config.scheme.base09}'><b>{}</b></span>";
     };
     tray = {
       icon-size = 20;
       spacing = 8;
     };
-    "custom/notification" = {
-      exec = "${lib.getExe' pkgs.swaynotificationcenter "swaync-client"} -swb";
-      restart-interval = 5;
-      return-type = "json";
-      format = "{icon}";
-      format-icons = {
-        notification = "notifications";
-        none = "notifications_none";
-        dnd-notification = "notifications_off";
-        dnd-none = "notifications_off";
-        inhibited-notification = "notifications_off";
-        inhibited-none = "notifications_off";
-        dnd-inhibited-notification = "notifications_off";
-        dnd-inhibited-none = "notifications_off";
+    "custom/notification" =
+      let
+        swaync-client = lib.getExe' pkgs.swaynotificationcenter "swaync-client";
+      in
+      {
+        exec = "${swaync-client} -swb";
+        exec-if = "which ${swaync-client}";
+        restart-interval = 5;
+        return-type = "json";
+        format = "{icon}";
+        format-icons = {
+          notification = "notifications";
+          none = "notifications_none";
+          dnd-notification = "notifications_off";
+          dnd-none = "notifications_off";
+          inhibited-notification = "notifications_off";
+          inhibited-none = "notifications_off";
+          dnd-inhibited-notification = "notifications_off";
+          dnd-inhibited-none = "notifications_off";
+        };
+        on-click = "${lib.getExe' pkgs.swaynotificationcenter "swaync-client"} -t -sw";
+        on-click-right = "rofi-notifications";
       };
-      on-click = "${lib.getExe' pkgs.swaynotificationcenter "swaync-client"} -t -sw";
-      on-click-right = "rofi-notifications";
-    };
   };
   config."style.css".path = pkgs.replaceVars ./style.css {
     inherit (config.scheme)

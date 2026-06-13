@@ -5,7 +5,7 @@
     direnv
     fish
     git
-    neovide
+    nvf
     nix-index
     opnix
     shell-utils

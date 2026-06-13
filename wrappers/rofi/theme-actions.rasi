@@ -18,14 +18,14 @@ listview {
 }
 
 element {
-    orientation: vertical;
-    spacing: 6px;
+    children: [ element-text ];
+    spacing: 8px;
 }
 
-element-icon {
+element-text {
+    expand: true;
     horizontal-align: 0.5;
-    text-color: @text;
-    size: 3em;
+    vertical-align: 0.5;
+    padding: env(ROFI_ACTION_TEXT_PADDING, 0);
+    font: @font-icon;
 }
-
-element-text { horizontal-align: 0.5; }

@@ -11,12 +11,21 @@
       {
         rofi = {
           imports = [ wrapper ];
-          inherit font icon colors;
+          inherit
+            font
+            icon
+            colors
+            ;
         };
       };
 
     nixos = { pkgs, ... }: {
-      environment.systemPackages = with pkgs.local; [ rofi ];
+      environment.systemPackages = with pkgs.local; [
+        rofi-launcher
+        rofi-calculator
+        rofi-power-menu
+        rofi-notifications
+      ];
     };
   };
 }

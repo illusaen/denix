@@ -16,12 +16,12 @@ writeShellApplication {
   ];
   text = ''
     choice="$(
-      printf '%s\0icon\x1f<span color="white">%s</span>\n' \
+      printf '%s\0display\x1f%s\n' \
         "Lock" "" \
         "Log Out" "" \
         "Restart" "" \
         "Shut Down" "" |
-        ROFI_LAYOUT_ACTIONS=true ROFI_SHIFT_ICON=true rofi -dmenu -p 'Power' -i -show-icons
+        ROFI_LAYOUT_ACTIONS=true ROFI_ACTION_TEXT_PADDING='0 8px 0 0' rofi -dmenu -p 'Power' -i
     )"
 
     case "$choice" in

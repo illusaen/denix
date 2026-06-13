@@ -1,0 +1,28 @@
+* { font-family: "@font@"; color: @base05@; }
+.control-center, .notification-row .notification-background {
+    border: 1px solid @base03@80;
+    border-radius: 20px;
+    background: @base00@ed;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+}
+.control-center { padding: 14px; }
+.notification-row { outline: none; margin: 6px; }
+.notification { padding: 12px; border-radius: 18px; }
+.notification-content { padding: 4px; }
+.summary { font-size: 14px; font-weight: 700; color: @base07@; }
+.body { color: @base04@; }
+.time { color: @base03@; }
+.close-button {
+    border-radius: 999px;
+    background: @base02@;
+    color: @base05@;
+}
+.widget-title { margin: 4px 8px 12px; }
+.widget-title > label { font-size: 20px; font-weight: 700; color: @base07@; }
+.widget-title > button, .widget-dnd > switch {
+    border: 1px solid @base03@;
+    border-radius: 999px;
+    background: @base02@;
+}
+.widget-dnd { margin: 8px; }
+.widget-dnd > switch:checked { background: @base09@; }

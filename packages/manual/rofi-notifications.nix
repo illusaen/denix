@@ -11,11 +11,11 @@ writeShellApplication {
   ];
   text = ''
     choice="$(
-      printf '%s\0icon\x1f<span color="white">%s</span>\n' \
+      printf '%s\0display\x1f%s\n' \
         "Open" "" \
         "DND" "" \
-        "Clear" "" |
-        ROFI_LAYOUT_ACTIONS=true rofi -dmenu -p 'Notifications' -i -show-icons
+        "Clear" "X" |
+        ROFI_LAYOUT_ACTIONS=true rofi -dmenu -p 'Notifications' -i
     )"
 
     case "$choice" in

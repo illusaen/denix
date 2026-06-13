@@ -33,6 +33,19 @@
           vim = "vim";
           gvim = "gvim";
           kitty-open = "kitty-open";
+
+          base = "LibreOffice Base";
+          calc = "LibreOffice Calc";
+          draw = "LibreOffice Draw";
+          impress = "LibreOffice Impress";
+          math = "LibreOffice Math";
+          startcenter = "LibreOffice Startcenter";
+          writer = "LibreOffice Writer";
+          xsltfilter = "LibreOffice xsltfilter";
+
+          qt5ct = "QT5 Settings";
+          qt6ct = "QT6 Settings";
+          kvantummanager = "Kvantum Manager";
         };
       in
       {

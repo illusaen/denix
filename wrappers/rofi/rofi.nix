@@ -18,6 +18,10 @@ in
 
   config.package = pkgs.rofi.override { inherit rofi-unwrapped; };
   config.plugins = [ (pkgs.rofi-calc.override { inherit rofi-unwrapped; }) ];
+  config.filesToExclude = [
+    "share/applications/rofi.desktop"
+    "share/applications/rofi-theme-selector.desktop"
+  ];
   config.settings = { };
   config."config.rasi".content = ''
     configuration {
@@ -25,17 +29,19 @@ in
       drun-display-format: "{name}";
       font: "${config.font} 13";
       icon-theme: "${config.icon}";
-      modi: "drun,run,window,calc";
+      modi: "drun,run,window";
       show-icons: true;
     }
 
     * {
       bg: ${config.colors.base00}e6;
       surface: ${config.colors.base01}f2;
-      selected: ${config.colors.base03};
+      border: ${config.colors.base03};
       text: ${config.colors.base05};
       muted: ${config.colors.base04};
       accent: ${config.colors.base09};
+      accent-fg: ${config.colors.base02};
+      font-icon: "${config.font} 36";
       
       text-color: @text;
       background-color: transparent;
@@ -43,7 +49,7 @@ in
 
     window {
       border: 1px;
-      border-color: @selected;
+      border-color: @border;
       border-radius: 20px;
       background-color: @bg;
     }
@@ -55,7 +61,7 @@ in
 
     listview { scrollbar: false; }
 
-    entry { text-color: ${config.colors.base05}; placeholder: "Search"; placeholder-color: ${config.colors.base04}; }
+    entry { text-color: @text; placeholder: "Search"; placeholder-color: @muted; }
 
     textbox { text-color: @text; }
 
@@ -81,16 +87,8 @@ in
     element selected.normal,
     element selected.active,
     element selected.urgent {
-        background-color: @selected;
-        text-color: @text;
-    }
-
-    element-icon { size: 4em; }
-
-    element-text { text-color: ${config.colors.base05}; }
-
-    @media ( enabled: env(ROFI_SHIFT_ICON, false)) {
-      element-icon { margin: 0 8px 0 0; }
+        background-color: @accent;
+        text-color: @accent-fg;
     }
 
     @import "${config.constructFiles.actionsTheme.path}"

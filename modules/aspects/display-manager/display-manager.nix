@@ -2,7 +2,7 @@
 {
   den.aspects.display-manager = {
     includes = with den.aspects.display-manager; [
-      desktop-shell
+      swaync
       regreet
       niri
       waybar
