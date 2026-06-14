@@ -6,21 +6,26 @@
   };
 
   config.den.aspects.programs.wallpaper = {
+    wrapper-packages.wpaperd = {
+      imports = [ (rootPath + /wrappers/wpaperd.nix) ];
+      imageDirectory = rootPath + "/resources";
+    };
+
     nixos =
       {
         pkgs,
         lib,
-        fleet,
         ...
       }:
       {
-        systemd.user.services.swaybg = {
-          description = "Cosmic tree desktop background";
+        environment.systemPackages = [ pkgs.local.wpaperd ];
+        systemd.user.services.wpaperd = {
+          description = "Desktop background";
           wantedBy = [ "graphical-session.target" ];
           partOf = [ "graphical-session.target" ];
           after = [ "graphical-session-pre.target" ];
           serviceConfig = {
-            ExecStart = "${lib.getExe pkgs.swaybg} -i ${fleet.my.wallpaper} -m fill";
+            ExecStart = lib.getExe pkgs.local.wpaperd;
             Restart = "on-failure";
           };
         };

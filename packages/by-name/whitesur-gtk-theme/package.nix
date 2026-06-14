@@ -11,10 +11,10 @@
   sassc,
   util-linux,
   altVariants ? [ "normal" ], # default: normal
-  colorVariants ? [ "dark" ], # default: all
+  colorVariants ? [ ], # default: all
   opacityVariants ? [ "normal" ], # default: all
-  themeVariants ? [ "pink" ], # default: default (BigSur-like theme)
-  schemeVariants ? [ "standard" ], # default: standard # default: standard (Apple logo)
+  themeVariants ? [ "orange" ], # default: default (BigSur-like theme)
+  schemeVariants ? [ "standard" ], # default: standard
   nautilusStyle ? "stable", # default: stable (BigSur-like style)
   font ? "Inter",
 }:

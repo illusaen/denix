@@ -53,23 +53,20 @@
 
         inherit (fleet.my) theming fonts base16;
 
-        commonSettings = {
+        commonSettings = gtkVersion: {
           font = {
             name = fonts.sans;
             size = fonts.sizes.applications;
           };
+          theme = theming.gtkTheme;
           inherit (theming) iconTheme cursorTheme;
           inherit (base16) colorScheme;
+          inherit gtkVersion;
         };
+
         gtkSettings = gtkVersion: {
           text = toIni {
-            Settings = mkGtkSettings (
-              {
-                inherit gtkVersion;
-                theme = theming.gtkTheme;
-              }
-              // commonSettings
-            );
+            Settings = mkGtkSettings (commonSettings gtkVersion);
           };
         };
       in
@@ -94,19 +91,14 @@
             {
               settings."org/gnome/desktop/interface" =
                 let
-                  settings = {
-                    gtkVersion = 3;
-                    theme = fleet.my.theming.gtkTheme;
-                  }
-                  // commonSettings;
-                  settingsGtk = mkGtkSettings settings;
+                  settings = commonSettings 3;
                 in
                 lib.filterAttrs (_: v: v != null) {
-                  "font-name" = settingsGtk."gtk-font-name" or null;
-                  "gtk-theme" = settingsGtk."gtk-theme-name" or null;
-                  "icon-theme" = settingsGtk."gtk-icon-theme-name" or null;
-                  "cursor-theme" = settingsGtk."gtk-cursor-theme-name" or null;
-                  "cursor-size" = lib.gvariant.mkUint32 (settingsGtk."gtk-cursor-theme-size" or null);
+                  "font-name" = settings.font.name or null;
+                  "gtk-theme" = settings.theme.name or null;
+                  "icon-theme" = settings.iconTheme.name or null;
+                  "cursor-theme" = settings.cursorTheme.name or null;
+                  "cursor-size" = lib.gvariant.mkUint32 (settings.cursorTheme.size or null);
                   "color-scheme" =
                     if settings ? colorScheme && settings.colorScheme != null then
                       "prefer-${settings.colorScheme}"

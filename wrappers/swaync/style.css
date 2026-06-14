@@ -120,27 +120,29 @@
 }
 scale trough {
   min-height: 8px;
-  border-radius: 2px;
+  border-radius: 6px;
 }
 scale trough progress {
   min-height: 8px;
-  border-radius: 2px;
+  border-radius: 6px;
   background-color: @accent;
   transition: background-color 0.15s ease;
 }
 scale:hover trough {
-  background-color: alpha(@accent, 0.75);
+  background-color: alpha(@accent, 0.5);
 }
 trough highlight {
-  padding: 5px;
+  min-height: 8px;
+  padding: 0;
   background: @accent;
-  border-radius: 20px;
+  border-radius: 6px;
   box-shadow: 0 0 5px @shadow;
   transition: all 0.7s ease;
 }
 scale slider {
   min-width: 14px;
   min-height: 14px;
+  margin: -3px;
   border-radius: 7px;
   background-color: @theme_fg;
 }
@@ -228,6 +230,15 @@ scale slider {
   border-radius: 8px; /* <<< THIS LINE controls the rounding */
 }
 /* ── 8. Floating Notifications ─────────────────────────────────── */
+.notification-row .notification-content .summary,
+.notification-row .notification-content .body {
+  /* Forces the text to wrap to the next line instead of trailing off */
+  word-wrap: break-word;
+  word-break: break-word;
+  /* Allows the label to take up more vertical lines */
+  white-space: pre-wrap; 
+}
+
 .floating-notifications .notification-row {
   margin-bottom: 12px;
 }
