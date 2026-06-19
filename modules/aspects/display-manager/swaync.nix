@@ -19,6 +19,7 @@
       {
         environment.systemPackages = with pkgs.local; [ swaync ];
         systemd.packages = [ pkgs.local.swaync ];
+        systemd.user.services.swaync.wantedBy = [ "graphical-session.target" ];
       };
   };
 }

@@ -20,16 +20,27 @@
       programs.nvf = {
         enable = true;
         settings.vim = {
-          binds.whichKey.enable = true;
-          comments.comment-nvim.enable = true;
-          syntaxHighlighting = true;
-          autopairs.nvim-autopairs.enable = true;
-          autocomplete.blink-cmp = {
-            enable = true;
-            friendly-snippets.enable = true;
+          debugMode = {
+            logFile = "/tmp/nvim.log";
           };
-          formatter.conform-nvim.enable = true;
-          git.enable = true;
+          spellcheck = {
+            enable = true;
+            programmingWordlist.enable = true;
+          };
+          lsp = {
+            enable = true;
+            formatOnSave = true;
+            inlayHints.enable = true;
+            lightbulb.enable = true;
+            trouble.enable = true;
+            otter-nvim.enable = true;
+            nvim-docs-view.enable = true;
+            presets.harper.enable = true;
+          };
+          debugger.nvim-dap = {
+            enable = true;
+            ui.enable = true;
+          };
           languages = {
             enableDAP = true;
             enableExtraDiagnostics = true; # via nvim-lint
@@ -45,7 +56,10 @@
             markdown.enable = true;
             nix.enable = true;
             python.enable = true;
-            rust.enable = true;
+            rust = {
+              enable = true;
+              extensions.crates-nvim.enable = true;
+            };
             scss.enable = true;
             sql.enable = true;
             svelte.enable = true;
@@ -54,27 +68,83 @@
             typescript.enable = true;
             yaml.enable = true;
           };
-          lsp = {
+
+          visuals = {
+            nvim-web-devicons.enable = true;
+            nvim-cursorline.enable = true;
+            cinnamon-nvim.enable = true;
+            fidget-nvim.enable = true;
+            highlight-undo.enable = true;
+            blink-indent.enable = true;
+            indent-blankline.enable = true;
+          };
+
+          autopairs.nvim-autopairs.enable = true;
+          autocomplete.blink-cmp = {
             enable = true;
-            formatOnSave = true;
-            inlayHints.enable = true;
+            friendly-snippets.enable = true;
           };
-          options = {
-            shiftwidth = 0;
-            tabstop = 2;
-          };
-          runner.run-nvim.enable = true;
           tabline.nvimBufferline.enable = true;
+
           treesitter = {
             enable = true;
             autotagHtml = true;
+            context.enable = true;
           };
+
+          binds.whichKey.enable = true;
+          git = {
+            enable = true;
+            gitsigns.codeActions.enable = false;
+          };
+          notify.nvim-notify.enable = true;
+
           utility = {
+            diffview-nvim.enable = true;
+            surround.enable = true;
+            smart-splits.enable = true;
+            undotree.enable = true;
+            nvim-biscuits.enable = true;
+            grug-far-nvim.enable = true;
             direnv.enable = true;
             snacks-nvim.enable = true;
             snacks-nvim.setupOpts.picker.enabled = true;
+            images.img-clip.enable = true;
           };
-          visuals.rainbow-delimiters.enable = true;
+
+          terminal.toggleterm = {
+            enable = true;
+            lazygit.enable = true;
+          };
+
+          ui = {
+            borders.enable = true;
+            noice.enable = true;
+            colorizer.enable = true;
+            illuminate.enable = true;
+            smartcolumn = {
+              enable = true;
+              setupOpts.custom_colorcolumn = {
+                # this is a freeform module, it's `buftype = int;` for configuring column position
+                nix = "120";
+                typescript = "120";
+              };
+            };
+            fastaction.enable = true;
+          };
+
+          assistant = {
+            chatgpt.enable = true;
+            avante-nvim.enable = true;
+          };
+
+          comments.comment-nvim.enable = true;
+
+          options = {
+            shiftwidth = 0;
+            tabstop = 2;
+            expandtab = true;
+          };
         };
       };
     };

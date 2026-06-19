@@ -63,12 +63,12 @@ in
       )
     ];
     default = { };
-    description = "Systemd user service generated into share/systemd/user.";
+    description = "Systemd user service generated into lib/systemd/user.";
   };
 
   config = lib.mkIf config.service.enable {
     constructFiles.generatedServiceFile = {
-      relPath = "share/systemd/user/${config.service.name}";
+      relPath = "lib/systemd/user/${config.service.name}";
       content = serviceUnit.text;
     };
   };

@@ -16,6 +16,7 @@
       {
         environment.systemPackages = [ pkgs.local.wpaperd ];
         systemd.packages = [ pkgs.local.wpaperd ];
+        systemd.user.services.wpaperd.wantedBy = [ "graphical-session.target" ];
       };
 
     darwin = { fleet, ... }: {

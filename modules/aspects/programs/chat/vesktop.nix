@@ -23,6 +23,7 @@
       {
         environment.etc."packages/vesktop/base16".source = "${pkgs.local.vesktop-base16}/defaults";
         systemd.packages = [ pkgs.local.vesktop-base16 ];
+        systemd.user.services.vesktop-base16.wantedBy = [ "graphical-session.target" ];
       };
   };
 }
