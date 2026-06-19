@@ -27,7 +27,7 @@
             "graphical-session-pre.target"
           ];
           description = "1Password";
-          script = "${lib.getExe config.programs._1password-gui.package}";
+          serviceConfig.ExecStart = "${lib.getExe config.programs._1password-gui.package}";
         };
       };
 

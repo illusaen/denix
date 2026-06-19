@@ -8,8 +8,15 @@ let
   display = status: "${lib.getExe pkgs.local.niri} msg action power-${status}-monitors";
 in
 {
-  imports = [ wlib.wrapperModules.swayidle ];
+  imports = [
+    wlib.wrapperModules.swayidle
+    ./service.nix
+  ];
 
+  config.service = {
+    enable = true;
+    description = "swayidle for monitor power on and off";
+  };
   config.events.after-resume = display "on";
   config.timeouts = [
     {

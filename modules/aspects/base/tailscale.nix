@@ -1,15 +1,7 @@
 { den, ... }:
 {
   den.aspects.base.tailscale = {
-    includes = [
-      (den.lib.policy.when (
-        {
-          host ? null,
-          ...
-        }:
-        host != null && host.hasAspect den.aspects.roles.desktop
-      ) den.aspects.base.tailscale-systray)
-    ];
+    includes = [ den.aspects.base.tailscale-systray ];
 
     nixos =
       { config, ... }:
@@ -37,8 +29,13 @@
   };
 
   den.aspects.base.tailscale-systray.nixos =
-    { lib, config, ... }:
     {
+      lib,
+      config,
+      host,
+      ...
+    }:
+    lib.mkIf (host.hasAspect den.aspects.roles.desktop) {
       systemd.user.services.tailscale-systray = {
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
@@ -48,7 +45,7 @@
           "graphical-session-pre.target"
         ];
         description = "Official Tailscale systray application for Linux";
-        script = "${lib.getExe config.services.tailscale.package} systray";
+        serviceConfig.ExecStart = "${lib.getExe config.services.tailscale.package} systray";
       };
     };
 }
