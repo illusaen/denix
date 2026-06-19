@@ -39,6 +39,14 @@ in
         pkgs.ddcutil
         pkgs.python3
       ])
+      (pythonScript "ndrop" ./scripts/ndrop.py [
+        pkgs.local.niri
+        pkgs.python3
+      ])
+      (pythonScript "niri-workspace" ./scripts/niri-workspace.py [
+        pkgs.local.niri
+        pkgs.python3
+      ])
       (pythonScript "switcher" ./scripts/switch-input.py [
         pkgs.ddcutil
         pkgs.i2c-tools
@@ -48,6 +56,16 @@ in
         name = "nb";
         runtimeInputs = [ pkgs.nix-output-monitor ];
         text = builtins.readFile ./scripts/nix-build.sh;
+      })
+      (pkgs.writeShellApplication {
+        name = "ndrop-obsidian";
+        text = ''
+          exec ${pkgs.electron_40}/bin/electron \
+            --class=ndrop-obsidian \
+            ''${NIXOS_OZONE_WL:+''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-wayland-ime=true --wayland-text-input-version=3}} \
+            ${pkgs.obsidian}/share/obsidian/app.asar \
+            "$@"
+        '';
       })
       (pkgs.writeShellScriptBin "load-opnix" ''
         if [ -f .env ]; then

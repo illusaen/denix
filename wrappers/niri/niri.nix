@@ -127,6 +127,12 @@ in
         open-on-output = config.monitor.main;
         layout.always-center-single-column = _: { };
       };
+      "__ndrop_foot" = {
+        open-on-output = config.monitor.main;
+      };
+      "__ndrop_obsidian" = {
+        open-on-output = config.monitor.main;
+      };
     };
   }
   // extraConfig;

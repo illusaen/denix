@@ -37,6 +37,18 @@ tooltip label {
 #workspaces button label {
   padding: 2px 0;
 }
+#workspaces button#niri-workspace-__ndrop_foot,
+#workspaces button#niri-workspace-__ndrop_foot label,
+#workspaces button#niri-workspace-__ndrop_obsidian,
+#workspaces button#niri-workspace-__ndrop_obsidian label {
+    min-height: 0;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    font-size: 0;
+}
 #workspaces button,
 #workspaces button label {
     color: @muted;

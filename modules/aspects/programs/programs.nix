@@ -8,6 +8,7 @@
     codex
     image-editor
     image-viewer
+    notes
     ollama
     nautilus
     steam

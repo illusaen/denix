@@ -5,7 +5,11 @@
   };
   "Alt+Shift+T" = _: {
     props.hotkey-overlay-title = "Terminal";
-    content.spawn-sh = "kitten quick-access-terminal";
+    content.spawn-sh = "ndrop --app-id '^ndrop-foot$' --name foot -- footclient --app-id ndrop-foot";
+  };
+  "Mod+O" = _: {
+    props.hotkey-overlay-title = "Obsidian";
+    content.spawn-sh = "ndrop --app-id '^ndrop-obsidian$' --name obsidian -- ndrop-obsidian";
   };
   "Ctrl+Space" = _: {
     props.hotkey-overlay-title = "Launcher";
@@ -129,11 +133,11 @@
 
   "Mod+Up" = _: {
     props.hotkey-overlay-title = "Focus Workspace ↑";
-    content.focus-workspace-up = _: { };
+    content.spawn-sh = "niri-workspace up";
   };
   "Mod+Down" = _: {
     props.hotkey-overlay-title = "Focus Workspace ↓";
-    content.focus-workspace-down = _: { };
+    content.spawn-sh = "niri-workspace down";
   };
   "Mod+Left" = _: {
     props.hotkey-overlay-title = "Focus Win ←";
