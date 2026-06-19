@@ -236,7 +236,7 @@ scale slider {
   word-wrap: break-word;
   word-break: break-word;
   /* Allows the label to take up more vertical lines */
-  white-space: pre-wrap; 
+  white-space: normal;
 }
 
 .floating-notifications .notification-row {

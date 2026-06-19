@@ -5,7 +5,7 @@
       background-effect.xray = false;
     }
     {
-      matches = [ { namespace = "^wallpaper$"; } ];
+      matches = [ { namespace = "^wpaperd.*$"; } ];
       place-within-backdrop = true;
     }
   ];

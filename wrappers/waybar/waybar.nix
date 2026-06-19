@@ -36,7 +36,7 @@
       };
     in
     {
-      layer = "top";
+      layer = "overlay";
       position = "right";
       width = 56;
       margin-top = 16;
@@ -45,12 +45,13 @@
       margin-right = 8;
       spacing = 16;
       modules-left = [
+        "custom/notification"
         "niri/workspaces"
       ];
       modules-center = [ "group/date-time" ];
       modules-right = [
+        "custom/switcher"
         "tray"
-        "custom/notification"
       ];
       "niri/workspaces" = {
         format = "{icon}";
@@ -82,7 +83,7 @@
       };
       "custom/notification" =
         let
-          swaync-client = lib.getExe' pkgs.swaynotificationcenter "swaync-client";
+          swaync-client = lib.getExe' pkgs.local.swaync "swaync-client";
         in
         {
           exec = "${swaync-client} -swb";
@@ -100,19 +101,20 @@
             dnd-inhibited-notification = "notifications_off";
             dnd-inhibited-none = "notifications_off";
           };
-          on-click = "${lib.getExe' pkgs.swaynotificationcenter "swaync-client"} -t -sw";
-          on-click-right = "rofi-notifications";
+          on-click = "${swaync-client} -t -sw";
         };
+      "custom/switcher" = {
+        format = "desktop_windows";
+        on-click = "${pkgs.local.switch-input}/bin/switcher dp";
+        on-click-right = "${pkgs.local.switch-input}/bin/switcher hdmi1";
+        tooltip-format = "Left click for PC\nRight click for laptop";
+      };
     };
   config."style.css".path = pkgs.replaceVars ./style.css {
     inherit (config.scheme)
       base00
-      base02
       base03
-      base04
       base05
-      base06
-      base07
       base09
       ;
     inherit (config.font) icon sans;
