@@ -38,7 +38,7 @@
       main = {
         font = "${font.name}:size=${toString font.size}";
         initial-color-theme = theme;
-        pad = "16x16";
+        pad = "24x24";
       };
       scrollback.lines = 10000;
       "colors-${theme}" = {
