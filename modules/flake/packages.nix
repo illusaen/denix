@@ -29,12 +29,13 @@
         inherit system;
         config.allowUnfree = true;
       };
+      extended = pkgs.extend self.overlays.default;
     in
     {
-      _module.args.pkgs = pkgs;
+      _module.args.pkgs = extended;
 
       # Flake outputs are evaluated outside the NixOS module graph, so they
       # need their own nixpkgs config for unfree packages.
-      wrappers.pkgs = pkgs.extend self.overlays.default;
+      wrappers.pkgs = extended;
     };
 }

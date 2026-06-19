@@ -34,7 +34,7 @@
             help = "Explain why two Nix derivations differ";
           }
           {
-            package = config.packages.custom-scripts;
+            package = pkgs.local.custom-scripts;
             name = "nix-build";
             help = "Build a host configuration with nb";
           }
