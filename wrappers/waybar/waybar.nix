@@ -105,8 +105,8 @@
         };
       "custom/switcher" = {
         format = "desktop_windows";
-        on-click = "${pkgs.local.switch-input}/bin/switcher dp";
-        on-click-right = "${pkgs.local.switch-input}/bin/switcher hdmi1";
+        on-click = "${pkgs.local.custom-scripts}/bin/switcher dp";
+        on-click-right = "${pkgs.local.custom-scripts}/bin/switcher hdmi1";
         tooltip-format = "Left click for PC\nRight click for laptop";
       };
     };

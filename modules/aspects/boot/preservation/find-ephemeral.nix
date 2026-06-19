@@ -5,7 +5,6 @@
         host,
         config,
         lib,
-        pkgs,
         ...
       }:
       let
@@ -35,12 +34,7 @@
         };
       in
       {
-        environment.systemPackages = [
-          (pkgs.local.find-ephemeral-persist.override { inherit persisted; })
-          (pkgs.local.find-orphaned-persist.override {
-            inherit persistMount persisted;
-          })
-        ];
+        environment.sessionVariables.PERSIST_MOUNT = persistMount;
         environment.etc."persisted-paths.json".text = persisted;
       };
   };

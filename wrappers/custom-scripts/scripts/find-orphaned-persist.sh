@@ -1,8 +1,15 @@
 DEPTH="${1:-3}"
-PERSIST_DIR="@persistMount@"
+PERSIST_DIR="${PERSIST_MOUNT:-/persisted}"
+PERSISTED_PATHS_JSON="${PERSISTED_PATHS_JSON:-/etc/persisted-paths.json}"
 
 if [[ ! -d $PERSIST_DIR ]]; then
   exit 0
+fi
+
+if [[ -f $PERSISTED_PATHS_JSON ]]; then
+  persisted_json="$(cat "$PERSISTED_PATHS_JSON")"
+else
+  persisted_json='{"directories":[],"files":[]}'
 fi
 
 # shellcheck disable=SC2016
@@ -58,8 +65,8 @@ file_filter='
 
 fd -H -t d -d "$DEPTH" -a . "$PERSIST_DIR" \
   | jq -R . \
-  | jq -s --argjson persisted '@persisted@' --arg mount "$PERSIST_DIR" "$dir_filter"
+  | jq -s --argjson persisted "$persisted_json" --arg mount "$PERSIST_DIR" "$dir_filter"
 
 fd -H -t f -d "$DEPTH" -a . "$PERSIST_DIR" \
   | jq -R . \
-  | jq -s --argjson persisted '@persisted@' --arg mount "$PERSIST_DIR" "$file_filter"
+  | jq -s --argjson persisted "$persisted_json" --arg mount "$PERSIST_DIR" "$file_filter"

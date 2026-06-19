@@ -34,15 +34,7 @@
             help = "Explain why two Nix derivations differ";
           }
           {
-            package = pkgs.nix-fast-build;
-            help = "Build all attributes in .#checks.$currentSystem";
-          }
-          {
-            package = pkgs.nix-output-monitor;
-            help = "nom builder";
-          }
-          {
-            package = config.packages.nix-build;
+            package = config.packages.custom-scripts;
             name = "nix-build";
             help = "Build a host configuration with nb";
           }
@@ -51,7 +43,6 @@
           config.pre-commit.settings.enabledPackages
           ++ (with pkgs; [
             nixd
-            config.packages.opnix-load
           ]);
         devshell.startup.load-opnix.text = "load-opnix";
         devshell.motd = "$(type -p menu &>/dev/null && menu)";

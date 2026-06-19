@@ -69,7 +69,6 @@ in
           adwaita-qt6
           nordic
           whitesur-icon-theme
-          local.dconf-to-nix
         ];
       };
   };

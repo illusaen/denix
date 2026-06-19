@@ -1,4 +1,9 @@
-{ den, rootPath, ... }:
+{
+  den,
+  inputs,
+  rootPath,
+  ...
+}:
 {
   den.policies.env-to-os =
     { host, ... }:
@@ -33,6 +38,10 @@
         wrapperDirectory = rootPath + "/wrappers";
       in
       {
+        custom-scripts = {
+          imports = [ (wrapperDirectory + /custom-scripts/custom-scripts.nix) ];
+          opnixPackage = inputs.opnix.packages.${host.system}.default;
+        };
         eza = wrapperDirectory + /eza.nix;
         fd = wrapperDirectory + /fd.nix;
         gh = {

@@ -1,7 +1,14 @@
 USER="$(whoami)"
 DEPTH="${1:-3}"
+PERSISTED_PATHS_JSON="${PERSISTED_PATHS_JSON:-/etc/persisted-paths.json}"
 
 SCAN_DIRS=("/home/$USER" "/etc")
+
+if [[ -f $PERSISTED_PATHS_JSON ]]; then
+    persisted_json="$(cat "$PERSISTED_PATHS_JSON")"
+else
+    persisted_json='{"directories":[],"files":[]}'
+fi
 
 # shellcheck disable=SC2016
 dir_filter='
@@ -63,16 +70,16 @@ file_filter='
 '
 
 # Find all files and directories
-for SCAN_DIR in "''${SCAN_DIRS[@]}"; do
+for SCAN_DIR in "${SCAN_DIRS[@]}"; do
     if [[ ! -d $SCAN_DIR ]]; then
     continue
     fi
 
     fd -H -t d -d "$DEPTH" -a . "$SCAN_DIR" \
     | jq -R . \
-    | jq -s --argjson persisted '@persisted@' --argjson ignored '@ignored@' "$dir_filter"
+    | jq -s --argjson persisted "$persisted_json" --argjson ignored '@ignored@' "$dir_filter"
 
     fd -H -t f -d "$DEPTH" -a . "$SCAN_DIR" \
     | jq -R . \
-    | jq -s --argjson persisted '@persisted@' --argjson ignored '@ignored@' "$file_filter"
+    | jq -s --argjson persisted "$persisted_json" --argjson ignored '@ignored@' "$file_filter"
 done

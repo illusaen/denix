@@ -77,7 +77,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opnix.url = "github:brizzbuzz/opnix";
-    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     preservation.url = "github:nix-community/preservation";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     wrappers = {
