@@ -1,6 +1,7 @@
 {
   den,
   lib,
+  rootPath,
   ...
 }:
 let
@@ -61,15 +62,24 @@ in
       qt
     ];
 
-    den.aspects.theming.nixos =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          adw-gtk3
-          adwaita-qt6
-          nordic
-          whitesur-icon-theme
-        ];
+    den.aspects.theming = {
+      wrapper-packages = { fleet, ... }: {
+        whitesur-gtk-theme = {
+          imports = [ (rootPath + /wrappers/whitesur-gtk-theme.nix) ];
+          font = fleet.my.fonts.sans;
+        };
       };
+
+      nixos =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = with pkgs; [
+            adw-gtk3
+            adwaita-qt6
+            nordic
+            whitesur-icon-theme
+          ];
+        };
+    };
   };
 }

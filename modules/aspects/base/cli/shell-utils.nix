@@ -62,6 +62,7 @@
           local.eza
           local.fd
           local.gh
+          local.custom-scripts
           zoxide
           coreutils
           vim

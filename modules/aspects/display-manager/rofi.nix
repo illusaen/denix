@@ -19,13 +19,6 @@
         };
       };
 
-    nixos = { pkgs, ... }: {
-      environment.systemPackages = with pkgs.local; [
-        rofi-launcher
-        rofi-calculator
-        rofi-power-menu
-        rofi-notifications
-      ];
-    };
+    nixos = { pkgs, ... }: { environment.systemPackages = with pkgs.local; [ rofi ]; };
   };
 }

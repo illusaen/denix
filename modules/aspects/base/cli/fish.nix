@@ -1,7 +1,9 @@
-{
+{ rootPath, ... }: {
   den.aspects.base.cli.fish = {
     env.EDITOR = "vim";
     provides.to-users.persistUser.directories = [ ".local/share/fish" ];
+
+    wrapper-packages.fish-vendor-functions = rootPath + "/wrappers/fish-scripts/fish-scripts.nix";
 
     os =
       {
