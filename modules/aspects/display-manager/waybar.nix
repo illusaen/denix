@@ -15,7 +15,10 @@
     nixos = { pkgs, ... }: {
       environment.systemPackages = [ pkgs.local.waybar ];
       systemd.packages = [ pkgs.local.waybar ];
-      systemd.user.services.waybar.wantedBy = [ "graphical-session.target" ];
+      systemd.user.services.waybar = {
+        after = [ "swaync.service" ];
+        wantedBy = [ "swaync.service" ];
+      };
     };
   };
 }
