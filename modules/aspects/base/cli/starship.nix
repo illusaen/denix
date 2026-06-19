@@ -1,14 +1,6 @@
-{ den, lib, ... }:
+{ lib, ... }:
 {
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ starship ];
-
   den.aspects.base.cli.starship = {
-    shell = {
-      interactiveShellInit = ''
-        starship init fish | source
-      '';
-    };
-
     wrapper-packages.starship =
       { wlib, ... }:
       {
@@ -73,7 +65,7 @@
             disabled = false;
             format = "[󰎙 $version  ](fg:bright-green)";
           };
-          python.format = "[ $version (\($virtualenv\))  ](fg:foreground)";
+          python.format = "[ $version (($virtualenv))  ](fg:foreground)";
           time = {
             disabled = false;
             format = "[$time](fg:foreground)";
@@ -83,9 +75,12 @@
       };
 
     os =
-      { self', ... }:
+      { pkgs, ... }:
       {
-        environment.systemPackages = [ self'.packages.starship ];
+        programs.fish.interactiveShellInit = ''
+          starship init fish | source
+        '';
+        environment.systemPackages = [ pkgs.local.starship ];
       };
   };
 }

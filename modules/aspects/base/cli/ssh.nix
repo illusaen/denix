@@ -1,7 +1,4 @@
-{ den, ... }:
 {
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ ssh ];
-
   den.aspects.base.cli.ssh =
     let
       github-ed = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";

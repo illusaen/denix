@@ -1,27 +1,15 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ opnix ];
-
   den.aspects.base.cli.opnix = {
-    nixos =
-      { host, ... }:
-      {
-        imports = [ inputs.opnix.nixosModules.default ];
-        users.users = builtins.mapAttrs (_: _: {
-          extraGroups = [
-            "onepassword-secrets"
-          ];
-        }) host.users;
-      };
+    nixos = {
+      imports = [ inputs.opnix.nixosModules.default ];
+    };
 
-    darwin =
-      { host, lib, ... }:
-      {
-        imports = [ inputs.opnix.darwinModules.default ];
-        users.groups.onepassword-secrets.members = lib.attrNames host.users;
-      };
+    darwin = {
+      imports = [ inputs.opnix.darwinModules.default ];
+    };
 
     os.services.onepassword-secrets = {
       enable = true;
@@ -41,5 +29,11 @@
     };
 
     persist.files = [ "/etc/opnix-token" ];
+
+    provides.to-users.darwin =
+      { user, ... }:
+      {
+        users.groups.onepassword-secrets.members = [ user.name ];
+      };
   };
 }

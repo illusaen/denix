@@ -1,54 +1,82 @@
+{ lib, ... }:
+let
+  inherit (lib)
+    mkOption
+    types
+    pipe
+    nameValuePair
+    ;
+  sizeOption =
+    default:
+    mkOption {
+      type = types.int;
+      inherit default;
+    };
+  mapListToAttrsWith =
+    attrs: value:
+    pipe attrs [
+      (map (v: nameValuePair v value))
+      builtins.listToAttrs
+    ];
+  mkStrOption =
+    default:
+    mkOption {
+      type = types.str;
+      inherit default;
+    };
+in
 {
-  den,
-  self,
-  ...
-}:
-{
-  den.aspects.base.includes = with den.aspects.base; [ fonts ];
-
-  den.aspects.base.fonts = {
-    flake-config =
-      {
-        myLib,
-        lib,
-        ...
-      }:
-      let
-        inherit (lib) mkOption types;
-        inherit (myLib) mapListToAttrsWith mkSubmoduleOption mkStrOption;
-        sizeOption =
-          default:
-          mkOption {
-            type = types.int;
-            inherit default;
+  options.fleet.my.fonts = mkOption {
+    type = types.submodule {
+      options = {
+        sans = mkStrOption "Inter";
+        mono = mkStrOption "Monaspace Neon NF";
+        emoji = mkStrOption "Noto Color Emoji";
+        icon = mkStrOption "Material Symbols Outlined";
+        sizes = mkOption {
+          type = types.submodule {
+            options = mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12);
           };
-      in
-      {
-        options.my.fonts = mkSubmoduleOption {
-          sans = mkStrOption "Inter";
-          mono = mkStrOption "Monaspace Neon NF";
-          emoji = mkStrOption "Noto Color Emoji";
-          icon = mkStrOption "Material Symbols Outlined";
-          sizes = mkSubmoduleOption (mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12));
         };
       };
+    };
+  };
 
-    os =
-      { pkgs, ... }:
-      {
-        fonts.packages = with pkgs; [
-          font-awesome
-          maple-mono.NF-CN-unhinted
-          inter
-          monaspace
-          noto-fonts-color-emoji
-          material-symbols
-        ];
+  config = {
+    fleet.my.fonts = {
+      sans = "Inter";
+      mono = "Monaspace Neon NF";
+      emoji = "Noto Color Emoji";
+      icon = "Material Symbols Outlined";
+      sizes = {
+        terminal = 12;
+        applications = 12;
+        desktop = 12;
       };
-    nixos.fonts.fontconfig.defaultFonts = rec {
-      monospace = [ self.my.fonts.mono ];
-      serif = sansSerif;
-      sansSerif = [ self.my.fonts.sans ];
+    };
+
+    den.aspects.base.fonts = {
+      os =
+        { pkgs, ... }:
+        {
+          fonts.packages = with pkgs; [
+            font-awesome
+            maple-mono.NF-CN-unhinted
+            inter
+            monaspace
+            noto-fonts-color-emoji
+            material-symbols
+          ];
+        };
+      nixos =
+        { fleet, ... }:
+        {
+          fonts.fontconfig.defaultFonts = rec {
+            monospace = [ fleet.my.fonts.mono ];
+            serif = sansSerif;
+            sansSerif = [ fleet.my.fonts.sans ];
+          };
+        };
     };
   };
 }

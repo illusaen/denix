@@ -1,10 +1,7 @@
-{ den, ... }:
 {
-  den.aspects.base.includes = with den.aspects.base; [ networking ];
-
   den.aspects.base.networking = {
     nixos =
-      { host, ... }:
+      { host, lib, ... }:
       {
         networking.networkmanager.enable = true;
 
@@ -14,7 +11,7 @@
           networks = {
             "10-lan" = {
               matchConfig.Name = "eno1";
-              address = [ "${host.ip}/24" ];
+              address = [ "${lib.head host.ipv4}/24" ];
               routes = [ { Gateway = "192.0.1.1"; } ];
               linkConfig.RequiredForOnline = "routable";
             };

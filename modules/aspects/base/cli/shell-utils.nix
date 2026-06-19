@@ -1,4 +1,9 @@
-{ den, self, ... }:
+{
+  den,
+  inputs,
+  rootPath,
+  ...
+}:
 {
   den.policies.env-to-os =
     { host, ... }:
@@ -20,53 +25,57 @@
   den.schema.host.includes = [ den.policies.env-to-os ];
   den.classes.env.description = "Environment variables class";
 
-  den.aspects.base.includes = [ den.aspects.base.cli ];
-  den.aspects.base.cli.includes = with den.aspects.base.cli; [ shell-utils ];
-
   den.aspects.base.cli.shell-utils = {
     env.NIX_CONF = "~/Projects/denix";
-
-    shell = {
-      shellAliases = {
-        l = "eza -alg";
-        ll = "eza --tree --git-ignore --all";
-      };
-      interactiveShellInit = ''
-        eval (zoxide init fish --cmd n | source)
-      '';
-    };
 
     provides.to-users.persistUser.directories = [
       ".local/share/zoxide"
     ];
 
-    wrapper-packages = {
-      eza = ../../../../wrappers/eza.nix;
-      fd = ../../../../wrappers/fd.nix;
-      gh = {
-        imports = [ ../../../../wrappers/gh.nix ];
-        inherit (self.my.vars) accountName;
+    wrapper-packages =
+      { host, ... }:
+      let
+        wrapperDirectory = rootPath + "/wrappers";
+      in
+      {
+        custom-scripts = {
+          imports = [ (wrapperDirectory + /custom-scripts/custom-scripts.nix) ];
+          opnixPackage = inputs.opnix.packages.${host.system}.default;
+        };
+        eza = wrapperDirectory + /eza.nix;
+        fd = wrapperDirectory + /fd.nix;
+        gh = {
+          imports = [ (wrapperDirectory + /gh.nix) ];
+          inherit (den.users.registry.${host.system-owner}.identity) accountName;
+        };
       };
-    };
 
     os =
       {
         pkgs,
         config,
         lib,
-        self',
         ...
       }:
       {
         environment.systemPackages = with pkgs; [
-          self'.packages.eza
-          self'.packages.fd
-          self'.packages.gh
+          local.eza
+          local.fd
+          local.gh
+          local.custom-scripts
           zoxide
           coreutils
           vim
           fzf
         ];
+
+        environment.shellAliases = {
+          l = "eza -alg";
+          ll = "eza --tree --git-ignore --all";
+        };
+        programs.fish.interactiveShellInit = ''
+          eval (zoxide init fish --cmd n | source)
+        '';
 
         environment.etc."dependencies.txt".text = lib.pipe config.environment.systemPackages (
           with builtins;

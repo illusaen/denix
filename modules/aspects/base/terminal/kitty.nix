@@ -1,25 +1,29 @@
+{ rootPath, ... }:
 {
-  den.aspects.base.terminal.kitty =
-    { self, ... }:
-    {
-      nixos =
-        { self', ... }:
-        {
-          environment.systemPackages = [
-            self'.packages.kitty
-          ];
-        };
+  den.aspects.base.terminal.kitty = {
+    nixos =
+      { pkgs, ... }:
+      {
+        environment.systemPackages = [
+          pkgs.local.kitty
+        ];
+      };
 
-      wrapper-packages.kitty =
-        let
-          inherit (self.my) fonts;
-        in
-        {
-          imports = [ ../../../wrappers/kitty/kitty.nix ];
-          font = {
-            name = fonts.mono;
-            size = fonts.sizes.terminal;
+    wrapper-packages =
+      { fleet, ... }:
+      {
+        kitty =
+          let
+            inherit (fleet.my) fonts base16;
+          in
+          {
+            imports = [ (rootPath + /wrappers/kitty/kitty.nix) ];
+            renderScheme = base16.scheme.render;
+            font = {
+              name = fonts.mono;
+              size = fonts.sizes.terminal;
+            };
           };
-        };
-    };
+      };
+  };
 }

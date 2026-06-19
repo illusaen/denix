@@ -1,0 +1,31 @@
+window {
+    location: east;
+    anchor: east;
+    width: 140px;
+    padding: 16px;
+    border-radius: 20px 0 0 20px;
+}
+
+mainbox {
+    children: [ listview ];
+}
+
+listview {
+    columns: 1;
+    spacing: 10px;
+    fixed-height: false;
+    background-color: transparent;
+}
+
+element {
+    children: [ element-text ];
+    spacing: 8px;
+}
+
+element-text {
+    expand: true;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    padding: env(ROFI_ACTION_TEXT_PADDING, 0);
+    font: @font-icon;
+}

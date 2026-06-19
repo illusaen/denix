@@ -1,25 +1,26 @@
 {
-  den,
   lib,
   ...
 }:
 {
-  den.aspects.base.includes = with den.aspects.base; [ nix-config ];
-
   den.aspects.base.nix-config = {
     nixos = {
       system.nixos.versionSuffix = lib.mkForce "";
       programs.nix-ld.enable = true;
     };
 
-    os = {
+    os = { environment, ... }: {
       nix.settings = {
         experimental-features = [
           "nix-command"
           "flakes"
         ];
+        accept-flake-config = true;
         warn-dirty = false;
-        trusted-users = [ "@wheel" ];
+        trusted-users = [
+          "root"
+          "@wheel"
+        ];
         substituters = [
           "https://cache.nixos.org/"
           "https://nix-community.cachix.org"
@@ -34,7 +35,7 @@
 
       nixpkgs.config.allowUnfree = true;
 
-      time.timeZone = "America/Chicago";
+      time.timeZone = environment.timezone;
 
       security.sudo.extraConfig = ''
         Defaults lecture = never

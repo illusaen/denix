@@ -1,0 +1,25 @@
+window {
+    width: 620px;
+    padding: 18px;
+}
+
+mainbox { spacing: 14px; }
+
+inputbar {
+    padding: 13px 16px;
+    children: [ prompt, entry ];
+}
+
+prompt { text-color: @accent; margin: 0 12px 0 0; }
+
+message {
+    margin:             12px 0 0;
+    border-radius:      16px;
+    background-color:   @bg;
+}
+message textbox { text-color: @text; }
+
+listview { lines: 7; columns: 1; spacing: 6px; background-color: transparent; }
+
+element-icon { size: 25px; margin: 0 12px 0 0; }
+element-text { vertical-align: 0.5; }
