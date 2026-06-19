@@ -34,6 +34,9 @@ tooltip label {
     border: 1px solid @border;
     background: @bg;
 }
+#workspaces button label {
+  padding: 2px 0;
+}
 #workspaces button,
 #workspaces button label {
     color: @muted;
