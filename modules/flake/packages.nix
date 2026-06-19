@@ -37,6 +37,10 @@
       # Flake outputs are evaluated outside the NixOS module graph, so they
       # need their own nixpkgs config for unfree packages.
       wrappers.pkgs = extended;
-      packages.bambu-studio = pkgs.bambu-studio;
+
+      ## pulling specific packages to packages to build in workflow
+      packages = {
+        inherit (pkgs) bambu-studio;
+      };
     };
 }

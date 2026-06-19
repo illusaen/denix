@@ -15,26 +15,10 @@
       };
 
     nixos =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs.local; [ swaync ];
-
-        systemd.user.services = {
-          swaync = {
-            description = "Notification center";
-            wantedBy = [ "graphical-session.target" ];
-            partOf = [ "graphical-session.target" ];
-            after = [ "graphical-session-pre.target" ];
-            serviceConfig = {
-              ExecStart = lib.getExe pkgs.local.swaync;
-              Restart = "on-failure";
-            };
-          };
-        };
+        systemd.packages = [ pkgs.local.swaync ];
       };
   };
 }

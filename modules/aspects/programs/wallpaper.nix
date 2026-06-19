@@ -12,23 +12,10 @@
     };
 
     nixos =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.local.wpaperd ];
-        systemd.user.services.wpaperd = {
-          description = "Desktop background";
-          wantedBy = [ "graphical-session.target" ];
-          partOf = [ "graphical-session.target" ];
-          after = [ "graphical-session-pre.target" ];
-          serviceConfig = {
-            ExecStart = lib.getExe pkgs.local.wpaperd;
-            Restart = "on-failure";
-          };
-        };
+        systemd.packages = [ pkgs.local.wpaperd ];
       };
 
     darwin = { fleet, ... }: {

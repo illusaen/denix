@@ -41,8 +41,8 @@ in
               "graphical-session-pre.target"
             ];
             enableStrictShellChecks = lib.mkDefault true;
-            script = lib.mkDefault config.executable;
             serviceConfig = {
+              ExecStart = lib.mkDefault config.executable;
               Restart = lib.mkDefault "on-failure";
               RestartSec = lib.mkDefault 2;
             };

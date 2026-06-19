@@ -6,12 +6,16 @@
   ...
 }:
 {
-  imports = [ wlib.modules.default ];
+  imports = [
+    wlib.modules.default
+    ./service.nix
+  ];
 
   options.imageDirectory = lib.mkOption { type = lib.types.path; };
 
   config = {
     package = pkgs.wpaperd;
+    service.enable = true;
     env.XDG_CONFIG_HOME = placeholder "out";
     constructFiles = {
       generatedConfig = {

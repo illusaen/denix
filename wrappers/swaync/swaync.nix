@@ -6,7 +6,10 @@
   ...
 }:
 {
-  imports = [ wlib.modules.default ];
+  imports = [
+    wlib.modules.default
+    ../service.nix
+  ];
   options = {
     font = lib.mkOption { type = lib.types.str; };
     colors = lib.mkOption { type = lib.types.raw; };
@@ -33,6 +36,7 @@
     };
   };
 
+  config.service.enable = true;
   config.settings = {
     positionX = "right";
     positionY = "top";

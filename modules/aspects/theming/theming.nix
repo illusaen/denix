@@ -2,6 +2,7 @@
   den,
   lib,
   rootPath,
+  config,
   ...
 }:
 let
@@ -47,7 +48,7 @@ in
         packageName = "whitesur-icon-theme";
       };
       gtkTheme = {
-        name = "WhiteSur";
+        name = "WhiteSur-${lib.toSentenceCase config.fleet.my.base16.colorScheme}-orange";
         packageName = "whitesur-gtk-theme";
       };
       cursorTheme = {

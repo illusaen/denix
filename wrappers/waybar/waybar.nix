@@ -6,7 +6,10 @@
   ...
 }:
 {
-  imports = [ wlib.wrapperModules.waybar ];
+  imports = [
+    wlib.wrapperModules.waybar
+    ../service.nix
+  ];
   options = {
     scheme = lib.mkOption {
       type = lib.types.raw;
@@ -24,6 +27,10 @@
     };
   };
 
+  config.service = {
+    enable = true;
+    after = [ "swaync.service" ];
+  };
   config.settings =
     let
       inherit (config.font) sans mono;

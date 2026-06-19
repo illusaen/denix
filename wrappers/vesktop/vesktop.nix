@@ -6,7 +6,10 @@
   ...
 }:
 {
-  imports = [ wlib.modules.default ];
+  imports = [
+    wlib.modules.default
+    ../service.nix
+  ];
 
   options = {
     instanceName = lib.mkOption {
@@ -68,6 +71,10 @@
     package = lib.mkDefault pkgs.vesktop;
     binName = lib.mkDefault "vesktop-${config.instanceName}";
     filesToExclude = [ "share/applications/vesktop.desktop" ];
+    service = {
+      enable = true;
+      serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+    };
 
     settings.vencord = {
       autoUpdate = false;
