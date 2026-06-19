@@ -93,6 +93,15 @@
           };
 
           binds.whichKey.enable = true;
+          keymaps = [
+            {
+              key = "<C-p>";
+              mode = "n";
+              action = ''function() require("snacks").picker.files() end'';
+              lua = true;
+              desc = "Find files";
+            }
+          ];
           git = {
             enable = true;
             gitsigns.codeActions.enable = false;

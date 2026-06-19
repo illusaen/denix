@@ -73,6 +73,7 @@
       {
         environment.sessionVariables = {
           GTK_THEME = theming.gtkTheme.name;
+          XDG_DATA_DIRS = lib.mkBefore [ "/run/current-system/sw/share" ];
         };
         environment.systemPackages = [
           pkgs.local.${theming.gtkTheme.packageName}
