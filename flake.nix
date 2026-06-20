@@ -52,6 +52,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     files.url = "github:mightyiam/files";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     flake-file.url = "github:denful/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
