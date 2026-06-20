@@ -1,4 +1,3 @@
-{ lib, ... }:
 {
   den.aspects.programs.image-viewer = {
     nixos =
@@ -7,34 +6,9 @@
         environment.systemPackages = with pkgs; [
           image-roll
         ];
+        xdg.mime.defaultApplications = {
+          "image/*" = "com.github.weclaw1.ImageRoll.desktop";
+        };
       };
-
-    provides.to-users.hjemLinux.xdg.mime-apps = {
-      default-applications = lib.mkBefore (
-        let
-          application = "com.github.weclaw1.ImageRoll.desktop";
-          mimeTypes = [
-            "image/bmp"
-            "image/gif"
-            "image/jpeg"
-            "image/jpg"
-            "image/pjpeg"
-            "image/png"
-            "image/tiff"
-            "image/x-bmp"
-            "image/x-pcx"
-            "image/x-png"
-            "image/x-portable-anymap"
-            "image/x-portable-bitmap"
-            "image/x-portable-graymap"
-            "image/x-portable-pixmap"
-            "image/x-tga"
-            "image/x-xbitmap"
-            "image/heic"
-          ];
-        in
-        lib.genAttrs mimeTypes (_: application)
-      );
-    };
   };
 }

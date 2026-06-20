@@ -1,13 +1,14 @@
 {
   den.aspects.base.xdg = {
-    nixos.xdg.autostart.enable = true;
-
-    provides.to-users.hjemLinux.xdg.config.files = {
-      "user-dirs.dirs".text = ''
-        XDG_DOWNLOAD_DIR="$HOME/Downloads"
-        XDG_PICTURES_DIR="$HOME/Pictures"
-      '';
-      "user-dirs.conf".text = "enabled=False";
+    nixos = {
+      xdg.autostart.enable = true;
+      environment.etc = {
+        "xdg/user-dirs.defaults".text = ''
+          DOWNLOAD="Downloads"
+          PICTURES="Pictures"
+        '';
+        "xdg/user-dirs.conf".text = "enabled=True";
+      };
     };
   };
 }

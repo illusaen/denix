@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs.firefox-addons = {
     url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -13,6 +13,7 @@
         pkgs,
         config,
         fleet,
+        lib,
         ...
       }:
       {
@@ -36,7 +37,21 @@
           );
           default = [ ];
         };
+
         config.nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ];
+
+        config.xdg.mime.defaultApplications =
+          let
+            application = "firefox.desktop";
+            mimeTypes = [
+              "text/html"
+              "x-scheme-handler/http"
+              "x-scheme-handler/https"
+              "x-scheme-handler/about"
+            ];
+          in
+          lib.genAttrs mimeTypes (_: application);
+
         config.programs.firefox = {
           enable = true;
           languagePacks = [

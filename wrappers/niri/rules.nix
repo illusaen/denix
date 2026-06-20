@@ -68,7 +68,7 @@
     }
     {
       matches = [
-        { app-id = "^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)"; }
+        { title = "^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)"; }
         { app-id = "org.pulseaudio.pavucontrol"; }
         { app-id = "^(.*)blueman-manager(.*)$"; }
         { app-id = "xdg-desktop-portal-gtk"; }
@@ -78,7 +78,7 @@
       ];
       open-floating = true;
       max-width = 1800;
-      max-height = 1200;
+      max-height = 1000;
     }
     {
       matches = [

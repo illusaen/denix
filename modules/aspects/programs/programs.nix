@@ -16,5 +16,6 @@
     vscode
     word
     youtube
+    zathura
   ];
 }
