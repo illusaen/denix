@@ -6,9 +6,12 @@
   };
 
   config.den.aspects.programs.wallpaper = {
-    wrapper-packages.wpaperd = {
-      imports = [ (rootPath + /wrappers/wpaperd.nix) ];
-      imageDirectory = rootPath + "/resources";
+    wrapper-packages = { fleet, ... }: {
+      wpaperd = {
+        imports = [ (rootPath + /wrappers/wpaperd.nix) ];
+        imageDirectory = rootPath + "/resources";
+        inherit (fleet.my) monitors;
+      };
     };
 
     nixos =

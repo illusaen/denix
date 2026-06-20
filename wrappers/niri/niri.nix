@@ -26,7 +26,7 @@ in
         };
       };
     };
-    monitor = mkOption {
+    monitors = mkOption {
       type = types.submodule {
         options = {
           main = mkOption { type = types.str; };
@@ -83,7 +83,7 @@ in
       ];
     };
     outputs = {
-      "${config.monitor.main}" = {
+      "${config.monitors.main}" = {
         scale = 1;
         focus-at-startup = _: { };
         transform = "normal";
@@ -95,7 +95,7 @@ in
         };
         mode = "5120x2160@100.035";
       };
-      "${config.monitor.secondary}" = {
+      "${config.monitors.secondary}" = {
         scale = 1;
         transform = "90";
         position = _: {
@@ -108,7 +108,7 @@ in
     };
     workspaces = {
       "music" = {
-        open-on-output = config.monitor.secondary;
+        open-on-output = config.monitors.secondary;
         layout = {
           default-column-width.proportion = 0.8;
           preset-column-widths = [
@@ -118,20 +118,20 @@ in
         };
       };
       "chat" = {
-        open-on-output = config.monitor.main;
+        open-on-output = config.monitors.main;
       };
       "code" = {
-        open-on-output = config.monitor.main;
+        open-on-output = config.monitors.main;
       };
       "gaming" = {
-        open-on-output = config.monitor.main;
+        open-on-output = config.monitors.main;
         layout.always-center-single-column = _: { };
       };
       "__ndrop_foot" = {
-        open-on-output = config.monitor.main;
+        open-on-output = config.monitors.main;
       };
       "__ndrop_obsidian" = {
-        open-on-output = config.monitor.main;
+        open-on-output = config.monitors.main;
       };
     };
   }

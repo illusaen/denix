@@ -30,9 +30,13 @@
           blueman-adapters = "Bluetooth Adapters";
           "nixos-manual" = "NixOS Manual";
           fish = "fish";
+          foot = "Foot";
+          footclient = "Foot (Client)";
+          foot-server = "Foot (Server)";
           vim = "vim";
           gvim = "gvim";
-          kitty-open = "kitty-open";
+          rofi = "Rofi";
+          rofi-theme-selector = "Rofi Theme Selector";
 
           base = "LibreOffice Base";
           calc = "LibreOffice Calc";

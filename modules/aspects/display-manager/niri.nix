@@ -6,14 +6,11 @@
       {
         niri =
           let
-            inherit (fleet.my) theming base16;
+            inherit (fleet.my) theming base16 monitors;
           in
           {
             imports = [ (rootPath + /wrappers/niri/niri.nix) ];
-            monitor = {
-              main = "LG Electronics LG ULTRAGEAR+ 508RMWVJR505";
-              secondary = "BOE Display 000000001";
-            };
+            inherit monitors;
             cursor = {
               inherit (theming.cursorTheme) name size;
             };

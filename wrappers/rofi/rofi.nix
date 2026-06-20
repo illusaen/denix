@@ -27,6 +27,7 @@ in
     configuration {
       display-drun: "Applications";
       drun-display-format: "{name}";
+      drun-show-actions: false;
       font: "${config.font} 13";
       icon-theme: "${config.icon}";
       modi: "drun,run,window";

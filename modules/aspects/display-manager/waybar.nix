@@ -9,6 +9,7 @@
           inherit (fleet.my.fonts) sans mono icon;
           size = fleet.my.fonts.sizes.applications;
         };
+        inherit (fleet.my) monitors;
       };
     };
 
@@ -16,8 +17,8 @@
       environment.systemPackages = [ pkgs.local.waybar ];
       systemd.packages = [ pkgs.local.waybar ];
       systemd.user.services.waybar = {
+        wantedBy = [ "graphical-session.target" ];
         after = [ "swaync.service" ];
-        wantedBy = [ "swaync.service" ];
       };
     };
   };
