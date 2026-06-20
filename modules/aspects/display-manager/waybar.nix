@@ -2,24 +2,25 @@
 {
   den.aspects.display-manager.waybar = {
     wrapper-packages = { fleet, ... }: {
-      waybar = {
-        imports = [ (rootPath + /wrappers/waybar/waybar.nix) ];
-        scheme = fleet.my.base16.scheme.withHashtag;
-        font = {
-          inherit (fleet.my.fonts) sans mono icon;
-          size = fleet.my.fonts.sizes.applications;
+      waybar =
+        let
+          inherit (fleet.my) fonts base16 monitors;
+        in
+        {
+          imports = [ (rootPath + /wrappers/waybar/waybar.nix) ];
+          scheme = base16.scheme.withHashtag;
+          font = {
+            inherit (fonts) sans mono icon;
+            size = fonts.sizes.applications;
+          };
+          monitors = monitors.connectors;
         };
-        monitors = fleet.my.monitors.connectors;
-      };
     };
 
     nixos = { pkgs, ... }: {
       environment.systemPackages = [ pkgs.local.waybar ];
       systemd.packages = [ pkgs.local.waybar ];
-      systemd.user.services.waybar = {
-        wantedBy = [ "graphical-session.target" ];
-        after = [ "swaync.service" ];
-      };
+      systemd.user.services.waybar.wantedBy = [ "graphical-session.target" ];
     };
   };
 }
