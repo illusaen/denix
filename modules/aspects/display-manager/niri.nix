@@ -10,7 +10,7 @@
           in
           {
             imports = [ (rootPath + /wrappers/niri/niri.nix) ];
-            inherit monitors;
+            monitors = monitors.descriptions;
             cursor = {
               inherit (theming.cursorTheme) name size;
             };

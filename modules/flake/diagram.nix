@@ -29,7 +29,7 @@ in
   perSystem =
     { pkgs, ... }:
     let
-      fleetCapture = den.lib.diag.captureFleet { };
+      fleetCapture = den.lib.capture.captureFleet { };
 
       # Patched mermaid-cli: swap bundled mermaid for 11.14.0
       mermaidCliPatched = pkgs.mermaid-cli.overrideAttrs (old: {

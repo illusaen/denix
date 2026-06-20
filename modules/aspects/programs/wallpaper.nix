@@ -10,7 +10,7 @@
       wpaperd = {
         imports = [ (rootPath + /wrappers/wpaperd.nix) ];
         imageDirectory = rootPath + "/resources";
-        inherit (fleet.my) monitors;
+        monitors = fleet.my.monitors.connectors;
       };
     };
 

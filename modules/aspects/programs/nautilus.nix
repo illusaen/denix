@@ -9,7 +9,7 @@
 
         programs.nautilus-open-any-terminal = {
           enable = true;
-          terminal = "kitty";
+          terminal = "footclient";
         };
 
         nixpkgs.overlays = [

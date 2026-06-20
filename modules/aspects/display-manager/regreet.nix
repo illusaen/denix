@@ -2,6 +2,7 @@
   den.aspects.display-manager.regreet = {
     nixos =
       {
+        lib,
         pkgs,
         fleet,
         environment,
@@ -54,6 +55,7 @@
 
         services.greetd =
           let
+            mainMonitor = fleet.my.monitors.main.desc;
             # Reuse the desktop Niri config, then add the greeter process.
             niri-config = pkgs.writeText "niri-config" ''
               include "${pkgs.local.niri}/niri-config.kdl"
@@ -65,7 +67,7 @@
               }
 
               // Start ReGreet and immediately kill Niri upon successful login
-              spawn-at-startup "sh" "-c" "${pkgs.regreet}/bin/regreet; pkill -f niri"
+              spawn-at-startup "sh" "-c" "${pkgs.niri}/bin/niri msg action focus-monitor ${lib.escapeShellArg mainMonitor}; ${pkgs.regreet}/bin/regreet; pkill -f niri"
             '';
           in
           {

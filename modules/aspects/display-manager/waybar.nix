@@ -9,7 +9,7 @@
           inherit (fleet.my.fonts) sans mono icon;
           size = fleet.my.fonts.sizes.applications;
         };
-        inherit (fleet.my) monitors;
+        monitors = fleet.my.monitors.connectors;
       };
     };
 

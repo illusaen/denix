@@ -1,7 +1,11 @@
 {
   den.aspects.display-manager.hide-desktop-entries = {
     nixos =
-      { pkgs, lib, ... }:
+      {
+        pkgs,
+        lib,
+        ...
+      }:
       let
         mkHiddenDesktopEntries = drvName: pkgs: entries: [
           (pkgs.stdenvNoCC.mkDerivation {
@@ -31,22 +35,11 @@
           "nixos-manual" = "NixOS Manual";
           fish = "fish";
           foot = "Foot";
-          footclient = "Foot (Client)";
           foot-server = "Foot (Server)";
           vim = "vim";
           gvim = "gvim";
           rofi = "Rofi";
           rofi-theme-selector = "Rofi Theme Selector";
-
-          base = "LibreOffice Base";
-          calc = "LibreOffice Calc";
-          draw = "LibreOffice Draw";
-          impress = "LibreOffice Impress";
-          math = "LibreOffice Math";
-          startcenter = "LibreOffice Startcenter";
-          writer = "LibreOffice Writer";
-          xsltfilter = "LibreOffice xsltfilter";
-
           qt5ct = "QT5 Settings";
           qt6ct = "QT6 Settings";
           kvantummanager = "Kvantum Manager";

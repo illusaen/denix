@@ -87,7 +87,6 @@ in
       };
 
     provides.to-users.persistUser.directories = [
-      ".codex"
       ".config/Code/User/globalStorage"
     ];
 

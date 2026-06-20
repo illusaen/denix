@@ -26,7 +26,5 @@
           ${lib.getExe pkgs.local.bat} cache --build
         '';
       };
-
-    provides.to-users.persistUser.directories = [ ".cache/bat" ];
   };
 }
