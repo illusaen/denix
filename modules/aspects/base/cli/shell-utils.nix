@@ -23,16 +23,68 @@
         imports = [(wrapperDirectory + /bat/bat.nix)];
         renderScheme = fleet.my.base16.scheme.render;
       };
+
       custom-scripts = {
         imports = [(wrapperDirectory + /custom-scripts/custom-scripts.nix)];
         opnixPackage = inputs.opnix.packages.${host.system}.default;
       };
-      eza = wrapperDirectory + /eza.nix;
-      fd = wrapperDirectory + /fd.nix;
-      gh = {
-        imports = [(wrapperDirectory + /gh.nix)];
-        inherit accountName;
+
+      eza = {
+        wlib,
+        pkgs,
+        ...
+      }: {
+        imports = [wlib.modules.default];
+        package = pkgs.eza;
+        flags = {
+          "--icons" = "auto";
+          "--git" = true;
+        };
       };
+
+      fd = {
+        wlib,
+        pkgs,
+        ...
+      }: {
+        imports = [wlib.modules.default];
+        package = pkgs.fd;
+        flags = {
+          "--hidden" = true;
+          "--follow" = true;
+          "--exclude" = ".git";
+        };
+      };
+
+      gh = {
+        wlib,
+        pkgs,
+        config,
+        ...
+      }: {
+        imports = [wlib.modules.default];
+        env.GH_CONFIG_DIR = dirOf config.constructFiles.generatedConfig.path;
+        package = pkgs.gh;
+        constructFiles = {
+          generatedConfig = {
+            content = ''
+              version: "1"
+            '';
+            relPath = "config.yml";
+          };
+          generatedHosts = {
+            content = ''
+              github.com:
+                git_protocol: ssh
+                users:
+                  ${accountName}:
+                user: ${accountName}
+            '';
+            relPath = "hosts.yml";
+          };
+        };
+      };
+
       git = {
         imports = [(wrapperDirectory + /git.nix)];
         inherit accountName email displayName;
