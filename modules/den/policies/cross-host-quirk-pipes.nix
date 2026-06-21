@@ -9,14 +9,13 @@
 in {
   den.policies.collect-host-addrs = _: [
     (pipe.from "host-addrs" [
-      # deadnix: skip
-      (pipe.collectAll ({host, ...}: true))
+      (pipe.collectAll ({host, ...}: host != null))
     ])
   ];
 
   den.policies.collect-prometheus-targets = _: [
     (pipe.from "prometheus-targets" [
-      (pipe.collect (_: true))
+      (pipe.collect ({host, ...}: host != null))
     ])
   ];
 
