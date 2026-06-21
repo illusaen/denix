@@ -1,7 +1,7 @@
 {
   "Alt+Shift+4" = _: {
     props.hotkey-overlay-title = "Screenshot";
-    content.spawn-sh = "screenshot show-pointer=false";
+    content.spawn-sh = "niri msg action screenshot show-pointer=false";
   };
   "Alt+Shift+T" = _: {
     props.hotkey-overlay-title = "Terminal";

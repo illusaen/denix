@@ -5,14 +5,14 @@
 }: {
   options.fleet.my.wallpaper = lib.mkOption {
     type = lib.types.path;
-    default = rootPath + /resources/gold-dragon.jpeg;
+    default = rootPath + /resources/wallpapers/gold-dragon.jpeg;
   };
 
   config.den.aspects.programs.wallpaper = {
     wrapper-packages = {fleet, ...}: {
       wpaperd = {
         imports = [(rootPath + /wrappers/wpaperd.nix)];
-        imageDirectory = rootPath + "/resources";
+        imageDirectory = rootPath + "/resources/wallpapers";
         monitors = fleet.my.monitors.connectors;
       };
     };

@@ -5,7 +5,20 @@
   pkgs,
   ...
 }: let
-  rofi-unwrapped = pkgs.rofi-unwrapped.override {x11Support = false;};
+  rofi-unwrapped = (pkgs.rofi-unwrapped.override {x11Support = false;}).overrideAttrs (old: {
+    postInstall =
+      (old.postInstall or "")
+      + ''
+        for desktop in \
+          "$out/share/applications/rofi.desktop" \
+          "$out/share/applications/rofi-theme-selector.desktop"
+        do
+          if [ -e "$desktop" ]; then
+            rm "$desktop"
+          fi
+        done
+      '';
+  });
 in {
   imports = [wlib.wrapperModules.rofi];
   options = {
@@ -23,8 +36,7 @@ in {
   config.settings = {};
   config."config.rasi".content = ''
     configuration {
-      display-drun: "Applications";
-      drun-display-format: "{name}";
+      drun-display-format: "{icon}";
       drun-show-actions: false;
       font: "${config.font} 13";
       icon-theme: "${config.icon}";

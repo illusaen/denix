@@ -1,6 +1,6 @@
 window {
   width: 900px;
-  padding: 24px;
+  padding: 48px;
 }
 
 mainbox { spacing: 24px; }
@@ -28,13 +28,21 @@ listview {
   fixed-columns: true;
 }
 
-element {
-  spacing: 8px;
-  orientation: vertical;
+element normal.normal,
+element normal.active,
+element normal.urgent,
+element alternate.normal,
+element alternate.active,
+element alternate.urgent {
+  background-color: transparent;
 }
 
-element-icon { size: 4em; }
+element {
+  children: [ element-icon ];
+  orientation: vertical
+}
 
-element-icon, element-text {
+element-icon {
+  size: 4em;
   horizontal-align: 0.5;
 }

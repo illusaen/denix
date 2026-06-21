@@ -15,7 +15,7 @@
           ];
           buildPhase = lib.pipe entries [
             (lib.mapAttrsToList (
-              name: value: "echo -e \"[Desktop Entry]\nName=${value}\nType=Application\nHidden=true\nNoDisplay=true\nExec=/run/current-system/sw/bin/true\nTerminal=false\n\" > ${name}.desktop"
+              name: value: "echo -e \"[Desktop Entry]\nName=${value}\nType=Application\nNoDisplay=true\n\" > ${name}.desktop"
             ))
             (lib.concatStringsSep "\n")
           ];
@@ -35,8 +35,6 @@
         foot-server = "Foot (Server)";
         vim = "vim";
         gvim = "gvim";
-        rofi = "Rofi";
-        rofi-theme-selector = "Rofi Theme Selector";
         qt5ct = "QT5 Settings";
         qt6ct = "QT6 Settings";
         kvantummanager = "Kvantum Manager";

@@ -34,10 +34,8 @@
     };
   };
 
-  config.service = {
-    enable = true;
-    after = ["swaync.service"];
-  };
+  config.service.enable = true;
+
   config.settings = let
     inherit (config.font) sans mono;
     clockSegment = font: size: text: {
