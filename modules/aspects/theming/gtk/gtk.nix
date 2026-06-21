@@ -88,6 +88,7 @@
         enable = true;
         profiles.user.databases = [
           {
+            settings."org/gnome/desktop/wm/preferences" = {"button-layout" = "close:";};
             settings."org/gnome/desktop/interface" = let
               settings = commonSettings 3;
             in

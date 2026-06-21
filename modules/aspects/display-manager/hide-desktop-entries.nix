@@ -15,7 +15,7 @@
           ];
           buildPhase = lib.pipe entries [
             (lib.mapAttrsToList (
-              name: value: "echo -e \"[Desktop Entry]\nName=${value}\nType=Application\nNoDisplay=true\n\" > ${name}.desktop"
+              name: value: "echo -e \"[Desktop Entry]\nName=${value}\nType=Application\nHidden=true\nNoDisplay=true\nExec=/run/current-system/sw/bin/true\nTerminal=false\n\" > ${name}.desktop"
             ))
             (lib.concatStringsSep "\n")
           ];
