@@ -13,7 +13,6 @@
         isBool
         boolToString
         escape
-        optionalAttrs
         ;
 
       toIni = generators.toINI {
@@ -24,31 +23,6 @@
             else toString value;
         in "${escape ["="] key}=${value'}";
       };
-      mkGtkSettings = {
-        gtkVersion,
-        font,
-        theme ? null,
-        iconTheme,
-        cursorTheme,
-        colorScheme,
-      }:
-        optionalAttrs (font != null) {
-          gtk-font-name = let
-            fontSize =
-              if font.size != null
-              then font.size
-              else 11;
-          in "${font.name} ${toString fontSize}";
-        }
-        // optionalAttrs (theme != null) {"gtk-theme-name" = theme.name;}
-        // optionalAttrs (iconTheme != null) {"gtk-icon-theme-name" = iconTheme.name;}
-        // optionalAttrs (cursorTheme != null) {"gtk-cursor-theme-name" = cursorTheme.name;}
-        // optionalAttrs (cursorTheme != null && cursorTheme.size != null) {
-          "gtk-cursor-theme-size" = cursorTheme.size;
-        }
-        // optionalAttrs (colorScheme == "dark") {"gtk-application-prefer-dark-theme" = true;}
-        // optionalAttrs (gtkVersion == 4 && colorScheme == "dark") {"gtk-interface-color-scheme" = 2;}
-        // optionalAttrs (gtkVersion == 4 && colorScheme == "light") {"gtk-interface-color-scheme" = 3;};
 
       inherit (fleet.my) theming fonts base16;
 
@@ -65,7 +39,23 @@
 
       gtkSettings = gtkVersion: {
         text = toIni {
-          Settings = mkGtkSettings (commonSettings gtkVersion);
+          Settings = let
+            settings = commonSettings gtkVersion;
+          in
+            lib.filterAttrs (_: v: v != null) {
+              gtk-font-name =
+                if settings ? font && settings.font.name != null && settings.font.size != null
+                then "${settings.font.name} ${toString settings.font.size}"
+                else null;
+              gtk-theme-name = settings.theme.name or null;
+              gtk-icon-theme-name = settings.iconTheme.name or null;
+              gtk-cursor-theme-name = settings.cursorTheme.name or null;
+              gtk-cursor-theme-size = settings.cursorTheme.size or null;
+              gtk-application-prefer-dark-theme =
+                if settings ? colorScheme && settings.colorScheme != null
+                then true
+                else null;
+            };
         };
       };
     in {
