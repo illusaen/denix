@@ -54,7 +54,6 @@ in {
 
     nixos = {pkgs, ...}: {
       environment.systemPackages = with pkgs; [
-        adw-gtk3
         adwaita-qt6
         nordic
         whitesur-icon-theme
