@@ -13,14 +13,7 @@ in {
     ])
   ];
 
-  den.policies.collect-prometheus-targets = _: [
-    (pipe.from "prometheus-targets" [
-      (pipe.collect ({host, ...}: host != null))
-    ])
-  ];
-
   den.schema.host.includes = [
     den.policies.collect-host-addrs
-    den.policies.collect-prometheus-targets
   ];
 }

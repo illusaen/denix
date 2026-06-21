@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  den,
   ...
 }: let
   base16Scheme = ./cosmic.yaml;
@@ -54,6 +53,5 @@ in {
           };
       };
     };
-    flake.den = den;
   };
 }

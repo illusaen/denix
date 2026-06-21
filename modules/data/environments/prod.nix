@@ -6,24 +6,10 @@
     system-access-groups = ["system-access"];
 
     services = {
-      argocd.domain = "argocd.zeroday.run";
-      hubble-ui.domain = "hubble.zeroday.run";
-      longhorn.domain = "longhorn.zeroday.run";
-      attic.domain = "attic.json64.dev";
-      forgejo.domain = "git.json64.dev";
-      grafana.domain = "grafana.json64.dev";
-      headscale.domain = "hs.json64.dev";
       homepage.domain = "homepage.json64.dev";
       jellyfin.domain = "jellyfin.json64.dev";
       kanidm.domain = "idm.json64.dev";
-      loki.domain = "loki.json64.dev";
-      minio.domain = "minio.json64.dev";
-      minio-console.domain = "minio-console.json64.dev";
-      oauth2-proxy.domain = "oauth2-proxy.json64.dev";
       open-webui.domain = "open-webui.json64.dev";
-      prometheus.domain = "prometheus.json64.dev";
-      vault.domain = "vault.json64.dev";
-      den-docs-mirror.domain = "den.json64.dev";
     };
 
     networks = {

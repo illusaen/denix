@@ -122,6 +122,11 @@ sequenceDiagram
     end
     box prod
     end
+
+    Note over huginn: base/networking → host-addrs
+    Note over idunn: base/networking → host-addrs
+    Note over muninn: base/networking → host-addrs
+    Note over odin: base/networking → host-addrs
 ```
 
 ## Fleet Summary
@@ -156,11 +161,11 @@ sequenceDiagram
 | ------ | ---------------- | ----------- | ------------ |
 | colmena | environment: dev | huginn, idunn, muninn, odin |  |
 | env | environment: dev | huginn, idunn, muninn, odin |  |
+| host-addrs | environment: dev | huginn, idunn, muninn, odin |  |
 | os | environment: dev | huginn, idunn, muninn, odin |  |
 | persist | environment: dev | huginn, idunn, muninn, odin |  |
 | pihole | environment: dev | huginn, muninn |  |
 | wrapper-packages | environment: dev | huginn, idunn, muninn, odin |  |
-| host-addrs | environment: dev |  | huginn, idunn, muninn, odin |
 | prometheus-targets | environment: dev |  | huginn, idunn, muninn, odin |
 
 ## Policies
