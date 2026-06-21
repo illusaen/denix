@@ -4,9 +4,8 @@
   lib,
   pkgs,
   ...
-}:
-{
-  imports = [ wlib.modules.default ];
+}: {
+  imports = [wlib.modules.default];
   options = {
     renderScheme = lib.mkOption {
       type = lib.types.raw;
@@ -15,8 +14,8 @@
     font = lib.mkOption {
       type = lib.types.submodule {
         options = {
-          name = lib.mkOption { type = lib.types.str; };
-          size = lib.mkOption { type = lib.types.int; };
+          name = lib.mkOption {type = lib.types.str;};
+          size = lib.mkOption {type = lib.types.int;};
         };
       };
     };
@@ -25,7 +24,10 @@
       default = pkgs.fish;
     };
   };
-  config.package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+  config.package =
+    if pkgs.stdenv.isDarwin
+    then pkgs.ghostty-bin
+    else pkgs.ghostty;
   config.flags."--config-file" = {
     data = config.constructFiles.generatedConfig.path;
     sep = "=";
@@ -53,20 +55,18 @@
       '';
       relPath = "config.ghostty";
     };
-    themeConfig =
-      let
-        ghostty-theme = config.renderScheme {
-          inherit pkgs lib;
-          template = ./ghostty.theme.mustache;
-          extension = "ghostty";
-        };
-      in
-      {
-        relPath = "Cosmic.ghostty";
-        builder = ''
-          mkdir -p "$(dirname "$2")"
-          ln -s ${lib.escapeShellArg ghostty-theme} "$2"
-        '';
+    themeConfig = let
+      ghostty-theme = config.renderScheme {
+        inherit pkgs lib;
+        template = ./ghostty.theme.mustache;
+        extension = "ghostty";
       };
+    in {
+      relPath = "Cosmic.ghostty";
+      builder = ''
+        mkdir -p "$(dirname "$2")"
+        ln -s ${lib.escapeShellArg ghostty-theme} "$2"
+      '';
+    };
   };
 }

@@ -3,9 +3,8 @@
   den,
   inputs,
   ...
-}:
-{
-  imports = [ inputs.den.flakeModule ];
+}: {
+  imports = [inputs.den.flakeModule];
 
   den.default = {
     includes = [
@@ -23,10 +22,14 @@
   den.schema.user.includes = [
     (den.batteries.user-shell "fish")
     (den.lib.policy.mkPolicy "user-aspect-auto-include" (
-      { host, user, ... }:
-      lib.optional (den.aspects ? ${host.name} && den.aspects.${host.name} ? ${user.name}) (
-        den.lib.policy.include den.aspects.${host.name}.${user.name}
-      )
+      {
+        host,
+        user,
+        ...
+      }:
+        lib.optional (den.aspects ? ${host.name} && den.aspects.${host.name} ? ${user.name}) (
+          den.lib.policy.include den.aspects.${host.name}.${user.name}
+        )
     ))
   ];
 }

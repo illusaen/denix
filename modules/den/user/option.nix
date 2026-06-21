@@ -8,8 +8,7 @@
   den,
   config,
   ...
-}:
-let
+}: let
   inherit (den.lib.policy) resolve;
   inherit (den.lib.aspects.fx) identity;
   inherit (lib) mkOption types;
@@ -19,133 +18,135 @@ let
   groupNames = builtins.attrNames groups;
 
   # If group B has `members = [ "A" ]`, members of A also inherit B.
-  inheritedGroupsFor =
-    groupName:
+  inheritedGroupsFor = groupName:
     builtins.filter (
-      candidate:
-      let
-        candidateMembers = groups.${candidate}.members or [ ];
+      candidate: let
+        candidateMembers = groups.${candidate}.members or [];
       in
-      lib.elem groupName candidateMembers
-    ) groupNames;
+        lib.elem groupName candidateMembers
+    )
+    groupNames;
 
-  resolveUserGroups =
-    seedGroups:
-    let
-      go =
-        seen:
-        let
-          next = lib.unique (seen ++ lib.concatMap inheritedGroupsFor seen);
-        in
-        if builtins.length next == builtins.length seen then seen else go next;
+  resolveUserGroups = seedGroups: let
+    go = seen: let
+      next = lib.unique (seen ++ lib.concatMap inheritedGroupsFor seen);
     in
+      if builtins.length next == builtins.length seen
+      then seen
+      else go next;
+  in
     go (lib.unique seedGroups);
 
-  resolvedRegistryGroups = name: resolveUserGroups (registry.${name}.groups or [ ]);
-  resolvedPosixGroups =
-    name:
-    builtins.filter (groupName: lib.elem "posix" (groups.${groupName}.labels or [ ])) (
+  resolvedRegistryGroups = name: resolveUserGroups (registry.${name}.groups or []);
+  resolvedPosixGroups = name:
+    builtins.filter (groupName: lib.elem "posix" (groups.${groupName}.labels or [])) (
       resolvedRegistryGroups name
     );
-  generatedExtraGroups =
-    name:
+  generatedExtraGroups = name:
     builtins.filter (
       groupName:
-      !(builtins.elem groupName [
-        # Removing these because den.batteries.primary-user already includes them
-        "wheel"
-        "networkmanager"
-      ])
+        !(builtins.elem groupName [
+          # Removing these because den.batteries.primary-user already includes them
+          "wheel"
+          "networkmanager"
+        ])
     ) (lib.unique (resolvedPosixGroups name));
 
   # Filter registry users whose groups intersect the granted set.
-  matchRegistryUsers =
-    grantedGroups:
+  matchRegistryUsers = grantedGroups:
     lib.filter (
-      name:
-      let
+      name: let
         userGroups = resolvedRegistryGroups name;
       in
-      builtins.any (g: lib.elem g grantedGroups) userGroups
+        builtins.any (g: lib.elem g grantedGroups) userGroups
     ) (builtins.attrNames registry);
 
-  collectUserProviders = user: aspect: (collectUserProvidersWithSeen user { } aspect).providers;
+  collectUserProviders = user: aspect: (collectUserProvidersWithSeen user {} aspect).providers;
 
-  collectUserProviderList =
-    user: seen: aspects:
+  collectUserProviderList = user: seen: aspects:
     builtins.foldl'
-      (
-        acc: aspect:
-        let
-          collected = collectUserProvidersWithSeen user acc.seen aspect;
-        in
-        {
-          inherit (collected) seen;
-          providers = acc.providers ++ collected.providers;
-        }
-      )
-      {
-        inherit seen;
-        providers = [ ];
+    (
+      acc: aspect: let
+        collected = collectUserProvidersWithSeen user acc.seen aspect;
+      in {
+        inherit (collected) seen;
+        providers = acc.providers ++ collected.providers;
       }
-      aspects;
+    )
+    {
+      inherit seen;
+      providers = [];
+    }
+    aspects;
 
-  aspectIdentityKey =
-    aspect:
-    if builtins.isAttrs aspect && aspect ? __provider && !(aspect ? name) then
-      let
-        provider = aspect.__provider;
-      in
-      identity.key {
-        name = if provider != [ ] then lib.last provider else "<anon>";
-        meta.provider = if provider != [ ] then lib.init provider else [ ];
-      }
-    else
-      identity.key aspect;
-
-  collectUserProvidersWithSeen =
-    user: seen: aspect:
-    let
-      aspectKey = if builtins.isAttrs aspect then aspectIdentityKey aspect else null;
-      alreadySeen = aspectKey != null && seen ? ${aspectKey};
-      seen' = if aspectKey == null then seen else seen // { ${aspectKey} = true; };
-      provides = aspect.provides or { };
-      forwarded = lib.genAttrs (aspect.__providesForwarded or [ ]) (_: true);
-      includes = aspect.includes or [ ];
-      includeKeys = lib.genAttrs (builtins.filter (key: key != null) (
-        map (include: if builtins.isAttrs include then aspectIdentityKey include else null) includes
-      )) (_: true);
-      subaspectIncludes =
-        if builtins.isAttrs aspect && aspect ? _ && builtins.isAttrs aspect._ && aspect._ ? __functor then
-          builtins.filter (
-            include: !(builtins.isAttrs include && includeKeys ? ${aspectIdentityKey include})
-          ) ((aspect._ { }).includes or [ ])
-        else
-          [ ];
-      childProviders = collectUserProviderList user seen' (includes ++ subaspectIncludes);
+  aspectIdentityKey = aspect:
+    if builtins.isAttrs aspect && aspect ? __provider && !(aspect ? name)
+    then let
+      provider = aspect.__provider;
     in
-    if alreadySeen then
-      {
-        inherit seen;
-        providers = [ ];
+      identity.key {
+        name =
+          if provider != []
+          then lib.last provider
+          else "<anon>";
+        meta.provider =
+          if provider != []
+          then lib.init provider
+          else [];
       }
-    else
-      {
-        inherit (childProviders) seen;
-        providers =
-          lib.optional (provides ? to-users) provides.to-users
-          ++ lib.optional (provides ? ${user.name}) provides.${user.name}
-          ++ lib.optional (
-            builtins.isAttrs aspect && aspect ? ${user.name} && !(forwarded ? ${user.name})
-          ) aspect.${user.name}
-          ++ childProviders.providers;
-      };
+    else identity.key aspect;
+
+  collectUserProvidersWithSeen = user: seen: aspect: let
+    aspectKey =
+      if builtins.isAttrs aspect
+      then aspectIdentityKey aspect
+      else null;
+    alreadySeen = aspectKey != null && seen ? ${aspectKey};
+    seen' =
+      if aspectKey == null
+      then seen
+      else seen // {${aspectKey} = true;};
+    provides = aspect.provides or {};
+    forwarded = lib.genAttrs (aspect.__providesForwarded or []) (_: true);
+    includes = aspect.includes or [];
+    includeKeys = lib.genAttrs (builtins.filter (key: key != null) (
+      map (include:
+        if builtins.isAttrs include
+        then aspectIdentityKey include
+        else null)
+      includes
+    )) (_: true);
+    subaspectIncludes =
+      if builtins.isAttrs aspect && aspect ? _ && builtins.isAttrs aspect._ && aspect._ ? __functor
+      then
+        builtins.filter (
+          include: !(builtins.isAttrs include && includeKeys ? ${aspectIdentityKey include})
+        ) ((aspect._ {}).includes or [])
+      else [];
+    childProviders = collectUserProviderList user seen' (includes ++ subaspectIncludes);
+  in
+    if alreadySeen
+    then {
+      inherit seen;
+      providers = [];
+    }
+    else {
+      inherit (childProviders) seen;
+      providers =
+        lib.optional (provides ? to-users) provides.to-users
+        ++ lib.optional (provides ? ${user.name}) provides.${user.name}
+        ++ lib.optional (
+          builtins.isAttrs aspect && aspect ? ${user.name} && !(forwarded ? ${user.name})
+        )
+        aspect.${user.name}
+        ++ childProviders.providers;
+    };
 
   # Submodule for group-based access grants.
   accessGrantType = types.submodule {
     options.groups = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "Groups granted access";
     };
   };
@@ -154,10 +155,13 @@ let
   # pipeline self-provide, define-user, and other batteries find the
   # expected attributes (userName, aspect, classes).
   registryUserType = types.submodule (
-    { name, config, ... }:
     {
+      name,
+      config,
+      ...
+    }: {
       freeformType = types.attrsOf types.anything;
-      imports = [ den.schema.user ];
+      imports = [den.schema.user];
       config._module.args.user = config;
       options = {
         name = mkOption {
@@ -172,43 +176,42 @@ let
         };
         classes = mkOption {
           type = types.listOf types.str;
-          default = [ "user" ];
+          default = ["user"];
           description = "Home management nix classes";
         };
         aspect = mkOption {
           type = types.raw;
-          default =
-            let
-              baseAspect = den.aspects.${name} or { };
-            in
+          default = let
+            baseAspect = den.aspects.${name} or {};
+          in
             baseAspect
             // {
-              includes = (baseAspect.includes or [ ]) ++ [
-                (
-                  { user, ... }:
-                  {
-                    nixos.users.users.${user.userName}.extraGroups = generatedExtraGroups name;
-                  }
-                )
-              ];
+              includes =
+                (baseAspect.includes or [])
+                ++ [
+                  (
+                    {user, ...}: {
+                      nixos.users.users.${user.userName}.extraGroups = generatedExtraGroups name;
+                    }
+                  )
+                ];
             };
           defaultText = "den.aspects.<name>";
           description = "Aspect that configures this user";
         };
         groups = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = "Group memberships for access policy selection";
         };
       };
     }
   );
-in
-{
+in {
   # User registry option.
   options.den.users.registry = mkOption {
     type = types.attrsOf registryUserType;
-    default = { };
+    default = {};
     description = "User registry with extended schema for fleet policy resolution";
   };
 
@@ -216,12 +219,12 @@ in
   options.fleet.user-access = {
     by-environment = mkOption {
       type = types.attrsOf accessGrantType;
-      default = { };
+      default = {};
       description = "Grant user groups access to all hosts in an environment";
     };
     by-host = mkOption {
       type = types.attrsOf accessGrantType;
-      default = { };
+      default = {};
       description = "Grant user groups access to a specific host";
     };
   };
@@ -229,33 +232,31 @@ in
   config = {
     # Promote users to real entities.
     den.schema.user.isEntity = true;
-    den.schema.user.classes = lib.mkDefault [ "hjem" ];
+    den.schema.user.classes = lib.mkDefault ["hjem"];
 
     # Host -> users: resolve registry users whose groups intersect the
     # effective access groups (merged env + host, propagated via scope context).
-    den.policies.env-users =
-      {
-        host,
-        accessGroups ? [ ],
-        ...
-      }:
-      let
-        matched = matchRegistryUsers accessGroups;
-        hostProviderRoots = [
+    den.policies.env-users = {
+      host,
+      accessGroups ? [],
+      ...
+    }: let
+      matched = matchRegistryUsers accessGroups;
+      hostProviderRoots =
+        [
           host.aspect
         ]
-        ++ builtins.filter builtins.isAttrs (config.den.schema.host.includes or [ ]);
-      in
+        ++ builtins.filter builtins.isAttrs (config.den.schema.host.includes or []);
+    in
       lib.concatMap (
-        name:
-        let
+        name: let
           user = registry.${name};
-        in
-        [
+        in [
           (resolve.shared.withIncludes (lib.concatMap (collectUserProviders user) hostProviderRoots) {
             inherit user;
           })
         ]
-      ) matched;
+      )
+      matched;
   };
 }

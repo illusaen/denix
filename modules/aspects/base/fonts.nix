@@ -1,31 +1,27 @@
-{ lib, ... }:
-let
-  inherit (lib)
+{lib, ...}: let
+  inherit
+    (lib)
     mkOption
     types
     pipe
     nameValuePair
     ;
-  sizeOption =
-    default:
+  sizeOption = default:
     mkOption {
       type = types.int;
       inherit default;
     };
-  mapListToAttrsWith =
-    attrs: value:
+  mapListToAttrsWith = attrs: value:
     pipe attrs [
       (map (v: nameValuePair v value))
       builtins.listToAttrs
     ];
-  mkStrOption =
-    default:
+  mkStrOption = default:
     mkOption {
       type = types.str;
       inherit default;
     };
-in
-{
+in {
   options.fleet.my.fonts = mkOption {
     type = types.submodule {
       options = {
@@ -35,7 +31,7 @@ in
         icon = mkStrOption "Material Symbols Outlined";
         sizes = mkOption {
           type = types.submodule {
-            options = mapListToAttrsWith [ "terminal" "applications" "desktop" ] (sizeOption 12);
+            options = mapListToAttrsWith ["terminal" "applications" "desktop"] (sizeOption 12);
           };
         };
       };
@@ -56,27 +52,23 @@ in
     };
 
     den.aspects.base.fonts = {
-      os =
-        { pkgs, ... }:
-        {
-          fonts.packages = with pkgs; [
-            font-awesome
-            maple-mono.NF-CN-unhinted
-            inter
-            monaspace
-            noto-fonts-color-emoji
-            material-symbols
-          ];
+      os = {pkgs, ...}: {
+        fonts.packages = with pkgs; [
+          font-awesome
+          maple-mono.NF-CN-unhinted
+          inter
+          monaspace
+          noto-fonts-color-emoji
+          material-symbols
+        ];
+      };
+      nixos = {fleet, ...}: {
+        fonts.fontconfig.defaultFonts = rec {
+          monospace = [fleet.my.fonts.mono];
+          serif = sansSerif;
+          sansSerif = [fleet.my.fonts.sans];
         };
-      nixos =
-        { fleet, ... }:
-        {
-          fonts.fontconfig.defaultFonts = rec {
-            monospace = [ fleet.my.fonts.mono ];
-            serif = sansSerif;
-            sansSerif = [ fleet.my.fonts.sans ];
-          };
-        };
+      };
     };
   };
 }

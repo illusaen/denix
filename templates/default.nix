@@ -6,8 +6,11 @@ let
     # flake-file = import ./../../modules;
   };
 
-  outputs =
-    inputs@{ flake-parts, import-tree, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (import-tree ./nix);
+  outputs = inputs @ {
+    flake-parts,
+    import-tree,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} (import-tree ./nix);
 in
-with-inputs outputs
+  with-inputs outputs

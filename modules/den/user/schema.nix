@@ -1,5 +1,4 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkOption types;
 
   sshKeyType = types.submodule {
@@ -15,8 +14,7 @@ let
       };
     };
   };
-in
-{
+in {
   den.schema.user.imports = [
     (_: {
       options = {
@@ -45,12 +43,12 @@ in
               };
               sshKeys = mkOption {
                 type = types.listOf sshKeyType;
-                default = [ ];
+                default = [];
                 description = "SSH public keys for the user, each with an optional tag";
               };
             };
           };
-          default = { };
+          default = {};
           description = "User identity information";
         };
 
@@ -79,12 +77,12 @@ in
               };
               extra-features = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = "Additional feature aspects to include for this user beyond defaults";
               };
               excluded-features = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = "Feature aspects to exclude for this user";
               };
               include-host-features = mkOption {
@@ -94,12 +92,12 @@ in
               };
               settings = mkOption {
                 type = types.attrsOf (types.attrsOf types.anything);
-                default = { };
+                default = {};
                 description = "Per-user feature settings (freeform nested namespace)";
               };
             };
           };
-          default = { };
+          default = {};
           description = "Unix account defaults and system configuration";
         };
       };

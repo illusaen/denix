@@ -4,12 +4,11 @@
   pkgs,
   config,
   ...
-}@top:
-let
+} @ top: let
   topConfig = top.config;
   fakeNixosConfig.systemd = {
     package = pkgs.systemd;
-    globalEnvironment = { };
+    globalEnvironment = {};
     enableStrictShellChecks = false;
   };
   nixosUtils = import "${pkgs.path}/nixos/lib/utils.nix" {
@@ -18,24 +17,22 @@ let
   };
   inherit (nixosUtils) systemdUtils;
   serviceUnit = systemdUtils.lib.serviceToUnit topConfig.service;
-in
-{
-  imports = [ wlib.modules.constructFiles ];
+in {
+  imports = [wlib.modules.constructFiles];
 
   options.service = lib.mkOption {
     type = lib.types.submodule [
       systemdUtils.unitOptions.stage2ServiceOptions
       systemdUtils.lib.unitConfig
       (
-        { config, ... }:
-        {
+        {config, ...}: {
           config = {
             enable = lib.mkDefault false;
             name = lib.mkDefault "${config.serviceName}.service";
             description = lib.mkDefault "Start ${config.serviceName}";
-            wantedBy = lib.mkDefault [ "graphical-session.target" ];
-            partOf = lib.mkDefault [ "graphical-session.target" ];
-            requires = lib.mkDefault [ "graphical-session-pre.target" ];
+            wantedBy = lib.mkDefault ["graphical-session.target"];
+            partOf = lib.mkDefault ["graphical-session.target"];
+            requires = lib.mkDefault ["graphical-session-pre.target"];
             after = lib.mkDefault [
               "graphical-session.target"
               "graphical-session-pre.target"
@@ -62,7 +59,7 @@ in
         }
       )
     ];
-    default = { };
+    default = {};
     description = "Systemd user service generated into lib/systemd/user.";
   };
 

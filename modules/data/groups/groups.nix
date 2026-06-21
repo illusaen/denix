@@ -18,7 +18,7 @@ _: {
       gid = 950;
       description = "Login access to workstation hosts";
       # Members of system-access also inherit workstation-access.
-      members = [ "system-access" ];
+      members = ["system-access"];
     };
     server-access = {
       labels = [
@@ -28,7 +28,7 @@ _: {
       gid = 949;
       description = "Login access to server hosts";
       # Members of system-access also inherit server-access.
-      members = [ "system-access" ];
+      members = ["system-access"];
     };
   };
 }

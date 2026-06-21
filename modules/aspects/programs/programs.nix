@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.aspects.programs.includes = with den.aspects.programs; [
     onepassword
     bambu-studio

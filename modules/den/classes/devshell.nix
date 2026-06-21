@@ -3,12 +3,10 @@
 # Aspects can emit devshell commands/packages via the `devshell` class key.
 # The flake-parts scope resolves hosts and clusters so their devshell content
 # is collected and routed into the devshell module.
-{ den, ... }:
-let
+{den, ...}: let
   inherit (den.lib.policy) route;
-in
-{
-  den.classes.devshell = { };
+in {
+  den.classes.devshell = {};
 
   den.policies.devshell-to-flake-parts = _: [
     (route {
@@ -18,12 +16,12 @@ in
         "devshells"
         "default"
       ];
-      adaptArgs = { config, ... }: config.allModuleArgs;
+      adaptArgs = {config, ...}: config.allModuleArgs;
     })
   ];
 
   # Enter flake-parts scope from flake-system
-  den.schema.flake-system.includes = [ den.policies.system-to-flake-parts ];
+  den.schema.flake-system.includes = [den.policies.system-to-flake-parts];
 
   den.schema.flake-parts.includes = [
     den.policies.devshell-to-flake-parts

@@ -4,20 +4,19 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   imports = [
     wlib.modules.default
     ./service.nix
   ];
 
   options = {
-    imageDirectory = lib.mkOption { type = lib.types.path; };
+    imageDirectory = lib.mkOption {type = lib.types.path;};
     monitors = lib.mkOption {
       type = lib.types.submodule {
         options = {
-          main = lib.mkOption { type = lib.types.str; };
-          secondary = lib.mkOption { type = lib.types.str; };
+          main = lib.mkOption {type = lib.types.str;};
+          secondary = lib.mkOption {type = lib.types.str;};
         };
       };
     };

@@ -1,7 +1,6 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.aspects.roles.desktop = {
-    colmena = [ "desktop" ];
+    colmena = ["desktop"];
     includes = [
       den.aspects.base
       den.aspects.programs

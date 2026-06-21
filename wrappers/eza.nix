@@ -2,9 +2,8 @@
   wlib,
   pkgs,
   ...
-}:
-{
-  imports = [ wlib.modules.default ];
+}: {
+  imports = [wlib.modules.default];
 
   package = pkgs.eza;
   flags = {

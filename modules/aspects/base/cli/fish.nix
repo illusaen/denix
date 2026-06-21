@@ -1,51 +1,44 @@
-{ rootPath, ... }: {
+{rootPath, ...}: {
   den.aspects.base.cli.fish = {
     env.EDITOR = "vim";
-    provides.to-users.persistUser.directories = [ ".local/share/fish" ];
+    provides.to-users.persistUser.directories = [".local/share/fish"];
 
     wrapper-packages.fish-vendor-functions = rootPath + "/wrappers/fish-scripts/fish-scripts.nix";
 
-    os =
-      {
-        pkgs,
-        ...
-      }:
-      {
-        programs.bash.interactiveShellInit = ''
-          # "check if parent process is not fish" && "make nested shells work properly"
-          if grep -qv fish /proc/$PPID/comm && [[ $SHLVL == [12] ]]; then
-              # set $SHELL for better integration with programs like nix shell, tmux, etc.
-              SHELL=${pkgs.fish}/bin/fish exec fish
-          fi
+    os = {pkgs, ...}: {
+      programs.bash.interactiveShellInit = ''
+        # "check if parent process is not fish" && "make nested shells work properly"
+        if grep -qv fish /proc/$PPID/comm && [[ $SHLVL == [12] ]]; then
+            # set $SHELL for better integration with programs like nix shell, tmux, etc.
+            SHELL=${pkgs.fish}/bin/fish exec fish
+        fi
+      '';
+      programs.fish = {
+        enable = true;
+        interactiveShellInit = ''
+          set -g fish_greeting ""
+          set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
         '';
-        programs.fish = {
-          enable = true;
-          interactiveShellInit = ''
-            set -g fish_greeting ""
-            set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
-          '';
-        };
-
-        environment.shellAliases = {
-          cd = "n";
-          rmr = "rm -r";
-          rmf = "rm -rf";
-        };
-        environment.systemPackages = with pkgs.fishPlugins; [
-          puffer
-          colored-man-pages
-          pkgs.local.fish-vendor-functions
-        ];
       };
 
-    nixos =
-      { pkgs, ... }:
-      {
-        documentation.man.cache.enable = false;
-        environment.systemPackages = with pkgs.fishPlugins; [
-          fzf-fish
-        ];
+      environment.shellAliases = {
+        cd = "n";
+        rmr = "rm -r";
+        rmf = "rm -rf";
       };
+      environment.systemPackages = with pkgs.fishPlugins; [
+        puffer
+        colored-man-pages
+        pkgs.local.fish-vendor-functions
+      ];
+    };
+
+    nixos = {pkgs, ...}: {
+      documentation.man.cache.enable = false;
+      environment.systemPackages = with pkgs.fishPlugins; [
+        fzf-fish
+      ];
+    };
 
     darwin = {
       documentation.man.enable = false;

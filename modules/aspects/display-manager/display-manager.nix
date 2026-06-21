@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.aspects.display-manager = {
     includes = with den.aspects.display-manager; [
       swaync

@@ -1,7 +1,6 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.aspects.roles.server = {
-    colmena = [ "server" ];
+    colmena = ["server"];
     includes = [
       den.aspects.base
       den.aspects.server

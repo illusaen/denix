@@ -1,15 +1,16 @@
 # DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
-  outputs = # flake-file reads this verbatim when regenerating flake.nix.
+  outputs =
+    # flake-file reads this verbatim when regenerating flake.nix.
     # Use import-tree here because there is no modules/default.nix entrypoint.
-    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+    inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 
   nixConfig = {
     abort-on-warn = false;
     accept-flake-config = true;
     auto-optimise-store = true;
-    extra-deprecated-features = [ "or-as-identifier" ];
+    extra-deprecated-features = ["or-as-identifier"];
     extra-experimental-features = [
       "pipe-operator"
       "flakes"

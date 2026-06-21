@@ -4,11 +4,10 @@
   den,
   lib,
   ...
-}:
-{
-  imports = [ inputs.wrappers.flakeModules.wrappers ];
+}: {
+  imports = [inputs.wrappers.flakeModules.wrappers];
 
-  options.wrappers = lib.mkOption { type = lib.types.raw; };
+  options.wrappers = lib.mkOption {type = lib.types.raw;};
 
   config = {
     flake-file.inputs.wrappers = {
@@ -18,7 +17,7 @@
 
     flake.nixosModules = builtins.mapAttrs (_: v: v.install) self.wrappers;
 
-    den.classes.wrapper-packages = { };
+    den.classes.wrapper-packages = {};
     den.policies.wrapper-packages-to-flake-parts = _: [
       (den.lib.policy.route {
         fromClass = "wrapper-packages";
@@ -27,7 +26,7 @@
           "flake"
           "wrappers"
         ];
-        adaptArgs = { config, ... }: config.allModuleArgs;
+        adaptArgs = {config, ...}: config.allModuleArgs;
       })
     ];
 

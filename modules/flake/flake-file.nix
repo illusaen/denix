@@ -1,7 +1,10 @@
-{ inputs, den, ... }:
 {
+  inputs,
+  den,
+  ...
+}: {
   imports = [
-    inputs.flake-file.flakeModules.dendritic or { }
+    inputs.flake-file.flakeModules.dendritic or {}
   ];
 
   systems = builtins.attrNames den.hosts;
@@ -29,7 +32,7 @@
         "nix-command"
       ];
 
-      extra-deprecated-features = [ "or-as-identifier" ];
+      extra-deprecated-features = ["or-as-identifier"];
 
       lazy-trees = true;
       use-xdg-base-directories = true;

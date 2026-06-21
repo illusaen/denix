@@ -1,1 +1,1 @@
-{ outputs = _: import ./.; }
+{outputs = _: import ./.;}

@@ -1,45 +1,41 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.aspects.base.tailscale = {
-    includes = [ den.aspects.base.tailscale-systray ];
+    includes = [den.aspects.base.tailscale-systray];
 
-    nixos =
-      { config, ... }:
-      {
-        services.tailscale.enable = true;
-        # 2. Force tailscaled to use nftables (Critical for clean nftables-only systems)
-        # This avoids the "iptables-compat" translation layer issues.
-        systemd.services.tailscaled.serviceConfig.Environment = [
-          "TS_DEBUG_FIREWALL_MODE=nftables"
-        ];
+    nixos = {config, ...}: {
+      services.tailscale.enable = true;
+      # 2. Force tailscaled to use nftables (Critical for clean nftables-only systems)
+      # This avoids the "iptables-compat" translation layer issues.
+      systemd.services.tailscaled.serviceConfig.Environment = [
+        "TS_DEBUG_FIREWALL_MODE=nftables"
+      ];
 
-        networking.nftables.enable = true;
-        networking.firewall = {
-          enable = true;
-          # Always allow traffic from your Tailscale network
-          trustedInterfaces = [ "tailscale0" ];
-          # Allow the Tailscale UDP port through the firewall
-          allowedUDPPorts = [ config.services.tailscale.port ];
-        };
+      networking.nftables.enable = true;
+      networking.firewall = {
+        enable = true;
+        # Always allow traffic from your Tailscale network
+        trustedInterfaces = ["tailscale0"];
+        # Allow the Tailscale UDP port through the firewall
+        allowedUDPPorts = [config.services.tailscale.port];
       };
+    };
 
     darwin.homebrew.masApps."Tailscale" = 1475387142;
 
-    persist.directories = [ "/var/lib/tailscale" ];
+    persist.directories = ["/var/lib/tailscale"];
   };
 
-  den.aspects.base.tailscale-systray.nixos =
-    {
-      lib,
-      config,
-      host,
-      ...
-    }:
+  den.aspects.base.tailscale-systray.nixos = {
+    lib,
+    config,
+    host,
+    ...
+  }:
     lib.mkIf (host.hasAspect den.aspects.roles.desktop) {
       systemd.user.services.tailscale-systray = {
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
-        requires = [ "graphical-session-pre.target" ];
+        wantedBy = ["graphical-session.target"];
+        partOf = ["graphical-session.target"];
+        requires = ["graphical-session-pre.target"];
         after = [
           "graphical-session.target"
           "graphical-session-pre.target"

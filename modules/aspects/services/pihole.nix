@@ -1,6 +1,5 @@
-{ den, ... }:
-{
-  den.aspects.server.includes = with den.aspects.server; [ pihole ];
+{den, ...}: {
+  den.aspects.server.includes = with den.aspects.server; [pihole];
 
   den.aspects.server.pihole = {
     services.pihole-ftl = {
@@ -15,7 +14,7 @@
         ];
 
         # Optionally resolve local hosts (domain is optional)
-        dns.hosts = [ "192.168.1.188 hostname.domain" ];
+        dns.hosts = ["192.168.1.188 hostname.domain"];
       };
 
       lists = [

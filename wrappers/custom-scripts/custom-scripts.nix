@@ -4,8 +4,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   opnixConfig = lib.escapeShellArg (
     builtins.toJSON {
       vars = [
@@ -17,24 +16,22 @@ let
     }
   );
 
-  pythonScript =
-    name: script: runtimeInputs:
+  pythonScript = name: script: runtimeInputs:
     pkgs.writeShellApplication {
       inherit name runtimeInputs;
       text = ''
         exec python3 ${script} "$@"
       '';
     };
-in
-{
-  imports = [ wlib.modules.symlinkScript ];
+in {
+  imports = [wlib.modules.symlinkScript];
 
-  options.opnixPackage = lib.mkOption { type = lib.types.package; };
+  options.opnixPackage = lib.mkOption {type = lib.types.package;};
 
   config.package = pkgs.symlinkJoin {
     name = "custom-scripts";
     paths = [
-      (pythonScript "dconf2nix" ./scripts/dconf-to-nix.py [ pkgs.python3 ])
+      (pythonScript "dconf2nix" ./scripts/dconf-to-nix.py [pkgs.python3])
       (pythonScript "monitor-brightness" ./scripts/monitor-brightness.py [
         pkgs.ddcutil
         pkgs.python3
@@ -54,7 +51,7 @@ in
       ])
       (pkgs.writeShellApplication {
         name = "nb";
-        runtimeInputs = [ pkgs.nix-output-monitor ];
+        runtimeInputs = [pkgs.nix-output-monitor];
         text = builtins.readFile ./scripts/nix-build.sh;
       })
       (pkgs.writeShellApplication {
@@ -104,12 +101,12 @@ in
       })
       (pkgs.writeShellApplication {
         name = "rofi-calculator";
-        runtimeInputs = [ pkgs.local.rofi ];
+        runtimeInputs = [pkgs.local.rofi];
         text = "ROFI_LAYOUT_LIST=true rofi -show calc -modi calc -no-show-match -no-sort";
       })
       (pkgs.writeShellApplication {
         name = "rofi-launcher";
-        runtimeInputs = [ pkgs.local.rofi ];
+        runtimeInputs = [pkgs.local.rofi];
         text = ''ROFI_LAYOUT_GRID=true rofi -show drun -display-drun "Applications"'';
       })
       (pkgs.writeShellApplication {

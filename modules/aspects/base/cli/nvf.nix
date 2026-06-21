@@ -1,13 +1,14 @@
-{ inputs, ... }: {
+{inputs, ...}: {
   flake-file.inputs.nvf = {
     url = "github:NotAShelf/nvf";
     inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   den.aspects.base.cli.nvf = {
-    os = {
-      imports = [ inputs.nvf.nixosModules.default ];
+    nixos.imports = [inputs.nvf.nixosModules.default];
+    darwin.imports = [inputs.nvf.darwinModules.default];
 
+    os = {
       nix.settings = {
         substituters = [
           "https://nvf.cachix.org"
@@ -54,7 +55,10 @@
             json.enable = true;
             lua.enable = true;
             markdown.enable = true;
-            nix.enable = true;
+            nix = {
+              enable = true;
+              lsp.servers = ["nixd"];
+            };
             python.enable = true;
             rust = {
               enable = true;

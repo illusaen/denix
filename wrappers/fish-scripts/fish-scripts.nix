@@ -2,9 +2,8 @@
   wlib,
   pkgs,
   ...
-}:
-{
-  imports = [ wlib.modules.symlinkScript ];
+}: {
+  imports = [wlib.modules.symlinkScript];
 
   package = pkgs.stdenvNoCC.mkDerivation {
     pname = "autols-fish";

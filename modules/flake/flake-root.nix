@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   flake-file.inputs.flake-root.url = "github:srid/flake-root";
 
   imports = [
@@ -8,13 +7,8 @@
 
   _module.args.rootPath = ../..;
 
-  perSystem =
-    {
-      config,
-      ...
-    }:
-    {
-      flake-root.projectRootFile = "flake.nix";
-      devshells.default.packages = [ config.flake-root.package ];
-    };
+  perSystem = {config, ...}: {
+    flake-root.projectRootFile = "flake.nix";
+    devshells.default.packages = [config.flake-root.package];
+  };
 }

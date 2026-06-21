@@ -1,14 +1,12 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkOption types;
-in
-{
+in {
   den.schema.group.imports = [
     (_: {
       options = {
         labels = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = "Classification labels for the group (e.g., posix, oauth-grant, user-role)";
         };
 
@@ -20,7 +18,7 @@ in
 
         members = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = "Source groups whose members should also inherit this group";
         };
 

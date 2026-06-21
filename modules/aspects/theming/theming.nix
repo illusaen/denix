@@ -4,36 +4,34 @@
   rootPath,
   config,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption types;
-in
-{
+in {
   options.fleet.my.theming = mkOption {
     type = types.submodule {
       options = {
         iconTheme = mkOption {
           type = types.submodule {
             options = {
-              name = mkOption { type = types.str; };
-              packageName = mkOption { type = types.str; };
+              name = mkOption {type = types.str;};
+              packageName = mkOption {type = types.str;};
             };
           };
         };
         gtkTheme = mkOption {
           type = types.submodule {
             options = {
-              name = mkOption { type = types.str; };
-              packageName = mkOption { type = types.str; };
+              name = mkOption {type = types.str;};
+              packageName = mkOption {type = types.str;};
             };
           };
         };
         cursorTheme = mkOption {
           type = types.submodule {
             options = {
-              name = mkOption { type = types.str; };
-              packageName = mkOption { type = types.str; };
-              size = mkOption { type = types.int; };
+              name = mkOption {type = types.str;};
+              packageName = mkOption {type = types.str;};
+              size = mkOption {type = types.int;};
             };
           };
         };
@@ -64,23 +62,21 @@ in
     ];
 
     den.aspects.theming = {
-      wrapper-packages = { fleet, ... }: {
+      wrapper-packages = {fleet, ...}: {
         whitesur-gtk-theme = {
-          imports = [ (rootPath + /wrappers/whitesur-gtk-theme.nix) ];
+          imports = [(rootPath + /wrappers/whitesur-gtk-theme.nix)];
           font = fleet.my.fonts.sans;
         };
       };
 
-      nixos =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = with pkgs; [
-            adw-gtk3
-            adwaita-qt6
-            nordic
-            whitesur-icon-theme
-          ];
-        };
+      nixos = {pkgs, ...}: {
+        environment.systemPackages = with pkgs; [
+          adw-gtk3
+          adwaita-qt6
+          nordic
+          whitesur-icon-theme
+        ];
+      };
     };
   };
 }

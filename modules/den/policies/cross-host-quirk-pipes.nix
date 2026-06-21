@@ -4,15 +4,13 @@
 # aggregation, wired into host schema so every host collects pipe
 # entries from peers. For example, firewalls are specific to each
 # host and so are not collected here.
-
-{ den, ... }:
-let
+{den, ...}: let
   inherit (den.lib.policy) pipe;
-in
-{
+in {
   den.policies.collect-host-addrs = _: [
     (pipe.from "host-addrs" [
-      (pipe.collect (_: true))
+      # deadnix: skip
+      (pipe.collectAll ({host, ...}: true))
     ])
   ];
 

@@ -3,8 +3,7 @@
   inputs,
   self,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption types;
   schemaLib = inputs.gen-schema.lib;
 
@@ -41,13 +40,13 @@ let
 
       dnsServers = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "DNS server IPs for this network";
       };
 
       assignments = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = "Static IP address assignments within this network.";
       };
 
@@ -101,7 +100,7 @@ let
             };
           }
         );
-        default = { };
+        default = {};
         description = "Domains to generate certificates for";
       };
 
@@ -117,42 +116,37 @@ let
             };
           }
         );
-        default = { };
+        default = {};
         description = "Certificate issuer configurations";
       };
     };
   };
-in
-{
+in {
   den.schema.environment.isEntity = true;
 
   # Method: resolve the domain for a service, following delegation
   den.schema.environment.methods.getDomainFor =
     schemaLib.schemaFn "Get the domain for a service, following delegation"
-      (lib.types.functionTo lib.types.str)
-      (
-        {
-          services,
-          domain,
-          ...
-        }:
-        serviceName:
-        let
-          svc = services.${serviceName} or { };
-          inherit (svc) delegateTo;
-        in
-        if svc ? domain && svc.domain != null then
-          svc.domain
-        else if delegateTo != null then
-          "${serviceName}.${delegateTo}.${domain}"
-        else
-          "${serviceName}.${domain}"
-      );
+    (lib.types.functionTo lib.types.str)
+    (
+      {
+        services,
+        domain,
+        ...
+      }: serviceName: let
+        svc = services.${serviceName} or {};
+        inherit (svc) delegateTo;
+      in
+        if svc ? domain && svc.domain != null
+        then svc.domain
+        else if delegateTo != null
+        then "${serviceName}.${delegateTo}.${domain}"
+        else "${serviceName}.${domain}"
+    );
 
   den.schema.environment.imports = [
     (
-      { config, ... }:
-      {
+      {config, ...}: {
         options = {
           id = mkOption {
             type = types.int;
@@ -180,7 +174,7 @@ in
           settings =
             mkOption {
               type = types.attrsOf (types.attrsOf types.anything);
-              default = { };
+              default = {};
               description = "Environment-level default feature settings for scope-engine cascade";
             }
             // {
@@ -189,19 +183,19 @@ in
 
           networks = mkOption {
             type = types.attrsOf networkType;
-            default = { };
+            default = {};
             description = "Network definitions for the environment";
           };
 
           services = mkOption {
             type = types.attrsOf serviceType;
-            default = { };
+            default = {};
             description = "Service-specific domain mappings for the environment";
           };
 
           certificates = mkOption {
             type = certificatesType;
-            default = { };
+            default = {};
             description = "Certificate management configuration";
           };
 
@@ -220,7 +214,7 @@ in
                 };
               };
             };
-            default = { };
+            default = {};
             description = "Email configuration for the environment";
           };
 
@@ -244,7 +238,7 @@ in
                 };
               };
             };
-            default = { };
+            default = {};
             description = "ACME certificate authority configuration";
           };
 
@@ -269,13 +263,13 @@ in
                 };
               };
             };
-            default = { };
+            default = {};
             description = "Geographic location information";
           };
 
           tags = mkOption {
             type = types.attrsOf types.str;
-            default = { };
+            default = {};
             description = "Environment-wide tags for metadata and organization";
           };
 
@@ -301,7 +295,7 @@ in
                 };
               };
             };
-            default = { };
+            default = {};
             description = "Cross-environment delegation configuration";
           };
 
@@ -310,24 +304,24 @@ in
               options = {
                 scanEnvironments = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = "Additional environments to scan for metrics";
                 };
               };
             };
-            default = { };
+            default = {};
             description = "Monitoring configuration including cross-environment scanning";
           };
 
           system-access-groups = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             description = "System-scoped groups that grant Unix account creation on all hosts in this environment";
           };
 
           access = mkOption {
             type = types.attrsOf (types.listOf types.str);
-            default = { };
+            default = {};
             description = "Maps usernames to lists of group names for this environment";
           };
         };

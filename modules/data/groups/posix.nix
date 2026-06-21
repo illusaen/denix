@@ -4,80 +4,80 @@ _: {
     # POSIX groups (Unix permissions with gidNumber)
     # Members of workstation-access also inherit most of these groups.
     wheel = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 1;
       description = "Sudo access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     tty = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 3;
       description = "TTY access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     audio = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 17;
       description = "Audio device access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     video = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 26;
       description = "Video device access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     networkmanager = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 57;
       description = "NetworkManager control";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     input = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 174;
       description = "Input device access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     kvm = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 302;
       description = "KVM hypervisor access";
     };
     render = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 303;
       description = "GPU render access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     media = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 900;
       description = "Media files access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     libvirtd = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 901;
       description = "VM management access";
     };
     gamemode = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 981;
       description = "GameMode access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     i2c = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 984;
       description = "I2C device access for ddcutil";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
     onepassword-secrets = {
-      labels = [ "posix" ];
+      labels = ["posix"];
       gid = 985;
       description = "1Password secrets access";
-      members = [ "workstation-access" ];
+      members = ["workstation-access"];
     };
   };
 }

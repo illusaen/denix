@@ -4,91 +4,88 @@
   pkgs,
   config,
   ...
-}:
-{
-  imports = [ wlib.modules.default ];
+}: {
+  imports = [wlib.modules.default];
 
-  options =
-    let
-      inherit (lib) mkOption types;
-    in
-    {
-      font = mkOption { type = types.str; };
-      altVariants = mkOption {
-        type = types.listOf (
-          types.enum [
-            "normal"
-            "alt"
-            "all"
-          ]
-        );
-        default = [ "normal" ];
-      };
-      colorVariants = mkOption {
-        type = types.listOf (
-          types.enum [
-            "light"
-            "dark"
-          ]
-        );
-        default = [ ];
-      };
-      opacityVariants = mkOption {
-        type = types.listOf (
-          types.enum [
-            "normal"
-            "solid"
-          ]
-        );
-        default = [ "normal" ];
-      };
-      themeVariants = mkOption {
-        type = types.listOf (
-          types.enum [
-            "orange"
-            "purple"
-            "grey"
-            "pink"
-            "red"
-            "yellow"
-            "blue"
-            "default"
-          ]
-        );
-        default = [ "orange" ];
-      };
-      schemeVariants = mkOption {
-        type = types.listOf (
-          types.enum [
-            "standard"
-            "nord"
-          ]
-        );
-        default = [ "standard" ];
-      };
-      nautilusStyle = mkOption {
-        type = types.enum [
-          "stable"
+  options = let
+    inherit (lib) mkOption types;
+  in {
+    font = mkOption {type = types.str;};
+    altVariants = mkOption {
+      type = types.listOf (
+        types.enum [
           "normal"
-          "mojave"
-          "glassy"
-          "right"
-        ];
-        default = "glassy";
-      };
-      libadwaita = mkOption {
-        type = types.bool;
-        default = true;
-      };
-      hd = mkOption {
-        type = types.bool;
-        default = true;
-      };
-      roundedMaxWindow = mkOption {
-        type = types.bool;
-        default = false;
-      };
+          "alt"
+          "all"
+        ]
+      );
+      default = ["normal"];
     };
+    colorVariants = mkOption {
+      type = types.listOf (
+        types.enum [
+          "light"
+          "dark"
+        ]
+      );
+      default = [];
+    };
+    opacityVariants = mkOption {
+      type = types.listOf (
+        types.enum [
+          "normal"
+          "solid"
+        ]
+      );
+      default = ["normal"];
+    };
+    themeVariants = mkOption {
+      type = types.listOf (
+        types.enum [
+          "orange"
+          "purple"
+          "grey"
+          "pink"
+          "red"
+          "yellow"
+          "blue"
+          "default"
+        ]
+      );
+      default = ["orange"];
+    };
+    schemeVariants = mkOption {
+      type = types.listOf (
+        types.enum [
+          "standard"
+          "nord"
+        ]
+      );
+      default = ["standard"];
+    };
+    nautilusStyle = mkOption {
+      type = types.enum [
+        "stable"
+        "normal"
+        "mojave"
+        "glassy"
+        "right"
+      ];
+      default = "glassy";
+    };
+    libadwaita = mkOption {
+      type = types.bool;
+      default = true;
+    };
+    hd = mkOption {
+      type = types.bool;
+      default = true;
+    };
+    roundedMaxWindow = mkOption {
+      type = types.bool;
+      default = false;
+    };
+  };
 
   config.package = pkgs.stdenv.mkDerivation rec {
     pname = "whitesur-gtk-theme";
@@ -125,8 +122,8 @@
       # Provides a dummy home directory
       substituteInPlace libs/lib-core.sh --replace-fail 'MY_HOME=$(getent passwd "''${MY_USERNAME}" | cut -d: -f6)' 'MY_HOME=/tmp'
 
-      substituteInPlace src/sass/_variables.scss --replace-fail '$font-family: ' '$font-family: ${config.font},' 
-      substituteInPlace src/sass/_variables.scss --replace-fail '$large-font-family: ' '$font-family: ${config.font},' 
+      substituteInPlace src/sass/_variables.scss --replace-fail '$font-family: ' '$font-family: ${config.font},'
+      substituteInPlace src/sass/_variables.scss --replace-fail '$large-font-family: ' '$font-family: ${config.font},'
     '';
 
     dontBuild = true;
@@ -164,7 +161,6 @@
       runHook postInstall
     '';
 
-    passthru.updateScript = pkgs.gitUpdater { };
+    passthru.updateScript = pkgs.gitUpdater {};
   };
-
 }

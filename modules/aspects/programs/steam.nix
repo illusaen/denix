@@ -1,55 +1,53 @@
 {
   den.aspects.programs.steam = {
-    provides.to-users.persistUser.directories = [ ".local/share/Steam" ];
+    provides.to-users.persistUser.directories = [".local/share/Steam"];
 
-    darwin.homebrew.casks = [ "steam" ];
+    darwin.homebrew.casks = ["steam"];
 
-    nixos =
-      {
-        pkgs,
-        config,
-        lib,
-        fleet,
-        ...
-      }:
-      {
-        programs.steam = {
-          enable = true;
-          package = pkgs.steam.override {
-            extraPkgs = _pkgs': [ _pkgs'.${fleet.my.theming.cursorTheme.packageName} ];
-          };
+    nixos = {
+      pkgs,
+      config,
+      lib,
+      fleet,
+      ...
+    }: {
+      programs.steam = {
+        enable = true;
+        package = pkgs.steam.override {
+          extraPkgs = _pkgs': [_pkgs'.${fleet.my.theming.cursorTheme.packageName}];
         };
+      };
 
-        environment.systemPackages = [
-          (
-            let
-              id = "2819520";
-            in
+      environment.systemPackages = [
+        (
+          let
+            id = "2819520";
+          in
             pkgs.makeDesktopItem {
               name = "viking-rise";
               desktopName = "Viking Rise";
               comment = "Play Viking Rise through Steam";
               exec = "${lib.getExe config.programs.steam.package} steam://rungameid/${id}";
               icon = "steam";
-              categories = [ "Game" ];
+              categories = ["Game"];
             }
-          )
-        ];
+        )
+      ];
 
-        systemd.user.services.steam-start = {
-          description = "Start Steam on login";
-          after = [
-            "graphical-session.target"
-            "graphical-session-pre.target"
-          ];
-          wantedBy = [ "graphical-session.target" ];
-          serviceConfig = {
-            ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
-            ExecStart = "${lib.getExe config.programs.steam.package} -silent";
-            Restart = "on-failure";
-            RestartSec = 5;
-          };
+      systemd.user.services.steam-start = {
+        description = "Start Steam on login";
+        after = [
+          "graphical-session.target"
+          "graphical-session-pre.target"
+        ];
+        wantedBy = ["graphical-session.target"];
+        serviceConfig = {
+          ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+          ExecStart = "${lib.getExe config.programs.steam.package} -silent";
+          Restart = "on-failure";
+          RestartSec = 5;
         };
       };
+    };
   };
 }

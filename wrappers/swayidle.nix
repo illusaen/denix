@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   display = status: "${lib.getExe pkgs.local.niri} msg action power-${status}-monitors";
-in
-{
+in {
   imports = [
     wlib.wrapperModules.swayidle
     ./service.nix

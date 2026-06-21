@@ -1,13 +1,9 @@
 # Prod environment entity definition.
-_:
-let
-  DOMAIN = "wendy.dev";
-in
 {
   den.environments.prod = {
     id = 1;
-    domain = DOMAIN;
-    system-access-groups = [ "system-access" ];
+    domain = "lan";
+    system-access-groups = ["system-access"];
 
     services = {
       argocd.domain = "argocd.zeroday.run";

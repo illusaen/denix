@@ -1,30 +1,32 @@
-{ lib, config, ... }:
-let
+{
+  lib,
+  config,
+  ...
+}: let
   monitorConnectors =
     lib.pipe
-      {
-        num = lib.range 1 2;
-        conn = [
-          "DP"
-          "HDMI-A"
-        ];
-      }
-      [
-        lib.cartesianProduct
-        (map (x: "${x.conn}-${toString x.num}"))
+    {
+      num = lib.range 1 2;
+      conn = [
+        "DP"
+        "HDMI-A"
       ];
+    }
+    [
+      lib.cartesianProduct
+      (map (x: "${x.conn}-${toString x.num}"))
+    ];
   monitorOption = lib.mkOption {
     type = lib.types.submodule {
       options = {
-        desc = lib.mkOption { type = lib.types.str; };
+        desc = lib.mkOption {type = lib.types.str;};
         connector = lib.mkOption {
           type = lib.types.enum monitorConnectors;
         };
       };
     };
   };
-in
-{
+in {
   options.fleet.my.monitors = lib.mkOption {
     type = lib.types.submodule {
       options = {

@@ -4,19 +4,17 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   schemaLib = inputs.gen-schema.lib;
-in
-{
-  options.den.genSchema = schemaLib.mkSchemaOption { };
+in {
+  options.den.genSchema = schemaLib.mkSchemaOption {};
 
   config.den.genSchema.environment = {
-    imports = den.schema.environment.imports or [ ];
-    methods = den.schema.environment.methods or { };
+    imports = den.schema.environment.imports or [];
+    methods = den.schema.environment.methods or {};
     options.aspect = lib.mkOption {
       type = lib.types.raw;
-      default = { };
+      default = {};
       description = "Aspect that configures this environment";
     };
   };

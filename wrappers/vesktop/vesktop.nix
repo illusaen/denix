@@ -4,8 +4,7 @@
   pkgs,
   wlib,
   ...
-}:
-{
+}: {
   imports = [
     wlib.modules.default
     ../service.nix
@@ -40,37 +39,35 @@
       type = lib.types.attrsOf lib.types.str;
     };
 
-    colors = lib.mkOption { type = lib.types.raw; };
+    colors = lib.mkOption {type = lib.types.raw;};
 
-    settings =
-      let
-        jsonFormat = pkgs.formats.json { };
-      in
-      {
-        vesktop = lib.mkOption {
-          inherit (jsonFormat) type;
-          default = { };
-        };
-        vencord = lib.mkOption {
-          inherit (jsonFormat) type;
-          default = { };
-        };
-        quickCss = lib.mkOption {
-          type = lib.types.lines;
-          default = "";
-        };
-        themes = lib.mkOption {
-          type = lib.types.attrsOf (lib.types.either lib.types.path lib.types.lines);
-          default = { };
-          description = "Theme file names mapped to CSS contents or paths.";
-        };
+    settings = let
+      jsonFormat = pkgs.formats.json {};
+    in {
+      vesktop = lib.mkOption {
+        inherit (jsonFormat) type;
+        default = {};
       };
+      vencord = lib.mkOption {
+        inherit (jsonFormat) type;
+        default = {};
+      };
+      quickCss = lib.mkOption {
+        type = lib.types.lines;
+        default = "";
+      };
+      themes = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.either lib.types.path lib.types.lines);
+        default = {};
+        description = "Theme file names mapped to CSS contents or paths.";
+      };
+    };
   };
 
   config = {
     package = lib.mkDefault pkgs.vesktop;
     binName = lib.mkDefault "vesktop-${config.instanceName}";
-    filesToExclude = [ "share/applications/vesktop.desktop" ];
+    filesToExclude = ["share/applications/vesktop.desktop"];
     service = {
       enable = true;
       serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
@@ -86,7 +83,7 @@
         FixYoutubeEmbeds.enabled = true;
         FakeNitro.enabled = true;
       };
-      enabledThemes = [ "base16.css" ];
+      enabledThemes = ["base16.css"];
     };
     settings.quickCss = ''
       :root {
@@ -115,45 +112,50 @@
     };
   };
 
-  config.constructFiles = {
-    vesktopSettings = {
-      content = builtins.toJSON config.settings.vesktop;
-      relPath = "defaults/settings.json";
-    };
-    vencordSettings = {
-      content = builtins.toJSON config.settings.vencord;
-      relPath = "defaults/settings/settings.json";
-    };
-    quickCss = {
-      content = config.settings.quickCss;
-      relPath = "defaults/settings/quickCss.css";
-    };
-    desktopEntry = {
-      content = ''
-        [Desktop Entry]
-        Name=${config.displayName}
-        GenericName=Internet Messenger
-        Exec=${placeholder "out"}/bin/${config.binName} %U
-        Icon=vesktop
-        StartupWMClass=Vesktop
-        Type=Application
-        Categories=Network;InstantMessaging;Chat;
-        Keywords=discord;vencord;chat;
-      '';
-      relPath = "share/applications/${config.binName}.desktop";
-    };
-  }
-  // (lib.mapAttrs' (
-    name: value:
-    lib.nameValuePair "theme-${name}" {
-      content = if builtins.isPath value then builtins.readFile value else value;
-      relPath = "defaults/themes/${name}";
+  config.constructFiles =
+    {
+      vesktopSettings = {
+        content = builtins.toJSON config.settings.vesktop;
+        relPath = "defaults/settings.json";
+      };
+      vencordSettings = {
+        content = builtins.toJSON config.settings.vencord;
+        relPath = "defaults/settings/settings.json";
+      };
+      quickCss = {
+        content = config.settings.quickCss;
+        relPath = "defaults/settings/quickCss.css";
+      };
+      desktopEntry = {
+        content = ''
+          [Desktop Entry]
+          Name=${config.displayName}
+          GenericName=Internet Messenger
+          Exec=${placeholder "out"}/bin/${config.binName} %U
+          Icon=vesktop
+          StartupWMClass=Vesktop
+          Type=Application
+          Categories=Network;InstantMessaging;Chat;
+          Keywords=discord;vencord;chat;
+        '';
+        relPath = "share/applications/${config.binName}.desktop";
+      };
     }
-  ) config.settings.themes);
+    // (lib.mapAttrs' (
+        name: value:
+          lib.nameValuePair "theme-${name}" {
+            content =
+              if builtins.isPath value
+              then builtins.readFile value
+              else value;
+            relPath = "defaults/themes/${name}";
+          }
+      )
+      config.settings.themes);
 
-  config.runShell =
-    let
-      managedFiles = [
+  config.runShell = let
+    managedFiles =
+      [
         {
           source = config.constructFiles.vesktopSettings.path;
           target = "settings.json";
@@ -170,22 +172,20 @@
       ++ lib.mapAttrsToList (name: _: {
         source = config.constructFiles."theme-${name}".path;
         target = "themes/${name}";
-      }) config.settings.themes;
-    in
-    [
-      ''
-        export VENCORD_USER_DATA_DIR=${wlib.escapeShellArgWithEnv config.dataDir}
-        shared_config_dir=${wlib.escapeShellArgWithEnv (config.sharedConfigDir or "")}
-        ${pkgs.coreutils}/bin/mkdir -p "$VENCORD_USER_DATA_DIR"
+      })
+      config.settings.themes;
+  in [
+    ''
+      export VENCORD_USER_DATA_DIR=${wlib.escapeShellArgWithEnv config.dataDir}
+      shared_config_dir=${wlib.escapeShellArgWithEnv (config.sharedConfigDir or "")}
+      ${pkgs.coreutils}/bin/mkdir -p "$VENCORD_USER_DATA_DIR"
 
-        ${lib.concatMapStringsSep "\n" (
-          file:
-          let
+      ${lib.concatMapStringsSep "\n" (
+          file: let
             target = "$VENCORD_USER_DATA_DIR/${file.target}";
             escapedTarget = wlib.escapeShellArgWithEnv target;
             escapedSeedSource = wlib.escapeShellArgWithEnv "$shared_config_dir/${file.target}";
-          in
-          ''
+          in ''
             source=${escapedSeedSource}
             if [ -z "$shared_config_dir" ] || [ ! -e "$source" ]; then
               source=${lib.escapeShellArg file.source}
@@ -194,7 +194,8 @@
             ${pkgs.coreutils}/bin/rm -f ${escapedTarget}
             ${pkgs.coreutils}/bin/install -m 0644 "$source" ${escapedTarget}
           ''
-        ) managedFiles}
-      ''
-    ];
+        )
+        managedFiles}
+    ''
+  ];
 }

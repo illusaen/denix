@@ -4,25 +4,23 @@
   config,
   pkgs,
   ...
-}:
-let
-  rofi-unwrapped = pkgs.rofi-unwrapped.override { x11Support = false; };
-in
-{
-  imports = [ wlib.wrapperModules.rofi ];
+}: let
+  rofi-unwrapped = pkgs.rofi-unwrapped.override {x11Support = false;};
+in {
+  imports = [wlib.wrapperModules.rofi];
   options = {
-    font = lib.mkOption { type = lib.types.str; };
-    icon = lib.mkOption { type = lib.types.str; };
-    colors = lib.mkOption { type = lib.types.raw; };
+    font = lib.mkOption {type = lib.types.str;};
+    icon = lib.mkOption {type = lib.types.str;};
+    colors = lib.mkOption {type = lib.types.raw;};
   };
 
-  config.package = pkgs.rofi.override { inherit rofi-unwrapped; };
-  config.plugins = [ (pkgs.rofi-calc.override { inherit rofi-unwrapped; }) ];
+  config.package = pkgs.rofi.override {inherit rofi-unwrapped;};
+  config.plugins = [(pkgs.rofi-calc.override {inherit rofi-unwrapped;})];
   config.filesToExclude = [
     "share/applications/rofi.desktop"
     "share/applications/rofi-theme-selector.desktop"
   ];
-  config.settings = { };
+  config.settings = {};
   config."config.rasi".content = ''
     configuration {
       display-drun: "Applications";
@@ -43,7 +41,7 @@ in
       accent: ${config.colors.base09};
       accent-fg: ${config.colors.base02};
       font-icon: "${config.font} 36";
-      
+
       text-color: @text;
       background-color: transparent;
     }
@@ -96,23 +94,23 @@ in
     @import "${config.constructFiles.gridTheme.path}"
     @import "${config.constructFiles.listTheme.path}"
   '';
-  config.constructFiles =
-    let
-      themeFile = {
-        actions = ./theme-actions.rasi;
-        grid = ./theme-grid.rasi;
-        list = ./theme-list.rasi;
-      };
-    in
+  config.constructFiles = let
+    themeFile = {
+      actions = ./theme-actions.rasi;
+      grid = ./theme-grid.rasi;
+      list = ./theme-list.rasi;
+    };
+  in
     lib.mapAttrs' (
       layout: file:
-      lib.nameValuePair "${layout}Theme" {
-        relPath = "rofi-theme-${layout}.rasi";
-        content = ''
-          @media ( enabled: env(ROFI_LAYOUT_${lib.toUpper layout}, false)) {
-          ${builtins.readFile file}
-          }
-        '';
-      }
-    ) themeFile;
+        lib.nameValuePair "${layout}Theme" {
+          relPath = "rofi-theme-${layout}.rasi";
+          content = ''
+            @media ( enabled: env(ROFI_LAYOUT_${lib.toUpper layout}, false)) {
+            ${builtins.readFile file}
+            }
+          '';
+        }
+    )
+    themeFile;
 }

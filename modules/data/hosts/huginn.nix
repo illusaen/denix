@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.hosts.x86_64-linux.huginn = {
     preservation.enable = true;
     preservation.disk = "nvme1n1";
@@ -12,7 +11,7 @@
       "server-access"
     ];
 
-    networking.interfaces.eno1.ipv4 = [ "192.168.1.163/24" ];
+    networking.interfaces.eno1.ipv4 = ["192.168.1.163/24"];
   };
 
   # Seedbox server and Bootable ISO

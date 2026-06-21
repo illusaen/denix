@@ -1,14 +1,13 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   flake-file.inputs.opnix.url = "github:brizzbuzz/opnix";
 
   den.aspects.base.cli.opnix = {
     nixos = {
-      imports = [ inputs.opnix.nixosModules.default ];
+      imports = [inputs.opnix.nixosModules.default];
     };
 
     darwin = {
-      imports = [ inputs.opnix.darwinModules.default ];
+      imports = [inputs.opnix.darwinModules.default];
     };
 
     os.services.onepassword-secrets = {
@@ -28,12 +27,10 @@
       };
     };
 
-    persist.files = [ "/etc/opnix-token" ];
+    persist.files = ["/etc/opnix-token"];
 
-    provides.to-users.darwin =
-      { user, ... }:
-      {
-        users.groups.onepassword-secrets.members = [ user.name ];
-      };
+    provides.to-users.darwin = {user, ...}: {
+      users.groups.onepassword-secrets.members = [user.name];
+    };
   };
 }

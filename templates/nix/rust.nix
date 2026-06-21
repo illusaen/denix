@@ -4,24 +4,22 @@
     inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  perSystem =
-    {
-      pkgs,
-      system,
-      inputs,
-      ...
-    }:
-    {
-      _module.args.pkgs = import inputs.nixpkgs {
-        inherit system;
-        overlays = [ inputs.rust-overlay.overlays.default ];
-      };
-
-      treefmt.programs.rustfmt.enable = true;
-      pre-commit.settings.hooks.clippy.enable = true;
-
-      devshells.default = {
-        packages = with pkgs; [ rust-bin.stable.latest.default ];
-      };
+  perSystem = {
+    pkgs,
+    system,
+    inputs,
+    ...
+  }: {
+    _module.args.pkgs = import inputs.nixpkgs {
+      inherit system;
+      overlays = [inputs.rust-overlay.overlays.default];
     };
+
+    treefmt.programs.rustfmt.enable = true;
+    pre-commit.settings.hooks.clippy.enable = true;
+
+    devshells.default = {
+      packages = with pkgs; [rust-bin.stable.latest.default];
+    };
+  };
 }

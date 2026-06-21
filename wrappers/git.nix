@@ -4,18 +4,17 @@
   lib,
   pkgs,
   ...
-}:
-{
-  imports = [ wlib.wrapperModules.git ];
+}: {
+  imports = [wlib.wrapperModules.git];
 
   options = {
-    accountName = lib.mkOption { type = lib.types.str; };
-    displayName = lib.mkOption { type = lib.types.str; };
-    email = lib.mkOption { type = lib.types.str; };
+    accountName = lib.mkOption {type = lib.types.str;};
+    displayName = lib.mkOption {type = lib.types.str;};
+    email = lib.mkOption {type = lib.types.str;};
   };
 
   config = {
-    runtimePkgs = with pkgs; [ difftastic ];
+    runtimePkgs = with pkgs; [difftastic];
     settings = {
       core.sshCommand = "ssh -i /etc/ssh/id_rsa";
       diff.external = "difft --color auto --background dark --display side-by-side";

@@ -2,16 +2,12 @@
 #
 # Declares den.environments — the registry consumed by fleet policies
 # and scope-engine for environment entity resolution.
-_:
-let
-  DOMAIN = "wendy.dev";
-in
 {
   # Dev environment entity definition.
   den.environments.dev = {
     id = 2;
-    domain = DOMAIN;
-    system-access-groups = [ "system-access" ];
+    domain = "lan";
+    system-access-groups = ["system-access"];
 
     networks = {
       default = {

@@ -4,18 +4,17 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     wlib.modules.default
     ../service.nix
   ];
   options = {
-    font = lib.mkOption { type = lib.types.str; };
-    colors = lib.mkOption { type = lib.types.raw; };
+    font = lib.mkOption {type = lib.types.str;};
+    colors = lib.mkOption {type = lib.types.raw;};
     settings = lib.mkOption {
-      type = wlib.types.structuredValueWith { typeName = "JSON"; };
-      default = { };
+      type = wlib.types.structuredValueWith {typeName = "JSON";};
+      default = {};
       description = ''
         SwayNC configuration settings.
       '';
@@ -121,7 +120,8 @@
     };
   };
   config."style.css".path = pkgs.replaceVars ./style.css {
-    inherit (config.colors)
+    inherit
+      (config.colors)
       base00
       base03
       base04
@@ -132,18 +132,20 @@
     inherit (config) font;
   };
   config.package = pkgs.swaynotificationcenter.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace src/controlCenter/widgets/mpris/mpris.vala \
-        --replace-fail \
-          'set_orientation (Gtk.Orientation.VERTICAL);' \
-          'set_orientation (Gtk.Orientation.VERTICAL); set_hexpand (true);' \
-        --replace-fail \
-          'carousel_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {' \
-          'carousel_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) { hexpand = true,' \
-        --replace-fail \
-          'carousel = new Adw.Carousel () {' \
-          'carousel = new Adw.Carousel () { hexpand = true,'
-    '';
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        substituteInPlace src/controlCenter/widgets/mpris/mpris.vala \
+          --replace-fail \
+            'set_orientation (Gtk.Orientation.VERTICAL);' \
+            'set_orientation (Gtk.Orientation.VERTICAL); set_hexpand (true);' \
+          --replace-fail \
+            'carousel_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {' \
+            'carousel_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) { hexpand = true,' \
+          --replace-fail \
+            'carousel = new Adw.Carousel () {' \
+            'carousel = new Adw.Carousel () { hexpand = true,'
+      '';
   });
   config.flags = {
     "--config" = config.configFile.path;
@@ -155,10 +157,9 @@
   };
   config.constructFiles.generatedConfig = {
     content =
-      if config.configFile.content or "" != "" then
-        config.configFile.content
-      else
-        builtins.toJSON config.settings;
+      if config.configFile.content or "" != ""
+      then config.configFile.content
+      else builtins.toJSON config.settings;
     relPath = "${config.binName}-config.json";
   };
 }

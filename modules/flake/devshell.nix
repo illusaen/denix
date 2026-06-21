@@ -1,8 +1,4 @@
-{
-  inputs,
-  ...
-}:
-{
+{inputs, ...}: {
   flake-file.inputs.devshell = {
     url = "github:numtide/devshell";
     inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -12,40 +8,42 @@
     inputs.devshell.flakeModule
   ];
 
-  perSystem =
-    { config, pkgs, ... }:
-    {
-      devshells.default = {
-        commands = [
-          {
-            package = config.treefmt.build.wrapper;
-            help = "Format all files";
-          }
-          {
-            package = pkgs.nh;
-            help = "nh builder";
-          }
-          {
-            package = pkgs.nix-tree;
-            help = "Interactively browse dependency graphs of Nix derivations";
-          }
-          {
-            package = pkgs.nix-diff;
-            help = "Explain why two Nix derivations differ";
-          }
-          {
-            package = pkgs.local.custom-scripts;
-            name = "nix-build";
-            help = "Build a host configuration with nb";
-          }
-        ];
-        packages =
-          config.pre-commit.settings.enabledPackages
-          ++ (with pkgs; [
-            nixd
-          ]);
-        devshell.startup.load-opnix.text = "load-opnix";
-        devshell.motd = "$(type -p menu &>/dev/null && menu)";
-      };
+  perSystem = {
+    config,
+    pkgs,
+    ...
+  }: {
+    devshells.default = {
+      commands = [
+        {
+          package = config.treefmt.build.wrapper;
+          help = "Format all files";
+        }
+        {
+          package = pkgs.nh;
+          help = "nh builder";
+        }
+        {
+          package = pkgs.nix-tree;
+          help = "Interactively browse dependency graphs of Nix derivations";
+        }
+        {
+          package = pkgs.nix-diff;
+          help = "Explain why two Nix derivations differ";
+        }
+        {
+          package = pkgs.local.custom-scripts;
+          name = "nix-build";
+          help = "Build a host configuration with nb";
+        }
+      ];
+      packages =
+        config.pre-commit.settings.enabledPackages
+        ++ (with pkgs; [
+          nixd
+        ]);
+      devshell.startup.load-opnix.text = "load-opnix";
+      devshell.motd = "$(type -p menu &>/dev/null && menu)";
     };
+  };
 }

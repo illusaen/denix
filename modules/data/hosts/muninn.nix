@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.hosts.x86_64-linux.muninn = {
     preservation.enable = true;
     preservation.disk = "nvme1n1";
@@ -12,7 +11,7 @@
       "server-access"
     ];
 
-    networking.interfaces.eno1.ipv4 = [ "192.168.1.164/24" ];
+    networking.interfaces.eno1.ipv4 = ["192.168.1.164/24"];
   };
 
   # Raspberry Pi - backup services

@@ -3,16 +3,14 @@
   lib,
   den,
   ...
-}:
-let
+}: let
   base16Scheme = ./cosmic.yaml;
   base16 = inputs.base16.lib {
     inherit lib;
     pkgs = null;
   };
   schemeAttrs = base16.mkSchemeAttrs base16Scheme;
-in
-{
+in {
   options.fleet.my.base16 = lib.mkOption {
     type = lib.types.submodule {
       options = {
@@ -36,24 +34,24 @@ in
     fleet.my = {
       base16 = {
         colorScheme = "dark";
-        scheme = schemeAttrs // {
-          render =
-            {
+        scheme =
+          schemeAttrs
+          // {
+            render = {
               pkgs,
               lib,
               ...
-            }@args:
-            let
-              renderBase16 = inputs.base16.lib { inherit lib pkgs; };
+            } @ args: let
+              renderBase16 = inputs.base16.lib {inherit lib pkgs;};
               renderScheme = renderBase16.mkSchemeAttrs base16Scheme;
             in
-            renderScheme (
-              removeAttrs args [
-                "lib"
-                "pkgs"
-              ]
-            );
-        };
+              renderScheme (
+                removeAttrs args [
+                  "lib"
+                  "pkgs"
+                ]
+              );
+          };
       };
     };
     flake.den = den;

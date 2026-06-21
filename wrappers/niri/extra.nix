@@ -1,8 +1,11 @@
-{ cursor, highlightColor }: {
+{
+  cursor,
+  highlightColor,
+}: {
   screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
-  prefer-no-csd = _: { };
+  prefer-no-csd = _: {};
   hotkey-overlay = {
-    skip-at-startup = _: { };
+    skip-at-startup = _: {};
   };
   cursor = {
     xcursor-theme = "${cursor.name}";
@@ -10,14 +13,14 @@
   };
   input = {
     mouse = {
-      middle-emulation = _: { };
+      middle-emulation = _: {};
       scroll-button = 274;
       scroll-method = "on-button-down";
       scroll-factor = 1.1;
     };
-    warp-mouse-to-focus = _: { };
+    warp-mouse-to-focus = _: {};
   };
-  debug.wait-for-frame-completion-before-queueing = _: { };
+  debug.wait-for-frame-completion-before-queueing = _: {};
   recent-windows = {
     previews = {
       max-height = 1080;
@@ -29,10 +32,10 @@
       corner-radius = 12;
     };
     binds = {
-      "Alt+Tab".next-window = _: { };
-      "Alt+Shift+Tab".previous-window = { };
-      "Alt+grave".next-window = _: { props.filter = "app-id"; };
-      "Alt+Shift+grave".previous-window = _: { props.filter = "app-id"; };
+      "Alt+Tab".next-window = _: {};
+      "Alt+Shift+Tab".previous-window = {};
+      "Alt+grave".next-window = _: {props.filter = "app-id";};
+      "Alt+Shift+grave".previous-window = _: {props.filter = "app-id";};
     };
   };
   animations = {

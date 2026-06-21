@@ -10,50 +10,45 @@
     #   };
     # };
 
-    darwin =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ ghostty-bin ];
-      };
+    darwin = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [ghostty-bin];
+    };
 
-    provides.to-users.hjemDarwin =
-      {
-        pkgs,
-        lib,
-        fleet,
-        ...
-      }:
-      let
-        inherit (fleet.my) fonts base16;
-        themeFile = "Cosmic.ghostty";
-      in
-      {
-        xdg.config.files = {
-          "ghostty/config.ghostty".text = ''
-            font-family = ${fonts.mono}
-            font-size = ${toString fonts.sizes.terminal}
+    provides.to-users.hjemDarwin = {
+      pkgs,
+      lib,
+      fleet,
+      ...
+    }: let
+      inherit (fleet.my) fonts base16;
+      themeFile = "Cosmic.ghostty";
+    in {
+      xdg.config.files = {
+        "ghostty/config.ghostty".text = ''
+          font-family = ${fonts.mono}
+          font-size = ${toString fonts.sizes.terminal}
 
-            background-opacity = 0.9
-            background-opacity-cells = true
-            background-blur = macos-glass-regular
+          background-opacity = 0.9
+          background-opacity-cells = true
+          background-blur = macos-glass-regular
 
-            window-padding-x = 16
-            window-padding-y = 16
-            window-padding-balance = true
+          window-padding-x = 16
+          window-padding-y = 16
+          window-padding-balance = true
 
-            macos-hidden = always
+          macos-hidden = always
 
-            command = ${lib.getExe pkgs.fish}
-            keybind = global:cmd+backquote=toggle_quick_terminal
-            quit-after-last-window-closed = false
-            theme = ${themeFile}
-          '';
-          "ghostty/themes/${themeFile}".source = base16.scheme.render {
-            inherit pkgs lib;
-            template = ../../../../wrappers/ghostty/ghostty.theme.mustache;
-            extension = "ghostty";
-          };
+          command = ${lib.getExe pkgs.fish}
+          keybind = global:cmd+backquote=toggle_quick_terminal
+          quit-after-last-window-closed = false
+          theme = ${themeFile}
+        '';
+        "ghostty/themes/${themeFile}".source = base16.scheme.render {
+          inherit pkgs lib;
+          template = ../../../../wrappers/ghostty/ghostty.theme.mustache;
+          extension = "ghostty";
         };
       };
+    };
   };
 }

@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{den, ...}: {
   den.aspects.base.cli.includes = with den.aspects.base.cli; [
     fish
     nvf

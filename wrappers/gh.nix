@@ -4,11 +4,10 @@
   config,
   lib,
   ...
-}:
-{
-  imports = [ wlib.modules.default ];
+}: {
+  imports = [wlib.modules.default];
 
-  options.accountName = lib.mkOption { type = lib.types.str; };
+  options.accountName = lib.mkOption {type = lib.types.str;};
 
   config = {
     env.GH_CONFIG_DIR = dirOf config.constructFiles.generatedConfig.path;

@@ -1,15 +1,11 @@
-{
-  lib,
-  ...
-}:
-{
+{lib, ...}: {
   den.aspects.base.nix-config = {
     nixos = {
       system.nixos.versionSuffix = lib.mkForce "";
       programs.nix-ld.enable = true;
     };
 
-    os = { environment, ... }: {
+    os = {environment, ...}: {
       nix.settings = {
         experimental-features = [
           "nix-command"

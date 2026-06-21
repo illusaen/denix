@@ -1,14 +1,10 @@
-{
-  inputs,
-  ...
-}:
-{
+{inputs, ...}: {
   flake-file.inputs.treefmt-nix = {
     url = "github:numtide/treefmt-nix";
     inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  imports = [ inputs.treefmt-nix.flakeModule ];
+  imports = [inputs.treefmt-nix.flakeModule];
 
   perSystem = _: {
     treefmt = {
@@ -19,7 +15,6 @@
         nixfmt.enable = true;
         deadnix.enable = true;
         statix.enable = true;
-        nixf-diagnose.enable = true;
       };
       settings.global = {
         on-unmatched = "debug";
