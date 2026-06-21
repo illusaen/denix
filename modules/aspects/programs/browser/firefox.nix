@@ -5,6 +5,8 @@
   };
 
   den.aspects.programs.browser.firefox = {
+    provides.to-users.persistUser.directories = [".config/mozilla"];
+
     darwin.homebrew.casks = ["firefox"];
 
     nixos = {
@@ -59,15 +61,21 @@
           sponsorblock
           darkreader
           onepassword-password-manager
+          vimium
+          translate-web-pages
         ];
         autoConfig = let
           convertFontSize = size: toString (builtins.floor ((size * 4.0 / 3.0) + 0.5));
           inherit (fleet.my.fonts.sizes) terminal applications;
+          terminalFontSize = convertFontSize terminal;
+          applicationFontSize = convertFontSize applications;
         in
           builtins.readFile ./betterfox.js
           + ''
-            pref("font.size.monospace.x-western", ${convertFontSize terminal});
-            pref("font.size.variable.x-western", ${convertFontSize applications});
+            pref("font.size.monospace.x-western", ${terminalFontSize});
+            pref("font.size.variable.x-western", ${applicationFontSize});
+            pref("font.minimum-size.x-western", ${applicationFontSize});
+            pref("font.minimum-size.x-unicode", ${applicationFontSize});
             pref("browser.display.use_document_fonts", 0);
           '';
         policies = {
@@ -102,6 +110,14 @@
               IconURL = "https://wiki.nixos.org/nixos.png";
               Alias = "@nw";
               Description = "Official NixOS wiki";
+            }
+            {
+              Name = "Noogle";
+              URLTemplate = "https://noogle.dev/q/?term={searchTerms}";
+              Method = "GET";
+              IconURL = "https://wiki.nixos.org/nixos.png";
+              Alias = "@noog";
+              Description = "Wiki for nix functions";
             }
           ];
           ExtensionSettings = lib.pipe config.programs.firefox.globalExtensions [

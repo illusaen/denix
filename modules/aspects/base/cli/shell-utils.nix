@@ -106,7 +106,6 @@
         local.git
         zoxide
         coreutils
-        vim
         fzf
       ];
 

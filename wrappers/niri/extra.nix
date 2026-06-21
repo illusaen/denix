@@ -14,6 +14,7 @@
   input = {
     mouse = {
       middle-emulation = _: {};
+      accel-speed = 1;
       scroll-button = 274;
       scroll-method = "on-button-down";
       scroll-factor = 1.1;

@@ -5,7 +5,7 @@
 }: {
   options.fleet.my.wallpaper = lib.mkOption {
     type = lib.types.path;
-    default = rootPath + /resources/wallpapers/gold-dragon.jpeg;
+    default = rootPath + /resources/wallpapers/dark-silk.jpeg;
   };
 
   config.den.aspects.programs.wallpaper = {

@@ -28,6 +28,10 @@
     enable = true;
     executable = "${config.wrapperPaths.placeholder} --server";
   };
+  config.filesToExclude = [
+    "share/applications/foot.desktop"
+    "share/applications/foot-server.desktop"
+  ];
   config.settings = let
     theme = "dark";
     inherit (config) colors font;

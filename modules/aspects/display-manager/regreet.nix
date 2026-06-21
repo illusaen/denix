@@ -5,15 +5,18 @@
       pkgs,
       fleet,
       environment,
+      config,
       ...
     }: {
+      environment.systemPackages = [config.programs.regreet.package];
       # Enable the ReGreet module
       programs.regreet = let
         inherit (fleet.my) fonts theming;
       in {
         enable = true;
         theme = {
-          package = pkgs.local.${theming.gtkTheme.packageName};
+          package =
+            pkgs.local.${theming.gtkTheme.packageName} or pkgs.${theming.gtkTheme.packageName};
           name = theming.gtkTheme.name;
         };
         iconTheme = {
@@ -27,19 +30,75 @@
         font = {
           package = pkgs.inter;
           name = fonts.sans;
-          size = 16;
+          size = fonts.sizes.applications;
         };
         settings = {
+          skip_selection = true;
+          background = {
+            path = fleet.my.wallpaper;
+            fit = "Fill";
+          };
           GTK = {
             application_prefer_dark_theme = true;
           };
           "widget.clock" = {
-            format = "%a %H:%M";
-            resolution = "500ms";
+            format = "%A %B %d%n%I:%M %p";
             inherit (environment) timezone;
-            label_width = 150;
           };
         };
+        extraCss = let
+          inherit (fleet.my.base16.scheme.withHashtag) base05;
+        in ''
+          * {
+            color: ${base05};
+            font-weight: 500;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            border-radius: 8px;
+          }
+
+          grid > label:nth-child(1), label:nth-child(2), grid > label:nth-child(4), combobox box > arrow {
+            opacity: 0;
+            min-width: 0;
+            min-height: 0;
+            padding: 0;
+            margin: 0;
+          }
+
+          picture {
+            filter: blur(32px);
+            opacity: 0.8;
+          }
+
+          window {
+            background-color: alpha(${base05}, 0.1);
+          }
+
+          combobox, entry {
+            border: 1px solid alpha(${base05}, 0.5);
+          }
+
+          entry > text {
+            padding: 2px 8px;
+          }
+
+          combobox cellview {
+            padding: 0 4px;
+          }
+
+          combobox:focus, entry:focus {
+            border: 1px solid ${base05};
+          }
+
+          button {
+            padding: 8px 12px;
+          }
+
+          button:hover, infobar {
+            background-color: alpha(${base05}, 0.25);
+          }
+        '';
       };
       security.pam.services = {
         greetd.enableGnomeKeyring = true;

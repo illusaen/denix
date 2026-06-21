@@ -1,6 +1,7 @@
 APPLY=false
 OPTIONS=()
 HOST_NAMES=()
+SYSTEM_CONFIG=${systemConfig:-}
 
 for arg in "$@"; do
     if [[ "$arg" == "sw" ]]; then
@@ -43,6 +44,7 @@ for h in "${HOST_NAMES[@]}"; do
 done
 
 nom build --keep-going --no-link --print-out-paths --show-trace "${OPTIONS[@]}" "${HOSTS[@]}"
+nvd --color=always diff /run/current-system "$SYSTEM_CONFIG"
 
 if [[ "$APPLY" == true ]]; then
     h="${HOST_NAMES[0]}"
