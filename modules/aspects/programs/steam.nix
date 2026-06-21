@@ -1,4 +1,4 @@
-{
+{rootPath, ...}: {
   den.aspects.programs.steam = {
     provides.to-users.persistUser.directories = [".local/share/Steam"];
 
@@ -28,7 +28,7 @@
               desktopName = "Viking Rise";
               comment = "Play Viking Rise through Steam";
               exec = "${lib.getExe config.programs.steam.package} steam://rungameid/${id}";
-              icon = "steam";
+              icon = rootPath + /resources/icons/viking-rise-icon.png;
               categories = ["Game"];
             }
         )

@@ -39,7 +39,7 @@ element alternate.urgent {
 
 element {
   children: [ element-icon ];
-  orientation: vertical
+  orientation: vertical;
 }
 
 element-icon {
