@@ -6,16 +6,17 @@
 }: let
   inherit (lib) mkOption types;
   binds = import ./binds.nix;
-  extraConfig = import ./extra.nix {inherit (config) cursor highlightColor;};
+  layout = import ./layout.nix {inherit (config) colors;};
+  extraConfig = import ./extra.nix {
+    inherit (config) cursor;
+    highlightColor = config.colors.base0E;
+  };
   inherit (import ./rules.nix) window-rules layer-rules;
 in {
   imports = [wlib.wrapperModules.niri];
 
   options = {
-    highlightColor = mkOption {
-      type = types.str;
-      description = "highlight color used in overview";
-    };
+    colors = mkOption {type = types.raw;};
     cursor = mkOption {
       type = types.submodule {
         options = {
@@ -50,37 +51,8 @@ in {
         binds
         window-rules
         layer-rules
+        layout
         ;
-      layout = {
-        gaps = 14;
-        struts = {
-          left = 0;
-          right = 0;
-          top = 8;
-          bottom = 0;
-        };
-        background-color = "transparent";
-        focus-ring.off = _: {};
-        border.off = _: {};
-        shadow = {
-          on = _: {};
-          softness = 28;
-          spread = 4;
-          offset = _: {
-            props = {
-              x = 0;
-              y = 8;
-            };
-          };
-          color = "#00000066";
-        };
-        center-focused-column = "on-overflow";
-        default-column-width.proportion = 0.333;
-        preset-column-widths = [
-          {proportion = 0.333;}
-          {proportion = 0.667;}
-        ];
-      };
       outputs = {
         "${config.monitors.main}" = {
           scale = 1;

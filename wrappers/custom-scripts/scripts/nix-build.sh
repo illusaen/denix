@@ -43,8 +43,8 @@ for h in "${HOST_NAMES[@]}"; do
     HOST_SYSTEMS+=("$HOST_SYSTEM")
 done
 
-nom build --keep-going --no-link --print-out-paths --show-trace "${OPTIONS[@]}" "${HOSTS[@]}"
-nvd --color=always diff /run/current-system "$SYSTEM_CONFIG"
+@nom@ build --keep-going --no-link --print-out-paths --show-trace "${OPTIONS[@]}" "${HOSTS[@]}"
+@nvd@ --color=always diff /run/current-system "$SYSTEM_CONFIG"
 
 if [[ "$APPLY" == true ]]; then
     h="${HOST_NAMES[0]}"

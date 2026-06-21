@@ -131,6 +131,31 @@
     content.toggle-overview = _: {};
   };
 
+  "Mod+Comma" = _: {
+    props.hotkey-overlay-title = "Consume Window";
+    content.consume-window-into-column = _: {};
+  };
+  "Mod+Period" = _: {
+    props.hotkey-overlay-title = "Expel Window";
+    content.expel-window-from-column = _: {};
+  };
+  "Mod+u" = _: {
+    props.hotkey-overlay-title = "Focus Win ↑";
+    content.focus-window-up = _: {};
+  };
+  "Mod+e" = _: {
+    props.hotkey-overlay-title = "Focus Win ↓";
+    content.focus-window-down = _: {};
+  };
+  "Mod+n" = _: {
+    props.hotkey-overlay-title = "Focus Win ←";
+    content.focus-window-up-or-column-left = _: {};
+  };
+  "Mod+i" = _: {
+    props.hotkey-overlay-title = "Focus Win →";
+    content.focus-window-down-or-column-right = _: {};
+  };
+
   "Mod+Up" = _: {
     props.hotkey-overlay-title = "Focus Workspace ↑";
     content.spawn-sh = "niri-workspace up";
@@ -138,14 +163,6 @@
   "Mod+Down" = _: {
     props.hotkey-overlay-title = "Focus Workspace ↓";
     content.spawn-sh = "niri-workspace down";
-  };
-  "Mod+Left" = _: {
-    props.hotkey-overlay-title = "Focus Win ←";
-    content.focus-window-up-or-column-left = _: {};
-  };
-  "Mod+Right" = _: {
-    props.hotkey-overlay-title = "Focus Win →";
-    content.focus-window-down-or-column-right = _: {};
   };
 
   "Mod+Ctrl+Up" = _: {

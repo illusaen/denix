@@ -1,10 +1,6 @@
 {
   layer-rules = [
     {
-      matches = [{namespace = "kitty-quick-access";}];
-      background-effect.xray = false;
-    }
-    {
       matches = [{namespace = "^wpaperd.*$";}];
       place-within-backdrop = true;
     }
@@ -26,17 +22,11 @@
         draw-behind-window = true;
         color = "#000000B3";
       };
-      opacity = 0.96;
-      background-effect.blur = true;
     }
     {
       matches = [{is-active = false;}];
-      opacity = 0.94;
+      opacity = 0.9;
       background-effect.blur = true;
-    }
-    {
-      matches = [{app-id = "org.quickshell$";}];
-      open-floating = true;
     }
     {
       matches = [{app-id = "^ndrop-foot$";}];
@@ -82,6 +72,12 @@
     }
     {
       matches = [
+        {app-id = "footclient";}
+      ];
+      default-column-display = "tabbed";
+    }
+    {
+      matches = [
         {app-id = "mpv";}
         {app-id = "youtube-music-desktop-app";}
       ];
@@ -92,6 +88,7 @@
       matches = [
         {app-id = "code";}
         {app-id = "google-chrome";}
+        {app-id = "firefox";}
       ];
       open-on-workspace = "code";
     }

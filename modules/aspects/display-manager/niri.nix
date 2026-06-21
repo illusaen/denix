@@ -9,7 +9,7 @@
         cursor = {
           inherit (theming.cursorTheme) name size;
         };
-        highlightColor = base16.scheme.withHashtag.base0E;
+        colors = base16.scheme.withHashtag;
       };
     };
 

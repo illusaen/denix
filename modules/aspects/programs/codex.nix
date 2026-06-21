@@ -5,11 +5,14 @@
   };
 
   den.aspects.programs.codex = {
+    provides.to-users.persistUser.directories = [".codex"];
+
     env = {
       pkgs,
       lib,
       ...
     }: {CODEX_CLI_PATH = lib.getExe pkgs.codex;};
+
     nixos = {pkgs, ...}: {
       imports = [inputs.codex-desktop-linux.nixosModules.default];
       environment.systemPackages = with pkgs; [codex];

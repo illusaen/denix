@@ -51,8 +51,11 @@ in {
       ])
       (pkgs.writeShellApplication {
         name = "nb";
-        runtimeInputs = [pkgs.nix-output-monitor];
-        text = builtins.readFile ./scripts/nix-build.sh;
+        runtimeInputs = with pkgs; [nix-output-monitor nvd];
+        text = builtins.readFile (pkgs.replaceVars ./scripts/nix-build.sh {
+          nom = lib.getExe pkgs.nix-output-monitor;
+          nvd = lib.getExe pkgs.nvd;
+        });
       })
       (pkgs.writeShellApplication {
         name = "ndrop-obsidian";
