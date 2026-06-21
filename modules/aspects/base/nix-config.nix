@@ -5,7 +5,12 @@
       programs.nix-ld.enable = true;
     };
 
-    os = {environment, ...}: {
+    os = {
+      environment,
+      pkgs,
+      config,
+      ...
+    }: {
       nix.settings = {
         experimental-features = [
           "nix-command"
@@ -38,6 +43,15 @@
       security.sudo.extraConfig = ''
         Defaults lecture = never
       '';
+
+      system.activationScripts.system-diff-nvd = {
+        supportsDryActivation = true;
+        text = ''
+          if [[ -e /run/current-system ]]; then
+              ${lib.getExe pkgs.nvd} --color=always --nix-bin-dir=${config.nix.package}/bin diff /run/current-system "$systemConfig" || echo "FAILED TO GENERATE DIFF"
+            fi
+        '';
+      };
     };
   };
 }

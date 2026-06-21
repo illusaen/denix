@@ -167,7 +167,7 @@
         ]
       );
 
-      system.activationScripts.rebuildBatCache = ''
+      system.userActivationScripts.rebuildBatCache = ''
         echo "Rebuilding bat cache."
         ${lib.getExe pkgs.local.bat} cache --build
       '';

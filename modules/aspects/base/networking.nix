@@ -30,7 +30,10 @@
         peers
       );
     in {
-      networking.networkmanager.enable = true;
+      networking = {
+        networkmanager.enable = true;
+        useDHCP = false;
+      };
 
       systemd.network = {
         enable = true;
