@@ -49,6 +49,7 @@ in {
       whitesur-gtk-theme = {
         imports = [(rootPath + /wrappers/whitesur-gtk-theme.nix)];
         font = fleet.my.fonts.sans;
+        fontSize = fleet.my.fonts.sizes.applications;
       };
     };
 

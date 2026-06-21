@@ -11,6 +11,7 @@
     inherit (lib) mkOption types;
   in {
     font = mkOption {type = types.str;};
+    fontSize = mkOption {type = types.number;};
     altVariants = mkOption {
       type = types.listOf (
         types.enum [
@@ -88,6 +89,48 @@
   };
 
   config.package = let
+    rootFontSize = toString (config.fontSize + 3);
+    subheadingSize = toString (config.fontSize + 5);
+    baseFontSize = toString config.fontSize;
+    titleFontSize = toString (config.fontSize + 1);
+    captionFontSize = toString (config.fontSize - 2);
+    replaceArgs = pairs: lib.escapeShellArgs (lib.concatMap (pair: ["--replace-fail"] ++ pair) pairs);
+    variableReplacements = replaceArgs [
+      [
+        "$font-family: "
+        "$font-family: ${config.font},"
+      ]
+      [
+        "$large-font-family: "
+        "$font-family: ${config.font},"
+      ]
+      [
+        "$root-font-size: if($laptop == 'false', 15px, 13px);"
+        "$root-font-size: ${rootFontSize}px;"
+      ]
+      [
+        "$subheading-size: if($laptop == 'false', 17px, 15px);"
+        "$subheading-size: ${subheadingSize}px;"
+      ]
+      [
+        "$base_font_size: if($font_size == 'normal', 11pt, 10pt);"
+        "$base_font_size: ${baseFontSize}pt;"
+      ]
+    ];
+    gtkTextStyleReplacements = replaceArgs [
+      [
+        "font-size: 13pt;"
+        "font-size: ${titleFontSize}pt;"
+      ]
+      [
+        "font-size: 11pt;"
+        "font-size: ${baseFontSize}pt;"
+      ]
+      [
+        "font-size: 9pt;"
+        "font-size: ${captionFontSize}pt;"
+      ]
+    ];
     installArgs =
       lib.concatMap (x: ["--alt" x]) config.altVariants
       ++ lib.concatMap (x: ["--color" x]) config.colorVariants
@@ -152,9 +195,9 @@
           --replace-fail 'elif pidof "firefox" &> /dev/null || pidof "firefox-bin" &> /dev/null; then' 'elif false; then'
 
         substituteInPlace install.sh --replace-fail '$'{HOME}'/.config/gtk-4.0' '$out/share/libadwaita-themes'
-        substituteInPlace src/sass/_variables.scss \
-          --replace-fail '$font-family: ' '$font-family: ${config.font},' \
-          --replace-fail '$large-font-family: ' '$font-family: ${config.font},'
+        substituteInPlace src/sass/_variables.scss ${variableReplacements}
+        substituteInPlace src/sass/gtk/_common-3.0.scss ${gtkTextStyleReplacements}
+        substituteInPlace src/sass/gtk/_common-4.0.scss ${gtkTextStyleReplacements}
       '';
 
       dontBuild = true;
