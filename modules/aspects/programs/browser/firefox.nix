@@ -173,35 +173,45 @@
           "dom.private-attribution.submission.enabled" = false;
         };
       };
-      config.systemd.user.services.install-firefox-theme = let
-        installFirefoxTheme = pkgs.writeShellApplication {
-          name = "install-firefox-theme";
-          runtimeInputs = with pkgs; [
-            coreutils
-            findutils
-          ];
-          text = ''
-            firefox_dir="$HOME/.config/mozilla/firefox"
-            [ -d "$firefox_dir" ] || mkdir -p "$firefox_dir"
+      # config.systemd.user.services.install-firefox-theme = let
+      #   installFirefoxTheme = pkgs.writeShellApplication {
+      #     name = "install-firefox-theme";
+      #     runtimeInputs = with pkgs; [
+      #       coreutils
+      #       findutils
+      #     ];
+      #     text = ''
+      #       firefox_dir="$HOME/.config/mozilla/firefox"
+      #       [ -d "$firefox_dir" ] || mkdir -p "$firefox_dir"
 
-            find "$firefox_dir" -mindepth 2 -maxdepth 2 -name prefs.js -printf '%h\0' |
-              while IFS= read -r -d "" profile; do
-                ln -sfn ${lib.escapeShellArg "${pkgs.local.whitesur-gtk-theme}/share/firefox-theme"} "$profile/chrome"
-              done
-          '';
-        };
-      in {
-        description = "Install WhiteSur Firefox theme";
-        wantedBy = ["graphical-session.target"];
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = lib.getExe installFirefoxTheme;
-        };
-      };
-      config.systemd.user.paths.install-firefox-theme = {
-        wantedBy = ["graphical-session.target"];
-        pathConfig.PathExistsGlob = "%h/.config/mozilla/firefox/*/prefs.js";
-      };
+      #       find "$firefox_dir" -mindepth 2 -maxdepth 2 -name prefs.js -printf '%h\0' |
+      #         while IFS= read -r -d "" profile; do
+      #           ln -sfn ${lib.escapeShellArg "${pkgs.local.whitesur-gtk-theme}/share/firefox-theme"} "$profile/chrome"
+      #         done
+      #     '';
+      #   };
+      # in {
+      #   description = "Install WhiteSur Firefox theme";
+      #   wantedBy = ["graphical-session.target"];
+      #   serviceConfig = {
+      #     Type = "oneshot";
+      #     ExecStart = lib.getExe installFirefoxTheme;
+      #   };
+      # };
+      # config.systemd.user.paths.install-firefox-theme = {
+      #   wantedBy = ["graphical-session.target"];
+      #   pathConfig.PathExistsGlob = "%h/.config/mozilla/firefox/*/prefs.js";
+      # };
+      config.system.userActivationScripts.installFirefoxTheme = ''
+        echo "Installing whitesur firefox theme"
+        firefox_dir="$HOME/.config/mozilla/firefox"
+        [ -d "$firefox_dir" ] || mkdir -p "$firefox_dir"
+
+        find "$firefox_dir" -mindepth 2 -maxdepth 2 -name prefs.js -printf '%h\0' |
+          while IFS= read -r -d "" profile; do
+            ln -sfn ${lib.escapeShellArg "${pkgs.local.${fleet.my.theming.gtkTheme.packageName}}/share/firefox-themes"} "$profile/chrome"
+          done
+      '';
     };
   };
 }

@@ -44,7 +44,7 @@
         Defaults lecture = never
       '';
 
-      system.activationScripts.system-diff-nvd = {
+      system.activationScripts.systemDiffNvd = {
         supportsDryActivation = true;
         text = ''
           if [[ -e /run/current-system ]]; then

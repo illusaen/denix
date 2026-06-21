@@ -1,12 +1,11 @@
 {
   den.aspects.programs.zathura = {
     wrapper-packages = {fleet, ...}: let
-      hexToRgba = hexStr: opacity: let
-        # Ensure the string is formatted like 0xAABBCC for TOML parsing
-        r = fromTOML "x = 0x${builtins.substring 1 2 hexStr}";
-        g = fromTOML "x = 0x${builtins.substring 3 2 hexStr}";
-        b = fromTOML "x = 0x${builtins.substring 5 2 hexStr}";
-      in "rgba(${toString r.x},${toString g.x},${toString b.x},${toString opacity})";
+      hexToRgba = color: opacity: let
+        r = fleet.my.base16.scheme."${color}-dec-r";
+        g = fleet.my.base16.scheme."${color}-dec-g";
+        b = fleet.my.base16.scheme."${color}-dec-b";
+      in "rgba(${r},${g},${b},${toString opacity})";
     in {
       zathura = {wlib, ...}: {
         imports = [wlib.wrapperModules.zathura];
@@ -33,8 +32,8 @@
           notification-error-fg = base08;
           notification-warning-bg = base00;
           notification-warning-fg = base08;
-          highlight-color = hexToRgba base0A 0.5;
-          highlight-active-color = hexToRgba base0D 0.5;
+          highlight-color = hexToRgba "base0A" 0.5;
+          highlight-active-color = hexToRgba "base0D" 0.5;
           completion-bg = base01;
           completion-fg = base0D;
           completion-highlight-fg = base07;

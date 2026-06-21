@@ -11,7 +11,6 @@
         "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"
       ];
 
-      ## IMPORTANT! using `wendy` as main user
       lib.isoFileSystems."/home/${host.system-owner}" = {
         device = "/dev/disk/by-label/${host.system-owner}";
         fsType = "ext4";

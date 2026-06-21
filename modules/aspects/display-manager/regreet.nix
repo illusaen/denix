@@ -5,11 +5,8 @@
       pkgs,
       fleet,
       environment,
-      config,
       ...
     }: {
-      environment.systemPackages = [config.programs.regreet.package];
-      # Enable the ReGreet module
       programs.regreet = let
         inherit (fleet.my) fonts theming;
       in {

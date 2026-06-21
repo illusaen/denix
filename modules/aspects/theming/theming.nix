@@ -5,78 +5,60 @@
   config,
   ...
 }: let
-  inherit (lib) mkOption types;
+  inherit (lib) mkOption types optionalAttrs toSentenceCase;
+  mkThemeOption = withSize: default:
+    mkOption {
+      type = types.submodule {
+        options =
+          {
+            name = mkOption {type = types.str;};
+            packageName = mkOption {type = types.str;};
+          }
+          // optionalAttrs withSize {size = mkOption {type = types.int;};};
+      };
+      inherit default;
+    };
 in {
   options.fleet.my.theming = mkOption {
     type = types.submodule {
       options = {
-        iconTheme = mkOption {
-          type = types.submodule {
-            options = {
-              name = mkOption {type = types.str;};
-              packageName = mkOption {type = types.str;};
-            };
-          };
+        iconTheme = mkThemeOption false {
+          name = "WhiteSur";
+          packageName = "whitesur-icon-theme";
         };
-        gtkTheme = mkOption {
-          type = types.submodule {
-            options = {
-              name = mkOption {type = types.str;};
-              packageName = mkOption {type = types.str;};
-            };
-          };
+        gtkTheme = mkThemeOption false {
+          name = "WhiteSur-${toSentenceCase config.fleet.my.base16.colorScheme}";
+          packageName = "whitesur-gtk-theme";
         };
-        cursorTheme = mkOption {
-          type = types.submodule {
-            options = {
-              name = mkOption {type = types.str;};
-              packageName = mkOption {type = types.str;};
-              size = mkOption {type = types.int;};
-            };
-          };
+        cursorTheme = mkThemeOption true {
+          name = "Nordic-cursors";
+          packageName = "nordic";
+          size = 28;
         };
       };
     };
   };
 
-  config = {
-    fleet.my.theming = {
-      iconTheme = {
-        name = "WhiteSur";
-        packageName = "whitesur-icon-theme";
-      };
-      gtkTheme = {
-        name = "WhiteSur-${lib.toSentenceCase config.fleet.my.base16.colorScheme}-orange";
-        packageName = "whitesur-gtk-theme";
-      };
-      cursorTheme = {
-        name = "Nordic-cursors";
-        packageName = "nordic";
-        size = 28;
-      };
-    };
-
-    den.aspects.theming.includes = with den.aspects.theming; [
+  config.den.aspects.theming = {
+    includes = with den.aspects.theming; [
       gtk
       qt
     ];
 
-    den.aspects.theming = {
-      wrapper-packages = {fleet, ...}: {
-        whitesur-gtk-theme = {
-          imports = [(rootPath + /wrappers/whitesur-gtk-theme.nix)];
-          font = fleet.my.fonts.sans;
-        };
+    wrapper-packages = {fleet, ...}: {
+      whitesur-gtk-theme = {
+        imports = [(rootPath + /wrappers/whitesur-gtk-theme.nix)];
+        font = fleet.my.fonts.sans;
       };
+    };
 
-      nixos = {pkgs, ...}: {
-        environment.systemPackages = with pkgs; [
-          adw-gtk3
-          adwaita-qt6
-          nordic
-          whitesur-icon-theme
-        ];
-      };
+    nixos = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [
+        adw-gtk3
+        adwaita-qt6
+        nordic
+        whitesur-icon-theme
+      ];
     };
   };
 }
