@@ -26,7 +26,8 @@ The skeleton splits responsibilities into two layers:
    This layer defines den schemas, entity topology, registries, access policy,
    host/user/environment resolution, class routing, quirk declarations, Colmena
    deployment assembly, and defaults that apply to all generated host/user
-   systems.
+   systems. It also builds side graphs for ACL and settings lookups with
+   `scope-engine`.
 
 Actual instance data is outside these two directories, mostly in
 `modules/data`. For example:
@@ -52,9 +53,11 @@ The root pipeline is:
 5. Data modules such as `modules/data/environments/*.nix`,
    `modules/data/hosts/*.nix`, and `modules/data/users/*.nix` populate the
    registries.
-6. Den schema and policy resolution turns those registries into scope entities:
+6. Scope-engine modules evaluate side graphs for ACL and settings lookups from
+   the same registries.
+7. Den schema and policy resolution turns those registries into scope entities:
    `flake -> fleet -> environment -> host -> user`.
-7. Den instantiation policies emit concrete flake outputs such as
+8. Den instantiation policies emit concrete flake outputs such as
    `nixosConfigurations`, `darwinConfigurations`, Home/hjem modules, Colmena
    metadata, devshell routes, wrapper modules, and diagram packages.
 
@@ -80,11 +83,15 @@ It sets:
   - `flake-file`
   - `import-tree`
   - `flake-parts`
+  - `flake-compat`
+  - `flake-utils`
   - `files`
+  - `gen-algebra`
   - `nixpkgs-master`
   - `nixpkgs-unstable`
   - `darwin`
   - `hjem`
+  - `scope-engine`
 - `flake-file.outputs = builtins.readFile ../../outputs.nix`.
 
 That final `outputs` setting is critical. It keeps the generated `flake.nix`
@@ -235,6 +242,15 @@ It then sets `den.default.includes` to shared batteries:
 - `den.batteries.primary-user`
 - `den.batteries.hostname`
 
+It reserves `settings` as a den structural key:
+
+```nix
+den.reservedKeys = [ "settings" ];
+```
+
+That prevents aspect-tree traversal from treating `.settings` declarations as
+normal nested aspects.
+
 It also sets platform state versions:
 
 - `den.default.nixos.system.stateVersion = "26.05"`
@@ -298,6 +314,19 @@ flake
 
 `modules/den/schema/gen-schema.nix` adds input `gen-schema` and imports its
 default flake module. The environment registry uses `gen-schema` directly.
+
+Two additional graph evaluators sit beside the den scope tree:
+
+- `modules/den/scope-engine/acl.nix` builds `fleet.acl`, an evaluated ACL
+  graph for group inheritance, host/environment gates, and per-host user
+  enablement.
+- `modules/den/scope-engine/settings.nix` builds `fleet.settings`, an
+  evaluated settings graph for root, environment, host, and resolved user
+  settings.
+
+These graphs read the same declarations as the den scope walk. They do not
+create den entities directly; instead, policies and aspects query them when
+they need demand-driven access decisions or settings values.
 
 ### Environment Schema
 
@@ -432,6 +461,128 @@ host.settings.disk.zfs-disk-single
 Each discovered settings declaration is reshaped into a submodule with
 `imports`, `config`, and options.
 
+## Settings Data Flow
+
+Settings have two related layers:
+
+1. Typed option discovery on host entities.
+2. Runtime lookup through the `fleet.settings` scope-engine graph.
+
+### Typed Host Settings
+
+The host schema discovers `den.aspects.*.settings` declarations and exposes a
+typed `host.settings` namespace. This is where host data receives validation
+and defaults for feature settings.
+
+Data flow:
+
+```text
+den.aspects
+-> recursively find aspect nodes with .settings
+-> skip structural keys, class keys, and quirk keys
+-> reshape plain option attrsets into module-shaped settings declarations
+-> expose host.settings.<aspect-path>
+-> modules/data/hosts/*.nix may set typed values
+```
+
+This layer is about schema and validation. It does not resolve inherited
+settings by itself.
+
+### Evaluated Settings Cascade
+
+`modules/den/scope-engine/settings.nix` builds `fleet.settings`, a graph for
+resolved settings lookup.
+
+Input declarations:
+
+- `den.environments.<env>.settings`
+- `den.hosts.<system>.<host>.settings`
+- `den.users.registry.<user>.system.settings`
+- `den.environments.<env>.delegation`
+- user resolution derived from registry groups and host access groups
+
+Graph nodes:
+
+```text
+root
+env:<environment>
+host:<host>
+user:<host>:<user>
+```
+
+Parent edges:
+
+```text
+root -> env:<environment>
+env:<environment> -> host:<host>
+host:<host> -> user:<host>:<user>
+```
+
+Import edges:
+
+```text
+env:<environment> -> env:<delegation target>
+```
+
+The import edges are derived from:
+
+- `delegation.metricsTo`
+- `delegation.authTo`
+- `delegation.logsTo`
+
+Resolved user nodes are not every registry user. They are generated for the
+users that the host access policy would resolve onto the host.
+
+Settings merge order for `resolvedSettings` is:
+
+```text
+parent settings
+-> imported settings
+-> local settings
+```
+
+The implementation uses `engine.shadow`, so more local values shadow imported
+and inherited values. The practical precedence is:
+
+```text
+user:<host>:<user>
+> host:<host>
+> imported delegated envs
+> env:<environment>
+> root
+```
+
+The evaluated attributes are:
+
+- `children`: child settings nodes.
+- `imports`: imported delegation targets.
+- `setting`: parameterized single-key lookup.
+- `resolvedSettings`: full merged settings for a node.
+- `settingSources`: provenance per resolved key: `local`, `import`, or
+  `inherited`.
+- `overriddenKeys`: local keys that shadow another value from parent/import
+  lookup.
+
+Example lookups:
+
+```nix
+config.fleet.settings.get "host:odin" "resolvedSettings"
+config.fleet.settings.get "user:odin:wendy" "resolvedSettings"
+config.fleet.settings.get "host:odin" "setting" "someFeature"
+```
+
+End-to-end settings flow:
+
+```text
+aspect .settings declarations
+-> host.settings typed option tree
+-> modules/data/environments, hosts, users set settings values
+-> settings graph builds root/env/host/resolved-user nodes
+-> delegation creates import edges
+-> resolvedSettings merges parent/import/local data
+-> aspects can query fleet.settings for effective values
+```
+
 ### User Schema and Registry
 
 Defined by:
@@ -475,8 +626,7 @@ Each registry user:
 - imports `den.schema.user`;
 - receives `name` and `userName` from the attrset key;
 - defaults `classes = [ "user" ]`;
-- defaults `aspect = den.aspects.<name>` plus an extra NixOS module that adds
-  generated POSIX extra groups;
+- defaults `aspect = den.aspects.<name>` when that aspect exists;
 - has explicit `groups` used for access matching.
 
 The config section promotes users into real entities:
@@ -488,6 +638,38 @@ den.schema.user.classes = lib.mkDefault [ "hjem" ];
 
 `assertions.nix` adds `den.aspects.user-assertions` to user schema includes.
 For NixOS users, it asserts that either `password` or `hashedPassword` is set.
+
+`enrichment.nix` adds two user-scope includes:
+
+- `userEnrichment`, which queries `config.fleet.acl.get "host:${host.name}"
+  "resolveUser" userName` and emits concrete NixOS account configuration;
+- `resolvedUserEmitter`, which emits a compact `resolved-users` pipe record.
+
+The NixOS account enrichment sets:
+
+- `users.mutableUsers = false`;
+- `users.groups.${userName}.gid` when `user.system.gid` or `user.system.uid`
+  is available;
+- `users.users.${userName}.uid` from `user.system.uid`;
+- `users.users.${userName}.group` to the private user group, with lower
+  priority than explicit user definitions but higher priority than NixOS's
+  built-in default;
+- `users.users.${userName}.extraGroups` from ACL system groups, excluding
+  `wheel` and `networkmanager` because `den.batteries.primary-user` grants
+  those separately where needed;
+- `linger`, `description`, and `openssh.authorizedKeys.keys` from user
+  registry identity/system fields.
+
+The `resolved-users` record contains:
+
+```nix
+{
+  name = user.name;
+  uid = user.system.uid or null;
+  groups = user.groups;
+  sshKeys = map (key: key.key) (user.identity.sshKeys or []);
+}
+```
 
 ### Group Registry
 
@@ -524,18 +706,19 @@ Inputs:
 - `den.environments.<env>.system-access-groups`: environment-level gate groups.
 - `den.hosts.<system>.<host>.system-access-groups`: host-level gate groups.
 
-Resolution in `modules/den/user/option.nix`:
+There are two cooperating implementations:
+
+1. The den policy path decides which user entities are resolved under each host.
+2. The scope-engine ACL path computes reusable access records consumed by
+   account enrichment and other modules.
+
+### Den User Resolution
 
 1. `resolveUserGroups` expands a user's seed groups through reverse
    inheritance. If group B has `members = [ "A" ]`, members of A inherit B.
 2. `resolvedRegistryGroups name` returns all effective groups for a registry
    user.
-3. `resolvedPosixGroups name` filters those groups to groups labeled `posix`.
-4. `generatedExtraGroups name` removes `wheel` and `networkmanager`, because
-   `den.batteries.primary-user` already handles them.
-5. The registry user's default aspect appends a NixOS fragment assigning those
-   generated extra groups to `users.users.${user.userName}.extraGroups`.
-6. `matchRegistryUsers grantedGroups` selects registry users whose resolved
+3. `matchRegistryUsers grantedGroups` selects registry users whose resolved
    groups intersect the granted groups.
 
 Resolution in `modules/den/policies/fleet.nix`:
@@ -565,6 +748,80 @@ This causes `env-users` to fire for every resolved host. `env-users`:
 
 The result is that users are not manually nested under host declarations.
 Users are derived from registry membership plus environment/host access policy.
+
+### Scope-Engine ACL Resolution
+
+`modules/den/scope-engine/acl.nix` builds a separate graph named `fleet.acl`.
+It uses `scope-engine` so callers can query ACL values on demand rather than
+recomputing group traversal in each aspect.
+
+Graph construction:
+
+1. Flatten all hosts from `den.hosts.<system>.<host>` into one host map.
+2. Create parent edges:
+   - `root -> env:<environment>`;
+   - `env:<environment> -> host:<host>`.
+3. Create membership edges named `M`:
+   - `group:<member> -> group:<group>` for every `den.groups.<group>.members`
+     entry;
+   - standalone vertices for all groups.
+4. Create declarations for:
+   - root;
+   - groups, including `scope`, `description`, and `name`;
+   - environments, including `system-access-groups`;
+   - hosts, including `system-access-groups`.
+
+Group scope is derived from labels:
+
+- `posix` groups become `system` groups;
+- `oauth-grant` groups become `kanidm` groups;
+- everything else defaults to `system`.
+
+Evaluated ACL attributes:
+
+- `children`: child nodes for a scope.
+- `imports`: empty for ACL; the graph is parent/membership based.
+- `edges-M`: raw membership edges.
+- `effectiveGates`: union of parent environment gates and host gates.
+- `resolveUser`: a parameterized lookup.
+
+`resolveUser` is called like this:
+
+```nix
+config.fleet.acl.get "host:odin" "resolveUser" "wendy"
+```
+
+The result contains:
+
+```nix
+{
+  userName = "wendy";
+  enable = true;
+  directGroups = [ ... ];
+  allGroups = [ ... ];
+  systemGroups = [ ... ];
+  kanidmGroups = [ ... ];
+  effectiveGates = [ ... ];
+}
+```
+
+Data flow for `resolveUser`:
+
+```text
+den.users.registry.<user>.groups
+-> group:<name> IDs
+-> follow membership edge M transitively
+-> existing group nodes
+-> split by group scope
+-> read host/environment effectiveGates
+-> system group intersection with gates
+-> enable boolean + systemGroups/kanidmGroups/allGroups
+```
+
+`modules/den/user/enrichment.nix` consumes this record at user scope. The den
+policy path decides that `wendy` exists under `odin`; the ACL graph then tells
+the account enrichment which POSIX groups and gates apply to `wendy` on
+`odin`.
 
 ## Fleet Scope Policy Flow
 
@@ -755,6 +1012,10 @@ Quirks are named collection channels used by aspects and policies.
 - `firewall`
 - `host-addrs`
 
+`modules/den/quirks/resolved-users.nix` declares:
+
+- `resolved-users`
+
 `modules/den/quirks/preservation.nix` declares:
 
 - `persistent`
@@ -762,8 +1023,9 @@ Quirks are named collection channels used by aspects and policies.
 - `persistentHome`
 - `cacheHome`
 
-`modules/den/policies/cross-host-quirk-pipes.nix` wires cross-host collection
-for `host-addrs`:
+`modules/den/policies/cross-host-quirk-pipes.nix` wires two pipe policies.
+
+`host-addrs` is collected across host scopes:
 
 ```nix
 den.policies.collect-host-addrs = _: [
@@ -777,8 +1039,169 @@ Included at host scope, this means every host can collect `host-addrs` pipe
 entries from peer host scopes. That supports cross-host features such as
 `/etc/hosts` and SSH known_hosts generation.
 
+`resolved-users` is exposed at user scope:
+
+```nix
+den.policies.expose-resolved-users = _: [
+  (pipe.from "resolved-users" [
+    pipe.expose
+  ])
+];
+```
+
+The source is `modules/den/user/enrichment.nix`. Once a user is resolved under
+a host, the `resolvedUserEmitter` emits a compact record containing name, UID,
+registry groups, and SSH public keys. The expose policy makes that record
+available to downstream collectors without requiring them to re-evaluate full
+user registry data.
+
 The comment notes that firewall data is not collected here because firewall
 configuration is host-specific.
+
+Firewall data follows a local merge path:
+
+```text
+aspects emit firewall quirk fragments
+-> den.aspects.base.firewall-collector receives firewall
+-> lib.mkMerge firewall
+-> final NixOS networking.firewall config
+```
+
+Preservation data follows class routing rather than cross-host pipes:
+
+```text
+aspects emit persist / persistUser class fragments
+-> host.preservation.enable gates route policies
+-> preservation.preserveAt.${host.preservation.persistMount}
+-> system files/directories and per-user files/directories
+```
+
+The `boot.preservation` aspect imports `nix-community/preservation`, enables
+preservation, preserves core system state, routes user persistence defaults,
+and marks the configured `persistMount` as needed for boot.
+
+## Base Networking Flow
+
+`modules/aspects/base/networking.nix` is the main consumer of host and
+environment network data.
+
+It emits `host-addrs` at host scope:
+
+```text
+host.name
+environment.name
+environment.domain
+host.ipv4
+host.public_key
+-> host-addrs record
+```
+
+Those records are collected back into every host scope by the `host-addrs`
+pipe policy. The collected data feeds:
+
+- NixOS `networking.hosts`, excluding the current host;
+- OS-level `programs.ssh.knownHosts`, excluding the current host and hosts
+  without public key files.
+
+For NixOS interface configuration, the aspect reads:
+
+- `host.networking.interfaces`
+- `host.networking.bonds`
+- `host.networking.bridges`
+- `host.networking.autobridging`
+- `environment.networks.default`
+
+The generator classifies interfaces into:
+
+- standalone physical interfaces;
+- bridge member interfaces;
+- bridge devices;
+- bond slave interfaces;
+- bond devices.
+
+Data flow for a standalone managed interface:
+
+```text
+host.networking.interfaces.<ifname>.ipv4 / ipv6
+host.networking.interfaces.<ifname>.dhcp
+host.networking.interfaces.<ifname>.managed
+host.networking.interfaces.<ifname>.linkLocal
+host.networking.interfaces.<ifname>.mtu
+host.networking.interfaces.<ifname>.requiredForOnline
+environment.networks.default.dnsServers
+environment.networks.default.gatewayIp / gatewayIpV6
+-> mkManagedNetworkConfig or mkUnmanagedNetworkConfig
+-> systemd.network.networks.<ifname>
+```
+
+Default behavior:
+
+- if `dhcp` is unset and the interface is managed with IPv4 addresses, DHCP is
+  `ipv6`;
+- if `dhcp` is unset and the interface is managed without IPv4 addresses, DHCP
+  is `yes`;
+- unmanaged interfaces default DHCP to `none`;
+- managed interfaces default link-local addressing to `ipv6`;
+- unmanaged interfaces default link-local addressing to `no`;
+- `RequiredForOnline` defaults to `routable`.
+
+Environment DNS is always copied into managed interfaces. Gateway routes are
+conditional:
+
+- IPv4 gateway routes are emitted only when the interface has IPv4 addresses
+  and those addresses plausibly match the default environment CIDR prefix.
+- IPv6 gateway routes are emitted only when the interface has IPv6 addresses.
+
+This matters because the current host data uses `192.168.1.x` addresses while
+the declared dev/prod default networks use `10.9.0.0/16` and `10.10.0.0/16`.
+The generator can still use environment DNS without installing an obviously
+mismatched default IPv4 route.
+
+Bridge flow:
+
+```text
+host.networking.autobridging + host.networking.bridges
+-> effectiveBridges
+-> systemd.network.netdevs.<bridge>
+-> systemd.network.links.<bridge>
+-> member interface networkConfig.Bridge = bridge
+-> bridge device gets IP/DHCP/DNS/routes from its selected interface config
+```
+
+If `autobridging = true` and no bridges are declared, each interface is assigned
+to an automatically named bridge such as `br0`, `br1`, and so on.
+
+Bond flow:
+
+```text
+host.networking.bonds.<bond>.interfaces
+host.networking.bonds.<bond>.mode
+host.networking.bonds.<bond>.transmitHashPolicy
+-> systemd.network.netdevs.<bond>
+-> slave interface networkConfig.Bond = bond
+-> bond device gets IP/DHCP/DNS/routes from host.networking.interfaces.<bond>
+```
+
+Final NixOS output:
+
+```text
+networking.useNetworkd = true
+networking.useDHCP = false
+networking.dhcpcd.enable = false
+networking.networkmanager.enable = true
+networking.networkmanager.unmanaged = generated networkd interfaces
+systemd.network.enable = true
+systemd.network.wait-online.enable = false
+systemd.network.netdevs = bridges + bonds
+systemd.network.links = bridge links
+systemd.network.networks = member + standalone + bridge + bond networks
+```
+
+On Darwin, the same aspect only sets:
+
+```text
+networking.computerName = config.networking.hostName
+```
 
 ## Colmena Flow
 
@@ -792,23 +1215,35 @@ Inputs:
 - host channel;
 - host IPv4 addresses;
 - per-host deployment tags from `config.flake.colmenaDeployment`;
-- evaluated `self.nixosConfigurations` or `self.darwinConfigurations`;
+- raw host module lists from `config.flake.colmenaModules`;
 - `inputs.colmena`;
 - nixpkgs inputs for each channel.
 
 Flow:
 
-1. Add input `colmena`.
+1. Add Sini's Colmena fork:
+
+   ```nix
+   github:sini/colmena/feat/local-system-detection
+   ```
+
+   The input follows local `nixpkgs-unstable`, `flake-compat`, and
+   `flake-utils`. This fork is used because the hive includes Darwin nodes.
 2. Declare `den.classes.colmena`.
-3. Define `host-to-colmena`.
+3. Define `host-modules-capture`.
 4. At host scope, instantiate a synthetic entity named
+   `${host.name}-colmena-modules` using the host's own class.
+5. Store the raw module list into `flake.colmenaModules.<host>`.
+6. Define `host-to-colmena`.
+7. At host scope, instantiate a synthetic entity named
    `${host.name}-colmena` with class `colmena`.
-5. Flatten class modules into `flake.colmenaDeployment.<host>`.
-6. Build `flake.colmenaHive = inputs.colmena.lib.makeHive hiveConfig`.
+8. Flatten class modules into `flake.colmenaDeployment.<host>`.
+9. Build `flake.colmenaHive = inputs.colmena.lib.makeHive hiveConfig`.
 
 `hiveConfig` maps each host to a Colmena node:
 
-- imports come from the already-evaluated OS configuration module args;
+- imports come from `flake.colmenaModules.<host>`, not from evaluated
+  `self.nixosConfigurations` or `self.darwinConfigurations`;
 - `deployment.targetHost` is first IPv4 address if available, otherwise
   `<host>.lan`;
 - tags include the environment plus aspect-provided Colmena tags;
@@ -816,6 +1251,19 @@ Flow:
 - `buildOnTarget` is true when host system differs from local system;
 - `targetUser` defaults to `wendy`;
 - Darwin hosts get `deployment.systemType = "darwin"`.
+
+The key data-flow improvement is:
+
+```text
+host scope module list
+-> den.policies.host-modules-capture
+-> flake.colmenaModules.<host>
+-> hiveConfig.<host>.imports
+-> inputs.colmena.lib.makeHive
+```
+
+This avoids forcing a complete evaluated NixOS/Darwin configuration just to
+recover the module list for Colmena.
 
 The module also adds a Colmena devshell aspect:
 
@@ -874,6 +1322,12 @@ den/schema/topology.nix
 -> host.parent = environment
 -> user.parent = host
 
+den/scope-engine/acl.nix
+-> fleet.acl graph option
+
+den/scope-engine/settings.nix
+-> fleet.settings graph option
+
 den/environments/schema.nix
 den/hosts/schema.nix
 den/user/schema.nix
@@ -902,7 +1356,26 @@ modules/data/roles/*.nix
 -> den.aspects.roles.<role>
 ```
 
-### 4. Fleet walk
+### 4. Side Graph Evaluation
+
+```text
+den.environments + den.hosts + den.groups + den.users.registry
+-> fleet.acl
+-> host/user account access records
+
+den.environments.settings
+den.hosts.*.settings
+den.users.registry.*.system.settings
+environment delegation
+resolved host users
+-> fleet.settings
+-> resolvedSettings / setting / settingSources
+```
+
+These graphs are evaluated as flake options. They are queried by later modules
+but do not themselves emit NixOS or Darwin modules.
+
+### 5. Fleet walk
 
 ```text
 flake scope
@@ -923,7 +1396,7 @@ host scope
 -> user entities from den.users.registry matching accessGroups
 ```
 
-### 5. Access filtering
+### 6. Access filtering
 
 ```text
 user.groups
@@ -941,9 +1414,33 @@ grants filtered by gates
 
 accessGroups intersect effective user groups
 -> resolved users for host
+
+resolved user + host
+-> fleet.acl resolveUser
+-> ACL record
+-> NixOS user UID/GID/groups/SSH keys/linger/description
 ```
 
-### 6. Aspect/class/policy emission
+### 7. Settings filtering and lookup
+
+```text
+environment settings
+-> inherited by hosts in that environment
+
+delegation settings
+-> imported into environment nodes
+
+host settings
+-> shadow imported/inherited environment settings
+
+user system settings
+-> shadow host/environment settings for user:<host>:<user>
+
+fleet.settings.get <node> resolvedSettings
+-> final effective settings for that node
+```
+
+### 8. Aspect/class/policy emission
 
 ```text
 host aspect includes
@@ -972,9 +1469,29 @@ classes/colmena
 
 quirks/host-addrs
 -> cross-host collected address data
+
+quirks/resolved-users
+-> exposed compact user records
 ```
 
-### 7. Flake outputs and generated artifacts
+### 9. Networking and Preservation Emission
+
+```text
+host.networking + environment.networks.default
+-> base networking aspect
+-> systemd.network.netdevs/links/networks
+-> NetworkManager unmanaged list
+
+host-addrs records
+-> collected peer records
+-> /etc/hosts and SSH known_hosts
+
+persist / persistUser class fragments
+-> preservation route policies
+-> preservation.preserveAt.<persistMount>
+```
+
+### 10. Flake outputs and generated artifacts
 
 ```text
 den.lib.policy.instantiate hostCfg
@@ -995,6 +1512,8 @@ diagram.nix
 -> TOPOLOGY.md and diagrams/
 
 colmena.nix
+-> flake.colmenaModules.<host>
+-> flake.colmenaDeployment.<host>
 -> colmenaHive
 ```
 
@@ -1019,4 +1538,3 @@ operate over one shared topology:
 ```text
 fleet -> environments -> hosts -> users
 ```
-
