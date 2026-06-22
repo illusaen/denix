@@ -13,7 +13,17 @@ in {
     ])
   ];
 
+  den.policies.expose-resolved-users = _: [
+    (pipe.from "resolved-users" [
+      pipe.expose
+    ])
+  ];
+
   den.schema.host.includes = [
     den.policies.collect-host-addrs
+  ];
+
+  den.schema.user.includes = [
+    den.policies.expose-resolved-users
   ];
 }

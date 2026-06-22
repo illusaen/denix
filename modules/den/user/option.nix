@@ -13,7 +13,6 @@
   inherit (den.lib.aspects.fx) identity;
   inherit (lib) mkOption types;
 
-  flakeConfig = config;
   registry = config.den.users.registry;
   groups = config.den.groups;
   groupNames = builtins.attrNames groups;
@@ -39,15 +38,6 @@
     go (lib.unique seedGroups);
 
   resolvedRegistryGroups = name: resolveUserGroups (registry.${name}.groups or []);
-  generatedExtraGroups = aclUser:
-    builtins.filter (
-      groupName:
-        !(builtins.elem groupName [
-          # Removing these because den.batteries.primary-user already includes them
-          "wheel"
-          "networkmanager"
-        ])
-    ) (lib.unique (aclUser.systemGroups or []));
 
   # Filter registry users whose groups intersect the granted set.
   matchRegistryUsers = grantedGroups:
@@ -178,27 +168,7 @@
         };
         aspect = mkOption {
           type = types.raw;
-          default = let
-            baseAspect = den.aspects.${name} or {};
-          in
-            baseAspect
-            // {
-              includes =
-                (baseAspect.includes or [])
-                ++ [
-                  (
-                    {
-                      host,
-                      user,
-                      ...
-                    }: let
-                      aclUser = flakeConfig.fleet.acl.get "host:${host.name}" "resolveUser" user.userName;
-                    in {
-                      nixos.users.users.${user.userName}.extraGroups = generatedExtraGroups aclUser;
-                    }
-                  )
-                ];
-            };
+          default = den.aspects.${name} or {};
           defaultText = "den.aspects.<name>";
           description = "Aspect that configures this user";
         };

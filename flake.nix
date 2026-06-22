@@ -38,7 +38,12 @@
       url = "github:ilysenko/codex-desktop-linux";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    colmena.url = "github:zhaofengli/colmena";
+    colmena = {
+      url = "github:sini/colmena/feat/local-system-detection";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -62,11 +67,13 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     flake-file.url = "github:denful/flake-file";
+    flake-compat.url = "github:edolstra/flake-compat";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     flake-root.url = "github:srid/flake-root";
+    flake-utils.url = "github:numtide/flake-utils";
     gen-algebra.url = "github:sini/gen-algebra";
     gen-schema.url = "github:sini/gen-schema";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";

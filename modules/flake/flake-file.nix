@@ -43,6 +43,8 @@
       flake-file.url = "github:denful/flake-file";
       import-tree.url = "github:denful/import-tree";
       flake-parts.url = "github:hercules-ci/flake-parts";
+      flake-compat.url = "github:edolstra/flake-compat";
+      flake-utils.url = "github:numtide/flake-utils";
       files.url = "github:mightyiam/files";
       gen-algebra.url = "github:sini/gen-algebra";
 

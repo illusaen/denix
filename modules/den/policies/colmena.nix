@@ -8,7 +8,6 @@
   lib,
   config,
   inputs,
-  self,
   withSystem,
   ...
 }: let
@@ -27,18 +26,15 @@
 
   hiveConfig = {localSystem ? "x86_64-linux", ...}: let
     deploymentData = config.flake.colmenaDeployment or {};
+    colmenaModules = config.flake.colmenaModules or {};
 
     nodes =
       lib.mapAttrs (
         name: host: let
           isDarwin = host.class == "darwin";
-          osConfig =
-            if isDarwin
-            then self.darwinConfigurations.${name}
-            else self.nixosConfigurations.${name};
           hostTags = deploymentData.${name} or [];
         in {
-          imports = osConfig._module.args.modules;
+          imports = colmenaModules.${name} or [];
           deployment =
             {
               targetHost = let
@@ -77,10 +73,31 @@
       };
     };
 in {
-  flake-file.inputs.colmena.url = "github:zhaofengli/colmena";
+  flake-file.inputs.colmena = {
+    url = "github:sini/colmena/feat/local-system-detection";
+    inputs = {
+      nixpkgs.follows = "nixpkgs-unstable";
+      flake-compat.follows = "flake-compat";
+      flake-utils.follows = "flake-utils";
+    };
+  };
 
   # Colmena class — aspects emit static tag lists into this.
   den.classes.colmena.description = "Colmena deployment tags";
+
+  # Per-host: capture raw module lists for Colmena without forcing evaluated
+  # nixosConfigurations/darwinConfigurations.
+  den.policies.host-modules-capture = {host, ...}: [
+    (den.lib.policy.instantiate {
+      name = "${host.name}-colmena-modules";
+      inherit (host) class;
+      instantiate = {modules, ...}: modules;
+      intoAttr = [
+        "colmenaModules"
+        host.name
+      ];
+    })
+  ];
 
   # Per-host: instantiate colmena class, flatten tag lists.
   den.policies.host-to-colmena = {host, ...}: [
@@ -101,6 +118,7 @@ in {
   ];
 
   den.schema.host.includes = [
+    den.policies.host-modules-capture
     den.policies.host-to-colmena
   ];
 
