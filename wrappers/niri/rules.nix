@@ -27,7 +27,7 @@
         blur = true;
         xray = false;
       };
-      opacity = 0.9;
+      opacity = 0.96;
     }
     {
       matches = [{app-id = "^ndrop-foot$";}];

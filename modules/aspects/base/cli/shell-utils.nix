@@ -104,6 +104,7 @@
         local.custom-scripts
         local.bat
         local.git
+        ripgrep
         zoxide
         coreutils
         fzf
