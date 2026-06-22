@@ -43,7 +43,6 @@
     };
     scrollback.lines = 10000;
     "colors-${theme}" = {
-      alpha = 0.85;
       foreground = colors.base05;
       background = colors.base00;
       regular0 = colors.base00;

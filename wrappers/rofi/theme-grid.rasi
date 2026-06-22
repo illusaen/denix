@@ -28,15 +28,6 @@ listview {
   fixed-columns: true;
 }
 
-element normal.normal,
-element normal.active,
-element normal.urgent,
-element alternate.normal,
-element alternate.active,
-element alternate.urgent {
-  background-color: transparent;
-}
-
 element {
   children: [ element-icon ];
   orientation: vertical;

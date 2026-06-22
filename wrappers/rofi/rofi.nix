@@ -91,15 +91,15 @@ in {
     element alternate.normal,
     element alternate.active,
     element alternate.urgent {
-      background-color: @surface;
+      background-color: transparent;
       text-color: @text;
     }
 
     element selected.normal,
     element selected.active,
     element selected.urgent {
-        background-color: @accent;
-        text-color: @accent-fg;
+      background-color: @accent;
+      text-color: @accent-fg;
     }
 
     @import "${config.constructFiles.actionsTheme.path}"

@@ -83,7 +83,10 @@
               settings = commonSettings 3;
             in
               lib.filterAttrs (_: v: v != null) {
-                "font-name" = settings.font.name or null;
+                "font-name" =
+                  if settings ? font && settings.font.name != null && settings.font.size != null
+                  then "${settings.font.name} ${toString settings.font.size}"
+                  else null;
                 "gtk-theme" = settings.theme.name or null;
                 "icon-theme" = settings.iconTheme.name or null;
                 "cursor-theme" = settings.cursorTheme.name or null;

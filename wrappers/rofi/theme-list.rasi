@@ -21,5 +21,14 @@ message textbox { text-color: @text; }
 
 listview { lines: 7; columns: 1; spacing: 6px; background-color: transparent; }
 
+element normal.normal,
+element normal.active,
+element normal.urgent,
+element alternate.normal,
+element alternate.active,
+element alternate.urgent {
+  background-color: @surface;
+}
+
 element-icon { size: 25px; margin: 0 12px 0 0; }
 element-text { vertical-align: 0.5; }

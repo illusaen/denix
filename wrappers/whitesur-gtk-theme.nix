@@ -89,8 +89,8 @@
   };
 
   config.package = let
-    rootFontSize = toString (config.fontSize + 3);
-    subheadingSize = toString (config.fontSize + 5);
+    rootFontSize = toString (builtins.floor (config.fontSize * 4 / 3 + 0.5));
+    subheadingSize = toString (config.fontSize + 3);
     baseFontSize = toString config.fontSize;
     titleFontSize = toString (config.fontSize + 1);
     captionFontSize = toString (config.fontSize - 2);
@@ -102,7 +102,7 @@
       ]
       [
         "$large-font-family: "
-        "$font-family: ${config.font},"
+        "$large-font-family: ${config.font},"
       ]
       [
         "$root-font-size: if($laptop == 'false', 15px, 13px);"
@@ -110,7 +110,7 @@
       ]
       [
         "$subheading-size: if($laptop == 'false', 17px, 15px);"
-        "$subheading-size: ${subheadingSize}px;"
+        "$subheading-size: ${subheadingSize}pt;"
       ]
       [
         "$base_font_size: if($font_size == 'normal', 11pt, 10pt);"
@@ -129,6 +129,18 @@
       [
         "font-size: 9pt;"
         "font-size: ${captionFontSize}pt;"
+      ]
+    ];
+    gtkDarkBorderReplacements = replaceArgs [
+      [
+        "$borders_color:                     if($variant == 'light', rgba(black, 0.12), rgba(white, 0.12));"
+        "$borders_color:                     if($variant == 'light', rgba(black, 0.06), rgba(white, 0.06));"
+      ]
+    ];
+    libadwaitaDarkBorderReplacements = replaceArgs [
+      [
+        "$borders_color:                     gtkalpha(currentColor, 0.12);"
+        "$borders_color:                     if($variant == 'light', gtkalpha(currentColor, 0.06), gtkalpha(white, 0.06));"
       ]
     ];
     installArgs =
@@ -195,6 +207,8 @@
           --replace-fail 'elif pidof "firefox" &> /dev/null || pidof "firefox-bin" &> /dev/null; then' 'elif false; then'
 
         substituteInPlace install.sh --replace-fail '$'{HOME}'/.config/gtk-4.0' '$out/share/libadwaita-themes'
+        substituteInPlace src/sass/_colors.scss ${gtkDarkBorderReplacements}
+        substituteInPlace src/sass/gtk/_colors-libadwaita.scss ${libadwaitaDarkBorderReplacements}
         substituteInPlace src/sass/_variables.scss ${variableReplacements}
         substituteInPlace src/sass/gtk/_common-3.0.scss ${gtkTextStyleReplacements}
         substituteInPlace src/sass/gtk/_common-4.0.scss ${gtkTextStyleReplacements}

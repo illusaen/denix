@@ -32,7 +32,7 @@
     {
       matches = [{app-id = "^ndrop-foot$";}];
       open-floating = true;
-      opacity = 0.85;
+      opacity = 0.8;
       background-effect.blur = true;
       default-floating-position = _: {
         props = {
