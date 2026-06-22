@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "agentic-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781183306,
+        "narHash": "sha256-ZT1ME4E8jwC6DPLVpEgCudL8go91q7PkfJn5ylajmYA=",
+        "owner": "carlos-algms",
+        "repo": "agentic.nvim",
+        "rev": "a19fee663aa8be5f46f0af6fc0b46427b0e75cf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "carlos-algms",
+        "ref": "main",
+        "repo": "agentic.nvim",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -850,6 +867,7 @@
     },
     "root": {
       "inputs": {
+        "agentic-nvim": "agentic-nvim",
         "base16": "base16",
         "codex-desktop-linux": "codex-desktop-linux",
         "colmena": "colmena",

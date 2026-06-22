@@ -29,6 +29,10 @@
   };
 
   inputs = {
+    agentic-nvim = {
+      url = "github:carlos-algms/agentic.nvim/main";
+      flake = false;
+    };
     base16.url = "github:SenchoPens/base16.nix";
     codex-desktop-linux = {
       url = "github:ilysenko/codex-desktop-linux";
