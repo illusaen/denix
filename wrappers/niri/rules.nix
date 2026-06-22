@@ -17,16 +17,17 @@
       };
     }
     {
-      matches = [{is-floating = true;}];
-      shadow = {
-        draw-behind-window = true;
-        color = "#000000B3";
-      };
-    }
-    {
       matches = [{is-active = false;}];
       opacity = 0.9;
       background-effect.blur = true;
+    }
+    {
+      matches = [{is-floating = true;}];
+      background-effect = {
+        blur = true;
+        xray = false;
+      };
+      opacity = 0.9;
     }
     {
       matches = [{app-id = "^ndrop-foot$";}];

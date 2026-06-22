@@ -164,6 +164,14 @@
     props.hotkey-overlay-title = "Focus Workspace ↓";
     content.spawn-sh = "niri-workspace down";
   };
+  "Mod+Left" = _: {
+    props.hotkey-overlay-title = "Focus Win ←";
+    content.focus-window-up-or-column-left = _: {};
+  };
+  "Mod+Right" = _: {
+    props.hotkey-overlay-title = "Focus Win →";
+    content.focus-window-down-or-column-right = _: {};
+  };
 
   "Mod+Ctrl+Up" = _: {
     props.hotkey-overlay-title = "Focus Mon ↑";
