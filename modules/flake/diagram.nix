@@ -344,7 +344,10 @@ in {
         ''
       ]
     );
-    diagramPackages =
+  in {
+    # Diagram packages live in legacyPackages to avoid forcing the expensive
+    # fleet capture + graph rendering when the eval cache walks packages.*.
+    legacyPackages.diagrams =
       entriesToPackages everyEntry
       // hostSummaryDrvs
       // {
@@ -364,12 +367,5 @@ in {
           destExpr = ''"$(${pkgs.git}/bin/git rev-parse --show-toplevel)"'';
         };
       };
-  in {
-    # Diagram packages live in legacyPackages to avoid forcing the expensive
-    # fleet capture + graph rendering when the eval cache walks packages.*.
-    legacyPackages = {
-      diagrams = diagramPackages;
-      inherit (diagramPackages) write-diagrams write-topology;
-    };
   };
 }
