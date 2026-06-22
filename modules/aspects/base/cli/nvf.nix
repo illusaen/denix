@@ -222,7 +222,7 @@
           };
           notify.nvim-notify = {
             enable = true;
-            background_colour = base16-colors.base00;
+            setupOpts.background_colour = base16-colors.base00;
           };
 
           utility = {

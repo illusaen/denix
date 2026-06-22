@@ -44,6 +44,7 @@
       import-tree.url = "github:denful/import-tree";
       flake-parts.url = "github:hercules-ci/flake-parts";
       files.url = "github:mightyiam/files";
+      gen-algebra.url = "github:sini/gen-algebra";
 
       nixpkgs-master.url = "github:NixOS/nixpkgs/master";
       nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -55,6 +56,7 @@
         url = "github:feel-co/hjem";
         inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
+      scope-engine.url = "github:sini/scope-engine";
     };
 
     # Keep outputs in a separate file so write-flake preserves the

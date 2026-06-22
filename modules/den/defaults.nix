@@ -6,6 +6,8 @@
 }: {
   imports = [inputs.den.flakeModule];
 
+  den.reservedKeys = ["settings"];
+
   den.default = {
     includes = [
       den.batteries.inputs'

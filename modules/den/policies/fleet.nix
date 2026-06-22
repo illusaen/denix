@@ -50,8 +50,9 @@ in {
             hostGate = hostCfg.system-access-groups;
             # Effective gate: union of env + host gates (matching main's mergedAccessGroups)
             effectiveGate = lib.unique (envGate ++ hostGate);
-            # Effective grant: union of env + host grants
-            allGrants = lib.unique (envGrant ++ hostGrant);
+            # Effective grant: union of env + host grants + host gates.
+            # Host system-access-groups are both gates and implicit grants.
+            allGrants = lib.unique (envGrant ++ hostGrant ++ hostGate);
             # Users must match both a grant AND a gate group
             accessGroups =
               if effectiveGate == []

@@ -13,6 +13,7 @@
   inherit (den.lib.aspects.fx) identity;
   inherit (lib) mkOption types;
 
+  flakeConfig = config;
   registry = config.den.users.registry;
   groups = config.den.groups;
   groupNames = builtins.attrNames groups;
@@ -38,11 +39,7 @@
     go (lib.unique seedGroups);
 
   resolvedRegistryGroups = name: resolveUserGroups (registry.${name}.groups or []);
-  resolvedPosixGroups = name:
-    builtins.filter (groupName: lib.elem "posix" (groups.${groupName}.labels or [])) (
-      resolvedRegistryGroups name
-    );
-  generatedExtraGroups = name:
+  generatedExtraGroups = aclUser:
     builtins.filter (
       groupName:
         !(builtins.elem groupName [
@@ -50,7 +47,7 @@
           "wheel"
           "networkmanager"
         ])
-    ) (lib.unique (resolvedPosixGroups name));
+    ) (lib.unique (aclUser.systemGroups or []));
 
   # Filter registry users whose groups intersect the granted set.
   matchRegistryUsers = grantedGroups:
@@ -190,8 +187,14 @@
                 (baseAspect.includes or [])
                 ++ [
                   (
-                    {user, ...}: {
-                      nixos.users.users.${user.userName}.extraGroups = generatedExtraGroups name;
+                    {
+                      host,
+                      user,
+                      ...
+                    }: let
+                      aclUser = flakeConfig.fleet.acl.get "host:${host.name}" "resolveUser" user.userName;
+                    in {
+                      nixos.users.users.${user.userName}.extraGroups = generatedExtraGroups aclUser;
                     }
                   )
                 ];

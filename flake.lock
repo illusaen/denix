@@ -444,6 +444,21 @@
         "type": "github"
       }
     },
+    "gen-algebra": {
+      "locked": {
+        "lastModified": 1780264808,
+        "narHash": "sha256-qH90aAoCXl4I94ZviyiVZBBLa/SlwheccvFIUJlgPR8=",
+        "owner": "sini",
+        "repo": "gen-algebra",
+        "rev": "49f6721bd314b38272bd6b1b26139569365c85a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sini",
+        "repo": "gen-algebra",
+        "type": "github"
+      }
+    },
     "gen-schema": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
@@ -881,6 +896,7 @@
         "flake-file": "flake-file",
         "flake-parts": "flake-parts_2",
         "flake-root": "flake-root",
+        "gen-algebra": "gen-algebra",
         "gen-schema": "gen-schema",
         "git-hooks-nix": "git-hooks-nix",
         "hjem": "hjem",
@@ -892,8 +908,24 @@
         "nvf": "nvf",
         "opnix": "opnix",
         "preservation": "preservation",
+        "scope-engine": "scope-engine",
         "treefmt-nix": "treefmt-nix_2",
         "wrappers": "wrappers"
+      }
+    },
+    "scope-engine": {
+      "locked": {
+        "lastModified": 1780184472,
+        "narHash": "sha256-JXioICR3vEc2rWPsoejiz1P1lwXm/bVDQQSqKEAM/kQ=",
+        "owner": "sini",
+        "repo": "scope-engine",
+        "rev": "7e301a5b0372a554ad1f57b080a9a8918f483ff8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sini",
+        "repo": "scope-engine",
+        "type": "github"
       }
     },
     "stable": {

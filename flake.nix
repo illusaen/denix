@@ -67,6 +67,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     flake-root.url = "github:srid/flake-root";
+    gen-algebra.url = "github:sini/gen-algebra";
     gen-schema.url = "github:sini/gen-schema";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     hjem = {
@@ -87,6 +88,7 @@
     };
     opnix.url = "github:brizzbuzz/opnix";
     preservation.url = "github:nix-community/preservation";
+    scope-engine.url = "github:sini/scope-engine";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     wrappers = {
       url = "github:BirdeeHub/nix-wrapper-modules";
