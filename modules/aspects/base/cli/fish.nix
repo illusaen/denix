@@ -15,6 +15,7 @@
       '';
       programs.fish = {
         enable = true;
+        generateCompletions = false;
         interactiveShellInit = ''
           set -g fish_greeting ""
           set -gx OP_SERVICE_ACCOUNT_TOKEN (cat /etc/opnix-token | string collect)
@@ -35,6 +36,7 @@
 
     nixos = {pkgs, ...}: {
       documentation.man.cache.enable = false;
+      documentation.man.cache.generateAtRuntime = false;
       environment.systemPackages = with pkgs.fishPlugins; [
         fzf-fish
       ];
