@@ -29,8 +29,8 @@
   ];
   tab-indicator = {
     hide-when-single-tab = _: {};
-    gap = 4;
-    width = 8;
+    gap = 2;
+    width = 4;
     active-gradient = _: {
       props = {
         from = colors.base0C;
