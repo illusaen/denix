@@ -4,6 +4,13 @@
       matches = [{namespace = "^wpaperd.*$";}];
       place-within-backdrop = true;
     }
+    {
+      matches = [{namespace = "swaync-control-center";}];
+      background-effect = {
+        blur = true;
+        xray = false;
+      };
+    }
   ];
 
   window-rules = [

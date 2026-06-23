@@ -19,7 +19,6 @@
   color: @theme_fg;
   border: none;
   background: none;
-  border-radius: 16px;
   padding: 0;
   margin: 0;
   box-shadow: none;
@@ -27,13 +26,23 @@
   outline: none;
 }
 
+window#control-center,
+controlcenter,
+notificationwindow,
+blankwindow,
+window.blank-window,
+.blank-window {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
 /* ── 2. Control Center Container ─────────────────────────────────── */
 .control-center {
-  background-color: @theme_bg;
+  background: @theme_bg !important;
+  background-color: @theme_bg !important;
   border: 1px solid @border_medium;
   border-top-color: @border_light;
   border-bottom-color: @border_dark;
-  border-radius: 16px 0 0 16px;
   padding: 24px;
   min-width: 380px;
 }

@@ -1,23 +1,15 @@
 {
   "Alt+Shift+4" = _: {
     props.hotkey-overlay-title = "Screenshot";
-    content.spawn-sh = "niri msg action screenshot show-pointer=false";
+    content.spawn-sh = "niri msg action screenshot --show-pointer=false";
   };
   "Alt+Shift+T" = _: {
     props.hotkey-overlay-title = "Terminal";
     content.spawn-sh = "ndrop --app-id '^ndrop-foot$' --name foot -- footclient --app-id ndrop-foot";
   };
-  "Mod+O" = _: {
-    props.hotkey-overlay-title = "Obsidian";
-    content.spawn-sh = "ndrop --app-id '^ndrop-obsidian$' --name obsidian -- ndrop-obsidian";
-  };
   "Ctrl+Space" = _: {
     props.hotkey-overlay-title = "Launcher";
     content.spawn-sh = "rofi-launcher";
-  };
-  "Ctrl+Shift+Space" = _: {
-    props.hotkey-overlay-title = "Notifications";
-    content.spawn-sh = "rofi-notifications";
   };
   "Mod+Ctrl+Space" = _: {
     props.hotkey-overlay-title = "Power Menu";
@@ -34,10 +26,6 @@
   "Mod+Escape" = _: {
     props.hotkey-overlay-title = "Notification Center";
     content.spawn-sh = "swaync-client -t -sw";
-  };
-  "Mod+G" = _: {
-    props.hotkey-overlay-title = "Google Chrome";
-    content.spawn-sh = "google-chrome";
   };
 
   "Mod+Ctrl+B" = _: {
@@ -96,6 +84,10 @@
     props.hotkey-overlay-title = "Expand Column";
     content.expand-column-to-available-width = _: {};
   };
+  "Mod+T" = _: {
+    props.hotkey-overlay-title = "Tog Tabbed";
+    content.toggle-column-tabbed-display = _: {};
+  };
   "Mod+Z" = _: {
     props.hotkey-overlay-title = "Tog Preset Widths";
     content.switch-preset-column-width = _: {};
@@ -121,14 +113,9 @@
     props.repeat = false;
     content.close-window = _: {};
   };
-
   "Mod+Shift+P" = _: {
     props.hotkey-overlay-title = "Monitor ⏻";
     content.power-off-monitors = _: {};
-  };
-  "Mod+Tab" = _: {
-    props.hotkey-overlay-title = "Overview";
-    content.toggle-overview = _: {};
   };
 
   "Mod+Comma" = _: {

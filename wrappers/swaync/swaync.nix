@@ -41,7 +41,8 @@
     positionY = "top";
     layer = "overlay";
     layer-shell = true;
-    cssPriority = "application";
+    layer-shell-cover-screen = false;
+    cssPriority = "user";
     control-center-width = 520;
     control-center-margin-top = 0;
     control-center-margin-bottom = 0;
