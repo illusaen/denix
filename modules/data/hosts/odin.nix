@@ -11,7 +11,10 @@
       "system-access"
     ];
 
-    networking.interfaces.eno1.ipv4 = ["192.168.1.162/24"];
+    networking.interfaces.eno1 = {
+      ipv4 = ["192.168.1.162/24"];
+      dhcp = "none";
+    };
   };
 
   # Main PC

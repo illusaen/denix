@@ -90,38 +90,45 @@ _: {
         ipv4Addrs = ifCfg.ipv4 or [];
         ipv6Addrs = ifCfg.ipv6 or [];
         dhcp = effectiveDhcp ifCfg;
-      in {
-        networkConfig = {
-          Address = ipv4Addrs ++ ipv6Addrs;
-          DHCP = dhcp;
-          IPv6AcceptRA = true;
-          LinkLocalAddressing = effectiveLinkLocal ifCfg;
-          DNS = defaultNet.dnsServers or [];
-          DNSOverTLS = true;
-          DNSSEC = "allow-downgrade";
-        };
-        dhcpV6Config = {
-          UseDelegatedPrefix = true;
-          PrefixDelegationHint = "::/64";
-        };
-        routes =
-          optionals ((defaultNet.gatewayIp or null) != null && ipv4Addrs != [] && ipv4OnDefaultNetwork ipv4Addrs) [
-            (mkRoute defaultNet.gatewayIp {})
-          ]
-          ++ optionals ((defaultNet.gatewayIpV6 or null) != null && ipv6Addrs != []) [
-            (mkRoute defaultNet.gatewayIpV6 {
-              Destination = "::/0";
-              GatewayOnLink = true;
-            })
-          ];
-        linkConfig =
-          {
-            RequiredForOnline = effectiveRequiredForOnline ifCfg;
-          }
-          // optionalAttrs (ifCfg.mtu != null) {
-            MTUBytes = toString ifCfg.mtu;
+      in
+        {
+          networkConfig =
+            {
+              Address = ipv4Addrs ++ ipv6Addrs;
+              IPv6AcceptRA = true;
+              LinkLocalAddressing = effectiveLinkLocal ifCfg;
+              DNS = defaultNet.dnsServers or [];
+              DNSOverTLS = true;
+              DNSSEC = "allow-downgrade";
+            }
+            // optionalAttrs (dhcp != "none") {
+              DHCP = dhcp;
+            };
+
+          routes =
+            optionals ((defaultNet.gatewayIp or null) != null && ipv4Addrs != [] && ipv4OnDefaultNetwork ipv4Addrs) [
+              (mkRoute defaultNet.gatewayIp {})
+            ]
+            ++ optionals ((defaultNet.gatewayIpV6 or null) != null && ipv6Addrs != []) [
+              (mkRoute defaultNet.gatewayIpV6 {
+                Destination = "::/0";
+                GatewayOnLink = true;
+              })
+            ];
+          linkConfig =
+            {
+              RequiredForOnline = effectiveRequiredForOnline ifCfg;
+            }
+            // optionalAttrs (ifCfg.mtu != null) {
+              MTUBytes = toString ifCfg.mtu;
+            };
+        }
+        // optionalAttrs (dhcp != "none") {
+          dhcpV6Config = {
+            UseDelegatedPrefix = true;
+            PrefixDelegationHint = "::/64";
           };
-      };
+        };
 
       mkUnmanagedNetworkConfig = ifCfg: let
         ipv4Addrs = ifCfg.ipv4 or [];

@@ -11,13 +11,14 @@
 
     networks = {
       default = {
-        cidr = "10.9.0.0/16";
+        cidr = "192.168.1.0/24";
         ipv6_cidr = "fd64:1:1::/64";
         description = "Default network for infrastructure hosts";
-        gatewayIp = "10.9.0.1";
+        gatewayIp = "192.168.1.1";
         gatewayIpV6 = "fe80::962a:6fff:fef2:cf4d";
         dnsServers = [
           "1.1.1.1"
+          "8.8.8.8"
           "2606:4700:4700::1111"
           "1.0.0.1"
           "2606:4700:4700::1001"
