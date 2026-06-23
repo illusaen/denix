@@ -138,7 +138,6 @@
         ];
       };
 
-      networking.hostId = "17888962";
       fileSystems."${persistMount}".neededForBoot = true;
     };
   };

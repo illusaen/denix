@@ -360,6 +360,7 @@ _: {
         useNetworkd = true;
         useDHCP = false;
         dhcpcd.enable = false;
+        hostId = builtins.substring 0 8 (builtins.hashString "md5" host.name);
 
         networkmanager = {
           enable = lib.mkDefault true;
