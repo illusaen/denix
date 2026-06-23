@@ -37,12 +37,14 @@
 
   config.service.enable = true;
   config.settings = {
-    positionX = "right";
-    positionY = "top";
+    positionX = "center";
+    positionY = "bottom";
     layer = "overlay";
     layer-shell = true;
     layer-shell-cover-screen = false;
     cssPriority = "user";
+    control-center-positionX = "right";
+    control-center-positionY = "top";
     control-center-width = 520;
     control-center-margin-top = 0;
     control-center-margin-bottom = 0;
@@ -54,16 +56,8 @@
     notification-icon-size = 48;
     notification-body-image-height = 240;
     notification-body-image-width = 240;
-    timeout = 8;
-    timeout-low = 4;
-    timeout-critical = 0;
-    fit-to-screen = true;
-    keyboard-shortcuts = true;
     image-visibility = "when-available";
-    transition-time = 150;
     hide-on-clear = true;
-    hide-on-action = true;
-    script-fail-notify = true;
     widgets = [
       "mpris"
       "volume"
@@ -72,11 +66,7 @@
       "buttons-grid"
     ];
     widget-config = {
-      title = {
-        text = "Notifications";
-        clear-all-button = true;
-        button-text = "Clear";
-      };
+      title.button-text = "Clear";
       mpris = {
         show-album-art = false;
         autohide = true;
@@ -128,7 +118,7 @@
       base04
       base05
       base07
-      base09
+      base0E
       ;
     inherit (config) font;
   };

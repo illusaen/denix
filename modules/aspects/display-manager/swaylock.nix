@@ -7,7 +7,7 @@
         imports = [wlib.wrapperModules.swaylock];
         settings = with base16.scheme; let
           inside = base00;
-          ring = base09;
+          ring = base0E;
           text = base05;
           positive = base0B;
           negative = base08;

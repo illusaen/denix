@@ -5,8 +5,8 @@
 @define-color module_hover_bg alpha(@base05@, 0.4); /* Module Hover */
 @define-color button_bg alpha(@base03@, 0.3); /* Button Default */
 @define-color button_hover_bg alpha(@base04@, 0.4); /* Button Hover */
-@define-color accent alpha(@base09@, 0.8); /* Accent Active */
-@define-color accent_hover @base09@; /* Accent Hover */
+@define-color accent alpha(@base0E@, 0.8); /* Accent Active */
+@define-color accent_hover @base0E@; /* Accent Hover */
 @define-color border_light alpha(@base07@, 0.18);
 @define-color border_dark alpha(@base00@, 0.06);
 @define-color border_medium alpha(@border_light, 0.5);

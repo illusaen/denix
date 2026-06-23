@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  base16Scheme = ./cosmic.yaml;
+  base16Scheme = ./tokyo-night-moon.yaml;
   base16 = inputs.base16.lib {
     inherit lib;
     pkgs = null;

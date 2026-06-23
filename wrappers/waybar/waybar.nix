@@ -42,8 +42,8 @@
       interval = 60;
       format = "<span font_family='${font}' size='${size}pt'>{0:${text}}</span>";
       tooltip-format = "<span font_family='${mono}' size='large'>{calendar}</span>";
-      calendar.format.months = "<span color='${config.scheme.base09}'><b>{}</b></span>";
-      calendar.format.today = "<span color='${config.scheme.base09}'><b>{}</b></span>";
+      calendar.format.months = "<span color='${config.scheme.base0E}'><b>{}</b></span>";
+      calendar.format.today = "<span color='${config.scheme.base0E}'><b>{}</b></span>";
     };
     moduleSettings = {
       layer = "overlay";
@@ -144,7 +144,7 @@
       base00
       base03
       base05
-      base09
+      base0E
       ;
     inherit (config.font) icon sans;
     fontSize = config.font.size;

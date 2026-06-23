@@ -50,7 +50,7 @@ in {
       border: ${config.colors.base03};
       text: ${config.colors.base05};
       muted: ${config.colors.base04};
-      accent: ${config.colors.base09};
+      accent: ${config.colors.base0E};
       accent-fg: ${config.colors.base02};
       font-icon: "${config.font} 36";
 
