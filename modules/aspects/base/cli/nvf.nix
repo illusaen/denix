@@ -72,10 +72,9 @@
           "nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="
         ];
       };
-      environment.systemPackages = [pkgs.local.neovim];
 
       programs.nvf = {
-        enable = false;
+        enable = true;
         settings.vim = {
           theme = {
             enable = true;
