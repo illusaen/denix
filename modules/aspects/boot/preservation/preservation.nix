@@ -7,49 +7,12 @@
 }: {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
 
-  den.classes = {
-    persist.description = "System persisted directories and files.";
-    persistUser.description = "User persisted directories and files.";
-  };
-
-  den.policies.persist-to-preservation = {host, ...}:
-    lib.optional host.preservation.enable (
-      den.lib.policy.route {
-        fromClass = "persist";
-        intoClass = "nixos";
-        path = [
-          "preservation"
-          "preserveAt"
-          host.preservation.persistMount
-        ];
-        guard = {options, ...}: options ? preservation.preserveAt;
-      }
-    );
-
-  den.policies.persist-user-to-preservation = {
-    host,
-    user,
-    ...
-  }:
-    lib.optional host.preservation.enable (
-      den.lib.policy.route {
-        fromClass = "persistUser";
-        intoClass = "nixos";
-        path = [
-          "preservation"
-          "preserveAt"
-          host.preservation.persistMount
-          "users"
-          user.userName
-        ];
-        guard = {options, ...}: options ? preservation.preserveAt;
-      }
-    );
-
-  den.schema.host.includes = [den.policies.persist-to-preservation];
-  den.schema.user.includes = [den.policies.persist-user-to-preservation];
-
-  den.aspects.boot.preservation = {
+  den.aspects.boot.preservation = let
+    mergePersist = entries: {
+      directories = lib.unique (lib.concatMap (e: e.directories or []) entries);
+      files = lib.unique (lib.concatMap (e: e.files or []) entries);
+    };
+  in {
     includes = [den.aspects.boot.preservation.find-ephemeral];
 
     persist = {
@@ -79,32 +42,47 @@
 
     wrapper-packages.preservation-scripts = rootPath + /wrappers/custom-scripts/preservation-scripts.nix;
 
-    provides.to-users.persistUser = {
-      commonMountOptions = [
-        "x-gvfs-hide"
-        "x-gvfs-trash"
-      ];
-      directories = [
-        {
-          directory = ".local/share/keyrings";
-          mode = "0700";
-        }
-        "Downloads"
-        "Projects"
-        "Pictures"
-      ];
+    provides.to-users = {
+      persistUser = {
+        commonMountOptions = [
+          "x-gvfs-hide"
+          "x-gvfs-trash"
+        ];
+        directories = [
+          {
+            directory = ".local/share/keyrings";
+            mode = "0700";
+          }
+          "Downloads"
+          "Projects"
+          "Pictures"
+        ];
+      };
+
+      nixos = {
+        host,
+        user,
+        persistUser,
+        ...
+      }: {
+        preservation.preserveAt.${host.preservation.persistMount}.users.${user.userName} = mergePersist persistUser;
+      };
     };
 
     nixos = {
       pkgs,
       host,
+      persist,
       ...
     }: let
       inherit (host.preservation) persistMount rollbackSnapshot;
     in {
       imports = [inputs.preservation.nixosModules.preservation];
 
-      preservation.enable = true;
+      preservation = {
+        enable = true;
+        preserveAt.${persistMount} = mergePersist persist;
+      };
 
       environment.systemPackages = [pkgs.local.preservation-scripts];
 
