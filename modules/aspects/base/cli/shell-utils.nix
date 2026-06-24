@@ -19,33 +19,6 @@
         renderScheme = host.settings.base.base16.scheme.render;
       };
 
-      eza = {
-        wlib,
-        pkgs,
-        ...
-      }: {
-        imports = [wlib.modules.default];
-        package = pkgs.eza;
-        flags = {
-          "--icons" = "auto";
-          "--git" = true;
-        };
-      };
-
-      fd = {
-        wlib,
-        pkgs,
-        ...
-      }: {
-        imports = [wlib.modules.default];
-        package = pkgs.fd;
-        flags = {
-          "--hidden" = true;
-          "--follow" = true;
-          "--exclude" = ".git";
-        };
-      };
-
       gh = {
         wlib,
         pkgs,
@@ -87,8 +60,8 @@
       ...
     }: {
       environment.systemPackages = with pkgs; [
-        local.eza
-        local.fd
+        eza
+        fd
         local.gh
         local.misc-scripts
         local.bat
@@ -100,6 +73,8 @@
       ];
 
       environment.shellAliases = {
+        eza = "eza --icons=auto --git";
+        fd = "fd --hidden --follow --exclude .git";
         l = "eza -alg";
         ll = "eza --tree --git-ignore --all";
         cat = "bat";

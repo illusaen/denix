@@ -1,8 +1,4 @@
-{
-  inputs,
-  rootPath,
-  ...
-}: {
+{inputs, ...}: {
   flake-file.inputs = {
     nvf = {
       url = "github:NotAShelf/nvf";
@@ -14,8 +10,6 @@
     };
   };
   den.aspects.base.cli.nvf = {
-    wrapper-packages.neovim = rootPath + /wrappers/neovim/neovim.nix;
-
     nixos.imports = [inputs.nvf.nixosModules.default];
     darwin.imports = [inputs.nvf.darwinModules.default];
 
