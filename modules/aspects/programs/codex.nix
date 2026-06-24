@@ -15,7 +15,7 @@
 
     nixos = {pkgs, ...}: {
       imports = [inputs.codex-desktop-linux.nixosModules.default];
-      environment.systemPackages = with pkgs; [codex];
+      environment.systemPackages = with pkgs; [codex codex-acp];
       programs.codexDesktopLinux = {
         enable = true;
         computerUseUi.enable = true;

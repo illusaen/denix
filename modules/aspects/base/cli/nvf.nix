@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  rootPath,
+  ...
+}: {
   flake-file.inputs = {
     nvf = {
       url = "github:NotAShelf/nvf";
@@ -10,6 +14,8 @@
     };
   };
   den.aspects.base.cli.nvf = {
+    wrapper-packages.neovim = rootPath + /wrappers/neovim/neovim.nix;
+
     nixos.imports = [inputs.nvf.nixosModules.default];
     darwin.imports = [inputs.nvf.darwinModules.default];
 
@@ -66,11 +72,10 @@
           "nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="
         ];
       };
-
-      environment.systemPackages = with pkgs; [codex-acp];
+      environment.systemPackages = [pkgs.local.neovim];
 
       programs.nvf = {
-        enable = true;
+        enable = false;
         settings.vim = {
           theme = {
             enable = true;
