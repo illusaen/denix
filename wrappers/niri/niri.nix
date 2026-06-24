@@ -38,9 +38,6 @@ in {
   config.env = {
     GDK_BACKEND = "wayland,x11,*";
     NIXOS_OZONE_WL = "1";
-    QT_QPA_PLATFORM = "wayland";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_QPA_PLATFORMTHEME_QT6 = "qt6ct";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     XDG_SESSION_DESKTOP = "niri";
     XDG_SESSION_TYPE = "wayland";

@@ -101,31 +101,39 @@
   # Dynamic settings type — recursively discovers aspects that declare .settings.
   # Mirrors the aspect tree: den.aspects.disk.zfs-disk-single.settings →
   # host.settings.disk.zfs-disk-single.*
-  settingsType = let
+  settingsTypeFor = host: let
     inherit (den.lib.aspects.fx.keyClassification) structuralKeysSet;
     classKeys = den.classes or {};
     quirkKeys = den.quirks or {};
     skipKey = k: structuralKeysSet ? ${k} || classKeys ? ${k} || quirkKeys ? ${k};
     isOption = value: builtins.isAttrs value && (value._type or null) == "option";
-    isSettingsDeclaration = raw:
-      builtins.isAttrs raw
+    settingsArgs = {inherit host lib;};
+    applySettings = raw:
+      if builtins.isFunction raw
+      then raw settingsArgs
+      else raw;
+    isSettingsDeclaration = raw: let
+      value = applySettings raw;
+    in
+      builtins.isAttrs value
       && (
-        raw ? imports
-        || raw ? config
-        || raw ? options
-        || lib.any (k: isOption raw.${k}) (builtins.attrNames raw)
+        value ? imports
+        || value ? config
+        || value ? options
+        || lib.any (k: isOption value.${k}) (builtins.attrNames value)
       );
 
     # Settings declarations may be plain option attrsets or module-shaped
     # attrsets with explicit imports/config. Default module keys so both forms
     # work consistently.
     reshapeSettings = raw: let
-      imports' = raw.imports or [];
-      config' = raw.config or {};
+      value = applySettings raw;
+      imports' = value.imports or [];
+      config' = value.config or {};
     in {
       imports = imports';
       config = config';
-      options = removeAttrs raw [
+      options = removeAttrs value [
         "imports"
         "config"
       ];
@@ -325,7 +333,7 @@ in {
           # Dynamic settings namespace — auto-discovers aspects with .settings
           settings =
             mkOption {
-              type = settingsType;
+              type = settingsTypeFor config;
               default = {};
               description = "Per-aspect typed settings";
             }

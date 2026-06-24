@@ -16,7 +16,6 @@
         };
         colors = base16.scheme.withHashtag;
       };
-      niri-scripts = rootPath + /wrappers/custom-scripts/niri-scripts.nix;
     };
 
     nixos = {pkgs, ...}: {

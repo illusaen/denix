@@ -1,9 +1,7 @@
-{rootPath, ...}: {
+{
   den.aspects.base.cli.fish = {
     env.EDITOR = "nvim";
     provides.to-users.persistUser.directories = [".local/share/fish"];
-
-    wrapper-packages.fish-vendor-functions = rootPath + "/wrappers/fish-scripts/fish-scripts.nix";
 
     os = {pkgs, ...}: {
       programs.bash.interactiveShellInit = ''
@@ -30,7 +28,7 @@
       environment.systemPackages = with pkgs.fishPlugins; [
         puffer
         colored-man-pages
-        pkgs.local.fish-vendor-functions
+        pkgs.local.fish-scripts
       ];
     };
 

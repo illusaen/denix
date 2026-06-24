@@ -1,7 +1,6 @@
 {
   den,
   lib,
-  rootPath,
   ...
 }: let
   inherit (lib) mkOption types optionalAttrs;
@@ -19,7 +18,7 @@
     };
 in {
   config.den.aspects.theming = {
-    settings = {
+    settings = {host, ...}: {
       iconTheme = mkThemeOption false {
         name = "WhiteSur";
         packageName = "whitesur-icon-theme";
@@ -28,6 +27,16 @@ in {
         name = "WhiteSur-Dark";
         packageName = "whitesur-gtk-theme";
       };
+      qtTheme =
+        mkThemeOption false
+        {
+          name = "WhiteSur${
+            if host.settings.base.base16.colorScheme == "dark"
+            then "Dark"
+            else ""
+          }";
+          packageName = "whitesur-kde-theme";
+        };
       cursorTheme = mkThemeOption true {
         name = "Nordic-cursors";
         packageName = "nordic";
@@ -40,19 +49,12 @@ in {
       qt
     ];
 
-    wrapper-packages = {host, ...}: {
-      whitesur-gtk-theme = {
-        imports = [(rootPath + /wrappers/whitesur-gtk-theme.nix)];
-        font = host.settings.base.fonts.sans;
-        fontSize = host.settings.base.fonts.sizes.applications;
-      };
-    };
-
     nixos = {pkgs, ...}: {
       environment.systemPackages = with pkgs; [
-        adwaita-qt6
         nordic
         whitesur-icon-theme
+        local.whitesur-gtk-theme
+        local.whitesur-kde-theme
       ];
     };
   };

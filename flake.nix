@@ -23,6 +23,7 @@
       url = "github:carlos-algms/agentic.nvim/main";
       flake = false;
     };
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     base16.url = "github:SenchoPens/base16.nix";
     codex-desktop-linux = {
       url = "github:ilysenko/codex-desktop-linux";

@@ -64,9 +64,6 @@
         GTK_THEME = theming.gtkTheme.name;
         XDG_DATA_DIRS = lib.mkBefore ["/run/current-system/sw/share"];
       };
-      environment.systemPackages = [
-        pkgs.local.${theming.gtkTheme.packageName}
-      ];
       environment.etc = {
         "xdg/gtk-3.0/settings.ini" = gtkSettings 3;
         "xdg/gtk-4.0/settings.ini" = gtkSettings 4;

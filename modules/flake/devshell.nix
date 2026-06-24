@@ -32,7 +32,7 @@
           help = "Explain why two Nix derivations differ";
         }
         {
-          package = pkgs.local.custom-scripts;
+          package = pkgs.local.misc-scripts;
           name = "nix-build";
           help = "Build a host configuration with nb";
         }

@@ -1,6 +1,5 @@
 {
   den,
-  inputs,
   rootPath,
   ...
 }: {
@@ -18,11 +17,6 @@
       bat = {
         imports = [(wrapperDirectory + /bat/bat.nix)];
         renderScheme = host.settings.base.base16.scheme.render;
-      };
-
-      custom-scripts = {
-        imports = [(wrapperDirectory + /custom-scripts/custom-scripts.nix)];
-        opnixPackage = inputs.opnix.packages.${host.system}.default;
       };
 
       eza = {
@@ -96,7 +90,7 @@
         local.eza
         local.fd
         local.gh
-        local.custom-scripts
+        local.misc-scripts
         local.bat
         local.git
         ripgrep

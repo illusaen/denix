@@ -2,7 +2,6 @@
   den,
   lib,
   inputs,
-  rootPath,
   ...
 }: {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
@@ -39,8 +38,6 @@
         }
       ];
     };
-
-    wrapper-packages.preservation-scripts = rootPath + /wrappers/custom-scripts/preservation-scripts.nix;
 
     provides.to-users = {
       persistUser = {

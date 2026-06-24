@@ -14,7 +14,6 @@
           colors
           ;
       };
-      rofi-scripts = rootPath + /wrappers/custom-scripts/rofi-scripts.nix;
     };
 
     nixos = {pkgs, ...}: {environment.systemPackages = with pkgs.local; [rofi rofi-scripts];};
