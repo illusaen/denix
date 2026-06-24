@@ -1,8 +1,10 @@
 {rootPath, ...}: {
   den.aspects.display-manager.waybar = {
-    wrapper-packages = {fleet, ...}: {
+    wrapper-packages = {host, ...}: {
       waybar = let
-        inherit (fleet.my) fonts base16 monitors;
+        fonts = host.settings.base.fonts;
+        base16 = host.settings.base.base16;
+        monitors = host.settings."display-manager".monitor;
       in {
         imports = [(rootPath + /wrappers/waybar/waybar.nix)];
         scheme = base16.scheme.withHashtag;
@@ -10,7 +12,10 @@
           inherit (fonts) sans mono icon;
           size = fonts.sizes.applications;
         };
-        monitors = monitors.connectors;
+        monitors = {
+          main = monitors.main.connector;
+          secondary = monitors.secondary.connector;
+        };
       };
     };
 

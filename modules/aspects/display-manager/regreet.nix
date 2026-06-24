@@ -3,12 +3,13 @@
     nixos = {
       lib,
       pkgs,
-      fleet,
+      host,
       environment,
       ...
     }: {
       programs.regreet = let
-        inherit (fleet.my) fonts theming;
+        fonts = host.settings.base.fonts;
+        theming = host.settings.theming;
       in {
         enable = true;
         theme = {
@@ -32,7 +33,7 @@
         settings = {
           skip_selection = true;
           background = {
-            path = fleet.my.wallpaper;
+            path = host.settings.programs.wallpaper.wallpaper;
             fit = "Fill";
           };
           GTK = {
@@ -44,7 +45,7 @@
           };
         };
         extraCss = let
-          inherit (fleet.my.base16.scheme.withHashtag) base05;
+          inherit (host.settings.base.base16.scheme.withHashtag) base05;
         in ''
           * {
             color: ${base05};
@@ -106,7 +107,7 @@
       services.displayManager.enable = true;
 
       services.greetd = let
-        mainMonitor = fleet.my.monitors.main.desc;
+        mainMonitor = host.settings."display-manager".monitor.main.desc;
         # Reuse the desktop Niri config, then add the greeter process.
         niri-config = pkgs.writeText "niri-config" ''
           include "${pkgs.local.niri}/niri-config.kdl"

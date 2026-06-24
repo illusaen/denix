@@ -1,9 +1,9 @@
 {rootPath, ...}: {
   den.aspects.display-manager.rofi = {
-    wrapper-packages = {fleet, ...}: let
-      font = fleet.my.fonts.sans;
-      icon = fleet.my.theming.iconTheme.name;
-      colors = fleet.my.base16.scheme.withHashtag;
+    wrapper-packages = {host, ...}: let
+      font = host.settings.base.fonts.sans;
+      icon = host.settings.theming.iconTheme.name;
+      colors = host.settings.base.base16.scheme.withHashtag;
       wrapper = rootPath + /wrappers/rofi/rofi.nix;
     in {
       rofi = {
@@ -14,8 +14,9 @@
           colors
           ;
       };
+      rofi-scripts = rootPath + /wrappers/custom-scripts/rofi-scripts.nix;
     };
 
-    nixos = {pkgs, ...}: {environment.systemPackages = with pkgs.local; [rofi];};
+    nixos = {pkgs, ...}: {environment.systemPackages = with pkgs.local; [rofi rofi-scripts];};
   };
 }

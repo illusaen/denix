@@ -1,11 +1,11 @@
 {rootPath, ...}: {
   den.aspects.programs.chat.vesktop = {
-    wrapper-packages = {fleet, ...}: {
+    wrapper-packages = {host, ...}: {
       vesktop-base16 = {
         imports = [(rootPath + /wrappers/vesktop/vesktop.nix)];
         instanceName = "base16";
-        inherit (fleet.my) fonts;
-        colors = fleet.my.base16.scheme.withHashtag;
+        fonts = host.settings.base.fonts;
+        colors = host.settings.base.base16.scheme.withHashtag;
       };
     };
 

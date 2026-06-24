@@ -1,15 +1,5 @@
 {
   den.aspects.base.terminal.ghostty = {
-    # TODO: fix issues with config file not loading
-    # wrapper-packages.ghostty = {
-    #   imports = [ ../../../../wrappers/ghostty/ghostty.nix ];
-    #   renderScheme = self.my.scheme.render;
-    #   font = {
-    #     name = self.my.fonts.mono;
-    #     size = self.my.fonts.sizes.terminal;
-    #   };
-    # };
-
     darwin = {pkgs, ...}: {
       environment.systemPackages = with pkgs; [ghostty-bin];
     };
@@ -17,10 +7,11 @@
     provides.to-users.hjemDarwin = {
       pkgs,
       lib,
-      fleet,
+      host,
       ...
     }: let
-      inherit (fleet.my) fonts base16;
+      fonts = host.settings.base.fonts;
+      base16 = host.settings.base.base16;
       themeFile = "Cosmic.ghostty";
     in {
       xdg.config.files = {

@@ -22,9 +22,9 @@
       inherit default;
     };
 in {
-  options.fleet.my.fonts = mkOption {
-    type = types.submodule {
-      options = {
+  config = {
+    den.aspects.base.fonts = {
+      settings = {
         sans = mkStrOption "Inter";
         mono = mkStrOption "Monaspace Neon NF";
         emoji = mkStrOption "Noto Color Emoji";
@@ -33,25 +33,14 @@ in {
           type = types.submodule {
             options = mapListToAttrsWith ["terminal" "applications" "desktop"] (sizeOption 12);
           };
+          default = {
+            terminal = 12;
+            applications = 12;
+            desktop = 12;
+          };
         };
       };
-    };
-  };
 
-  config = {
-    fleet.my.fonts = {
-      sans = "Inter";
-      mono = "Monaspace Neon NF";
-      emoji = "Noto Color Emoji";
-      icon = "Material Symbols Outlined";
-      sizes = {
-        terminal = 12;
-        applications = 12;
-        desktop = 12;
-      };
-    };
-
-    den.aspects.base.fonts = {
       os = {pkgs, ...}: {
         fonts.packages = with pkgs; [
           font-awesome
@@ -62,11 +51,11 @@ in {
           material-symbols
         ];
       };
-      nixos = {fleet, ...}: {
+      nixos = {host, ...}: {
         fonts.fontconfig.defaultFonts = rec {
-          monospace = [fleet.my.fonts.mono];
+          monospace = [host.settings.base.fonts.mono];
           serif = sansSerif;
-          sansSerif = [fleet.my.fonts.sans];
+          sansSerif = [host.settings.base.fonts.sans];
         };
       };
     };

@@ -11,17 +11,13 @@
       ".local/share/zoxide"
     ];
 
-    wrapper-packages = {
-      host,
-      fleet,
-      ...
-    }: let
+    wrapper-packages = {host, ...}: let
       wrapperDirectory = rootPath + /wrappers;
       inherit (den.users.registry.${host.system-owner}.identity) accountName email displayName;
     in {
       bat = {
         imports = [(wrapperDirectory + /bat/bat.nix)];
-        renderScheme = fleet.my.base16.scheme.render;
+        renderScheme = host.settings.base.base16.scheme.render;
       };
 
       custom-scripts = {

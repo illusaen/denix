@@ -12,7 +12,7 @@
     nixos = {
       pkgs,
       config,
-      fleet,
+      host,
       lib,
       ...
     }: {
@@ -66,7 +66,7 @@
         ];
         autoConfig = let
           convertFontSize = size: toString (builtins.floor ((size * 4.0 / 3.0) + 0.5));
-          inherit (fleet.my.fonts.sizes) terminal applications;
+          inherit (host.settings.base.fonts.sizes) terminal applications;
           terminalFontSize = convertFontSize terminal;
           applicationFontSize = convertFontSize applications;
         in
@@ -209,7 +209,7 @@
 
         find "$firefox_dir" -mindepth 2 -maxdepth 2 -name prefs.js -printf '%h\0' |
           while IFS= read -r -d "" profile; do
-            ln -sfn ${lib.escapeShellArg "${pkgs.local.${fleet.my.theming.gtkTheme.packageName}}/share/firefox-themes"} "$profile/chrome"
+            ln -sfn ${lib.escapeShellArg "${pkgs.local.${host.settings.theming.gtkTheme.packageName}}/share/firefox-themes"} "$profile/chrome"
           done
       '';
     };

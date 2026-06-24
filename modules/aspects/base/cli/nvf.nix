@@ -14,12 +14,12 @@
     darwin.imports = [inputs.nvf.darwinModules.default];
 
     os = {
-      fleet,
+      host,
       lib,
       pkgs,
       ...
     }: let
-      scheme = fleet.my.base16.scheme.withHashtag;
+      scheme = host.settings.base.base16.scheme.withHashtag;
       base16-colors = {
         inherit
           (scheme)

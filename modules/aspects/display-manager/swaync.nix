@@ -1,8 +1,9 @@
 {rootPath, ...}: {
   den.aspects.display-manager.swaync = {
-    wrapper-packages = {fleet, ...}: {
+    wrapper-packages = {host, ...}: {
       swaync = let
-        inherit (fleet.my) fonts base16;
+        fonts = host.settings.base.fonts;
+        base16 = host.settings.base.base16;
       in {
         imports = [(rootPath + /wrappers/swaync/swaync.nix)];
         font = fonts.sans;

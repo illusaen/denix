@@ -2,6 +2,7 @@
   den,
   lib,
   inputs,
+  rootPath,
   ...
 }: {
   flake-file.inputs.preservation.url = "github:nix-community/preservation";
@@ -76,6 +77,8 @@
       ];
     };
 
+    wrapper-packages.preservation-scripts = rootPath + /wrappers/custom-scripts/preservation-scripts.nix;
+
     provides.to-users.persistUser = {
       commonMountOptions = [
         "x-gvfs-hide"
@@ -102,6 +105,8 @@
       imports = [inputs.preservation.nixosModules.preservation];
 
       preservation.enable = true;
+
+      environment.systemPackages = [pkgs.local.preservation-scripts];
 
       boot.initrd.systemd.services.zfs-rollback = {
         description = "Rollback ZFS root dataset to blank snapshot";

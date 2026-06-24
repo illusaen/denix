@@ -1,16 +1,22 @@
 {rootPath, ...}: {
   den.aspects.display-manager.niri = {
-    wrapper-packages = {fleet, ...}: {
+    wrapper-packages = {host, ...}: {
       niri = let
-        inherit (fleet.my) theming base16 monitors;
+        theming = host.settings.theming;
+        base16 = host.settings.base.base16;
+        monitors = host.settings."display-manager".monitor;
       in {
         imports = [(rootPath + /wrappers/niri/niri.nix)];
-        monitors = monitors.descriptions;
+        monitors = {
+          main = monitors.main.desc;
+          secondary = monitors.secondary.desc;
+        };
         cursor = {
           inherit (theming.cursorTheme) name size;
         };
         colors = base16.scheme.withHashtag;
       };
+      niri-scripts = rootPath + /wrappers/custom-scripts/niri-scripts.nix;
     };
 
     nixos = {pkgs, ...}: {
@@ -28,6 +34,7 @@
       };
 
       environment.systemPackages = with pkgs; [
+        local.niri-scripts
         xwayland-satellite
       ];
     };

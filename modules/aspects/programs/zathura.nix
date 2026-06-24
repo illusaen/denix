@@ -1,10 +1,12 @@
 {
   den.aspects.programs.zathura = {
-    wrapper-packages = {fleet, ...}: let
+    wrapper-packages = {host, ...}: let
+      base16 = host.settings.base.base16;
+      fonts = host.settings.base.fonts;
       hexToRgba = color: opacity: let
-        r = fleet.my.base16.scheme."${color}-dec-r";
-        g = fleet.my.base16.scheme."${color}-dec-g";
-        b = fleet.my.base16.scheme."${color}-dec-b";
+        r = base16.scheme."${color}-dec-r";
+        g = base16.scheme."${color}-dec-g";
+        b = base16.scheme."${color}-dec-b";
       in "rgba(${r},${g},${b},${toString opacity})";
     in {
       zathura = {wlib, ...}: {
@@ -12,14 +14,14 @@
         mappings = {
           "<C-o>" = "file_chooser";
         };
-        settings = with fleet.my.base16.scheme.withHashtag; {
+        settings = with base16.scheme.withHashtag; {
           guioptions = "vcs";
           adjust-open = "width";
           statusbar-basename = true;
           render-loading = false;
           scroll-step = 120;
           selection-clipboard = "clipboard";
-          font = "monospace normal ${toString fleet.my.fonts.sizes.applications}";
+          font = "monospace normal ${toString fonts.sizes.applications}";
           default-bg = base00;
           default-fg = base01;
           statusbar-fg = base04;

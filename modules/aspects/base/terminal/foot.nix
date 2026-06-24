@@ -12,9 +12,10 @@
       };
     };
 
-    wrapper-packages = {fleet, ...}: {
+    wrapper-packages = {host, ...}: {
       foot = let
-        inherit (fleet.my) fonts base16;
+        fonts = host.settings.base.fonts;
+        base16 = host.settings.base.base16;
       in {
         imports = [(rootPath + /wrappers/foot.nix)];
         colors = base16.scheme;

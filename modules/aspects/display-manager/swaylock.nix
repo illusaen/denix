@@ -1,7 +1,9 @@
 {
   den.aspects.display-manager.swaylock = {
-    wrapper-packages = {fleet, ...}: let
-      inherit (fleet.my) base16 fonts wallpaper;
+    wrapper-packages = {host, ...}: let
+      base16 = host.settings.base.base16;
+      fonts = host.settings.base.fonts;
+      wallpaper = host.settings.programs.wallpaper.wallpaper;
     in {
       swaylock = {wlib, ...}: {
         imports = [wlib.wrapperModules.swaylock];

@@ -2,7 +2,6 @@
   den.aspects.theming.gtk = {
     nixos = {
       pkgs,
-      fleet,
       lib,
       host,
       ...
@@ -24,7 +23,9 @@
         in "${escape ["="] key}=${value'}";
       };
 
-      inherit (fleet.my) theming fonts base16;
+      theming = host.settings.theming;
+      fonts = host.settings.base.fonts;
+      base16 = host.settings.base.base16;
 
       commonSettings = gtkVersion: {
         font = {

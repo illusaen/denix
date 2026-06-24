@@ -19,10 +19,12 @@
       pkgs,
       lib,
       osConfig,
-      fleet,
+      host,
       ...
     }: let
-      inherit (fleet.my) fonts theming base16;
+      fonts = host.settings.base.fonts;
+      theming = host.settings.theming;
+      base16 = host.settings.base.base16;
 
       qtSettingsFile = qtct: {
         "${qtct}/${qtct}.conf".source =

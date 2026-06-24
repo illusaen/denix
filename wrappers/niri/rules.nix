@@ -52,19 +52,6 @@
       default-window-height.proportion = 0.5;
     }
     {
-      matches = [{app-id = "^ndrop-obsidian$";}];
-      open-floating = true;
-      default-floating-position = _: {
-        props = {
-          relative-to = "right";
-          x = 0;
-          y = 0;
-        };
-      };
-      default-column-width.proportion = 0.35;
-      default-window-height.proportion = 1.0;
-    }
-    {
       matches = [
         {title = "^(.*)(o|O|s|S)(pen|ave) (f|F|a|a)(ile|s)(.*)";}
         {app-id = "org.pulseaudio.pavucontrol";}

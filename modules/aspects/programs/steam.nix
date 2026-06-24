@@ -8,13 +8,13 @@
       pkgs,
       config,
       lib,
-      fleet,
+      host,
       ...
     }: {
       programs.steam = {
         enable = true;
         package = pkgs.steam.override {
-          extraPkgs = _pkgs': [_pkgs'.${fleet.my.theming.cursorTheme.packageName}];
+          extraPkgs = _pkgs': [_pkgs'.${host.settings.theming.cursorTheme.packageName}];
         };
       };
 

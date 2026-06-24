@@ -101,9 +101,6 @@ in {
         "__ndrop_foot" = {
           open-on-output = config.monitors.main;
         };
-        "__ndrop_obsidian" = {
-          open-on-output = config.monitors.main;
-        };
       };
     }
     // extraConfig;

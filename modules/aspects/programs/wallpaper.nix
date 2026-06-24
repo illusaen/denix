@@ -3,17 +3,20 @@
   lib,
   ...
 }: {
-  options.fleet.my.wallpaper = lib.mkOption {
-    type = lib.types.path;
-    default = rootPath + /resources/wallpapers/dark-silk.jpeg;
-  };
-
   config.den.aspects.programs.wallpaper = {
-    wrapper-packages = {fleet, ...}: {
+    settings.wallpaper = lib.mkOption {
+      type = lib.types.path;
+      default = rootPath + /resources/wallpapers/dark-silk.jpeg;
+    };
+
+    wrapper-packages = {host, ...}: {
       wpaperd = {
         imports = [(rootPath + /wrappers/wpaperd.nix)];
         imageDirectory = rootPath + "/resources/wallpapers";
-        monitors = fleet.my.monitors.connectors;
+        monitors = {
+          main = host.settings."display-manager".monitor.main.connector;
+          secondary = host.settings."display-manager".monitor.secondary.connector;
+        };
       };
     };
 
@@ -23,10 +26,10 @@
       systemd.user.services.wpaperd.wantedBy = ["graphical-session.target"];
     };
 
-    darwin = {fleet, ...}: {
+    darwin = {host, ...}: {
       system.activationScripts.setDesktopBackground = ''
         echo "Setting desktop background."
-        osascript -e 'tell application "System Events" to tell every desktop to set picture to "${fleet.my.wallpaper}"'
+        osascript -e 'tell application "System Events" to tell every desktop to set picture to "${host.settings.programs.wallpaper.wallpaper}"'
       '';
     };
   };

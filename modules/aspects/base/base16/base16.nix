@@ -10,30 +10,21 @@
   };
   schemeAttrs = base16.mkSchemeAttrs base16Scheme;
 in {
-  options.fleet.my.base16 = lib.mkOption {
-    type = lib.types.submodule {
-      options = {
-        colorScheme = lib.mkOption {
-          type = lib.types.enum [
-            "dark"
-            "light"
-          ];
-        };
-        scheme = lib.mkOption {
-          type = lib.types.raw;
-          readOnly = true;
-        };
-      };
-    };
-  };
-
   config = {
     flake-file.inputs.base16.url = "github:SenchoPens/base16.nix";
 
-    fleet.my = {
-      base16 = {
-        colorScheme = "dark";
-        scheme =
+    den.aspects.base.base16.settings = {
+      colorScheme = lib.mkOption {
+        type = lib.types.enum [
+          "dark"
+          "light"
+        ];
+        default = "dark";
+      };
+      scheme = lib.mkOption {
+        type = lib.types.raw;
+        readOnly = true;
+        default =
           schemeAttrs
           // {
             render = {

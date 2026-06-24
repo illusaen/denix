@@ -85,10 +85,10 @@ in {
     provides.to-users.hjem = {
       pkgs,
       lib,
-      fleet,
+      host,
       ...
     }: let
-      inherit (fleet.my) fonts;
+      fonts = host.settings.base.fonts;
       extensionJsonFile = name: text:
         pkgs.writeTextFile {
           inherit text;
