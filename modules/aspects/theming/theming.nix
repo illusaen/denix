@@ -18,20 +18,22 @@
     };
 in {
   config.den.aspects.theming = {
-    settings = {host, ...}: {
+    settings = {host, ...}: let
+      inherit (host.settings.base.base16) colorScheme;
+    in {
       iconTheme = mkThemeOption false {
         name = "WhiteSur";
         packageName = "whitesur-icon-theme";
       };
       gtkTheme = mkThemeOption false {
-        name = "WhiteSur-Dark";
+        name = "WhiteSur-${lib.toSentenceCase colorScheme}";
         packageName = "whitesur-gtk-theme";
       };
       qtTheme =
         mkThemeOption false
         {
           name = "WhiteSur${
-            if host.settings.base.base16.colorScheme == "dark"
+            if colorScheme == "dark"
             then "Dark"
             else ""
           }";
