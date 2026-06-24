@@ -74,13 +74,13 @@ graph TD
   system_x86_64_linux["flake-system: system=x86_64-linux"]
 
   environment_dev_fleet_fleet -->|env-to-hosts| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_huginn
-  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_huginn -->|collect-host-addrs, env-to-os, env-users, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_huginn_user_wendy
+  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_huginn -->|collect-host-addrs, env-to-os, env-users, host-modules-capture, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_huginn_user_wendy
   environment_dev_fleet_fleet -->|env-to-hosts| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_idunn
-  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_idunn -->|collect-host-addrs, env-to-os, env-users, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_idunn_user_wendy
+  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_idunn -->|collect-host-addrs, env-to-os, env-users, host-modules-capture, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_idunn_user_wendy
   environment_dev_fleet_fleet -->|env-to-hosts| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_muninn
-  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_muninn -->|collect-host-addrs, env-to-os, env-users, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_muninn_user_wendy
+  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_muninn -->|collect-host-addrs, env-to-os, env-users, host-modules-capture, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_muninn_user_wendy
   environment_dev_fleet_fleet -->|env-to-hosts| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_odin
-  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_odin -->|collect-host-addrs, env-to-os, env-users, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_odin_user_wendy
+  accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_odin -->|collect-host-addrs, env-to-os, env-users, host-modules-capture, host-to-colmena, os-to-host, wrapper-packages-to-flake-parts, persist-to-preservation| accessGroups__list_accessGroups__environment_dev_fleet_fleet_host_odin_user_wendy
   fleet_fleet -->|fleet-to-envs| environment_dev_fleet_fleet
   fleet_fleet -->|fleet-to-envs| environment_prod_fleet_fleet
   system_aarch64_darwin -->|apps-to-flake, checks-to-flake, devShells-to-flake, legacyPackages-to-flake, packages-to-flake, system-to-flake-parts| flake_parts_flake_parts_aarch64_darwin_system_aarch64_darwin
@@ -127,6 +127,11 @@ sequenceDiagram
     Note over idunn: base/networking → host-addrs
     Note over muninn: base/networking → host-addrs
     Note over odin: base/networking → host-addrs
+
+    Note over huginn: user/<anon>:6 → resolved-users
+    Note over idunn: user/<anon>:6 → resolved-users
+    Note over muninn: user/<anon>:6 → resolved-users
+    Note over odin: user/<anon>:6 → resolved-users
 ```
 
 ## Fleet Summary
@@ -137,7 +142,7 @@ sequenceDiagram
 
 - **2** environments, **4** hosts, **4** users
 - Scope chain: flake → fleet → user → host → environment → flake-system → flake-parts
-- Trace entries: 524
+- Trace entries: 534
 
 ## Environments
 
@@ -185,9 +190,11 @@ sequenceDiagram
 | collect-host-addrs | host |
 | env-to-os | host |
 | env-users | host |
+| host-modules-capture | host |
 | host-to-colmena | host |
 | os-to-host | host |
 | wrapper-packages-to-flake-parts | host |
+| expose-resolved-users | user |
 | hjem-user-detect | user |
 | hjemDarwin-to-hjem | user |
 | host-aspects-project | user |
