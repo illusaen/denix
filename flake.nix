@@ -40,9 +40,11 @@
     };
     colmena = {
       url = "github:sini/colmena/feat/local-system-detection";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs-unstable";
+      };
     };
     darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -65,8 +67,8 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    flake-file.url = "github:denful/flake-file";
     flake-compat.url = "github:edolstra/flake-compat";
+    flake-file.url = "github:denful/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
