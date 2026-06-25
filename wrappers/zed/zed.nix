@@ -22,10 +22,19 @@ in {
   options = {
     fonts = mkOption {type = fontType;};
     scheme = mkOption {type = types.raw;};
+    dataDir = mkOption {
+      type = types.str;
+      default = "\${XDG_DATA_HOME:-$HOME/.local/share}/zed-denix";
+      description = "Runtime-writable Zed user data directory. Environment variables are expanded.";
+    };
   };
 
-  config.flags."--user-data-dir" = dirOf config.constructFiles.generatedConfig.path;
+  config.flags."--user-data-dir" = {
+    data = config.dataDir;
+    esc-fn = wlib.escapeShellArgWithEnv;
+  };
   config.binName = "zed";
+  config.aliases = ["zeditor"];
   config.package = pkgs.zed-editor;
   config.constructFiles.generatedConfig = {
     relPath = "settings.json";
@@ -152,4 +161,13 @@ in {
       ln -s ${lib.escapeShellArg theme} "$2"
     '';
   };
+  config.runShell = [
+    ''
+      zed_data_dir=${wlib.escapeShellArgWithEnv config.dataDir}
+      ${pkgs.coreutils}/bin/mkdir -p "$zed_data_dir/config/themes"
+      ${pkgs.coreutils}/bin/rm -f "$zed_data_dir/settings.json" "$zed_data_dir/themes/base24-theme.json"
+      ${pkgs.coreutils}/bin/install -m 0644 ${lib.escapeShellArg config.constructFiles.generatedConfig.path} "$zed_data_dir/config/settings.json"
+      ${pkgs.coreutils}/bin/install -m 0644 ${lib.escapeShellArg config.constructFiles.generatedTheme.path} "$zed_data_dir/config/themes/base24-theme.json"
+    ''
+  ];
 }

@@ -19,14 +19,8 @@
 
     dataDir = lib.mkOption {
       type = lib.types.str;
-      default = "\${XDG_DATA_HOME:-$HOME/.local/share}/vesktop/${config.instanceName}";
+      default = "\${XDG_DATA_HOME:-$HOME/.local/share}/vesktop-${config.instanceName}";
       description = "Runtime-writable Vesktop user data directory. Environment variables are expanded.";
-    };
-
-    sharedConfigDir = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = "/etc/packages/vesktop/${config.instanceName}";
-      description = "Optional root-provisioned shared config directory used to seed each user's writable data.";
     };
 
     displayName = lib.mkOption {
@@ -154,7 +148,7 @@
       config.settings.themes);
 
   config.runShell = let
-    managedFiles =
+    configFiles =
       [
         {
           source = config.constructFiles.vesktopSettings.path;
@@ -177,25 +171,19 @@
   in [
     ''
       export VENCORD_USER_DATA_DIR=${wlib.escapeShellArgWithEnv config.dataDir}
-      shared_config_dir=${wlib.escapeShellArgWithEnv (config.sharedConfigDir or "")}
       ${pkgs.coreutils}/bin/mkdir -p "$VENCORD_USER_DATA_DIR"
 
       ${lib.concatMapStringsSep "\n" (
           file: let
             target = "$VENCORD_USER_DATA_DIR/${file.target}";
             escapedTarget = wlib.escapeShellArgWithEnv target;
-            escapedSeedSource = wlib.escapeShellArgWithEnv "$shared_config_dir/${file.target}";
           in ''
-            source=${escapedSeedSource}
-            if [ -z "$shared_config_dir" ] || [ ! -e "$source" ]; then
-              source=${lib.escapeShellArg file.source}
-            fi
             ${pkgs.coreutils}/bin/mkdir -p "$(${pkgs.coreutils}/bin/dirname ${escapedTarget})"
             ${pkgs.coreutils}/bin/rm -f ${escapedTarget}
-            ${pkgs.coreutils}/bin/install -m 0644 "$source" ${escapedTarget}
+            ${pkgs.coreutils}/bin/install -m 0644 ${lib.escapeShellArg file.source} ${escapedTarget}
           ''
         )
-        managedFiles}
+        configFiles}
     ''
   ];
 }
