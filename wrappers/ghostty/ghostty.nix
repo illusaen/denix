@@ -7,9 +7,9 @@
 }: {
   imports = [wlib.modules.default];
   options = {
-    renderScheme = lib.mkOption {
+    scheme = lib.mkOption {
       type = lib.types.raw;
-      description = "base16 scheme renderer";
+      description = "base16 scheme";
     };
     font = lib.mkOption {
       type = lib.types.submodule {
@@ -56,8 +56,7 @@
       relPath = "config.ghostty";
     };
     themeConfig = let
-      ghostty-theme = config.renderScheme {
-        inherit pkgs lib;
+      ghostty-theme = config.scheme {
         template = ./ghostty.theme.mustache;
         extension = "ghostty";
       };

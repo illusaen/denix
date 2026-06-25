@@ -68,13 +68,13 @@
   gtkDarkBorderReplacements = replaceArgs [
     [
       "$borders_color:                     if($variant == 'light', rgba(black, 0.12), rgba(white, 0.12));"
-      "$borders_color:                     if($variant == 'light', rgba(black, 0.06), rgba(white, 0.06));"
+      "$borders_color:                     if($variant == 'light', rgba(black, 0.5), rgba(white, 0.5));"
     ]
   ];
   libadwaitaDarkBorderReplacements = replaceArgs [
     [
       "$borders_color:                     gtkalpha(currentColor, 0.12);"
-      "$borders_color:                     if($variant == 'light', gtkalpha(currentColor, 0.06), gtkalpha(white, 0.06));"
+      "$borders_color:                     gtkalpha(currentColor, 0.5);"
     ]
   ];
   installArgs =

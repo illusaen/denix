@@ -15,5 +15,6 @@
     word
     youtube
     zathura
+    zed
   ];
 }

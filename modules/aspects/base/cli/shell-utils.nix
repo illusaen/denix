@@ -16,7 +16,7 @@
     in {
       bat = {
         imports = [(wrapperDirectory + /bat/bat.nix)];
-        renderScheme = host.settings.base.base16.scheme.render;
+        scheme = host.settings.base.base16.scheme;
       };
 
       gh = {

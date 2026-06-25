@@ -34,8 +34,7 @@
           quit-after-last-window-closed = false
           theme = ${themeFile}
         '';
-        "ghostty/themes/${themeFile}".source = base16.scheme.render {
-          inherit pkgs lib;
+        "ghostty/themes/${themeFile}".source = base16.scheme {
           template = ../../../../wrappers/ghostty/ghostty.theme.mustache;
           extension = "ghostty";
         };

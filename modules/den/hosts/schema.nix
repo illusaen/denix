@@ -107,7 +107,10 @@
     quirkKeys = den.quirks or {};
     skipKey = k: structuralKeysSet ? ${k} || classKeys ? ${k} || quirkKeys ? ${k};
     isOption = value: builtins.isAttrs value && (value._type or null) == "option";
-    settingsArgs = {inherit host lib;};
+    settingsArgs = {
+      inherit host lib;
+      pkgs = inputs.${host.channel}.legacyPackages.${host.system};
+    };
     applySettings = raw:
       if builtins.isFunction raw
       then raw settingsArgs

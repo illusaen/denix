@@ -6,9 +6,9 @@
   ...
 }: {
   imports = [wlib.modules.default];
-  options.renderScheme = lib.mkOption {
+  options.scheme = lib.mkOption {
     type = lib.types.raw;
-    description = "base16 scheme renderer";
+    description = "base16 scheme";
   };
   config.package = pkgs.bat;
   config.env.BAT_CONFIG_DIR = dirOf config.constructFiles.generatedConfig.path;
@@ -21,8 +21,7 @@
       relPath = "config";
     };
     themeConfig = let
-      bat-theme = config.renderScheme {
-        inherit pkgs lib;
+      bat-theme = config.scheme {
         template = ./bat.tmTheme.mustache;
         extension = "tmTheme";
       };
